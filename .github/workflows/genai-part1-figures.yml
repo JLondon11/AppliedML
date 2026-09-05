@@ -1,0 +1,29 @@
+name: Regenerate GenAI Part I Figures
+on:
+  workflow_dispatch:
+  push:
+    branches: [genai-part1-repro]
+    paths: ['genai_part1/**']
+permissions:
+  contents: write
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy matplotlib pandas scikit-learn torch
+      - run: python genai_part1/evaluation/figures/figure15/src/figure15.py
+      - run: python genai_part1/evaluation/figures/figure16/src/figure16.py
+      - run: python genai_part1/applications/image_synthesis/figures/figure17/src/figure17.py
+      - run: python genai_part1/applications/conditional_controllable_generation/figures/figure18/src/figure18.py
+      - run: python genai_part1/applications/generative_image_editing_translation/figures/figure19/src/figure19.py
+      - name: Commit regenerated artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'genai_part1/**/outputs/*'
+          git diff --cached --quiet || git commit -m "Regenerate GenAI Part I figure outputs"
+          git push
