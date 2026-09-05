@@ -1,0 +1,11 @@
+torch>=2.2
+torchvision>=0.17
+diffusers>=0.30
+transformers>=4.40
+accelerate>=0.30
+numpy>=1.26
+pandas>=2.1
+matplotlib>=3.8
+torchmetrics[image]>=1.4
+torch-fidelity>=0.3
+Pillow>=10.0
