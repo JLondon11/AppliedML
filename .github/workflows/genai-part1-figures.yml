@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [genai-part1-repro]
-    paths: ['genai_part1/**']
+    paths: ['genai_part1/**', '.github/workflows/genai-part1-figures.yml']
 permissions:
   contents: write
 jobs:
@@ -20,6 +20,8 @@ jobs:
       - run: python genai_part1/applications/image_synthesis/figures/figure17/src/figure17.py
       - run: python genai_part1/applications/conditional_controllable_generation/figures/figure18/src/figure18.py
       - run: python genai_part1/applications/generative_image_editing_translation/figures/figure19/src/figure19.py
+      - name: Run Figure 25 CPU benchmark
+        run: python genai_part1/case_studies/case_study_3_efficiency_deployment/figures/figure25/src/figure25_cpu_experiment.py
       - name: Commit regenerated artifacts
         run: |
           git config user.name "github-actions[bot]"
