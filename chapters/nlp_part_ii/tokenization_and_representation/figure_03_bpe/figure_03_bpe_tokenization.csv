@@ -1,0 +1,21 @@
+merges_applied,word,token_sequence_length,tokens
+0,low,4,l o w </w>
+0,lower,6,l o w e r </w>
+0,newest,7,n e w e s t </w>
+0,widest,7,w i d e s t </w>
+1,low,4,l o w </w>
+1,lower,6,l o w e r </w>
+1,newest,6,n e w es t </w>
+1,widest,6,w i d es t </w>
+2,low,4,l o w </w>
+2,lower,6,l o w e r </w>
+2,newest,5,n e w est </w>
+2,widest,5,w i d est </w>
+4,low,3,lo w </w>
+4,lower,5,lo w e r </w>
+4,newest,4,n e w est</w>
+4,widest,4,w i d est</w>
+8,low,2,low </w>
+8,lower,4,low e r </w>
+8,newest,1,newest</w>
+8,widest,4,w i d est</w>
