@@ -1,0 +1,10 @@
+source,parameter,value
+Kaplan2020,alpha_N,0.076
+Kaplan2020,alpha_D,0.103
+Kaplan2020,N_c,64000000000000
+Kaplan2020,D_c,18000000000000
+Hoffmann2022,E,1.69
+Hoffmann2022,A,406.4
+Hoffmann2022,B,410.7
+Hoffmann2022,alpha,0.34
+Hoffmann2022,beta,0.28
