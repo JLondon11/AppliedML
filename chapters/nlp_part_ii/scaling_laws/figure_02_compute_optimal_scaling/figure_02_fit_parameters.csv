@@ -1,0 +1,8 @@
+source,parameter,value
+Hoffmann2022,E,1.69
+Hoffmann2022,A,406.4
+Hoffmann2022,B,410.7
+Hoffmann2022,alpha,0.34
+Hoffmann2022,beta,0.28
+Hoffmann2022,compute_multiplier,6
+figure,fixed_compute_C0,5e23
