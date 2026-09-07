@@ -1,0 +1,9 @@
+step,pair_left,pair_right,merged_token,pair_frequency,symbols_before,symbols_after,symbol_reduction
+1,e,s,es,9,95,86,9
+2,es,t,est,9,86,77,9
+3,est,</w>,est</w>,9,77,68,9
+4,l,o,lo,7,68,61,7
+5,lo,w,low,7,61,54,7
+6,n,e,ne,6,54,48,6
+7,ne,w,new,6,48,42,6
+8,new,est</w>,newest</w>,6,42,36,6
