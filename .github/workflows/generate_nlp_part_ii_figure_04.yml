@@ -1,0 +1,46 @@
+name: Generate NLP Part II Figure 4
+
+on:
+  push:
+    paths:
+      - "chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_embedding_geometry.py"
+      - ".github/workflows/generate_nlp_part_ii_figure_04.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install scientific dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install "torch>=2.2,<3" "transformers>=4.44,<5" "huggingface_hub>=0.24,<1" "scikit-learn>=1.4,<2" "pandas>=2.2,<3" "matplotlib>=3.8,<4"
+
+      - name: Generate Figure 4
+        run: |
+          python chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_embedding_geometry.py
+
+      - name: Replace obsolete static-vector provenance
+        run: |
+          rm -f chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_contextualized_bank.csv
+
+      - name: Commit generated scientific artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "Regenerate NLP Part II Figure 4 from BERT-Tiny"
+            git push
+          fi
