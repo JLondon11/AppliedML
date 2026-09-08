@@ -1,0 +1,8 @@
+{
+  "model_id": "google-bert/bert-base-uncased",
+  "model_revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "hidden_size": 768,
+  "layers_including_embedding": 13,
+  "num_sentences": 22,
+  "torch_version": "2.14.0+cu130"
+}
