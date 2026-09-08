@@ -1,17 +1,37 @@
 # Figure 4 — Embedding Geometry in Contextual Representation Spaces
 
-This directory contains the native-vector reconstruction for NLP Part II Figure 4.
+**Chapter:** NLP Part II  
+**Section:** Tokenization and Representation Learning  
+**Frozen label:** `fig:embedding_geometry`
 
-## Scientific basis
-The reconstruction uses real pretrained Stanford GloVe 6B 50-dimensional vectors trained on Wikipedia 2014 + Gigaword 5 (6B tokens). Panel (a) is a PCA projection of the pretrained word vectors. Panel (b) uses two context-conditioned composite representations of `bank`, formed by averaging the pretrained `bank` vector with financial-context or geographic-context vectors before projection through the same PCA model. Panel (c) shows centroid and displacement geometry in that same representation space.
+This directory contains the certified, reproducible Figure 4 production bundle.
 
-No plotted coordinate is manually positioned. The panel-b composites are derived context-conditioned representations and are not claimed to be token-level BERT contextual embeddings.
+The figure is generated from **actual last-layer contextual token vectors** from
+Google BERT-Tiny (`google/bert_uncased_L-2_H-128_A-2`; 2 layers, hidden size 128).
+The generation script downloads the pretrained model, extracts the contextual
+hidden state for each target token occurrence, averages WordPiece fragments when
+necessary, fits a two-component PCA over the complete extracted vector set, and
+renders the three scientific panels.
 
-## Files
-- `figure_04_embedding_geometry.svg` — fully native SVG; no embedded raster image.
-- `figure_04_embedding_geometry.py` — reproducible generation code.
-- `figure_04_glove_subset_and_pca.csv` — exact pretrained vector subset and PCA coordinates.
-- `figure_04_contextualized_bank.csv` — derived context-conditioned coordinates.
-- `figure_04_embedding_geometry.png` — raster companion already stored in this directory.
+- **(a)** contextual semantic neighborhoods for animal, vehicle, financial, and
+  geographic target words;
+- **(b)** the same lexical token `bank` in five financial and five river/geographic
+  contexts, with empirical context centroids and their displacement;
+- **(c)** relational geometry among actual contextual centroids in the same PCA
+  representation space.
 
-Source model: Stanford GloVe, GloVe 6B pretrained vectors.
+No point is manually positioned. No synthetic embedding vectors are used.
+
+## Provenance outputs
+
+- `figure_04_bert_tiny_contextual_vectors.csv`: every extracted 128-dimensional
+  contextual vector plus its exact sentence, WordPiece token(s), and PCA coordinates.
+- `figure_04_pca_components.csv`: the two PCA component vectors and explained variance.
+- `figure_04_model_provenance.json`: model ID, resolved Hugging Face revision,
+  hidden size, context count, PCA variance, and PyTorch version.
+- `figure_04_embedding_geometry.py`: complete executable generation code.
+- `figure_04_embedding_geometry.svg`: native vector artwork.
+- `figure_04_embedding_geometry.png`: 300-DPI raster companion.
+
+Model source: Google BERT Miniatures, described by Turc et al. (2019),
+*Well-Read Students Learn Better: On the Importance of Pre-training Compact Models*.
