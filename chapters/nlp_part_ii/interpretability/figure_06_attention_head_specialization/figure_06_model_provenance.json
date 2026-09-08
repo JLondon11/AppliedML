@@ -1,0 +1,39 @@
+{
+  "bert_model_id": "google-bert/bert-base-uncased",
+  "bert_revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "gpt2_model_id": "openai-community/gpt2",
+  "gpt2_revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "selected": {
+    "positional": {
+      "layer": 3,
+      "head": 5,
+      "score": 0.5559685230255127,
+      "stimulus": "The small brown dog quickly crossed the narrow bridge."
+    },
+    "syntactic": {
+      "layer": 4,
+      "head": 10,
+      "score": 0.4705105423927307,
+      "stimulus": "The scientist carefully analyzed the complex dataset.",
+      "query": "analyzed",
+      "key": "scientist"
+    },
+    "semantic": {
+      "layer": 0,
+      "head": 8,
+      "score": 0.34531065821647644,
+      "stimulus": "The physician discussed the diagnosis with the patient.",
+      "query": "diagnosis",
+      "key": "patient"
+    },
+    "induction_like": {
+      "layer": 5,
+      "head": 8,
+      "score": 0.45632779598236084,
+      "stimulus": "A B C A B",
+      "query_position": 4,
+      "key_position": 2
+    }
+  },
+  "torch_version": "2.14.0+cu130"
+}
