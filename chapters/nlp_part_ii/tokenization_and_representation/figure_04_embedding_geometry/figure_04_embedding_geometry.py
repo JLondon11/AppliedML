@@ -122,7 +122,7 @@ def extract():
 
 def main():
     df = extract()
-    hidden_cols = [c for c in df.columns if c.startswith("h")]
+    hidden_cols = [c for c in df.columns if len(c) == 4 and c[0] == "h" and c[1:].isdigit()]
     X = df[hidden_cols].to_numpy(float)
 
     pca = PCA(n_components=2)
