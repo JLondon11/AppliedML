@@ -1,11 +1,11 @@
 {
   "model_id": "google/bert_uncased_L-2_H-128_A-2",
   "model_revision": "30b0a37ccaaa32f332884b96992754e246e48c5f",
-  "hidden_size": 129,
+  "hidden_size": 128,
   "num_contexts": 26,
   "pca_explained_variance_ratio": [
-    0.23913188400343713,
-    0.1563700538188809
+    0.23913183935677634,
+    0.15637008381374948
   ],
   "torch_version": "2.14.0+cu130"
 }
