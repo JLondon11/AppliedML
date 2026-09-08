@@ -1,0 +1,28 @@
+name: Generate NLP Part II Figure 8
+on:
+  push:
+    paths:
+      - "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.py"
+      - ".github/workflows/generate_nlp_part_ii_figure_08.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          python -m pip install --upgrade pip
+          pip install "torch>=2.2,<3" "transformers>=4.44,<5" "datasets>=3,<5" "accelerate>=1,<2" "scikit-learn>=1.4,<2" "pandas>=2.2,<3" "matplotlib>=3.8,<4" "huggingface_hub>=0.24,<1"
+      - run: python chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.py
+      - run: |
+          rm -rf chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/checkpoints
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/
+          if git diff --cached --quiet; then echo "No generated changes."; else git commit -m "Generate NLP Part II Figure 8 from IMDb experiment"; git push; fi
