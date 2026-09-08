@@ -24,7 +24,7 @@ from huggingface_hub import HfApi
 
 MODEL_ID = "google/bert_uncased_L-2_H-128_A-2"
 HERE = Path(__file__).resolve().parent
-plt.rcParams["svg.fonttype"] = "none"
+plt.rcParams["svg.fonttype"] = "none"\n# provenance-rerun: 128-hidden-dim selector
 
 # Restrained scientific palette.
 PALETTE = {
