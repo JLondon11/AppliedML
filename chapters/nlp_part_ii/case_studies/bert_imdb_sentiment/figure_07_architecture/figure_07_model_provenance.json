@@ -1,0 +1,14 @@
+{
+  "model_id": "google-bert/bert-base-uncased",
+  "model_revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "sample_review": "This film is beautifully acted and emotionally compelling.",
+  "token_count": 11,
+  "vocab_size": 30522,
+  "hidden_size": 768,
+  "encoder_layers": 12,
+  "total_parameters": 109483778,
+  "classification_head_parameters": 1538,
+  "pretrained_backbone_parameters": 109482240,
+  "num_labels": 2,
+  "torch_version": "2.14.0+cu130"
+}
