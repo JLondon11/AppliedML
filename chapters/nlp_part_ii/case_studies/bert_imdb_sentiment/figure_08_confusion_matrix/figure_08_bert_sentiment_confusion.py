@@ -5,7 +5,7 @@ fixed held-out IMDb test subset. All cells derive from predictions, never invent
 from pathlib import Path
 import json, numpy as np, pandas as pd, torch, matplotlib.pyplot as plt
 from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments, Trainer, DataCollatorWithPadding
 from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from huggingface_hub import HfApi
 HERE=Path(__file__).resolve().parent
@@ -19,10 +19,11 @@ tok=AutoTokenizer.from_pretrained(MODEL)
 def enc(batch): return tok(batch["text"],truncation=True,max_length=256)
 train=train.map(enc,batched=True); test=test.map(enc,batched=True)
 model=AutoModelForSequenceClassification.from_pretrained(MODEL,num_labels=2)
+collator=DataCollatorWithPadding(tokenizer=tok)
 args=TrainingArguments(output_dir=str(HERE/"checkpoints"),num_train_epochs=2,
  per_device_train_batch_size=16,per_device_eval_batch_size=32,learning_rate=2e-5,
  weight_decay=.01,logging_strategy="no",save_strategy="no",report_to=[],seed=SEED)
-trainer=Trainer(model=model,args=args,train_dataset=train)
+trainer=Trainer(model=model,args=args,train_dataset=train,data_collator=collator)
 trainer.train()
 pred=trainer.predict(test)
 y=np.asarray(test["label"]); yhat=pred.predictions.argmax(1)
