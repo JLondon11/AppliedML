@@ -1,0 +1,58 @@
+{
+  "query": "What authentication is required for production access?",
+  "documents": [
+    {
+      "id": "D1",
+      "title": "Security policy",
+      "text": "Production access requires phishing-resistant MFA and quarterly access review."
+    },
+    {
+      "id": "D2",
+      "title": "Retention policy",
+      "text": "Customer support transcripts are retained for 30 days unless a legal hold applies."
+    },
+    {
+      "id": "D3",
+      "title": "Incident response",
+      "text": "Critical incidents require paging the on-call security lead and opening an incident record."
+    },
+    {
+      "id": "D4",
+      "title": "Travel policy",
+      "text": "International travel requires manager approval before booking."
+    },
+    {
+      "id": "D5",
+      "title": "Data handling",
+      "text": "Restricted customer data must not be copied into unapproved external systems."
+    },
+    {
+      "id": "D6",
+      "title": "Access handbook",
+      "text": "Privileged production roles are granted through the access-management workflow."
+    }
+  ],
+  "retrieval": "TF-IDF unigram+bigram cosine similarity",
+  "vocabulary_dimension": 85,
+  "top_k": 3,
+  "retrieval_scores": {
+    "D1": 0.47741028047045486,
+    "D6": 0.24996128619307964,
+    "D3": 0.0,
+    "D2": 0.0,
+    "D4": 0.0,
+    "D5": 0.0
+  },
+  "reranked_ids": [
+    "D1",
+    "D6",
+    "D3"
+  ],
+  "prompt": "QUESTION: What authentication is required for production access?\nEVIDENCE:\n[D1] Production access requires phishing-resistant MFA and quarterly access review.\n[D6] Privileged production roles are granted through the access-management workflow.",
+  "grounded_response": "Production access requires phishing-resistant MFA [D1].",
+  "evidence_links": [
+    "D1",
+    "D6"
+  ],
+  "note": "Executable miniature enterprise corpus used to instantiate the architecture; figure makes no benchmark-performance claim."
+}
