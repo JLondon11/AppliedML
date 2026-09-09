@@ -1,0 +1,25 @@
+{
+  "dataset": "BEIR SciFact",
+  "dataset_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip",
+  "test_queries": 300,
+  "corpus_documents": 5183,
+  "qrels_rows": 339,
+  "retriever": "TF-IDF unigram+bigram cosine similarity",
+  "vocabulary_dimension": 60000,
+  "k_values": [
+    1,
+    2,
+    3,
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "mean_query_retrieval_latency_ms": 3.385193119999599,
+  "latency_note": "wall-clock sparse ranking time on GitHub Actions runner; environment-dependent",
+  "token_note": "whitespace-token count of retrieved document text; direct proxy for context/prompt burden, not tokenizer-specific billing",
+  "classification": "Case Study",
+  "section": "Case Study: Enterprise Retrieval-Augmented Generation",
+  "subsection": "Results and Error Analysis"
+}
