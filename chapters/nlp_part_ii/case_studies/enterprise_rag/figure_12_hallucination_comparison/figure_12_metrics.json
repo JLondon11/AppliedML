@@ -1,0 +1,14 @@
+{
+  "standalone_unsupported_claim_rate": 0.5152432044005186,
+  "standalone_bootstrap_95ci": [
+    0.4703450163106945,
+    0.5602143400419813
+  ],
+  "rag_unsupported_claim_rate": 0.463399877655834,
+  "rag_bootstrap_95ci": [
+    0.39346530310907873,
+    0.5306971432022298
+  ],
+  "rag_retrieval_miss_rate": 0.5333333333333333,
+  "rag_generation_failure_given_hit_population_rate": 0.0
+}

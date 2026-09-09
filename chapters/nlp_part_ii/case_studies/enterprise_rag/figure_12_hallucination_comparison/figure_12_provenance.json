@@ -1,0 +1,14 @@
+{
+  "dataset": "BEIR SciFact",
+  "dataset_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip",
+  "evaluated_claims": 120,
+  "generator": "google/flan-t5-small",
+  "retriever": "TF-IDF unigram+bigram cosine top-1",
+  "support_metric": "fraction of non-stopword alphanumeric answer terms absent from concatenated gold evidence documents",
+  "bootstrap_seed": 1729,
+  "bootstrap_replicates": 4000,
+  "classification": "Case Study",
+  "section": "Case Study: Enterprise Retrieval-Augmented Generation",
+  "subsection": "Results and Error Analysis",
+  "caveat": "Lexical support is an automatic reproducible proxy for unsupported content, not human factuality adjudication. Results are protocol-specific and not a SOTA benchmark claim."
+}
