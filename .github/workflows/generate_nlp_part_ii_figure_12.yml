@@ -1,0 +1,25 @@
+name: Generate NLP Part II Figure 12
+on:
+  push:
+    paths:
+      - "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py"
+      - ".github/workflows/generate_nlp_part_ii_figure_12.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install "torch>=2.2,<3" "transformers>=4.44,<5" "sentencepiece>=0.2,<1" "numpy>=1.26,<3" "pandas>=2.2,<3" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - run: python chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py
+      - run: |
+          rm -rf chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/
+          if git diff --cached --quiet; then echo "No changes"; else git commit -m "Generate NLP Part II Figure 12 from SciFact generation experiment"; git push; fi
