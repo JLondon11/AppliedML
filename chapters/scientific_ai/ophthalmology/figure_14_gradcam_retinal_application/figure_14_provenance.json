@@ -1,0 +1,22 @@
+{
+  "dataset": "RetinaMNIST / MedMNIST",
+  "dataset_version": "MedMNIST v2",
+  "official_splits": true,
+  "train_examples": 1080,
+  "validation_examples": 120,
+  "test_examples": 400,
+  "seed": 1729,
+  "model": "RetinalCNN trained by included executable code",
+  "epochs": 12,
+  "gradcam_target_layer": "features[8], final Conv2d(64,128,3,padding=1)",
+  "selected_test_index": 2,
+  "true_class_index": 0,
+  "predicted_class_index": 0,
+  "selection_rule": "first correctly classified example in official test split",
+  "source_image_saved": "figure_14_source_image.npy",
+  "gradcam_tensor_saved": "figure_14_gradcam.npy",
+  "classification": "Application",
+  "section": "Artificial Intelligence for Ophthalmology and Retinal Imaging",
+  "subsection": "Application: Data Augmentation and Gradient-Based Explainability for Retinal Classifiers",
+  "note": "Grad-CAM is computed by backpropagating the predicted-class score to the final convolutional layer; heatmap is not manually drawn."
+}
