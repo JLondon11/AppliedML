@@ -1,0 +1,24 @@
+{
+  "chapter": "Computer Vision",
+  "part": "Part II",
+  "section": "Autonomous Vehicles",
+  "inventory": "redundancy-remediated",
+  "approved_figures": [20,21,22,23,24,25,26,27,28,29],
+  "excluded_from_approved": [
+    {
+      "figure": 30,
+      "reason": "Image-generated draft contains embedded title/caption and other noncompliant infographic grammar; not approved."
+    }
+  ],
+  "format_policy": {
+    "png": "high-resolution production raster",
+    "pdf": "print-ready production artifact",
+    "svg": "editable/vector where master exists; raster-backed wrapper for empirical/raster-only sources, explicitly marked in the SVG comment"
+  },
+  "code_provenance": {
+    "generate_figure_28.py": "exact deterministic generation code from current production pass",
+    "reconcile_figures_22_24_26.py": "reconstruction of the panel-composition operations used in the redundancy-remediation pass",
+    "generate_figure_29_notes.py": "provenance notes; empirical panel is never synthesized",
+    "figures_20_21_23_25_27": "approved production masters retained; original generation scripts were not persisted in the active runtime and are not falsely reconstructed"
+  }
+}
