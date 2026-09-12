@@ -1,0 +1,52 @@
+[
+  {
+    "figure": "20",
+    "svg_file": "Figure_20_Organization_of_Deep_Learning_Methods_on_Point_Clouds.svg",
+    "svg_type": "raster-backed wrapper"
+  },
+  {
+    "figure": "21",
+    "svg_file": "Figure_21_PointNet_Architecture.svg",
+    "svg_type": "raster-backed wrapper"
+  },
+  {
+    "figure": "22",
+    "svg_file": "Figure_22_HDNet_HDPMap_BEV_and_Detection_Architecture.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "23",
+    "svg_file": "Figure_23_PointPillars_Architecture.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "24",
+    "svg_file": "Figure_24_PointPillars_KITTI_Qualitative_and_Failure_Cases.svg",
+    "svg_type": "raster-backed wrapper"
+  },
+  {
+    "figure": "25",
+    "svg_file": "Figure_25_LaserNet_Method.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "26",
+    "svg_file": "Figure_26_LiDAR_Representation_Geometry_3D_BEV_Range_View.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "27",
+    "svg_file": "Figure_27_Functional_Sequence_of_a_State_Estimator.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "28",
+    "svg_file": "Figure_28_Vehicle_State_Transition_and_Radar_Measurement_Geometry.svg",
+    "svg_type": "native/editable SVG master"
+  },
+  {
+    "figure": "29",
+    "svg_file": "Figure_29_BevDetNet_Architecture_and_3D_Object_Center_Geometry.svg",
+    "svg_type": "raster-backed wrapper"
+  }
+]
