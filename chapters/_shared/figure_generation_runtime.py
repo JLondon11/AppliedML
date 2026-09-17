@@ -6,7 +6,7 @@ backed by a specialized verified-data generator stored in the chapter directory.
 """
 from __future__ import annotations
 from pathlib import Path
-import argparse, hashlib, numpy as np
+import argparse, hashlib, base64, zlib, json, numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -14,6 +14,10 @@ import matplotlib.pyplot as plt
 PALETTE=["#294C60","#5A7D7C","#B26E3B","#7B6D8D","#567D46","#9A6B5B"]
 plt.rcParams.update({"font.size":8.5,"axes.labelsize":8.5,"legend.fontsize":7.5,
                      "xtick.labelsize":7.5,"ytick.labelsize":7.5,"font.family":"DejaVu Sans"})
+
+def decode_specs(blob:str):
+    """Decode a chapter-local compressed frozen-figure specification list."""
+    return json.loads(zlib.decompress(base64.b64decode(blob.encode())).decode())
 
 def _seed(ch,n,key,declared):
     return int(declared) if int(declared) else int(hashlib.sha256(f"{ch}|{n}|{key}".encode()).hexdigest()[:8],16)
