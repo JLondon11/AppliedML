@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import ast, csv, json, py_compile, re
+import ast, csv, json, py_compile
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -18,10 +18,10 @@ CHAPTERS={
 "11_scientific_ai":"chapters/scientific_ai",
 "12_systems_engineering_mlops":"chapters/systems_engineering_and_mlops",
 }
-SEED_PAT=re.compile(r"(random\\.seed|np\\.random\\.seed|numpy\\.random\\.seed|torch\\.manual_seed|manual_seed_all|random_state\\s*=|seed\\s*=)",re.I)
-DATA_PAT=re.compile(r"(read_csv|read_parquet|load_dataset|datasets\\.|DataLoader|ImageFolder|open\\(|Path\\(|url|download|wget|requests\\.)",re.I)
-OUTPUT_PAT=re.compile(r"(savefig|\\.save\\(|to_csv|to_json|torch\\.save|write_text|write_bytes|open\\([^\\n]*['\"]w)",re.I)
-PROV_PAT=re.compile(r"(provenance|dataset|source|doi|arxiv|citation|reference|license)",re.I)
+SEED_MARKERS=("random.seed","np.random.seed","numpy.random.seed","torch.manual_seed","manual_seed_all","random_state","seed=","seed =")
+DATA_MARKERS=("read_csv","read_parquet","load_dataset","datasets.","DataLoader","ImageFolder","open(","Path(","url","download","wget","requests.")
+OUTPUT_MARKERS=("savefig",".save(","to_csv","to_json","torch.save","write_text","write_bytes")
+PROV_MARKERS=("provenance","dataset","source","doi","arxiv","citation","reference","license")
 
 def imports(tree):
     out=set()
@@ -31,6 +31,10 @@ def imports(tree):
         elif isinstance(n,ast.ImportFrom) and n.module:
             out.add(n.module.split('.')[0])
     return sorted(out)
+
+def has_any(text, markers):
+    low=text.lower()
+    return any(m.lower() in low for m in markers)
 
 rows=[]
 for slug,rel in CHAPTERS.items():
@@ -45,10 +49,10 @@ for slug,rel in CHAPTERS.items():
             imps=imports(tree)
         except Exception as e:
             syntax_ok=False; err=f"{type(e).__name__}: {e}"; imps=[]
-        has_seed=bool(SEED_PAT.search(text))
-        has_data=bool(DATA_PAT.search(text))
-        has_output=bool(OUTPUT_PAT.search(text))
-        has_prov=bool(PROV_PAT.search(text))
+        has_seed=has_any(text,SEED_MARKERS)
+        has_data=has_any(text,DATA_MARKERS)
+        has_output=has_any(text,OUTPUT_MARKERS)
+        has_prov=has_any(text,PROV_MARKERS)
         status="REVIEW"
         if syntax_ok and (not has_data or has_prov) and (not has_data or has_seed) and has_output:
             status="STATIC_PASS"
@@ -71,15 +75,17 @@ for slug in CHAPTERS:
         w=csv.DictWriter(f,fieldnames=fields); w.writeheader(); w.writerows(cr)
     total=len(cr); bad=sum(not r["syntax_ok"] for r in cr); review=sum(r["static_reproducibility_status"]!="STATIC_PASS" for r in cr)
     (out/"REPRODUCIBILITY.md").write_text(
-        f"# Reproducibility audit — {slug}\\n\\nPython files audited: **{total}**  \\nSyntax failures: **{bad}**  \\n"
-        f"Files requiring reproducibility review: **{review}**\\n\\n"
-        "STATIC_PASS is a static check, not proof of full experimental reproduction.\\n"
+        f"# Reproducibility audit — {slug}\n\n"
+        f"Python files audited: **{total}**  \n"
+        f"Syntax failures: **{bad}**  \n"
+        f"Files requiring reproducibility review: **{review}**\n\n"
+        "STATIC_PASS is a static check, not proof of full experimental reproduction.\n"
     )
 
 summary={"python_files":len(rows),"syntax_failures":sum(not r["syntax_ok"] for r in rows),
          "static_pass":sum(r["static_reproducibility_status"]=="STATIC_PASS" for r in rows),
          "review":sum(r["static_reproducibility_status"]!="STATIC_PASS" for r in rows)}
-(qa/"CODE_AUDIT_SUMMARY.json").write_text(json.dumps(summary,indent=2)+"\\n")
+(qa/"CODE_AUDIT_SUMMARY.json").write_text(json.dumps(summary,indent=2)+"\n")
 print(json.dumps(summary,indent=2))
 if summary["syntax_failures"]:
     raise SystemExit(2)
