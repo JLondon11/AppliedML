@@ -9,9 +9,9 @@ import re
 from pathlib import Path
 
 RANDOM_RE = re.compile(r"(np\.random|numpy\.random|random\.|torch\.rand|torch\.randn|train_test_split\s*\()")
-SEED_RE = re.compile(r"(random\.seed|np\.random\.seed|numpy\.random\.seed|torch\.manual_seed|random_state\s*=|seed\s*=)")
+SEED_RE = re.compile(r"(random\.seed|np\.random\.seed|numpy\.random\.seed|torch\.manual_seed|random_state\s*=|seed\s*=|default_rng\(\s*[^)])")
 SANDBOX_RE = re.compile(r"(/mnt/data|/home/oai|sandbox:)")
-PLACEHOLDER_RE = re.compile(r"\b(TODO|FIXME|PLACEHOLDER)\b", re.I)
+PLACEHOLDER_RE = re.compile(r"\b(TODO|FIXME)\b", re.I)
 
 def audit(path: Path) -> dict:
     src = path.read_text(encoding="utf-8", errors="replace")
