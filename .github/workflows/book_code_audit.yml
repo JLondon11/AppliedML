@@ -21,6 +21,7 @@ jobs:
       - name: Static correctness and reproducibility audit
         run: python book/tools/audit_code.py
       - name: Upload audit manifests
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: book-code-audit
