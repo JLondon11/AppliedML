@@ -14,6 +14,5 @@ for i in range(3):
 for x in [8.4,11.5]:
     yy=np.linspace(-1,1,120); dens=np.exp(-.5*(yy/.38)**2); scale=.42 if x==8.4 else .62
     ax.plot(x+scale*dens,4.35+.72*yy,color=unc,lw=.8); ax.plot(x-scale*dens,4.35+.72*yy,color=unc,lw=.8)
-ax.text(7.25,.78,r"$x_{k+1}=\mathcal{M}_k(x_k,u_k)+\eta_k$"+"
-"+r"$y_k=\mathcal{H}_k(x_k)+\epsilon_k$",ha="center",fontsize=10.2)
+ax.text(7.25,.78,r"$x_{k+1}=\\mathcal{M}_k(x_k,u_k)+\\eta_k$" + "\\n" + r"$y_k=\\mathcal{H}_k(x_k)+\\epsilon_k$",ha="center",fontsize=10.2)
 fig.savefig("../figures/figure_09_scientific_digital_twin.svg",bbox_inches="tight",facecolor="white")
