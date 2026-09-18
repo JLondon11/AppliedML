@@ -1,0 +1,1 @@
+# Book-wide QA\n\nThe GitHub Actions audit checks chapter code and publishes machine-readable audit artifacts for every release change.\n
