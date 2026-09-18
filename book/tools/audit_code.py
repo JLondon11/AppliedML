@@ -87,5 +87,19 @@ summary={"python_files":len(rows),"syntax_failures":sum(not r["syntax_ok"] for r
          "review":sum(r["static_reproducibility_status"]!="STATIC_PASS" for r in rows)}
 (qa/"CODE_AUDIT_SUMMARY.json").write_text(json.dumps(summary,indent=2)+"\n")
 print(json.dumps(summary,indent=2))
+print("\nPer-chapter audit summary:")
+for slug in CHAPTERS:
+    cr=[r for r in rows if r["chapter"]==slug]
+    bad=[r for r in cr if not r["syntax_ok"]]
+    review=[r for r in cr if r["static_reproducibility_status"]!="STATIC_PASS"]
+    print(f"- {slug}: files={len(cr)} syntax_failures={len(bad)} static_pass={len(cr)-len(review)} review={len(review)}")
+print("\nSyntax failures:")
+for r in rows:
+    if not r["syntax_ok"]:
+        print(f"- {r['path']}: {r['syntax_error']}")
+print("\nFiles requiring reproducibility review:")
+for r in rows:
+    if r["static_reproducibility_status"]!="STATIC_PASS":
+        print(f"- {r['path']}: seed={r['seed_or_determinism_declared']} data={r['data_or_external_input_detected']} provenance={r['provenance_language_detected']} output={r['output_artifact_detected']}")
 if summary["syntax_failures"]:
     raise SystemExit(2)
