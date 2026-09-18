@@ -1,0 +1,5 @@
+path,type,size_bytes,blob_sha
+"chapters/foundations_machine_learning/figure_generation/generate_figures.py",py,6354,9223386e8de5ca1bee90c693f3b15b1e4f792e45
+"chapters/foundations_machine_learning/production_pass14/generate_closure_figures.py",py,2568,32edd632ddb7407a61b40379b3ac2d1a93419f7a
+"chapters/foundations_machine_learning/production_pass14/resolve_remaining.py",py,9020,35c077ca729358881c9c23cc244c76c5db27ecf6
+"chapters/foundations_machine_learning/production_pass14/resolve_remaining_figures.py",py,9454,f7e28a50f7c7aa786cea29a959ef6169ef91a53b

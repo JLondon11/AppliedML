@@ -1,0 +1,10 @@
+path,type,size_bytes,blob_sha
+"chapters/computer_vision/part_ii/autonomous_vehicles/code/generate_figure_28.py",py,3981,c29da833f47bb3d612eec8f4875356aba6651082
+"chapters/computer_vision/part_ii/autonomous_vehicles/code/generate_figure_29_notes.py",py,607,8b115303e7336c840f3b08d1eb69ff61d79714f1
+"chapters/computer_vision/part_ii/autonomous_vehicles/code/reconcile_figures_22_24_26.py",py,1632,5fcbfd3c5450c8ffea3445ccc75da5c85a7e3929
+"chapters/computer_vision/part_ii/autonomous_vehicles/figure_format_inventory.json",json,1462,5693d03412db4999ad0840e10606969895ed6001
+"chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/generate_figures.py",py,9436,738294f7fc6c3b1cc1296126ba52c49540bc6b30
+"chapters/computer_vision/part_ii/autonomous_vehicles/manifest.json",json,1170,5c4d68fd7accd9f2bcc1bdf0cff63ec7cc6e7320
+"chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/generate_closure_figures.py",py,4794,70ddef73a1aaecf88b1ff5db9eb5ce6cffe3b8a0
+"chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/resolve_remaining_figures.py",py,22910,8432a37146b98307cb0c5cc1a45869cc0074d6e6
+"chapters/computer_vision/part_ii/autonomous_vehicles/sync_to_appliedml.sh",sh,580,114f49da32439d3b0f204346612b69fd667e0c1d
