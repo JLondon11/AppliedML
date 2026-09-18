@@ -1,0 +1,13 @@
+chapter_number,chapter,canonical_root,production_figures,latex_source,pdf,figures,code,instructor_solutions,qa
+1,"Foundations of Machine Learning",chapters/foundations_machine_learning,32,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+2,"Deep Learning Part I",chapters/deep_learning/part_i,70,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+3,"Deep Learning Part II",chapters/deep_learning/part_ii,38,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+4,"Computer Vision Part I",chapters/computer_vision/part_i/foundations,14,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+5,"Computer Vision Part II",chapters/computer_vision/part_ii/autonomous_vehicles,56,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+6,"Natural Language Processing Part I",chapters/nlp_part_i,23,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+7,"Natural Language Processing Part II",chapters/nlp_part_ii,26,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+8,"Generative AI Part I",chapters/generative_ai_part_i,35,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+9,"Generative AI Part II",chapters/generative_ai_part_ii,11,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+10,"Reinforcement Learning",chapters/reinforcement_learning,33,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+11,"Scientific AI",chapters/scientific_ai,54,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
+12,"Systems Engineering and MLOps",chapters/systems_engineering_and_mlops,23,TO_UPLOAD,TO_UPLOAD,TO_UPLOAD,AUDIT_REQUIRED,TO_UPLOAD,AUDIT_REQUIRED
