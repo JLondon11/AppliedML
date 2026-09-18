@@ -1,0 +1,25 @@
+name: Book release completeness
+on:
+  push:
+    branches: [book-release-pass20]
+    paths: ['book/**']
+  pull_request:
+    paths: ['book/**']
+jobs:
+  completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify canonical book release is complete
+        run: python book/tools/check_release_completeness.py
+      - name: Upload completeness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-release-completeness
+          path: |
+            book/qa/RELEASE_COMPLETENESS.csv
+            book/qa/RELEASE_COMPLETENESS.json

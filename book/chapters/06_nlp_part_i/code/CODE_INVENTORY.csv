@@ -1,0 +1,6 @@
+path,type,size_bytes,blob_sha
+"chapters/nlp_part_i/figure_generation/generate_figures.py",py,4520,71a8b481e88ee61889b1b627cd11476a5c4915dc
+"chapters/nlp_part_i/figures/figure_06/generate_figure_06_distributional_semantics.py",py,7249,03b8cfc1c89cdad27054f6dda9c19fb4e2a5c659
+"chapters/nlp_part_i/production_pass14/generate_closure_figures.py",py,1606,8909ebd57e5e3bd257069a176c327465d906f712
+"chapters/nlp_part_i/production_pass14/resolve_remaining.py",py,2812,a4aa5ec622bd05d59d20fd5b75394c04de6c03a0
+"chapters/nlp_part_i/production_pass14/resolve_remaining_figures.py",py,6705,5625c820aab55e8ab83c44806bafd1f47d73aa23

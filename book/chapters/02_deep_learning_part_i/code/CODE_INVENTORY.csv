@@ -1,0 +1,4 @@
+path,type,size_bytes,blob_sha
+"chapters/deep_learning/part_i/figure_generation/generate_figures.py",py,9312,a49c567d0c9ce8001a5d036bddead3f44225b9ef
+"chapters/deep_learning/part_i/production_pass14/generate_closure_figures.py",py,6320,34e4453e555cf25f6651d4454570d83fa3a72157
+"chapters/deep_learning/part_i/production_pass14/resolve_remaining_figures.py",py,23557,cc048248af035b5fe6ed702c8dc9e69a5f57ddf8

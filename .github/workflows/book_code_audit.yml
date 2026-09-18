@@ -1,0 +1,32 @@
+name: Book code and reproducibility audit
+on:
+  push:
+    branches: [book-release-pass20]
+    paths:
+      - 'chapters/**'
+      - 'book/**'
+      - '.github/workflows/book_code_audit.yml'
+  pull_request:
+    paths:
+      - 'chapters/**'
+      - 'book/**'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static correctness and reproducibility audit
+        run: python book/tools/audit_code.py
+      - name: Upload audit manifests
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-code-audit
+          path: |
+            book/qa/CODE_AUDIT.csv
+            book/qa/CODE_AUDIT_SUMMARY.json
+            book/chapters/*/code/CODE_MANIFEST.csv
+            book/chapters/*/code/REPRODUCIBILITY.md
