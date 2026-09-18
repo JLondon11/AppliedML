@@ -26,7 +26,7 @@ def audit(path: Path) -> dict:
     if SANDBOX_RE.search(src):
         result["issues"].append("sandbox-specific hard-coded path")
     if PLACEHOLDER_RE.search(src):
-        result["issues"].append("TODO/FIXME/PLACEHOLDER token")
+        result["issues"].append("TODO/FIXME token")
     result["status"] = "PASS" if result["syntax_ok"] and not result["issues"] else "REVIEW"
     return result
 
