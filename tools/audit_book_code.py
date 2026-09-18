@@ -47,6 +47,9 @@ def main() -> int:
     syntax_fail = sum(not r["syntax_ok"] for r in rows)
     review = sum(r["status"] == "REVIEW" for r in rows)
     print(f"Audited {len(rows)} Python files; syntax failures={syntax_fail}; review={review}")
+    for r in rows:
+        if r["status"] == "REVIEW":
+            print("REVIEW: {} :: {}".format(r["path"], "; ".join(r["issues"])))
     return 1 if syntax_fail else 0
 
 if __name__ == "__main__":
