@@ -39,6 +39,20 @@ Every retained code listing must:
 
 Every chapter must contain 15--25 substantive numbered code listings; 18--22 is the preferred target range. No filler listing may be introduced merely to satisfy the minimum.
 
+### Listing continuity and float-placement hard gate
+
+A code listing is a single contiguous reader-facing object.
+
+- No figure, table, sidebar, callout, algorithm float, or other floating object may be inserted between two portions of the same listing.
+- If a listing extends across a page boundary, the continuation must appear immediately on the next page before any intervening figure or table.
+- A multi-page listing must preserve uninterrupted code order, line numbering, caption identity, and label identity.
+- Figures and tables referenced near a listing must be placed either entirely before the listing begins or after the listing ends; they may not float into the listing's continuation area.
+- A listing must not be manually split into separate listing environments merely to allow a figure or table to appear between them.
+- If page composition creates a conflict, move the figure/table, move the complete listing, shorten the listing without losing pedagogical substance, or move supporting code to GitHub. Never interrupt the listing.
+- Final PDF QA must visually inspect every multi-page listing to confirm that no float breaks its continuity.
+
+Required release condition: **0 listings interrupted by figures, tables, or other floats.**
+
 ## Full code
 
 Complete executable code remains mandatory in GitHub even when the manuscript shows only a focused excerpt.
@@ -49,6 +63,7 @@ A chapter may not be accepted until all of the following are true:
 - 15--25 substantive numbered code listings;
 - untitled retained listings: 0;
 - unreferenced retained listings: 0;
+- listings interrupted by figures/tables/floats: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
