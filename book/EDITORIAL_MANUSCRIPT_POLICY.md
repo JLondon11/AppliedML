@@ -27,6 +27,22 @@ Automated scans are only a first-pass detector. Every flagged sentence must be r
 
 Required release condition: **0 confirmed incomplete sentences and 0 confirmed dangling-conjunction endings.**
 
+## Figure-caption hard gate
+
+Every figure caption must be detailed enough to explain what the reader is seeing, what the important visual encodings mean, and how the figure relates to the surrounding discussion.
+
+For multi-panel figures:
+- every visible panel label, including `(a)`, `(b)`, `(c)`, and any additional labels, must be explicitly referenced in the main caption;
+- the caption must describe the content, purpose, and interpretation of each panel in panel order;
+- no panel may be present without a corresponding caption description;
+- panel descriptions must be integrated into the main caption rather than omitted or left implicit;
+- when panels use different data, methods, conditions, axes, metrics, or visual encodings, those differences must be stated clearly;
+- captions must define symbols, colors, line styles, error bars, uncertainty bands, markers, and other non-obvious encodings when needed for interpretation;
+- captions for empirical figures must state the relevant dataset, experimental condition, or provenance when required to understand the result;
+- captions should be sufficiently self-contained that a reader can understand the figure without searching the body text for basic interpretation.
+
+Required release condition: **0 unlabeled/undescribed panels and 0 materially under-detailed figure captions.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -64,6 +80,8 @@ A chapter may not be accepted until all of the following are true:
 - untitled retained listings: 0;
 - unreferenced retained listings: 0;
 - listings interrupted by figures/tables/floats: 0;
+- unlabeled or undescribed figure panels: 0;
+- materially under-detailed figure captions: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
