@@ -1,0 +1,13 @@
+chapter_number,chapter,current_retained_code_units,required_minimum,required_maximum,minimum_additions_needed,status
+1,Foundations of Machine Learning,12,15,25,3,REVISE
+2,Deep Learning Part I,14,15,25,1,REVISE
+3,Deep Learning Part II,14,15,25,1,REVISE
+4,Computer Vision Part I,12,15,25,3,REVISE
+5,Computer Vision Part II,11,15,25,4,REVISE
+6,Natural Language Processing Part I,12,15,25,3,REVISE
+7,Natural Language Processing Part II,6,15,25,9,REVISE
+8,Generative AI Part I,12,15,25,3,REVISE
+9,Generative AI Part II,10,15,25,5,REVISE
+10,Reinforcement Learning,10,15,25,5,REVISE
+11,Scientific AI,13,15,25,2,REVISE
+12,Systems Engineering and MLOps,12,15,25,3,REVISE
