@@ -12,29 +12,44 @@ Do not include:
 
 Scientific caveats remain required when they materially define the evidence (for example: synthetic experiment, controlled numerical model, public dataset, published source, or simulator output).
 
+## Sentence-completeness hard gate
+
+Every reader-facing sentence must be grammatically complete.
+
+Release QA must reject:
+- sentences that terminate with a dangling conjunction or connector, including words such as `and`, `or`, `but`, `because`, `although`, `while`, `whereas`, `which`, `that`, `with`, `of`, `to`, `for`, or `by` when the construction is incomplete;
+- truncated clauses caused by editing, extraction, or LaTeX reconstruction;
+- sentence fragments presented as prose unless intentionally used as a heading, label, table entry, figure annotation, or list item;
+- unmatched opening constructions whose dependent clause or complement is missing;
+- abrupt paragraph endings that leave an unfinished grammatical dependency.
+
+Automated scans are only a first-pass detector. Every flagged sentence must be reviewed in context, and every chapter must receive a final human-readable prose pass for completeness.
+
+Required release condition: **0 confirmed incomplete sentences and 0 confirmed dangling-conjunction endings.**
+
 ## Code shown in the book
 
 Every retained code listing must:
-1. have a label;
+1. have a descriptive title/caption and stable label;
 2. be explicitly referenced and discussed in the prose;
 3. teach a distinct concept not already demonstrated by another listing;
-4. be concise enough to support exposition rather than replace it;
-5. defer complete executable implementations, setup, serialization, boilerplate, and repetitive training loops to the repository.
+4. be important and directly relevant to the chapter;
+5. be concise enough to support exposition rather than replace it;
+6. defer complete executable implementations, setup, serialization, boilerplate, and repetitive training loops to the repository.
 
-The current production guideline caps normal manuscript listings at approximately 40 lines.
+Every chapter must contain 15--25 substantive numbered code listings; 18--22 is the preferred target range. No filler listing may be introduced merely to satisfy the minimum.
 
 ## Full code
 
 Complete executable code remains mandatory in GitHub even when the manuscript shows only a focused excerpt.
 
-## Pass 21 benchmark
+## Release gates
 
-The book-wide editorial cleanup reduced manuscript listings from 444 listings / 10,502 listing lines to 164 listings / 2,916 listing lines.
-
-Deep Learning Part I was reduced from 176 listings / 3,154 listing lines to 5 focused listings / 114 listing lines.
-
-At the Pass 21 release gate:
-- all retained listings are labeled and referenced;
-- no retained listing exceeds 39 lines;
-- all 12 chapters compile with zero fatal errors, overfull boxes, undefined references, or undefined citations;
-- all 415 accepted figures remain integrated.
+A chapter may not be accepted until all of the following are true:
+- 15--25 substantive numbered code listings;
+- untitled retained listings: 0;
+- unreferenced retained listings: 0;
+- confirmed incomplete prose sentences: 0;
+- confirmed dangling-conjunction sentence endings: 0;
+- undefined references/citations: 0;
+- fatal compile errors: 0.
