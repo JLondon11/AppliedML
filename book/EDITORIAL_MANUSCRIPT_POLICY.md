@@ -43,6 +43,28 @@ For multi-panel figures:
 
 Required release condition: **0 unlabeled/undescribed panels and 0 materially under-detailed figure captions.**
 
+### Heatmap legend hard gate
+
+Every heatmap, matrix visualization, correlation map, attention map, confusion-matrix heatmap, saliency heatmap, activation map, or other color-encoded scalar field must include a visible color scale or legend that states what numerical values the colors represent.
+
+- The colorbar/legend must show the quantitative mapping between color and value.
+- The quantity represented must be named, including units when applicable.
+- Tick values or a clearly interpretable numeric range must be shown.
+- A heatmap without an interpretable color scale fails QA, even if the caption describes the palette.
+
+Required release condition: **0 heatmaps without a quantitative color legend/colorbar.**
+
+### Duplicate-figure hard gate
+
+No chapter may contain duplicate figures.
+
+- Exact duplicate image assets within the same chapter are prohibited.
+- Near-duplicate figures that communicate substantially the same visual information are also prohibited unless there is a clear, documented pedagogical distinction.
+- Different filenames, formats, crops, or minor cosmetic changes do not make duplicated content acceptable.
+- Final chapter QA must compare the figure inventory and compiled chapter visually to confirm uniqueness.
+
+Required release condition: **0 exact duplicate figures and 0 unresolved near-duplicate figures within any chapter.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -82,6 +104,8 @@ A chapter may not be accepted until all of the following are true:
 - listings interrupted by figures/tables/floats: 0;
 - unlabeled or undescribed figure panels: 0;
 - materially under-detailed figure captions: 0;
+- heatmaps without quantitative color legends/colorbars: 0;
+- duplicate or unresolved near-duplicate figures within a chapter: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
