@@ -1,0 +1,18 @@
+name: Manuscript sentence completeness audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**/*.tex'
+      - 'tools/audit_manuscript_sentences.py'
+      - 'book/EDITORIAL_MANUSCRIPT_POLICY.md'
+
+jobs:
+  sentence-completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit manuscript prose
+        run: |
+          python tools/audit_manuscript_sentences.py . --csv book/qa/sentence_completeness_findings.csv
