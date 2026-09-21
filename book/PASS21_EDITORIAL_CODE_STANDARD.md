@@ -12,6 +12,11 @@ The printed manuscript and the repository serve different purposes.
 - Imports, downloads, setup boilerplate, duplicated variants, repetitive helper code, plotting-only code, figure-generation code, and long operational command dumps belong in the repository, not the printed chapter.
 - No filler listings may be added merely to satisfy the minimum count.
 - A retained listing should normally remain below about 50 substantive lines unless a longer listing is necessary for pedagogical completeness.
+- No figure, table, sidebar, callout, algorithm float, or other floating object may interrupt a code listing.
+- When a listing continues onto another page, its continuation must precede any figure or table that would otherwise float between listing segments.
+- Multi-page listings must remain one contiguous listing object with continuous code order and stable caption/label identity.
+- Figures and tables associated with a listing must be placed wholly before or wholly after the listing.
+- Do not split one logical listing into multiple listing environments merely to accommodate a float.
 
 ## Current normalization requirement
 The earlier Pass 21 balance (6--14 retained code units per chapter) no longer satisfies the book standard. Every chapter must be normalized to 15--25 substantive listings before release.
@@ -22,6 +27,7 @@ The earlier Pass 21 balance (6--14 retained code units per chapter) no longer sa
 - Unreferenced retained listings: 0
 - References to removed listings: 0
 - Irrelevant/filler retained listings: 0
+- Listings interrupted by figures/tables/floats: 0
 - Historical/editorial Tip boxes: 0
 - Manuscript-development narrative hits: 0
 - Chapter compile failures: 0
