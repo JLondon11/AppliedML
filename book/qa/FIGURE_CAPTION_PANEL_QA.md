@@ -20,3 +20,21 @@ Every figure must have a detailed caption. Every labeled panel in a multi-panel 
 - Panel-label/caption mismatches: 0
 - Materially under-detailed captions: 0
 - Unresolved caption defects: 0
+
+
+## Heatmap color-scale checks
+11. Every heatmap or scalar color field must include a visible quantitative colorbar or legend.
+12. The legend/colorbar must identify the represented quantity and show interpretable numerical values or range.
+13. Units must be included where applicable.
+14. Reject heatmaps whose colors cannot be quantitatively interpreted from the figure itself.
+
+## Duplicate-figure checks
+15. Compare all figure assets within each chapter for exact duplicates.
+16. Review visually similar figures for near-duplication or redundant information.
+17. Reject duplicates that differ only by filename, export format, crop, resolution, or minor styling.
+18. Retain similar figures only when they have a clear distinct pedagogical purpose.
+
+## Additional release criteria
+- Heatmaps without quantitative color legend/colorbar: 0
+- Exact duplicate figures within a chapter: 0
+- Unresolved near-duplicate figures within a chapter: 0
