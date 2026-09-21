@@ -1,0 +1,13 @@
+chapter_number,chapter,retained_code_units
+1,Foundations of Machine Learning,12
+2,Deep Learning Part I,14
+3,Deep Learning Part II,14
+4,Computer Vision Part I,12
+5,Computer Vision Part II,11
+6,Natural Language Processing Part I,12
+7,Natural Language Processing Part II,6
+8,Generative AI Part I,12
+9,Generative AI Part II,10
+10,Reinforcement Learning,10
+11,Scientific AI,13
+12,Systems Engineering and MLOps,12
