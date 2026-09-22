@@ -173,8 +173,8 @@ def main():
                 r.target_word, (r.pc1, r.pc2),
                 xytext=(4, 4), textcoords="offset points", fontsize=7.5
             )
-    ax.set_xlabel("PC 1")
-    ax.set_ylabel("PC 2")
+    ax.set_xlabel(f"PC 1 ({100*pca.explained_variance_ratio_[0]:.1f}% variance)")
+    ax.set_ylabel(f"PC 2 ({100*pca.explained_variance_ratio_[1]:.1f}% variance)")
     ax.legend(frameon=False, fontsize=8)
     ax.text(0.5, -0.20, "(a)", transform=ax.transAxes,
             ha="center", va="top", fontsize=12)
@@ -192,39 +192,31 @@ def main():
     ax.scatter(*cg, s=80, facecolors="none", edgecolors=BANK_GEO, linewidths=1.3)
     ax.plot([cf[0], cg[0]], [cf[1], cg[1]],
             color=NEUTRAL, linewidth=1.0, linestyle="--")
-    ax.set_xlabel("PC 1")
-    ax.set_ylabel("PC 2")
+    ax.set_xlabel(f"PC 1 ({100*pca.explained_variance_ratio_[0]:.1f}% variance)")
+    ax.set_ylabel(f"PC 2 ({100*pca.explained_variance_ratio_[1]:.1f}% variance)")
     ax.legend(frameon=False, fontsize=8)
     ax.text(0.5, -0.20, "(b)", transform=ax.transAxes,
             ha="center", va="top", fontsize=12)
 
-    # (c) Relational geometry from actual contextual centroids.
+    # (c) Quantitative centroid distances in the original 128-D space.
     ax = axes[2]
-    centroids = {}
-    for category in ["animals", "vehicles", "finance", "geography"]:
-        sub = df[df.category == category]
-        c = sub[["pc1", "pc2"]].mean().to_numpy()
-        centroids[category] = c
-        ax.scatter(*c, s=55, color=PALETTE[category])
-        ax.annotate(category, c, xytext=(5, 5),
-                    textcoords="offset points", fontsize=8)
-
-    ax.scatter(*cf, s=55, color=BANK_FIN, marker="s")
-    ax.scatter(*cg, s=55, color=BANK_GEO, marker="^")
-    ax.annotate("bank / finance", cf, xytext=(5, -12),
-                textcoords="offset points", fontsize=8)
-    ax.annotate("bank / river", cg, xytext=(5, -12),
-                textcoords="offset points", fontsize=8)
-
-    # Actual displacement directions in the same PCA space.
-    ax.annotate("", xy=centroids["finance"], xytext=cf,
-                arrowprops=dict(arrowstyle="->", color=BANK_FIN, linewidth=1.0))
-    ax.annotate("", xy=centroids["geography"], xytext=cg,
-                arrowprops=dict(arrowstyle="->", color=BANK_GEO, linewidth=1.0))
-    ax.annotate("", xy=centroids["vehicles"], xytext=centroids["animals"],
-                arrowprops=dict(arrowstyle="->", color=NEUTRAL, linewidth=1.0))
-    ax.set_xlabel("PC 1")
-    ax.set_ylabel("PC 2")
+    groups = ["animals", "vehicles", "finance", "geography", "bank_finance", "bank_geography"]
+    labels = ["animals", "vehicles", "finance", "geography", "bank/finance", "bank/river"]
+    H = {}
+    for g in groups:
+        H[g] = df[df.category == g][hidden_cols].to_numpy(float).mean(axis=0)
+    def cosine_distance(a,b):
+        return 1.0 - float(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))
+    D = np.zeros((len(groups),len(groups)))
+    for i,g1 in enumerate(groups):
+        for j,g2 in enumerate(groups):
+            D[i,j]=cosine_distance(H[g1],H[g2])
+    pd.DataFrame(D,index=labels,columns=labels).to_csv(HERE/"figure_04_centroid_cosine_distances.csv")
+    im=ax.imshow(D,cmap="cividis",aspect="auto",vmin=0,vmax=max(.01,float(D.max())))
+    ax.set_xticks(range(len(labels))); ax.set_xticklabels(labels,rotation=55,ha="right",fontsize=7)
+    ax.set_yticks(range(len(labels))); ax.set_yticklabels(labels,fontsize=7)
+    cb=fig.colorbar(im,ax=ax,fraction=.046,pad=.04)
+    cb.set_label("Cosine distance")
     ax.text(0.5, -0.20, "(c)", transform=ax.transAxes,
             ha="center", va="top", fontsize=12)
 
