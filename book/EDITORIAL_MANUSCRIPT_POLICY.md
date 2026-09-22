@@ -136,6 +136,39 @@ Within a single case study or application, bolded lead-in paragraphs must not be
 
 Required release condition: **0 duplicate or near-duplicate structured lead-in paragraphs within any case study or application.**
 
+
+## Natural authored-prose hard gate
+
+The entire book must read as deliberate, expert-authored technical writing. Editorial review must remove mechanical, repetitive, templated, or formulaic prose patterns that make chapters feel assembled from a common text generator or fill-in framework.
+
+The standard is literary and editorial quality, not detector evasion.
+
+Required characteristics:
+- sentence length and syntax must vary naturally;
+- paragraph openings and transitions must not repeat mechanically across nearby sections;
+- chapter introductions, application introductions, case studies, conclusions, and future-directions sections must not reuse the same rhetorical template;
+- avoid serial use of stock transitions such as "Moreover," "Furthermore," "In addition," "It is important to note," "This section discusses," or equivalent boilerplate when a more specific transition is available;
+- avoid unnecessary meta-prose that announces what the text is about to say instead of saying it directly;
+- avoid repetitive three-part or four-part sentence constructions used mechanically across many paragraphs;
+- avoid repeated sentence frames, repeated paragraph cadence, and repeated conclusion formulas;
+- avoid generic praise, vague significance claims, and unsupported intensifiers;
+- technical explanations should contain domain-specific reasoning, concrete distinctions, caveats, and interpretation rather than generic summary language;
+- examples, applications, and case studies should differ in narrative rhythm and emphasis according to their subject matter rather than following identical prose templates;
+- equations, figures, tables, and code listings should be integrated with specific explanatory prose rather than introduced by formulaic phrases;
+- cross-chapter terminology and notation must remain consistent without making the prose stylistically uniform;
+- contractions, rhetorical questions, and conversational phrasing should be used only when appropriate to the textbook's professional voice;
+- no paragraph may be retained solely because it fills space; every paragraph must advance explanation, evidence, interpretation, motivation, or synthesis.
+
+Editorial review must also check for:
+- repeated or near-duplicate paragraphs across the same chapter and across different chapters;
+- repeated sentence openings in close proximity;
+- excessive use of semantically empty transitions;
+- repetitive paragraph lengths and structures that create a mechanical cadence;
+- generic "overview → list → summary" patterns repeated section after section;
+- sections whose prose could be transplanted to another chapter with minimal changes.
+
+Required release condition: **0 unresolved formulaic-prose defects, 0 unresolved cross-chapter prose duplications, and 0 sections that read as mechanically templated rather than specifically authored for their technical content.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -183,6 +216,8 @@ A chapter may not be accepted until all of the following are true:
 - isolated bolded case-study/application keywords on lines by themselves: 0;
 - labeled paragraphs whose explanatory prose does not continue on the same line: 0;
 - duplicate or near-duplicate structured lead-in paragraphs within a case study/application: 0;
+- unresolved formulaic or mechanically templated prose defects: 0;
+- unresolved repeated or near-duplicate prose across chapters: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
