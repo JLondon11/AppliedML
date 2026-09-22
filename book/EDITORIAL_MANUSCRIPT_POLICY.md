@@ -94,35 +94,37 @@ A chapter may not receive final figure ACCEPT status until **every figure in tha
 Required release condition: **0 REVISE, 0 REPLACE, and 0 NOT YET CERTIFIED figures in every chapter.**
 
 
-## Case-study and application prose-format hard gate
+## Case-study and application structure hard gate
 
-Every case study and application must read as continuous scholarly exposition rather than as a sequence of bolded topic labels followed by prose.
+Every case study and application must begin with **several substantive introductory paragraphs** that establish the technical context before any structured field labels appear. These opening paragraphs must provide background, motivation, the practical or scientific significance of the problem, relevant prior context, why the application matters, and how the case study connects to the chapter's concepts.
 
-Do not use inline paragraph constructions such as:
-- **Problem:** followed by explanatory prose;
-- **Dataset:** followed by explanatory prose;
-- **Method:** followed by explanatory prose;
-- **Model:** followed by explanatory prose;
-- **Experimental Setup:** followed by explanatory prose;
-- **Results:** followed by explanatory prose;
-- **Limitations:** followed by explanatory prose;
-- **Lessons Learned:** followed by explanatory prose;
-- **Deployment:** followed by explanatory prose;
-- **Evaluation:** followed by explanatory prose;
-- **Business Impact:** followed by explanatory prose;
-- or similar bolded topic words functioning as pseudo-headings inside the body text.
+After the introductory narrative, the case study or application must use clearly separated bolded field labels. Labels such as **Problem**, **Dataset**, **Method**, **Model**, **Experimental Setup**, **Results**, **Evaluation**, **Limitations**, **Deployment**, **Lessons Learned**, or **Implications** are expected where relevant.
 
-These labels must not appear as isolated bold terms on separate lines with their explanatory text immediately following.
+Formatting requirements:
+- each bolded field label must appear on its **own separate line**;
+- the explanatory prose for that field must begin on the following line or in the following paragraph;
+- do not place the field label and its prose on the same line;
+- do not run multiple field labels together in one paragraph;
+- labels must be bolded consistently;
+- the prose beneath each label must consist of complete, substantive sentences rather than terse fragments;
+- the sequence of labels should reflect the actual technical logic of the case study or application and need not be identical in every chapter;
+- several detailed introductory paragraphs must precede the first bolded field label;
+- the introductory paragraphs must not merely restate the later structured fields; they must provide motivation, background, context, and significance;
+- quantitative evidence, experimental reasoning, interpretation, uncertainty, and limitations must be developed under the appropriate labeled sections where relevant.
 
-Instead:
-- integrate the topic naturally into complete paragraphs;
-- use real LaTeX subsection/subsubsection headings only when a genuine structural subdivision is warranted;
-- preserve several introductory paragraphs where appropriate, then transition into coherent narrative treatment of the problem, data, methodology, experimental design, results, limitations, and implications;
-- maintain paragraph-level continuity and avoid checklist-like or template-like prose;
-- vary sentence structure so the case study reads as authored technical analysis rather than a filled-in form;
-- ensure every case study and application includes substantive quantitative evidence, methodological reasoning, interpretation, and limitations where appropriate.
+Preferred LaTeX pattern:
 
-Required release condition: **0 bolded inline topic-label paragraphs and 0 pseudo-heading label lines in case studies or applications.**
+\textbf{Problem}
+
+The case study addresses ...
+
+\textbf{Dataset}
+
+The analysis uses ...
+
+This structured format is intentional and must be retained consistently across the book.
+
+Required release condition: **every case study and application contains several introductory background/motivation paragraphs followed by correctly formatted bolded field labels on separate lines, with substantive prose beneath each label.**
 
 ## Code shown in the book
 
@@ -167,8 +169,9 @@ A chapter may not be accepted until all of the following are true:
 - duplicate or unresolved near-duplicate figures within a chapter: 0;
 - figures without individual scientific-optimality certification: 0;
 - figures with REVISE, REPLACE, or NOT YET CERTIFIED status: 0;
-- bolded inline topic-label paragraphs in case studies/applications: 0;
-- pseudo-heading label lines in case studies/applications: 0;
+- case studies/applications missing several substantive introductory paragraphs: 0;
+- bolded field labels sharing a line with explanatory prose: 0;
+- required structured field labels not placed on separate lines: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
