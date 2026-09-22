@@ -74,9 +74,37 @@ metrics={"standalone_unsupported_claim_rate":smean,"standalone_bootstrap_95ci":s
 prov={"dataset":"BEIR SciFact","dataset_url":URL,"evaluated_claims":len(df),"generator":MODEL,"retriever":"TF-IDF unigram+bigram cosine top-1","support_metric":"fraction of non-stopword alphanumeric answer terms absent from concatenated gold evidence documents","bootstrap_seed":1729,"bootstrap_replicates":4000,"classification":"Case Study","section":"Case Study: Enterprise Retrieval-Augmented Generation","subsection":"Results and Error Analysis","caveat":"Lexical support is an automatic reproducible proxy for unsupported content, not human factuality adjudication. Results are protocol-specific and not a SOTA benchmark claim."}
 (HERE/"figure_12_provenance.json").write_text(json.dumps(prov,indent=2)+"\n")
 
-fig,axs=plt.subplots(1,2,figsize=(9.8,4.5))
-ax=axs[0]; vals=[smean,rmean]; lo=[smean-sci[0],rmean-rci[0]]; hi=[sci[1]-smean,rci[1]-rmean]
-ax.bar([0,1],vals,yerr=np.array([lo,hi]),capsize=4,width=.58); ax.set_xticks([0,1],["Standalone","Retrieval-grounded"]); ax.set_ylabel("Mean unsupported-term fraction"); ax.set_ylim(0,1)
-ax=axs[1]; cats=["Retrieval miss","Generation failure\nafter retrieval hit"]; vv=[miss_rate,genfail_rate]; ax.bar([0,1],vv,width=.58); ax.set_xticks([0,1],cats); ax.set_ylabel("Fraction of evaluated claims"); ax.set_ylim(0,1)
-for i,ax in enumerate(axs): ax.tick_params(direction="out"); ax.grid(False); ax.text(.5,-.23,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
-fig.tight_layout(w_pad=2.6); fig.savefig(HERE/"figure_12_hallucination_reduction_rag.svg",bbox_inches="tight"); fig.savefig(HERE/"figure_12_hallucination_reduction_rag.png",dpi=300,bbox_inches="tight"); plt.close(fig)
+delta=df.rag_unsupported_rate.to_numpy()-df.standalone_unsupported_rate.to_numpy()
+dmean,dci=boot_mean(delta)
+metrics["mean_paired_change_rag_minus_standalone"]=dmean
+metrics["paired_change_bootstrap_95ci"]=dci
+(HERE/"figure_12_metrics.json").write_text(json.dumps(metrics,indent=2)+"\n")
+
+fig,axs=plt.subplots(1,2,figsize=(10.4,4.6))
+ax=axs[0]
+x0=df.standalone_unsupported_rate.to_numpy(); x1=df.rag_unsupported_rate.to_numpy()
+for a,b in zip(x0,x1):
+    ax.plot([0,1],[a,b],lw=.45,alpha=.18)
+ax.scatter(np.zeros_like(x0),x0,s=10,alpha=.45,label="Standalone")
+ax.scatter(np.ones_like(x1),x1,s=10,alpha=.45,label="Retrieval-grounded")
+ax.errorbar([0,1],[smean,rmean],
+            yerr=np.array([[smean-sci[0],rmean-rci[0]],[sci[1]-smean,rci[1]-rmean]]),
+            fmt="o",capsize=4,lw=1.2)
+ax.set_xticks([0,1],["Standalone","Retrieval-grounded"])
+ax.set_ylabel("Unsupported-term fraction")
+ax.set_ylim(-.02,1.02)
+
+ax=axs[1]
+cats=["Retrieval miss","Generation failure\nafter retrieval hit"]
+vv=[miss_rate,genfail_rate]
+ax.bar([0,1],vv,width=.58)
+ax.set_xticks([0,1],cats)
+ax.set_ylabel("Fraction of evaluated claims")
+ax.set_ylim(0,1)
+for i,ax in enumerate(axs):
+    ax.tick_params(direction="out"); ax.grid(False)
+    ax.text(.5,-.23,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
+fig.tight_layout(w_pad=2.6)
+fig.savefig(HERE/"figure_12_hallucination_reduction_rag.svg",bbox_inches="tight")
+fig.savefig(HERE/"figure_12_hallucination_reduction_rag.png",dpi=300,bbox_inches="tight")
+plt.close(fig)
