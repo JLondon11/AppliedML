@@ -49,6 +49,15 @@ Other lead-ins such as **Model.**, **Evaluation.**, **Deployment.**, **Lessons L
 - Keep lead-ins consistent in typographic treatment and punctuation.
 - The exact set of lead-ins may vary with the application, but the technical structure must remain coherent.
 
+## Duplicate and near-duplicate checks
+
+For each case study/application:
+- count occurrences of each bolded lead-in;
+- flag repeated generic lead-ins such as **Problem.**, **Dataset.**, **Method.**, **Results.**, or **Limitations.**;
+- compare the associated paragraphs for semantic overlap, not just exact text duplication;
+- merge or remove repeated paragraphs that describe substantially the same content;
+- permit repeated structural concepts only when the lead-in is made more specific and the content is genuinely distinct.
+
 ## Automated audit patterns
 
 When manuscript sources are available, flag:
@@ -62,6 +71,8 @@ When manuscript sources are available, flag:
 - Isolated keyword-only lead-in lines: 0
 - Labeled paragraphs whose prose does not continue on the same line: 0
 - Labeled sections containing only fragments or superficial text: 0
+- Duplicate generic lead-ins within a case study/application: 0
+- Near-duplicate labeled paragraphs with materially overlapping content: 0
 - Unresolved case-study/application structure defects: 0
 
 A chapter fails editorial QA if any case study or application violates these criteria.
