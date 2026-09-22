@@ -93,6 +93,37 @@ A chapter may not receive final figure ACCEPT status until **every figure in tha
 
 Required release condition: **0 REVISE, 0 REPLACE, and 0 NOT YET CERTIFIED figures in every chapter.**
 
+
+## Case-study and application prose-format hard gate
+
+Every case study and application must read as continuous scholarly exposition rather than as a sequence of bolded topic labels followed by prose.
+
+Do not use inline paragraph constructions such as:
+- **Problem:** followed by explanatory prose;
+- **Dataset:** followed by explanatory prose;
+- **Method:** followed by explanatory prose;
+- **Model:** followed by explanatory prose;
+- **Experimental Setup:** followed by explanatory prose;
+- **Results:** followed by explanatory prose;
+- **Limitations:** followed by explanatory prose;
+- **Lessons Learned:** followed by explanatory prose;
+- **Deployment:** followed by explanatory prose;
+- **Evaluation:** followed by explanatory prose;
+- **Business Impact:** followed by explanatory prose;
+- or similar bolded topic words functioning as pseudo-headings inside the body text.
+
+These labels must not appear as isolated bold terms on separate lines with their explanatory text immediately following.
+
+Instead:
+- integrate the topic naturally into complete paragraphs;
+- use real LaTeX subsection/subsubsection headings only when a genuine structural subdivision is warranted;
+- preserve several introductory paragraphs where appropriate, then transition into coherent narrative treatment of the problem, data, methodology, experimental design, results, limitations, and implications;
+- maintain paragraph-level continuity and avoid checklist-like or template-like prose;
+- vary sentence structure so the case study reads as authored technical analysis rather than a filled-in form;
+- ensure every case study and application includes substantive quantitative evidence, methodological reasoning, interpretation, and limitations where appropriate.
+
+Required release condition: **0 bolded inline topic-label paragraphs and 0 pseudo-heading label lines in case studies or applications.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -136,6 +167,8 @@ A chapter may not be accepted until all of the following are true:
 - duplicate or unresolved near-duplicate figures within a chapter: 0;
 - figures without individual scientific-optimality certification: 0;
 - figures with REVISE, REPLACE, or NOT YET CERTIFIED status: 0;
+- bolded inline topic-label paragraphs in case studies/applications: 0;
+- pseudo-heading label lines in case studies/applications: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
