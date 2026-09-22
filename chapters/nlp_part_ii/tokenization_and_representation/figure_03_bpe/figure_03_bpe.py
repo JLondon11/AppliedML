@@ -88,8 +88,11 @@ def main():
 
     fig, axes = plt.subplots(1, 3, figsize=(12.2, 4.1))
     ax = axes[0]
+    merge_labels=[f"{r[1]}+{r[2]}→{r[3]}" for r in history]
     ax.plot(steps, freqs, marker="o", linewidth=1.5)
-    ax.set(xlabel="Merge step", ylabel="Selected pair frequency")
+    ax.set(xlabel="BPE merge operation", ylabel="Selected pair frequency")
+    ax.set_xticks(steps)
+    ax.set_xticklabels(merge_labels,rotation=55,ha="right",fontsize=7)
     ax.grid(alpha=.2)
 
     ax = axes[1]
