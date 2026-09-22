@@ -1,67 +1,84 @@
-# Case Study and Application Prose Normalization QA
+# Case Study and Application Structure QA
 
 ## Hard rule
 
-Case studies and applications must use continuous scholarly prose. Bolded topic labels used as paragraph starters or pseudo-headings are prohibited.
+Every case study and application must use a two-stage structure:
 
-## Prohibited constructions
+1. **Several detailed introductory paragraphs** providing context, motivation, background, significance, and connection to the chapter.
+2. A structured technical treatment using **bolded field labels**, with each label on its own line and the explanatory prose beneath it.
 
-Examples that fail QA include:
+## Required introductory narrative
 
-- **Problem:** explanatory prose
-- **Dataset:** explanatory prose
-- **Method:** explanatory prose
-- **Model:** explanatory prose
-- **Experimental Setup:** explanatory prose
-- **Results:** explanatory prose
-- **Evaluation:** explanatory prose
-- **Limitations:** explanatory prose
-- **Deployment:** explanatory prose
-- **Lessons Learned:** explanatory prose
-- **Business Impact:** explanatory prose
+Before the first structured label, every case study or application must contain several substantive paragraphs that explain, as appropriate:
 
-This rule applies whether the label and prose are on the same line or whether the bolded label appears alone on one line and the explanatory text begins on the next.
+- the real-world or scientific context;
+- why the problem matters;
+- technical and operational motivation;
+- prior or domain background needed to understand the application;
+- why the selected dataset, system, experiment, or deployment setting is meaningful;
+- how the case study/application connects to the chapter's methods and concepts.
 
-## Required editorial treatment
+The introduction must be genuinely informative. One short setup paragraph is insufficient.
 
-For each case study and application:
+## Required structured format
 
-1. Preserve or improve the introductory narrative paragraphs.
-2. Integrate the problem definition into normal prose.
-3. Introduce the dataset/data source in complete sentences and paragraphs.
-4. Explain methodology and experimental design as connected technical exposition.
-5. Present results with quantitative evidence and interpretation.
-6. Discuss limitations, failure modes, operational constraints, and implications in prose.
-7. Use actual LaTeX subsection/subsubsection headings only when the material warrants a genuine structural section.
-8. Avoid template-like repetition across chapters.
-9. Ensure transitions connect the introductory context to the empirical/technical analysis.
-10. Verify that no topic label remains as a bold pseudo-heading.
+After the introduction, use bolded field labels such as:
 
-## Automated search patterns
+**Problem**
 
-When manuscript sources are available, audit for LaTeX and Markdown patterns including:
+The problem statement and technical objective are developed here in complete prose.
 
-- \\textbf{Problem}
-- \\textbf{Dataset}
-- \\textbf{Method}
-- \\textbf{Model}
-- \\textbf{Results}
-- \\textbf{Limitations}
-- \\textbf{Evaluation}
-- \\textbf{Deployment}
-- **Problem**
-- **Dataset**
-- **Method**
-- **Results**
-- **Limitations**
+**Dataset**
 
-Automated hits require contextual review because legitimate emphasis inside a sentence is not necessarily a defect. The prohibited form is a bolded topic word/phrase functioning as a label for the following paragraph.
+The dataset, source, provenance, sampling, splits, preprocessing, and relevant limitations are described here.
+
+**Method**
+
+The modeling or algorithmic approach is explained here.
+
+**Experimental Setup**
+
+Training, evaluation protocol, baselines, hyperparameters, computational constraints, and reproducibility details are explained here.
+
+**Results**
+
+Quantitative results, uncertainty, comparisons, and interpretation are presented here.
+
+**Limitations**
+
+Failure modes, caveats, generalization limits, operational constraints, and unresolved issues are discussed here.
+
+Other labels such as **Model**, **Evaluation**, **Deployment**, **Lessons Learned**, or **Implications** may be added when appropriate.
+
+## Formatting requirements
+
+- Each bolded field label must be on a separate line.
+- The prose belonging to that label must begin below it.
+- A label and its explanatory prose must not share the same line.
+- Do not stack multiple labels on one line.
+- Do not reduce the labeled content to fragments or bullet-like notes.
+- Use complete paragraphs under the labels.
+- Keep labels consistent in typographic treatment.
+- The exact set of labels may vary with the application, but the structure must remain technically coherent.
+
+## Automated audit patterns
+
+When manuscript sources are available, flag constructions such as:
+
+- \\textbf{Problem}: text on the same line
+- \\textbf{Dataset}: text on the same line
+- \\textbf{Method}: text on the same line
+- \\textbf{Results}: text on the same line
+- Markdown equivalents such as **Problem:** text
+
+Also flag case-study/application sections where the first bolded field label appears without several substantive introductory paragraphs preceding it.
 
 ## Release criteria
 
-- Bolded topic-label paragraphs: 0
-- Isolated pseudo-heading label lines: 0
-- Template-like case-study/application sections requiring prose reconstruction: 0
-- Unresolved case-study/application prose-format defects: 0
+- Case studies/applications with insufficient introductory background: 0
+- Bolded labels sharing a line with explanatory prose: 0
+- Structured labels not isolated on their own lines: 0
+- Labeled sections containing only fragments or superficial text: 0
+- Unresolved case-study/application structure defects: 0
 
 A chapter fails editorial QA if any case study or application violates these criteria.
