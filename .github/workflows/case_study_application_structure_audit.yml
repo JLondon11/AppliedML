@@ -1,0 +1,21 @@
+name: Case study and application structure audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**/*.tex'
+      - 'tools/audit_case_study_application_structure.py'
+      - 'book/qa/CASE_STUDY_APPLICATION_PROSE_QA.md'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit case studies and applications
+        run: |
+          python tools/audit_case_study_application_structure.py . \
+            --csv book/qa/case_study_application_findings.csv \
+            --min-intro-paragraphs 3 \
+            --near-duplicate-threshold 0.72
