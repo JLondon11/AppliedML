@@ -17,8 +17,9 @@ renders the three scientific panels.
   geographic target words;
 - **(b)** the same lexical token `bank` in five financial and five river/geographic
   contexts, with empirical context centroids and their displacement;
-- **(c)** relational geometry among actual contextual centroids in the same PCA
-  representation space.
+- **(c)** pairwise cosine distances among semantic-category and polysemous-`bank`
+  centroids computed in the original 128-dimensional contextual representation space,
+  shown as a quantitative distance matrix with colorbar.
 
 No point is manually positioned. No synthetic embedding vectors are used.
 
