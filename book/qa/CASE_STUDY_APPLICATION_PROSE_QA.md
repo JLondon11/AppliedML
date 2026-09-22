@@ -5,11 +5,11 @@
 Every case study and application must use a two-stage structure:
 
 1. **Several detailed introductory paragraphs** providing context, motivation, background, significance, and connection to the chapter.
-2. A structured technical treatment using **bolded field labels**, with each label on its own line and the explanatory prose beneath it.
+2. Structured technical paragraphs that begin with a **bolded lead-in topic word or phrase**, followed immediately by the explanatory prose on the same line.
 
 ## Required introductory narrative
 
-Before the first structured label, every case study or application must contain several substantive paragraphs that explain, as appropriate:
+Before the first structured lead-in, every case study or application must contain several substantive paragraphs explaining, as appropriate:
 
 - the real-world or scientific context;
 - why the problem matters;
@@ -18,66 +18,49 @@ Before the first structured label, every case study or application must contain 
 - why the selected dataset, system, experiment, or deployment setting is meaningful;
 - how the case study/application connects to the chapter's methods and concepts.
 
-The introduction must be genuinely informative. One short setup paragraph is insufficient.
+One short setup paragraph is insufficient.
 
 ## Required structured format
 
-After the introduction, use bolded field labels such as:
+Use paragraphs such as:
 
-**Problem**
+**Problem.** The problem statement and technical objective are developed here in complete prose.
 
-The problem statement and technical objective are developed here in complete prose.
+**Dataset.** The dataset, source, provenance, sampling, splits, preprocessing, and relevant limitations are described here.
 
-**Dataset**
+**Method.** The modeling or algorithmic approach is explained here.
 
-The dataset, source, provenance, sampling, splits, preprocessing, and relevant limitations are described here.
+**Experimental Setup.** Training, evaluation protocol, baselines, hyperparameters, computational constraints, and reproducibility details are explained here.
 
-**Method**
+**Results.** Quantitative results, uncertainty, comparisons, and interpretation are presented here.
 
-The modeling or algorithmic approach is explained here.
+**Limitations.** Failure modes, caveats, generalization limits, operational constraints, and unresolved issues are discussed here.
 
-**Experimental Setup**
-
-Training, evaluation protocol, baselines, hyperparameters, computational constraints, and reproducibility details are explained here.
-
-**Results**
-
-Quantitative results, uncertainty, comparisons, and interpretation are presented here.
-
-**Limitations**
-
-Failure modes, caveats, generalization limits, operational constraints, and unresolved issues are discussed here.
-
-Other labels such as **Model**, **Evaluation**, **Deployment**, **Lessons Learned**, or **Implications** may be added when appropriate.
+Other lead-ins such as **Model.**, **Evaluation.**, **Deployment.**, **Lessons Learned.**, or **Implications.** may be added where appropriate.
 
 ## Formatting requirements
 
-- Each bolded field label must be on a separate line.
-- The prose belonging to that label must begin below it.
-- A label and its explanatory prose must not share the same line.
-- Do not stack multiple labels on one line.
-- Do not reduce the labeled content to fragments or bullet-like notes.
-- Use complete paragraphs under the labels.
-- Keep labels consistent in typographic treatment.
-- The exact set of labels may vary with the application, but the structure must remain technically coherent.
+- The bolded lead-in must start the paragraph.
+- The prose belonging to that lead-in must continue immediately after it on the same line.
+- Do not put a bolded keyword on a line by itself.
+- Do not put the explanatory prose below an isolated keyword.
+- Do not stack multiple lead-ins in a single paragraph.
+- Use complete, substantive paragraphs rather than fragments.
+- Keep lead-ins consistent in typographic treatment and punctuation.
+- The exact set of lead-ins may vary with the application, but the technical structure must remain coherent.
 
 ## Automated audit patterns
 
-When manuscript sources are available, flag constructions such as:
-
-- \\textbf{Problem}: text on the same line
-- \\textbf{Dataset}: text on the same line
-- \\textbf{Method}: text on the same line
-- \\textbf{Results}: text on the same line
-- Markdown equivalents such as **Problem:** text
-
-Also flag case-study/application sections where the first bolded field label appears without several substantive introductory paragraphs preceding it.
+When manuscript sources are available, flag:
+- isolated lines containing only \\textbf{Problem.}, \\textbf{Dataset.}, \\textbf{Method.}, \\textbf{Results.}, etc.;
+- a line break immediately after a bolded lead-in before explanatory prose;
+- case-study/application sections where the first lead-in appears without several substantive introductory paragraphs preceding it.
 
 ## Release criteria
 
 - Case studies/applications with insufficient introductory background: 0
-- Bolded labels sharing a line with explanatory prose: 0
-- Structured labels not isolated on their own lines: 0
+- Isolated keyword-only lead-in lines: 0
+- Labeled paragraphs whose prose does not continue on the same line: 0
 - Labeled sections containing only fragments or superficial text: 0
 - Unresolved case-study/application structure defects: 0
 
