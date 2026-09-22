@@ -124,6 +124,18 @@ This structured format is intentional and must be retained consistently across t
 
 Required release condition: **every case study and application contains several introductory background/motivation paragraphs followed by bolded lead-in topic words whose explanatory prose continues immediately on the same line.**
 
+### Duplicate structured-paragraph hard gate
+
+Within a single case study or application, bolded lead-in paragraphs must not be duplicated or repeated in substantially similar form.
+
+- **Problem.**, **Dataset.**, **Method.**, **Model.**, **Experimental Setup.**, **Results.**, **Evaluation.**, **Limitations.**, **Deployment.**, **Lessons Learned.**, and **Implications.** should normally appear only once per case study/application.
+- Do not repeat the same lead-in later with paraphrased or materially overlapping content.
+- Do not create near-duplicate paragraphs that restate the same problem, dataset description, method, results, or limitation under the same or a similar bolded lead-in.
+- If genuinely distinct subtopics are required, use a more specific lead-in that clearly distinguishes the content rather than repeating a generic label.
+- Redundant labeled paragraphs must be merged, rewritten into the most complete version, or removed.
+
+Required release condition: **0 duplicate or near-duplicate structured lead-in paragraphs within any case study or application.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -170,6 +182,7 @@ A chapter may not be accepted until all of the following are true:
 - case studies/applications missing several substantive introductory paragraphs: 0;
 - isolated bolded case-study/application keywords on lines by themselves: 0;
 - labeled paragraphs whose explanatory prose does not continue on the same line: 0;
+- duplicate or near-duplicate structured lead-in paragraphs within a case study/application: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
