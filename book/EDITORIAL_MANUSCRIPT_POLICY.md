@@ -65,6 +65,34 @@ No chapter may contain duplicate figures.
 
 Required release condition: **0 exact duplicate figures and 0 unresolved near-duplicate figures within any chapter.**
 
+
+### Book-wide scientific figure optimality hard gate
+
+Every figure in every chapter must receive an individual scientific-optimality review before chapter acceptance.
+
+For each figure, the review must determine whether a materially better scientific representation can be used for the same pedagogical purpose. A figure must not be accepted merely because it is technically correct, attractive, reproducible, or consistent with the frozen inventory.
+
+The reviewer must evaluate:
+- whether the visual form is scientifically appropriate to the question being communicated;
+- whether a more informative conventional scientific form would improve interpretation, such as a distribution, uncertainty interval, residual plot, calibration plot, confusion matrix, ablation plot, sensitivity curve, phase diagram, distance matrix, dimensionality-reduction plot, or other evidence-appropriate representation;
+- whether the figure shows the underlying data, computation, uncertainty, variability, or mechanism at the appropriate level of detail;
+- whether an arrow/box diagram or infographic-like rendering should instead be replaced by a quantitative or computational scientific rendering;
+- whether empirical panels use real data or executable computation rather than invented values;
+- whether the figure is redundant with another figure in the same chapter;
+- whether the figure is balanced with the chapter's applications, case studies, theory, and experiments;
+- whether the caption, panel structure, color encoding, heatmap scale, typography, and layout support scientific interpretation;
+- whether the current figure can be improved without violating the frozen figure inventory or changing the intended scientific claim.
+
+Each figure must receive one of four statuses:
+- **ACCEPT** — no materially better scientific representation is warranted;
+- **REVISE** — underlying evidence is appropriate but visual/statistical representation should be improved;
+- **REPLACE** — a materially stronger scientific representation should replace the current figure;
+- **NOT YET CERTIFIED** — the final figure asset or compiled chapter view is unavailable for review.
+
+A chapter may not receive final figure ACCEPT status until **every figure in that chapter is individually certified ACCEPT after any required remediation and final rendered-output inspection**.
+
+Required release condition: **0 REVISE, 0 REPLACE, and 0 NOT YET CERTIFIED figures in every chapter.**
+
 ## Code shown in the book
 
 Every retained code listing must:
@@ -106,6 +134,8 @@ A chapter may not be accepted until all of the following are true:
 - materially under-detailed figure captions: 0;
 - heatmaps without quantitative color legends/colorbars: 0;
 - duplicate or unresolved near-duplicate figures within a chapter: 0;
+- figures without individual scientific-optimality certification: 0;
+- figures with REVISE, REPLACE, or NOT YET CERTIFIED status: 0;
 - confirmed incomplete prose sentences: 0;
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
