@@ -4,37 +4,23 @@
 
 Every case study and application must begin with **several detailed introductory paragraphs** that provide motivation, background, context, significance, and connection to the chapter.
 
-Only after that introduction should the structured technical fields begin.
+After that introduction, structured technical paragraphs must use bolded lead-ins with the prose continuing immediately after the label on the same line:
 
-The structured fields should use bolded labels such as:
+**Problem.** Detailed prose follows immediately in the same paragraph.
 
-**Problem**
+**Dataset.** Detailed prose follows immediately in the same paragraph.
 
-[Detailed prose beneath the label.]
+**Method.** Detailed prose follows immediately in the same paragraph.
 
-**Dataset**
+**Experimental Setup.** Detailed prose follows immediately in the same paragraph.
 
-[Detailed prose beneath the label.]
+**Results.** Detailed quantitative interpretation follows immediately in the same paragraph.
 
-**Method**
+**Limitations.** Detailed caveats and failure modes follow immediately in the same paragraph.
 
-[Detailed prose beneath the label.]
+Additional lead-ins may be used where appropriate.
 
-**Experimental Setup**
-
-[Detailed prose beneath the label.]
-
-**Results**
-
-[Detailed quantitative interpretation beneath the label.]
-
-**Limitations**
-
-[Detailed caveats and failure modes beneath the label.]
-
-Additional labels may be used where appropriate.
-
-The key formatting rule is that each bolded label appears on its **own line**, with its prose below it. The label and prose must not appear on the same line.
+The key formatting rule is that the bolded keyword is **not placed on a line by itself**. The prose begins immediately after the bolded lead-in on the same line.
 
 ## Current source availability
 
@@ -44,11 +30,11 @@ The current repository snapshot does not contain the full manuscript .tex source
 
 Every case study and application in every chapter must be checked for:
 
-- several substantive introductory paragraphs before the structured labels;
+- several substantive introductory paragraphs before the structured lead-ins;
 - sufficient motivation, background, context, and significance;
-- correctly bolded field labels;
-- one field label per separate line;
-- explanatory prose beneath each label;
+- correctly bolded lead-in topic words;
+- explanatory prose continuing immediately after each lead-in on the same line;
+- no isolated keyword-only lines;
 - quantitative and methodological depth;
 - complete sentences and paragraphs;
 - appropriate results interpretation, limitations, and implications.
