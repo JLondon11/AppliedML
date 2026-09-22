@@ -35,6 +35,7 @@ Every case study and application in every chapter must be checked for:
 - correctly bolded lead-in topic words;
 - explanatory prose continuing immediately after each lead-in on the same line;
 - no isolated keyword-only lines;
+- no duplicate or near-duplicate **Problem.**, **Dataset.**, **Method.**, **Results.**, or other structured lead-in paragraphs;
 - quantitative and methodological depth;
 - complete sentences and paragraphs;
 - appropriate results interpretation, limitations, and implications.
