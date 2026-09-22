@@ -4,21 +4,14 @@
 **Subsection:** Attention Analysis  
 **LaTeX label:** `fig:attention_interpretability`
 
-This figure is generated from actual pretrained transformer attention weights.
-It contains no manually fabricated heatmaps.
+This remediated scientific figure is generated from actual pretrained-model attention weights and measures routing specialization across **multiple controlled stimuli per diagnostic**, rather than selecting a head from a single sentence.
 
-The four panels are selected by explicit routing diagnostics:
-- **(a) positional:** BERT head with maximal average previous-token attention;
-- **(b) syntactic:** BERT head with maximal routing from the main verb
-  `analyzed` to its grammatical subject `scientist` in a controlled sentence;
-- **(c) semantic:** BERT head with maximal routing from `diagnosis` to
-  `patient` in a controlled semantic context;
-- **(d) induction-like:** GPT-2 head maximizing repeated-pattern routing from
-  the second `B` to the token following the first `B` in `A B C A B`.
+The four panels are layer-by-head mean routing-score maps:
+- **(a) positional:** mean previous-token attention across multiple controlled BERT sentences;
+- **(b) syntactic:** mean routing from a main verb to its grammatical subject across multiple controlled active sentences;
+- **(c) semantic:** mean routing between semantically associated target nouns across multiple controlled contexts;
+- **(d) induction-like:** mean GPT-2 repeated-pattern routing across multiple repeated-token prompts.
 
-Attention intensity is shown directly from model outputs. These diagnostics are
-descriptive routing patterns, **not causal explanations** of model behavior.
+Each panel shows every layer/head combination. The marked cell is the maximum mean routing score for that diagnostic. A shared quantitative colorbar reports the mean attention routing score.
 
-The repository stores each selected full attention matrix, all head-selection
-score tables, selected layer/head IDs, exact model revisions, stimuli, native SVG,
-300-DPI PNG, and executable generation code.
+These measurements are descriptive routing diagnostics, **not causal explanations** of model behavior. The repository stores the complete layer-by-head score matrices, head rankings, exact model revisions, stimuli, native SVG, 300-DPI PNG, and executable generation code.
