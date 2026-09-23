@@ -179,7 +179,24 @@ Every retained code listing must:
 5. be concise enough to support exposition rather than replace it;
 6. defer complete executable implementations, setup, serialization, boilerplate, and repetitive training loops to the repository.
 
-Every chapter must contain 15--25 substantive numbered code listings; 18--22 is the preferred target range. No filler listing may be introduced merely to satisfy the minimum.
+Every chapter must contain **15--22 substantive numbered code listings**. No filler listing may be introduced merely to satisfy the minimum, and no chapter may exceed 22 reader-facing listings. No filler listing may be introduced merely to satisfy the minimum.
+
+
+### No-code-dump hard gate
+
+Reader-facing code must be pedagogically selective rather than archival.
+
+A code listing is acceptable only when it:
+- teaches a specific concept central to the surrounding section;
+- is explicitly introduced and interpreted in the prose;
+- contains only the lines needed to communicate that concept;
+- has a descriptive caption/title and stable label;
+- is referenced in the body text;
+- avoids setup boilerplate, dependency installation, command dumps, repeated training loops, serialization code, long configuration blocks, and generic helper utilities unless those details are the actual subject being taught.
+
+Complete executable implementations belong in the GitHub repository. The manuscript should show focused excerpts, not complete source-file dumps.
+
+Required release condition: **0 code dumps, 0 filler listings, 0 unreferenced listings, and 15--22 substantive listings per chapter.**
 
 ### Listing continuity and float-placement hard gate
 
@@ -202,7 +219,7 @@ Complete executable code remains mandatory in GitHub even when the manuscript sh
 ## Release gates
 
 A chapter may not be accepted until all of the following are true:
-- 15--25 substantive numbered code listings;
+- 15--22 substantive numbered code listings;
 - untitled retained listings: 0;
 - unreferenced retained listings: 0;
 - listings interrupted by figures/tables/floats: 0;
