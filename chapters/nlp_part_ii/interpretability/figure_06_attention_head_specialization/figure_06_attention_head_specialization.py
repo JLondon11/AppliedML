@@ -164,7 +164,6 @@ for i,(ax,M) in enumerate(zip(axes,mats)):
     ax.text(.5,-.20,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
 cbar=fig.colorbar(im,ax=axes.ravel().tolist(),fraction=.018,pad=.035,location="right")
 cbar.set_label("Mean attention routing score")
-fig.tight_layout(w_pad=1.5)
 fig.savefig(HERE/"figure_06_attention_head_specialization.svg",bbox_inches="tight")
 fig.savefig(HERE/"figure_06_attention_head_specialization.png",dpi=300,bbox_inches="tight")
 plt.close(fig)
