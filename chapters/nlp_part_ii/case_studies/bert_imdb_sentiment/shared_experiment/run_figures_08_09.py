@@ -78,9 +78,10 @@ pd.DataFrame(cm,index=["true_negative","true_positive"],columns=["pred_negative"
 fig,ax=plt.subplots(figsize=(5.6,4.9)); im=ax.imshow(cm,cmap="cividis")
 ax.set_xticks([0,1],["Negative","Positive"]); ax.set_yticks([0,1],["Negative","Positive"])
 ax.set_xlabel("Predicted sentiment"); ax.set_ylabel("True sentiment")
+row_frac=cm/cm.sum(axis=1,keepdims=True)
 for i in range(2):
  for j in range(2):
-  ax.text(j,i,f"{cm[i,j]:,}",ha="center",va="center",fontsize=13,
+  ax.text(j,i,f"{cm[i,j]:,}\\n{100*row_frac[i,j]:.1f}%",ha="center",va="center",fontsize=11.5,
           color="white" if cm[i,j]>.55*cm.max() else "black")
 fig.colorbar(im,ax=ax,fraction=.046,pad=.04,label="Number of held-out reviews")
 fig.tight_layout(); fig.savefig(F8/"figure_08_bert_sentiment_confusion.svg",bbox_inches="tight")
