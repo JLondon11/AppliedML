@@ -21,4 +21,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add chapters/scientific_ai/ophthalmology/figure_14_gradcam_retinal_application/
-          if git diff --cached --quiet; then echo "No changes"; else git commit -m "Generate Scientific AI Figure 14 from RetinaMNIST Grad-CAM experiment"; git push; fi
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Generate Scientific AI Figure 14 from RetinaMNIST Grad-CAM experiment"
+            git pull --rebase origin main
+            git push origin main
+          fi
