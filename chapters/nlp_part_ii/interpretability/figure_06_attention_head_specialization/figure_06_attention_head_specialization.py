@@ -151,7 +151,7 @@ meta={
 
 mats=[POS,SYN,SEM,IND]
 vmax=max(float(m.max()) for m in mats)
-fig,axes=plt.subplots(1,4,figsize=(15.6,4.35))
+fig,axes=plt.subplots(1,4,figsize=(15.8,4.35),constrained_layout=True)
 for i,(ax,M) in enumerate(zip(axes,mats)):
     im=ax.imshow(M,origin="lower",aspect="auto",cmap="cividis",vmin=0,vmax=vmax)
     best=np.unravel_index(np.argmax(M),M.shape)
@@ -162,7 +162,7 @@ for i,(ax,M) in enumerate(zip(axes,mats)):
     ax.set_yticks(range(M.shape[0]))
     ax.tick_params(labelsize=6,direction="out")
     ax.text(.5,-.20,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
-cbar=fig.colorbar(im,ax=axes.ravel().tolist(),fraction=.018,pad=.02)
+cbar=fig.colorbar(im,ax=axes.ravel().tolist(),fraction=.018,pad=.035,location="right")
 cbar.set_label("Mean attention routing score")
 fig.tight_layout(w_pad=1.5)
 fig.savefig(HERE/"figure_06_attention_head_specialization.svg",bbox_inches="tight")
