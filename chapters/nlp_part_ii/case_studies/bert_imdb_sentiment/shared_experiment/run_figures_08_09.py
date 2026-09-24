@@ -75,14 +75,14 @@ pd.DataFrame({"example_id":range(NTEST),"true_label":y,"predicted_label":yhat,
  "negative_probability":prob[:,0],"positive_probability":prob[:,1]}).to_csv(F8/"figure_08_predictions.csv",index=False)
 pd.DataFrame(cm,index=["true_negative","true_positive"],columns=["pred_negative","pred_positive"]).to_csv(F8/"figure_08_confusion_matrix.csv")
 
-fig,ax=plt.subplots(figsize=(5.4,4.8)); im=ax.imshow(cm,cmap="cividis")
+fig,ax=plt.subplots(figsize=(5.6,4.9)); im=ax.imshow(cm,cmap="cividis")
 ax.set_xticks([0,1],["Negative","Positive"]); ax.set_yticks([0,1],["Negative","Positive"])
 ax.set_xlabel("Predicted sentiment"); ax.set_ylabel("True sentiment")
 for i in range(2):
  for j in range(2):
   ax.text(j,i,f"{cm[i,j]:,}",ha="center",va="center",fontsize=13,
           color="white" if cm[i,j]>.55*cm.max() else "black")
-fig.colorbar(im,ax=ax,fraction=.046,pad=.04,label="Number of reviews")
+fig.colorbar(im,ax=ax,fraction=.046,pad=.04,label="Number of held-out reviews")
 fig.tight_layout(); fig.savefig(F8/"figure_08_bert_sentiment_confusion.svg",bbox_inches="tight")
 fig.savefig(F8/"figure_08_bert_sentiment_confusion.png",dpi=300,bbox_inches="tight"); plt.close(fig)
 
