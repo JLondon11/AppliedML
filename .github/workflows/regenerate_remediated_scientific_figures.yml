@@ -9,6 +9,10 @@ on:
       - 'chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py'
       - 'chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py'
 
+concurrency:
+  group: remediated-scientific-figures
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
