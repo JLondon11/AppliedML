@@ -8,7 +8,6 @@ on:
       - 'chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_embedding_geometry.py'
       - 'chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py'
       - 'chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py'
-      - 'chapters/scientific_ai/ophthalmology/figure_14_gradcam_retinal_application/figure_14_gradcam_retinal.py'
 
 permissions:
   contents: write
@@ -44,8 +43,6 @@ jobs:
       - name: Regenerate NLP II Figure 12
         run: python chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py
 
-      - name: Regenerate Scientific AI Figure 14
-        run: python chapters/scientific_ai/ophthalmology/figure_14_gradcam_retinal_application/figure_14_gradcam_retinal.py
 
       - name: Run duplicate-figure audit
         run: python tools/audit_duplicate_figures.py
@@ -54,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add chapters/nlp_part_ii chapters/scientific_ai book/qa
+          git add chapters/nlp_part_ii book/qa
           if git diff --cached --quiet; then
             echo "No generated changes to commit."
           else
