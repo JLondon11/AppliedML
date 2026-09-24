@@ -14,7 +14,7 @@
   "max_length": 192,
   "best_validation_step": 189,
   "best_validation_epoch": 3.0,
-  "best_validation_loss": 0.6699960231781006,
+  "best_validation_loss": 0.6699960827827454,
   "test_accuracy": 0.634,
   "test_f1": 0.5503685503685504,
   "tn": 410,
