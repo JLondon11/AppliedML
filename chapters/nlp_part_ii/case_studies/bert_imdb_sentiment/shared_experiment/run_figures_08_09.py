@@ -81,7 +81,7 @@ ax.set_xlabel("Predicted sentiment"); ax.set_ylabel("True sentiment")
 row_frac=cm/cm.sum(axis=1,keepdims=True)
 for i in range(2):
  for j in range(2):
-  ax.text(j,i,f"{cm[i,j]:,}\\n{100*row_frac[i,j]:.1f}%",ha="center",va="center",fontsize=11.5,
+  ax.text(j,i,f"{cm[i,j]:,}\n{100*row_frac[i,j]:.1f}%",ha="center",va="center",fontsize=11.5,
           color="white" if cm[i,j]>.55*cm.max() else "black")
 fig.colorbar(im,ax=ax,fraction=.046,pad=.04,label="Number of held-out reviews")
 fig.tight_layout(); fig.savefig(F8/"figure_08_bert_sentiment_confusion.svg",bbox_inches="tight")
