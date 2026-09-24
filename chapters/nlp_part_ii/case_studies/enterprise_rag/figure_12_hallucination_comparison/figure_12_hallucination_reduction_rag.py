@@ -83,24 +83,25 @@ metrics["paired_change_bootstrap_95ci"]=dci
 fig,axs=plt.subplots(1,2,figsize=(10.4,4.6))
 ax=axs[0]
 x0=df.standalone_unsupported_rate.to_numpy(); x1=df.rag_unsupported_rate.to_numpy()
-for a,b in zip(x0,x1):
-    ax.plot([0,1],[a,b],lw=.45,alpha=.18)
-ax.scatter(np.zeros_like(x0),x0,s=10,alpha=.45,label="Standalone")
-ax.scatter(np.ones_like(x1),x1,s=10,alpha=.45,label="Retrieval-grounded")
-ax.errorbar([0,1],[smean,rmean],
-            yerr=np.array([[smean-sci[0],rmean-rci[0]],[sci[1]-smean,rci[1]-rmean]]),
-            fmt="o",capsize=4,lw=1.2)
-ax.set_xticks([0,1],["Standalone","Retrieval-grounded"])
-ax.set_ylabel("Unsupported-term fraction")
-ax.set_ylim(-.02,1.02)
+ax.scatter(x0,x1,s=18,alpha=.55,color="#5A7D7C",edgecolors="none")
+ax.plot([0,1],[0,1],ls="--",lw=1.0,color="#666666")
+ax.set_xlabel("Standalone unsupported-term fraction")
+ax.set_ylabel("Retrieval-grounded unsupported-term fraction")
+ax.set_xlim(-.02,1.02); ax.set_ylim(-.02,1.02)
+# Mean paired change and its bootstrap interval are shown as a compact horizontal summary.
+ax.errorbar([.08],[.92],xerr=np.array([[abs(dmean-dci[0])],[abs(dci[1]-dmean)]]),
+            fmt="o",capsize=4,lw=1.2,color="#B26E3B")
+ax.text(.08,.86,f"mean Δ = {dmean:.3f}",ha="center",va="top",fontsize=8)
 
 ax=axs[1]
 cats=["Retrieval miss","Generation failure\nafter retrieval hit"]
 vv=[miss_rate,genfail_rate]
-ax.bar([0,1],vv,width=.58)
+bars=ax.bar([0,1],vv,width=.58,color=["#43566B","#B26E3B"])
 ax.set_xticks([0,1],cats)
 ax.set_ylabel("Fraction of evaluated claims")
 ax.set_ylim(0,1)
+for bar,v in zip(bars,vv):
+    ax.text(bar.get_x()+bar.get_width()/2,v+.025,f"{v:.3f}",ha="center",va="bottom",fontsize=8)
 for i,ax in enumerate(axs):
     ax.tick_params(direction="out"); ax.grid(False)
     ax.text(.5,-.23,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
