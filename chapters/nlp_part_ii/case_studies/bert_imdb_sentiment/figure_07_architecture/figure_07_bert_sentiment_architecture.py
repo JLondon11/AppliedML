@@ -1,7 +1,7 @@
 """NLP Part II Figure 7 — BERT sentiment computation as measured tensor states.
 
 This replaces an arrow-chain architecture diagram with a scientific rendering
-computed from an actual pretrained BERT forward pass. The panels show:
+computed from an actual IMDb-fine-tuned BERT-base forward pass. The panels show:
 (a) token-by-hidden-state structure after the final encoder layer,
 (b) layer-wise [CLS] state evolution, and
 (c) classifier logits/probabilities from the sequence-classification head.
@@ -18,7 +18,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from huggingface_hub import HfApi
 
 HERE=Path(__file__).resolve().parent
-MODEL="google-bert/bert-base-uncased"
+MODEL="textattack/bert-base-uncased-imdb"
 SAMPLE="This film is beautifully acted and emotionally compelling."
 
 tok=AutoTokenizer.from_pretrained(MODEL)
@@ -54,7 +54,7 @@ meta={
     "encoder_layers":int(model.config.num_hidden_layers),
     "num_labels":2,
     "rendering":"measured tensor/state diagnostics from one pretrained-model forward pass",
-    "caveat":"Conceptual computation rendering only; no task-performance claim.",
+    "caveat":"Single-example computation rendering from an IMDb-fine-tuned BERT-base model; no aggregate benchmark-performance claim.",
     "torch_version":torch.__version__,
 }
 (HERE/"figure_07_model_provenance.json").write_text(json.dumps(meta,indent=2)+"\n")
