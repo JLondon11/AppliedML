@@ -20,6 +20,12 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 from huggingface_hub import HfApi
 
 HERE=Path(__file__).resolve().parent
+plt.rcParams.update({
+ "svg.fonttype":"none","figure.facecolor":"white","axes.facecolor":"white",
+ "font.size":9.0,"axes.labelsize":9.5,"xtick.labelsize":8.0,"ytick.labelsize":8.0,
+ "axes.linewidth":0.8,"xtick.major.width":0.8,"ytick.major.width":0.8,
+ "legend.fontsize":8.0,"legend.frameon":False,
+})
 ROOT=HERE.parent
 F8=ROOT/"figure_08_confusion_matrix"; F9=ROOT/"figure_09_loss_curves"
 F8.mkdir(exist_ok=True); F9.mkdir(exist_ok=True)
@@ -56,11 +62,11 @@ tr.to_csv(F9/"figure_09_training_loss.csv",index=False); ev.to_csv(F9/"figure_09
 best=ev.loc[ev["validation_loss"].astype(float).idxmin()]
 
 # Figure 9: actual learning dynamics.
-fig,ax=plt.subplots(figsize=(7.2,4.8))
-ax.plot(tr["step"],tr["training_loss"],lw=1.35,label="Training")
-ax.plot(ev["step"],ev["validation_loss"],marker="o",ms=4,lw=1.35,label="Validation")
-ax.axvline(int(best["step"]),ls="--",lw=.9)
-ax.scatter([int(best["step"])],[float(best["validation_loss"])],s=32,zorder=4)
+fig,ax=plt.subplots(figsize=(7.0,4.55))
+ax.plot(tr["step"],tr["training_loss"],lw=1.5,color="#34495E",label="Training")
+ax.plot(ev["step"],ev["validation_loss"],marker="o",ms=4.2,lw=1.45,color="#B06D4F",label="Validation")
+ax.axvline(int(best["step"]),ls="--",lw=1.0,color="#8A7AAE")
+ax.scatter([int(best["step"])],[float(best["validation_loss"])],s=38,color="#8A7AAE",zorder=4)
 ax.set_xlabel("Optimization step"); ax.set_ylabel("Cross-entropy loss")
 ax.legend(frameon=False); ax.tick_params(direction="out"); ax.grid(False)
 fig.tight_layout(); fig.savefig(F9/"figure_09_bert_sentiment_loss_curves.svg",bbox_inches="tight")
@@ -75,13 +81,13 @@ pd.DataFrame({"example_id":range(NTEST),"true_label":y,"predicted_label":yhat,
  "negative_probability":prob[:,0],"positive_probability":prob[:,1]}).to_csv(F8/"figure_08_predictions.csv",index=False)
 pd.DataFrame(cm,index=["true_negative","true_positive"],columns=["pred_negative","pred_positive"]).to_csv(F8/"figure_08_confusion_matrix.csv")
 
-fig,ax=plt.subplots(figsize=(5.6,4.9)); im=ax.imshow(cm,cmap="cividis")
+fig,ax=plt.subplots(figsize=(5.4,4.75)); im=ax.imshow(cm,cmap="cividis",interpolation="nearest")
 ax.set_xticks([0,1],["Negative","Positive"]); ax.set_yticks([0,1],["Negative","Positive"])
 ax.set_xlabel("Predicted sentiment"); ax.set_ylabel("True sentiment")
 row_frac=cm/cm.sum(axis=1,keepdims=True)
 for i in range(2):
  for j in range(2):
-  ax.text(j,i,f"{cm[i,j]:,}\n{100*row_frac[i,j]:.1f}%",ha="center",va="center",fontsize=11.5,
+  ax.text(j,i,f"{cm[i,j]:,}\n{100*row_frac[i,j]:.1f}%",ha="center",va="center",fontsize=11.0,
           color="white" if cm[i,j]>.55*cm.max() else "black")
 fig.colorbar(im,ax=ax,fraction=.046,pad=.04,label="Number of held-out reviews")
 fig.tight_layout(); fig.savefig(F8/"figure_08_bert_sentiment_confusion.svg",bbox_inches="tight")
