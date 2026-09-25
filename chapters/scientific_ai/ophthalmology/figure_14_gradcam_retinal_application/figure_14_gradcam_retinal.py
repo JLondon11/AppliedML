@@ -17,6 +17,10 @@ import medmnist
 from medmnist import INFO
 
 HERE=Path(__file__).resolve().parent
+plt.rcParams.update({
+    "svg.fonttype":"none","figure.facecolor":"white",
+    "font.size":9.0,"axes.labelsize":9.5,"xtick.labelsize":8.0,"ytick.labelsize":8.0,
+})
 SEED=1729
 random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
 device=torch.device("cpu")
@@ -81,14 +85,14 @@ np.save(HERE/"figure_14_source_image.npy",img); np.save(HERE/"figure_14_gradcam.
 pd.DataFrame({"class_index":range(len(info["label"])),"logit":logits.detach().numpy()[0]}).to_csv(HERE/"figure_14_logits.csv",index=False)
 
 # Scientific 3-panel rendering: no title/caption/prose in artwork.
-fig,axs=plt.subplots(1,3,figsize=(10.5,3.7))
+fig,axs=plt.subplots(1,3,figsize=(10.2,3.55))
 axs[0].imshow(img); axs[0].set_axis_off()
 im=axs[1].imshow(cam,cmap="magma",vmin=0,vmax=1); axs[1].set_axis_off()
-axs[2].imshow(img); overlay=axs[2].imshow(cam,cmap="magma",alpha=.48,vmin=0,vmax=1); axs[2].set_axis_off()
-for i,ax in enumerate(axs): ax.text(.5,-.08,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
-cbar=fig.colorbar(im,ax=axs[1],fraction=.046,pad=.04)
+axs[2].imshow(img); overlay=axs[2].imshow(cam,cmap="magma",alpha=.44,vmin=0,vmax=1); axs[2].set_axis_off()
+for i,ax in enumerate(axs): ax.text(.5,-.08,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=10.5)
+cbar=fig.colorbar(im,ax=axs[1],fraction=.042,pad=.035)
 cbar.set_label("Normalized Grad-CAM activation")
-fig.tight_layout(w_pad=1.6)
+fig.tight_layout(w_pad=1.35)
 fig.savefig(HERE/"figure_14_gradcam_retinal_classification.svg",bbox_inches="tight")
 fig.savefig(HERE/"figure_14_gradcam_retinal_classification.png",dpi=300,bbox_inches="tight"); plt.close(fig)
 
