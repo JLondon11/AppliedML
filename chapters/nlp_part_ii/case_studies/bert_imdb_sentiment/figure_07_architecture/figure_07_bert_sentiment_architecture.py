@@ -18,6 +18,12 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from huggingface_hub import HfApi
 
 HERE=Path(__file__).resolve().parent
+plt.rcParams.update({
+    "svg.fonttype":"none","figure.facecolor":"white","axes.facecolor":"white",
+    "font.size":9.0,"axes.labelsize":9.5,"xtick.labelsize":8.0,"ytick.labelsize":8.0,
+    "axes.linewidth":0.8,"xtick.major.width":0.8,"ytick.major.width":0.8,
+    "legend.fontsize":7.5,"legend.frameon":False,
+})
 MODEL="textattack/bert-base-uncased-imdb"
 SAMPLE="This film is beautifully acted and emotionally compelling."
 
@@ -59,13 +65,13 @@ meta={
 }
 (HERE/"figure_07_model_provenance.json").write_text(json.dumps(meta,indent=2)+"\n")
 
-fig,axs=plt.subplots(1,3,figsize=(12.6,4.1))
+fig,axs=plt.subplots(1,3,figsize=(12.4,4.0))
 
 # (a) Final hidden-state matrix, standardized within each hidden dimension for legibility.
 M=last[:,:96]
 mu=M.mean(axis=0,keepdims=True); sd=M.std(axis=0,keepdims=True)+1e-8
 Z=(M-mu)/sd
-im=axs[0].imshow(Z,aspect="auto",cmap="coolwarm",vmin=-2.5,vmax=2.5)
+im=axs[0].imshow(Z,aspect="auto",cmap="coolwarm",vmin=-2.5,vmax=2.5,interpolation="nearest")
 axs[0].set_xlabel("Hidden dimension (first 96)")
 axs[0].set_ylabel("Input token")
 axs[0].set_yticks(range(len(tokens)))
@@ -75,9 +81,9 @@ cb.set_label("Standardized activation")
 
 # (b) Layer-wise [CLS] representation evolution.
 layers=np.arange(len(norm))
-axs[1].plot(layers,norm,marker="o",ms=3,label=r"$\|h_{CLS}\|_2$")
+axs[1].plot(layers,norm,marker="o",ms=3.5,lw=1.45,color="#34495E",label=r"$\|h_{CLS}\|_2$")
 ax2=axs[1].twinx()
-ax2.plot(layers,cos,marker="s",ms=3,linestyle="--",label="cosine to embedding [CLS]")
+ax2.plot(layers,cos,marker="s",ms=3.2,lw=1.25,color="#A06F58",linestyle="--",label="cosine to embedding [CLS]")
 axs[1].set_xlabel("Embedding / encoder layer index")
 axs[1].set_ylabel("[CLS] state norm")
 ax2.set_ylabel("Cosine similarity")
@@ -87,7 +93,7 @@ axs[1].legend(lines,[l.get_label() for l in lines],frameon=False,fontsize=7,loc=
 
 # (c) Actual classification-head state.
 x=np.arange(2)
-axs[2].bar(x,prob,width=.58)
+axs[2].bar(x,prob,width=.56,color=["#71879B","#B06D4F"],edgecolor="none")
 axs[2].set_xticks(x,["Negative","Positive"])
 axs[2].set_ylabel("Softmax probability")
 axs[2].set_ylim(0,1)
@@ -99,7 +105,7 @@ for i,ax in enumerate(axs):
     ax.tick_params(direction="out")
     ax.text(.5,-.19,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=11)
 
-fig.tight_layout(w_pad=2.0)
+fig.tight_layout(w_pad=1.8)
 fig.savefig(HERE/"figure_07_bert_sentiment_architecture.svg",bbox_inches="tight")
 fig.savefig(HERE/"figure_07_bert_sentiment_architecture.png",dpi=300,bbox_inches="tight")
 plt.close(fig)
