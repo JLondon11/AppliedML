@@ -7,7 +7,6 @@ on:
       - '.github/workflows/regenerate_remediated_scientific_figures.yml'
       - 'chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_embedding_geometry.py'
       - 'chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py'
-      - 'chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py'
 
 concurrency:
   group: remediated-scientific-figures
@@ -47,8 +46,6 @@ jobs:
       - name: Regenerate NLP II Figure 10
         run: python chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.py
 
-      - name: Regenerate NLP II Figure 12
-        run: python chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py
 
 
       - name: Run duplicate-figure audit
