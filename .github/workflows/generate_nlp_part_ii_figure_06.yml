@@ -2,27 +2,44 @@ name: Generate NLP Part II Figure 6
 on:
   push:
     paths:
-      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py"
+      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/render_figure_06.py"
+      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_positional_mean_head_scores.csv"
+      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_syntactic_mean_head_scores.csv"
+      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_semantic_mean_head_scores.csv"
+      - "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_induction_mean_head_scores.csv"
       - ".github/workflows/generate_nlp_part_ii_figure_06.yml"
   workflow_dispatch:
+
+concurrency:
+  group: nlp-part-ii-figure-06-render
+  cancel-in-progress: true
+
 permissions:
   contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Sync latest main
+        run: git pull --rebase origin main
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
-      - run: |
-          python -m pip install --upgrade pip
-          pip install "torch>=2.2,<3" "transformers>=4.44,<5" "huggingface_hub>=0.24,<1" "pandas>=2.2,<3" "matplotlib>=3.8,<4"
-      - run: python chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py
-      - run: |
+      - name: Install rendering dependencies
+        run: pip install "numpy>=1.26,<3" "pandas>=2.2,<3" "matplotlib>=3.8,<4"
+      - name: Render Figure 6
+        run: python chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/render_figure_06.py
+      - name: Commit rendered assets
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/
-          if git diff --cached --quiet; then echo "No generated changes."; else
-            git commit -m "Generate NLP Part II Figure 6 from real attention weights"
-            git push
+          git add chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.png
+          git add chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.svg
+          if git diff --cached --quiet; then
+            echo "No rendered changes."
+          else
+            git commit -m "Render NLP Part II Figure 6 from validated head-score matrices"
+            git push origin main
           fi
