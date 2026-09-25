@@ -239,3 +239,25 @@ A chapter may not be accepted until all of the following are true:
 - confirmed dangling-conjunction sentence endings: 0;
 - undefined references/citations: 0;
 - fatal compile errors: 0.
+
+
+### Figure aesthetic-quality hard gate
+
+Scientific correctness is necessary but not sufficient for publication. Every retained figure must also be aesthetically refined at final print size.
+
+Required visual standard:
+- a clean white scientific background unless a different background is scientifically necessary;
+- a restrained premium palette with deliberate semantic use of color rather than default plotting colors;
+- chapter/book-wide consistency in typography, line weights, tick styling, panel labels, and legend treatment without forcing every figure to use identical colors;
+- compact composition with unnecessary whitespace removed;
+- balanced panel widths, margins, and visual weight;
+- legends and quantitative colorbars positioned so they do not obscure data or compete with adjacent panels;
+- labels large enough to remain readable after final LaTeX scaling;
+- annotations limited to information that materially improves scientific interpretation;
+- no default-Matplotlib appearance, infographic decoration, gratuitous gradients, decorative icons, or visual effects unrelated to the scientific content;
+- enough contrast for print and common forms of color-vision deficiency;
+- visual hierarchy that makes the primary scientific comparison apparent before secondary detail.
+
+For multi-panel figures, the panels must read as one intentionally designed composition rather than unrelated plots placed side by side. A scientifically valid figure that is cluttered, poorly balanced, visually crude, excessively bright, or typographically inconsistent is **REVISE**, not ACCEPT.
+
+Final ACCEPT requires inspection of the rendered PNG/SVG/PDF at the actual publication scale, not only review of the generating code.
