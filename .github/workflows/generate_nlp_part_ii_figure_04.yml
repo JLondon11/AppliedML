@@ -42,5 +42,6 @@ jobs:
             echo "No rendered changes."
           else
             git commit -m "Render NLP Part II Figure 4 from validated BERT-Tiny results"
+            git pull --rebase origin main
             git push origin main
           fi
