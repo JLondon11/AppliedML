@@ -13,17 +13,17 @@ This pass executes asset-level remediation for the highest-priority figures iden
 - **NLP II Figure 9 — ACCEPT.** Training/validation cross-entropy comes from the same shared experiment as Figure 8 and explicitly shows selected-checkpoint logic.
 - **Scientific AI Figure 14 — ACCEPT as methodological demonstration.** Real RetinaMNIST held-out image, executable CNN, computed Grad-CAM, and quantitative 0–1 activation colorbar. The caption limits interpretation to a low-resolution methodological benchmark rather than clinical-grade attribution.
 
-## NLP II Figure 12
+## NLP II Figure 12 — ACCEPT
 
-The claim-level SciFact design has been revised and visually inspected from the committed 120-claim result table. The mean paired change (RAG minus standalone unsupported-term fraction) is approximately -0.052 with a bootstrap 95% interval approximately [-0.112, 0.010]. Because the interval spans zero, the manuscript does not claim a definitive reduction under this protocol.
+The claim-level SciFact design has been revised, regenerated from the committed 120-claim result table, and visually inspected. The mean paired change (RAG minus standalone unsupported-term fraction) is approximately -0.052 with a bootstrap 95% interval approximately [-0.112, 0.010]. Because the interval spans zero, the manuscript does not claim a definitive reduction under this protocol.
 
-The stronger design uses:
+The accepted design uses:
 - claim-level standalone vs retrieval-grounded scatter;
 - dashed identity line;
 - numerical paired mean-change and bootstrap-interval annotation;
 - residual retrieval-miss vs generation-failure decomposition.
 
-**Status: RENDER REGENERATION ACTIVE.** Do not mark the committed Figure 12 asset final ACCEPT until the dedicated Figure 12 workflow lands the corrected line-break render and it is visually reinspected.
+The dedicated render-only workflow completed successfully and the final PNG/SVG were reinspected after commit.
 
 ## Workflow hardening
 
