@@ -88,10 +88,12 @@ ax.plot([0,1],[0,1],ls="--",lw=1.0,color="#666666")
 ax.set_xlabel("Standalone unsupported-term fraction")
 ax.set_ylabel("Retrieval-grounded unsupported-term fraction")
 ax.set_xlim(-.02,1.02); ax.set_ylim(-.02,1.02)
-# Mean paired change and its bootstrap interval are shown as a compact horizontal summary.
-ax.errorbar([.08],[.92],xerr=np.array([[abs(dmean-dci[0])],[abs(dci[1]-dmean)]]),
-            fmt="o",capsize=4,lw=1.2,color="#B26E3B")
-ax.text(.08,.86,f"mean Δ = {dmean:.3f}",ha="center",va="top",fontsize=8)
+# Report the paired mean change numerically; its bootstrap interval is on the
+# difference scale and should not be drawn against either condition's marginal axis.
+ax.text(.04,.96,
+        f"mean Δ (RAG − standalone) = {dmean:.3f}\\n95% bootstrap CI [{dci[0]:.3f}, {dci[1]:.3f}]",
+        transform=ax.transAxes,ha="left",va="top",fontsize=8,
+        bbox=dict(boxstyle="round,pad=0.25",fc="white",ec="#999999",alpha=.88))
 
 ax=axs[1]
 cats=["Retrieval miss","Generation failure\nafter retrieval hit"]
