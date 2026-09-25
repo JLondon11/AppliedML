@@ -4,8 +4,8 @@
   "hidden_size": 128,
   "num_contexts": 26,
   "pca_explained_variance_ratio": [
-    0.23913188400343738,
-    0.15637005381888075
+    0.23913183935677634,
+    0.15637008381374948
   ],
   "torch_version": "2.14.0+cu130"
 }
