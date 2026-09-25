@@ -41,5 +41,6 @@ jobs:
             echo "No rendered changes."
           else
             git commit -m "Render NLP Part II Figure 6 from validated head-score matrices"
+            git pull --rebase origin main
             git push origin main
           fi
