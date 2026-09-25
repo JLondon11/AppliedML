@@ -91,7 +91,7 @@ ax.set_xlim(-.02,1.02); ax.set_ylim(-.02,1.02)
 # Report the paired mean change numerically; its bootstrap interval is on the
 # difference scale and should not be drawn against either condition's marginal axis.
 ax.text(.04,.96,
-        f"mean Δ (RAG − standalone) = {dmean:.3f}\\n95% bootstrap CI [{dci[0]:.3f}, {dci[1]:.3f}]",
+        f"mean Δ (RAG − standalone) = {dmean:.3f}\n95% bootstrap CI [{dci[0]:.3f}, {dci[1]:.3f}]",
         transform=ax.transAxes,ha="left",va="top",fontsize=8,
         bbox=dict(boxstyle="round,pad=0.25",fc="white",ec="#999999",alpha=.88))
 
