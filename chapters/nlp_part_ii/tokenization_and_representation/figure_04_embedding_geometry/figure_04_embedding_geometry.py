@@ -24,19 +24,24 @@ from huggingface_hub import HfApi
 
 MODEL_ID = "google/bert_uncased_L-2_H-128_A-2"
 HERE = Path(__file__).resolve().parent
-plt.rcParams["svg.fonttype"] = "none"
+plt.rcParams.update({
+    "svg.fonttype":"none","figure.facecolor":"white","axes.facecolor":"white",
+    "font.size":9.0,"axes.labelsize":9.5,"xtick.labelsize":8.0,"ytick.labelsize":8.0,
+    "axes.linewidth":0.8,"xtick.major.width":0.8,"ytick.major.width":0.8,
+    "legend.fontsize":8.0,"legend.frameon":False,
+})
 # provenance-rerun: 128-hidden-dim selector
 
 # Restrained scientific palette.
 PALETTE = {
-    "animals": "#43566B",
+    "animals": "#34495E",
     "vehicles": "#71879B",
-    "finance": "#476B63",
-    "geography": "#8A6958",
+    "finance": "#4F7068",
+    "geography": "#A06F58",
 }
-BANK_FIN = "#476B63"
-BANK_GEO = "#8A6958"
-NEUTRAL = "#333333"
+BANK_FIN = "#4F7068"
+BANK_GEO = "#A06F58"
+NEUTRAL = "#5B5B5B"
 
 examples = [
     # Semantic neighborhoods for panel (a)
@@ -157,21 +162,21 @@ def main():
         json.dumps(metadata, indent=2) + "\n", encoding="utf-8"
     )
 
-    fig, axes = plt.subplots(1, 3, figsize=(13.8, 4.6))
+    fig, axes = plt.subplots(1, 3, figsize=(13.6, 4.45))
 
     # (a) Contextual semantic neighborhoods.
     ax = axes[0]
     for category in ["animals", "vehicles", "finance", "geography"]:
         sub = df[df.category == category]
         ax.scatter(
-            sub.pc1, sub.pc2, s=34,
+            sub.pc1, sub.pc2, s=42,
             color=PALETTE[category],
             label=category,
         )
         for r in sub.itertuples(index=False):
             ax.annotate(
                 r.target_word, (r.pc1, r.pc2),
-                xytext=(4, 4), textcoords="offset points", fontsize=7.5
+                xytext=(4, 4), textcoords="offset points", fontsize=7.2, color="#333333"
             )
     ax.set_xlabel(f"PC 1 ({100*pca.explained_variance_ratio_[0]:.1f}% variance)")
     ax.set_ylabel(f"PC 2 ({100*pca.explained_variance_ratio_[1]:.1f}% variance)")
@@ -183,15 +188,15 @@ def main():
     ax = axes[1]
     bf = df[df.category == "bank_finance"]
     bg = df[df.category == "bank_geography"]
-    ax.scatter(bf.pc1, bf.pc2, s=38, color=BANK_FIN, label="financial bank")
-    ax.scatter(bg.pc1, bg.pc2, s=38, color=BANK_GEO, marker="^", label="river bank")
+    ax.scatter(bf.pc1, bf.pc2, s=44, color=BANK_FIN, label="financial bank")
+    ax.scatter(bg.pc1, bg.pc2, s=44, color=BANK_GEO, marker="^", label="river bank")
 
     cf = bf[["pc1", "pc2"]].mean().to_numpy()
     cg = bg[["pc1", "pc2"]].mean().to_numpy()
-    ax.scatter(*cf, s=80, facecolors="none", edgecolors=BANK_FIN, linewidths=1.3)
+    ax.scatter(*cf, s=80, facecolors="none", edgecolors=BANK_FIN, linewidths=1.4)
     ax.scatter(*cg, s=80, facecolors="none", edgecolors=BANK_GEO, linewidths=1.3)
     ax.plot([cf[0], cg[0]], [cf[1], cg[1]],
-            color=NEUTRAL, linewidth=1.0, linestyle="--")
+            color=NEUTRAL, linewidth=1.1, linestyle="--")
     ax.set_xlabel(f"PC 1 ({100*pca.explained_variance_ratio_[0]:.1f}% variance)")
     ax.set_ylabel(f"PC 2 ({100*pca.explained_variance_ratio_[1]:.1f}% variance)")
     ax.legend(frameon=False, fontsize=8)
@@ -212,7 +217,7 @@ def main():
         for j,g2 in enumerate(groups):
             D[i,j]=cosine_distance(H[g1],H[g2])
     pd.DataFrame(D,index=labels,columns=labels).to_csv(HERE/"figure_04_centroid_cosine_distances.csv")
-    im=ax.imshow(D,cmap="cividis",aspect="auto",vmin=0,vmax=max(.01,float(D.max())))
+    im=ax.imshow(D,cmap="cividis",aspect="equal",vmin=0,vmax=max(.01,float(D.max())))
     ax.set_xticks(range(len(labels))); ax.set_xticklabels(labels,rotation=55,ha="right",fontsize=7)
     ax.set_yticks(range(len(labels))); ax.set_yticklabels(labels,fontsize=7)
     cb=fig.colorbar(im,ax=ax,fraction=.046,pad=.04)
@@ -226,7 +231,7 @@ def main():
         ax.spines["top"].set_visible(True)
         ax.spines["right"].set_visible(True)
 
-    fig.tight_layout(w_pad=2.0)
+    fig.tight_layout(w_pad=1.8)
     fig.savefig(HERE / "figure_04_embedding_geometry.svg", bbox_inches="tight")
     fig.savefig(HERE / "figure_04_embedding_geometry.png",
                 dpi=300, bbox_inches="tight")
