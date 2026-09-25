@@ -21,7 +21,7 @@ for cat in ["animals","vehicles","finance","geography"]:
  sub=df[df.category==cat]
  ax.scatter(sub.pc1,sub.pc2,s=42,color=PALETTE[cat],label=cat,edgecolors="white",linewidths=.35)
  offsets={
-  "dog":(9,-7),"cat":(6,7),"car":(-15,6),"truck":(6,5),"bus":(6,-9),
+  "dog":(10,-8),"cat":(8,7),"car":(-22,10),"truck":(10,1),"bus":(8,-11),
   "train":(6,5),"plane":(6,4),"wolf":(6,4),"loan":(6,4),"credit":(6,-2),
   "money":(6,4),"investment":(6,4),"river":(6,4),"shore":(6,4),
   "stream":(6,4),"water":(6,4)
