@@ -20,8 +20,15 @@ ax=axes[0]
 for cat in ["animals","vehicles","finance","geography"]:
  sub=df[df.category==cat]
  ax.scatter(sub.pc1,sub.pc2,s=42,color=PALETTE[cat],label=cat,edgecolors="white",linewidths=.35)
+ offsets={
+  "dog":(9,-7),"cat":(6,7),"car":(-15,6),"truck":(6,5),"bus":(6,-9),
+  "train":(6,5),"plane":(6,4),"wolf":(6,4),"loan":(6,4),"credit":(6,-2),
+  "money":(6,4),"investment":(6,4),"river":(6,4),"shore":(6,4),
+  "stream":(6,4),"water":(6,4)
+ }
  for r in sub.itertuples(index=False):
-  ax.annotate(r.target_word,(r.pc1,r.pc2),xytext=(4,4),textcoords="offset points",fontsize=7.2,color="#333333")
+  dx,dy=offsets.get(r.target_word,(4,4))
+  ax.annotate(r.target_word,(r.pc1,r.pc2),xytext=(dx,dy),textcoords="offset points",fontsize=7.2,color="#333333")
 ax.set_xlabel(f"PC 1 ({100*ev[0]:.1f}% variance)"); ax.set_ylabel(f"PC 2 ({100*ev[1]:.1f}% variance)")
 ax.legend(loc="best",handletextpad=.45)
 
