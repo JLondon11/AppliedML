@@ -1,7 +1,7 @@
 # AppliedML Final Publication Recovery Rules
 
-Recovery baseline: `AppliedML_Complete_Book_Proof_Pass20.pdf`.
-Superseding editorial requirements are taken from the Book Editing project history and later accepted figure packages.
+Authoritative manuscript baseline: `AppliedML_Complete_Book_Proof_Pass20.pdf`. Pass20 is the latest complete book manuscript version and is the text source that must be updated line by line.
+Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing chat history are superseding correction sources only; they do not replace Pass20 as the manuscript baseline.
 
 ## Manuscript hard gates
 - Reconstruct editable LaTeX chapter sources; the final deliverable may not be a PDF-inclusion wrapper.
