@@ -1,0 +1,48 @@
+name: Final Book Figure Tri-Format Preservation
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/**/figures/*.svg'
+      - '.github/workflows/final-book-figure-triformat.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Install SVG conversion tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+      - name: Generate missing PDF and PNG siblings
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' svg; do
+            stem="${svg%.svg}"
+            if [[ ! -f "${stem}.pdf" ]]; then
+              rsvg-convert -f pdf -o "${stem}.pdf" "$svg"
+            fi
+            if [[ ! -f "${stem}.png" ]]; then
+              rsvg-convert -f png -o "${stem}.png" "$svg"
+            fi
+          done < <(find book/final -type f -path '*/figures/*.svg' -print0)
+      - name: Commit generated binaries
+        shell: bash
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "AppliedML Publication Bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add book/final
+            git commit -m "Generate missing final figure PDF/PNG siblings"
+            git push origin HEAD:book-publication-recovery-final
+          fi
