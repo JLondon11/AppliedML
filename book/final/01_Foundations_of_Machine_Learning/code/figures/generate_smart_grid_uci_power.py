@@ -4,7 +4,7 @@ from pathlib import Path
 import argparse, io, json, urllib.request, zipfile
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt\nimport matplotlib.dates as mdates
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
@@ -59,11 +59,18 @@ def main():
     axs[0].tick_params(axis="x",rotation=25); axs[0].legend(frameon=False,fontsize=7)
 
     abs_err=[np.abs(te["y"].to_numpy()-p) for p in (pred_persist,pred_seasonal,pred_ridge)]
-    axs[1].boxplot(abs_err,tick_labels=["1 h\npersistence","24 h\nseasonal","ridge\nlags"],showfliers=False)
+    bp=axs[1].boxplot(abs_err,tick_labels=["1 h\npersistence","24 h\nseasonal","ridge\nlags"],
+                       showfliers=False,patch_artist=True)
+    for patch,fc in zip(bp["boxes"],["#DDE5EB","#EFE0D4","#DCE8E2"]):
+        patch.set_facecolor(fc)
+        patch.set_edgecolor("#555555")
+    for med in bp["medians"]:
+        med.set_color("#B26E3B")
+        med.set_linewidth(1.7)
     axs[1].set_ylabel("Absolute forecast error (kW)")
     for i,ax in enumerate(axs):
         ax.spines[["top","right"]].set_visible(False); ax.tick_params(direction="out")
-        ax.text(.5,-.25,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=10)
+        ax.text(.5,-.20,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=10)
     fig.tight_layout(w_pad=2.0)
     for ext in ("png","svg","pdf"):
         fig.savefig(out/f"figure_01_30_smart_grid_uci_power.{ext}",dpi=300 if ext=="png" else None,bbox_inches="tight",pad_inches=.03)
