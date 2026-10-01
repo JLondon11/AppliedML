@@ -24,7 +24,10 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Every code listing must display line numbers for all code lines. Surrounding prose should cite specific line ranges when those lines implement a concept, safeguard, metric, data split, loss term, optimization step, or other point that materially supports the chapter explanation.
 - Every figure, table, and code listing must be explicitly referenced and substantively discussed in the surrounding text. No orphaned floats/listings and no token mentions that merely say a figure/table exists; the prose must explain what evidence or implementation detail the reader should take from it.
 - Remove repetitive, trivial, repair-oriented, or non-informative code dumps.
-- Retained code must be internally complete enough to support the stated pedagogical point; full implementations may live in GitHub.
+- Retained code shown in the manuscript may be pedagogically focused, but the full and complete runnable implementation for every numbered listing MUST be committed in GitHub.
+- Full listing implementations must be organized by chapter and section, with a stable one-to-one mapping from manuscript listing number to repository file. Use filenames that preserve the listing number and descriptive title; do not pool unrelated listing code in generic dump files.
+- Each full implementation must include required imports, data-loading/setup code, helper functions, configuration, deterministic seeds where applicable, and execution entry points needed to reproduce the listing's behavior. If external data are required, document the exact source and expected path/API rather than embedding unavailable assumptions.
+- The manuscript excerpt and repository implementation must remain semantically synchronized. Any listing edit that changes behavior requires updating both the manuscript and the corresponding repository file.
 - Remove references/tooltips to code that does not exist or does not run.
 
 ## Figure hard gates
