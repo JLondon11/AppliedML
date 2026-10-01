@@ -1,0 +1,7 @@
+{
+  "dataset": "UCI Individual Household Electric Power Consumption, id=235",
+  "raw_instances": 2075259,
+  "period": "December 2006 to November 2010; final 18 months used after hourly aggregation",
+  "split": "chronological 80/20 after lag construction",
+  "features": "lags 1, 24, 168 h; lagged 24 h rolling mean; hour/day-of-week cyclical features"
+}
