@@ -40,10 +40,11 @@ def main():
     common=[c for c in Xtr.columns if c in Xte.columns]
     Xtr=Xtr[common]; Xte=Xte[common]
 
-    ndvi=[c for c in common if "ndvi" in str(c).lower()]
+    import re
+    ndvi=[c for c in common if str(c).lower()=="max_ndvi" or re.match(r"^\\d{8}_N$", str(c))]
     maxndvi=[c for c in common if str(c).lower()=="max_ndvi"]
     if not ndvi:
-        ndvi=common
+        raise RuntimeError("No NDVI features found in UCI Crowdsourced Mapping schema")
     maxfeat=maxndvi if maxndvi else [ndvi[0]]
 
     models={
