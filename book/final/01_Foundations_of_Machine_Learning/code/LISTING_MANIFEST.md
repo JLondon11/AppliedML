@@ -2,7 +2,7 @@
 
 Authoritative manuscript baseline: Pass20 Chapter 1.
 
-Every numbered listing below has a full runnable repository companion. The manuscript may show a pedagogically focused excerpt, but these files are the complete implementations that must remain semantically synchronized with the published text.
+Every retained Chapter 1 numbered listing below has a full runnable repository companion. Four former Pass20 listings were moved with their sections to their destination chapters and are intentionally absent from this Chapter 1 manifest. The manuscript may show a pedagogically focused excerpt, but these files are the complete implementations that must remain semantically synchronized with the published text.
 
 | Listing | Title | Repository path |
 |---|---|---|
@@ -14,12 +14,8 @@ Every numbered listing below has a full runnable repository companion. The manus
 | 1.6 | Windowing and spectral feature extraction for bearing vibration signals | `code/applications/predictive_maintenance/listing_01_06_bearing_windowing_spectral_features.py` |
 | 1.7 | Expected calibration error (ECE) for a binary classifier | `code/applications/medical_image_classification/listing_01_07_expected_calibration_error.py` |
 | 1.8 | Cost-sensitive threshold selection for a fraud classifier | `code/applications/financial_fraud/listing_01_08_cost_sensitive_threshold.py` |
-| 1.9 | Bird's-eye-view bounding-box IoU for 3D detection evaluation | `code/applications/intelligent_transportation/listing_01_09_bev_bbox_iou.py` |
-| 1.10 | Latitude-weighted RMSE for global weather forecast evaluation | `code/applications/climate_weather/listing_01_10_latitude_weighted_rmse.py` |
-| 1.11 | INT8 post-training quantization of a weight tensor | `code/applications/edge_ai/listing_01_11_int8_post_training_quantization.py` |
 | 1.12 | Pinball (quantile) loss for probabilistic load forecasting | `code/applications/smart_grid/listing_01_12_pinball_loss.py` |
 | 1.13 | Asymmetric PHM08 prognostic scoring function | `code/applications/aerospace_prognostics/listing_01_13_phm08_score.py` |
-| 1.14 | NDVI computation from multispectral imagery | `code/applications/precision_agriculture/listing_01_14_ndvi.py` |
 | 1.15 | Randomized hyperparameter search with cross-validation | `code/hyperparameter_optimization/random_search/listing_01_15_randomized_search_cv.py` |
 | 1.16 | Define-by-run hyperparameter search using Optuna | `code/hyperparameter_optimization/optuna/listing_01_16_define_by_run_optuna.py` |
 | 1.17 | Multi-objective hyperparameter search with competing directions | `code/hyperparameter_optimization/multi_objective/listing_01_17_multi_objective_optuna.py` |
