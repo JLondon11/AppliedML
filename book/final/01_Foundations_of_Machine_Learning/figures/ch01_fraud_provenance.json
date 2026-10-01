@@ -1,0 +1,9 @@
+{
+  "dataset": "OpenML creditcard, data_id=1597 (ULB/Worldline benchmark)",
+  "rows": 284807,
+  "fraud_cases": 492,
+  "train_rows": 199364,
+  "test_rows": 85443,
+  "split": "chronological earliest 70% train, latest 30% test after sorting by Time",
+  "target": "Class"
+}
