@@ -1,0 +1,9 @@
+{
+  "dataset": "sklearn.datasets.load_breast_cancer (Wisconsin Diagnostic Breast Cancer)",
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "methods": "NumPy first-order optimizers and SciPy L-BFGS-B on the same regularized logistic objective"
+}
