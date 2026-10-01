@@ -41,6 +41,8 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Every heatmap/matrix/saliency map that encodes magnitude must include a quantitative legend/colorbar.
 - Every panel `(a)`, `(b)`, `(c)`, etc. must be explicitly described in the unified caption and referenced where appropriate in the prose.
 - Detect and remove/replace exact or semantic duplicate figures. If a figure is removed, remove or rewrite every corresponding in-text reference.
+- Remove duplicate and near-duplicate content across the book, including prose, figures, captions, tables, worked examples, Applications, Case Studies, and code listings. Similar items may coexist only when they answer clearly different scientific or pedagogical questions; that distinction must be explicit in the surrounding text and evidence.
+- Duplicate detection is both intra-chapter and cross-chapter. When two items overlap substantially, retain the stronger scientifically defensible version, merge complementary material, or redesign one item to serve a distinct role. Do not preserve duplication merely to maintain historical numbering.
 - Final surviving figure binaries must be archived in PNG, SVG, and PDF and committed to GitHub.
 
 ## Known authoritative later corrections
