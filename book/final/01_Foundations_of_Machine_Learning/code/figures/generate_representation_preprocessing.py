@@ -50,18 +50,13 @@ def main():
     axs[1].set_ylabel("Condition number of regularized Gram matrix")
 
     cum=np.cumsum(pca.explained_variance_ratio_)
-    axs[2].plot(np.arange(1,len(cum)+1),cum,lw=1.8,color=PALETTE[3])
-    axs[2].axvline(10,ls="--",lw=1,color="#777777")
-    axs[2].set_xlabel("Principal components retained")
-    axs[2].set_ylabel("Cumulative explained variance")
-    ax2=axs[2].twinx()
-    ax2.scatter([1.0,2.0,3.0],aucs,s=35,color=[PALETTE[0],PALETTE[1],PALETTE[2]],zorder=4)
-    ax2.set_ylim(.90,1.0)
-    ax2.set_ylabel("Held-out ROC-AUC")
-    # Map the three audit points to a small annotation band rather than pretending
-    # they correspond to the component-count x-axis.
-    axs[2].text(.02,.08,f"ROC-AUC: raw {aucs[0]:.3f} | standardized {aucs[1]:.3f} | PCA-10 {aucs[2]:.3f}",
-                transform=axs[2].transAxes,fontsize=7.5)
+    axs[2].bar(["raw","standardized","PCA-10"],aucs,
+               color=[PALETTE[0],PALETTE[1],PALETTE[2]],width=.62)
+    axs[2].set_ylim(.90,1.0)
+    axs[2].set_ylabel("Held-out ROC-AUC")
+    axs[2].tick_params(axis="x",rotation=15)
+    axs[2].text(.03,.08,f"PCA-10 cumulative variance = {cum[9]:.3f}",
+                transform=axs[2].transAxes,fontsize=8)
 
     for i,ax in enumerate(axs):
         ax.spines[["top","right"]].set_visible(False)
