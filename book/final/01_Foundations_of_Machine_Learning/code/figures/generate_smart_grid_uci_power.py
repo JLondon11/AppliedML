@@ -56,8 +56,11 @@ def main():
     axs[0].plot(y.index,y.to_numpy(),lw=1.5,color=COLORS["actual"],label="actual")
     axs[0].plot(y.index,pred_seasonal[:n],lw=1.1,color=COLORS["seasonal"],label="24 h seasonal naive")
     axs[0].plot(y.index,pred_ridge[:n],lw=1.1,color=COLORS["ridge"],label="ridge lag model")
-    axs[0].set_ylabel("Hourly mean active power (kW)"); axs[0].set_xlabel("Time")
-    axs[0].tick_params(axis="x",rotation=25); axs[0].legend(frameon=False,fontsize=7)
+    axs[0].set_ylabel("Hourly mean active power (kW)")
+    axs[0].xaxis.set_major_locator(mdates.DayLocator(interval=2))
+    axs[0].xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+    axs[0].tick_params(axis="x",rotation=0)
+    axs[0].legend(frameon=False,fontsize=7)
 
     abs_err=[np.abs(te["y"].to_numpy()-p) for p in (pred_persist,pred_seasonal,pred_ridge)]
     bp=axs[1].boxplot(abs_err,tick_labels=["1 h\npersistence","24 h\nseasonal","ridge\nlags"],
@@ -71,7 +74,7 @@ def main():
     axs[1].set_ylabel("Absolute forecast error (kW)")
     for i,ax in enumerate(axs):
         ax.spines[["top","right"]].set_visible(False); ax.tick_params(direction="out")
-        ax.text(.5,-.20,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=10)
+        ax.text(.5,-.17,f"({chr(97+i)})",transform=ax.transAxes,ha="center",va="top",fontsize=10)
     fig.tight_layout(w_pad=2.0)
     for ext in ("png","svg","pdf"):
         fig.savefig(out/f"figure_01_30_smart_grid_uci_power.{ext}",dpi=300 if ext=="png" else None,bbox_inches="tight",pad_inches=.03)
