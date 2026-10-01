@@ -22,6 +22,25 @@ Three models are evaluated under the same split. The first is standard logistic 
 
 Continuous inputs are standardized for the logistic-regression models using statistics learned from the training partition only. Each model produces a fraud score for every held-out transaction. Average precision and ROC--AUC summarize ranking behavior, while a precision--recall sweep identifies the threshold that maximizes F1 for this controlled experiment. The top-1\% review budget is also reported to connect statistical evaluation to a finite analyst workload.
 
+Listing~\ref{lst:ch1-fraud-cost-threshold} shows the cost-sensitive threshold calculation used to connect model scores to an operating decision. Lines 7--10 enumerate candidate thresholds and convert scores to binary decisions. Lines 11--13 count false negatives and false positives separately, and line 14 applies the asymmetric business costs before the minimum-cost threshold is selected. The important point is that the operating threshold is derived from the consequences of the two error types rather than from a default value of 0.5.
+
+\begin{lstlisting}[style=BookCode,language=Python,caption={Cost-sensitive threshold selection for a fraud classifier.},label={lst:ch1-fraud-cost-threshold}]
+def select_cost_optimal_threshold(y_true, y_prob,
+                                  cost_false_negative=500.0,
+                                  cost_false_positive=5.0,
+                                  thresholds=None):
+    if thresholds is None:
+        thresholds = np.linspace(0.01, 0.99, 99)
+    rows = []
+    for t in thresholds:
+        pred = (y_prob >= t).astype(int)
+        fn = int(((y_true == 1) & (pred == 0)).sum())
+        fp = int(((y_true == 0) & (pred == 1)).sum())
+        cost = fn * cost_false_negative + fp * cost_false_positive
+        rows.append((float(t), float(cost), fn, fp))
+    return min(rows, key=lambda x: x[1]), rows
+\end{lstlisting}
+
 \textbf{Evaluation}
 
 Figure~\ref{fig:ch1-credit-card-fraud} emphasizes the metrics that matter under severe imbalance. Panel (a) shows the precision--recall curves for all three models together with the test-set fraud prevalence. Panel (b) reports precision and recall when only the top 1\% of scored transactions are sent for review. Table~\ref{tab:ch1-fraud-benchmark} provides the corresponding ranking and thresholded metrics.
