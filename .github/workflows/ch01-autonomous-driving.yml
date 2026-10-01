@@ -1,0 +1,49 @@
+name: Generate Chapter 1 Autonomous Driving Benchmark
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/code/generate_autonomous_driving_benchmark.py'
+      - '.github/workflows/ch01-autonomous-driving.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas matplotlib
+      - name: Generate autonomous-driving benchmark figure
+        run: |
+          python book/final/01_Foundations_of_Machine_Learning/code/generate_autonomous_driving_benchmark.py
+      - name: Commit generated evidence
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "AppliedML Publication Bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add book/final/01_Foundations_of_Machine_Learning
+            git commit -m "Generate Chapter 1 autonomous-driving benchmark evidence"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin book-publication-recovery-final
+              if git push origin HEAD:book-publication-recovery-final; then
+                break
+              fi
+              if [[ "$attempt" == "5" ]]; then
+                exit 1
+              fi
+              sleep $((attempt * 2))
+            done
+          fi
