@@ -40,6 +40,7 @@ def main():
     Xtr=Xtr.apply(pd.to_numeric,errors="coerce").fillna(0)
     Xte=Xte.apply(pd.to_numeric,errors="coerce").fillna(0)
     common=[c for c in Xtr.columns if c in Xte.columns]
+    print("COMMON_COLUMNS:", common)
     Xtr=Xtr[common]; Xte=Xte[common]
 
     import re
@@ -102,6 +103,7 @@ def main():
     plt.close(fig)
 
     meta={"dataset":"UCI Crowdsourced Mapping, id=400",
+          "columns":common,
           "source_url":URL,
           "train_file_note":"UCI notes that training labels contain noise.",
           "test_file_note":"UCI states testing labels do not contain class-label errors.",
