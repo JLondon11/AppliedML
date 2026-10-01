@@ -30,6 +30,9 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Use real data/executable computation for empirical, benchmark, application, and case-study claims.
 - No invented benchmark values or infographic substitutes for scientific renderings.
 - White scientific background where appropriate; premium restrained palette; compact whitespace; consistent typography/line weights; clean legends/colorbars.
+- Figure dimensions must be visually consistent across the book. Default target is approximately 0.88-0.94\\textwidth for single-row figures, with aspect ratios chosen to keep most figures within a common visual height envelope. Multi-panel figures should be composed to comparable total height rather than allowed to become unusually tall or short.
+- Artwork must be exported with tight bounding boxes and minimal internal padding; remove empty canvas margins and unused panel space.
+- LaTeX figure placement must avoid large vertical gaps: do not use manual positive \\vspace around figures, keep caption spacing compact and consistent, and normalize float parameters/placement so figures sit close to the surrounding discussion without crowding text.
 - Every heatmap/matrix/saliency map that encodes magnitude must include a quantitative legend/colorbar.
 - Every panel `(a)`, `(b)`, `(c)`, etc. must be explicitly described in the unified caption and referenced where appropriate in the prose.
 - Detect and remove/replace exact or semantic duplicate figures. If a figure is removed, remove or rewrite every corresponding in-text reference.
