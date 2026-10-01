@@ -24,7 +24,22 @@ Let \(x_{e,t}\in\mathbb{R}^{p}\) denote the sensor and operating-condition vecto
 
 \textbf{Evaluation}
 
-Evaluation combines symmetric regression metrics with the asymmetric PHM score. RMSE and MAE summarize average numerical error, while the PHM score penalizes late RUL predictions more severely than early predictions of the same magnitude. Figure~\ref{fig:ch1-turbofan-prognostics} provides a reproducible numerical prognostics rendering: panel (a) shows multiple degradation trajectories with engine-specific degradation rates, and panel (b) shows a reference remaining-life trajectory together with a noisy model estimate. The figure is deliberately identified as a numerical reconstruction rather than as a plot of NASA records.
+Evaluation combines symmetric regression metrics with the asymmetric PHM score. RMSE and MAE summarize average numerical error, while the PHM score penalizes late RUL predictions more severely than early predictions of the same magnitude. Listing~\ref{lst:ch1-phm-score} makes that asymmetry explicit: line 5 computes signed RUL error, lines 6--7 apply different exponential penalties to early and late predictions, and line 8 aggregates the per-engine penalties. The code makes clear why two models with similar RMSE can receive very different prognostic scores when one model systematically overestimates remaining life near failure.
+
+\begin{lstlisting}[style=BookCode,language=Python,caption={Asymmetric PHM08 prognostic scoring function.},label={lst:ch1-phm-score}]
+def phm_score(y_true_rul, y_pred_rul):
+    y_true = np.asarray(y_true_rul, dtype=float)
+    y_pred = np.asarray(y_pred_rul, dtype=float)
+    if y_true.shape != y_pred.shape:
+        raise ValueError("shape mismatch")
+    error = y_pred - y_true
+    scores = np.where(error < 0,
+                      np.exp(-error / 13.0) - 1.0,
+                      np.exp(error / 10.0) - 1.0)
+    return float(np.sum(scores))
+\end{lstlisting}
+
+Figure~\ref{fig:ch1-turbofan-prognostics} provides a reproducible numerical prognostics rendering: panel (a) shows multiple degradation trajectories with engine-specific degradation rates, and panel (b) shows a reference remaining-life trajectory together with a noisy model estimate. The figure is deliberately identified as a numerical reconstruction rather than as a plot of NASA records.
 
 \begin{figure}[t]
 \centering
