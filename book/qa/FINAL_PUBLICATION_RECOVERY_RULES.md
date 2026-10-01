@@ -6,6 +6,7 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 ## Manuscript hard gates
 - Reconstruct editable LaTeX chapter sources; the final deliverable may not be a PDF-inclusion wrapper.
 - Audit every chapter line by line for incomplete sentences, fragments, duplicated prose, broken cross-references, malformed headings, and extraction artifacts.
+- Prose must read like natural expert technical writing rather than a repeated template: vary sentence length and syntax, use specific transitions, avoid canned framing and repetitive paragraph openings, remove generic filler, and preserve a consistent authorial voice across the book. Do not write to evade AI-detection systems; edit for clarity, specificity, coherence, and natural scholarly tone.
 - Remove all editorial/production narrative, including discussion of original code/chapter drafts, repair history, placeholders, production passes, and instructions to future editors.
 - Remove irrelevant Tips/Notes/tooltips about original code, missing code, prior chapter versions, or editorial process.
 - Application and Case Study sections begin with multiple substantive introductory/background paragraphs. Only afterward use bold standalone labels such as **Problem**, **Dataset**, **Model**, **Method**, **Evaluation**, **Results**, **Error Analysis**, **Limitations**, and **Deployment/Research Implications**, each followed by full prose.
