@@ -29,6 +29,8 @@ def main():
         te=[n for n in names if n.lower().endswith("testing.csv")][0]
         with z.open(tr) as f: train=pd.read_csv(f)
         with z.open(te) as f: test=pd.read_csv(f)
+    train.columns=[str(col).strip() for col in train.columns]
+    test.columns=[str(col).strip() for col in test.columns]
     zpath.unlink(missing_ok=True)
 
     target=find_label_col(train)
