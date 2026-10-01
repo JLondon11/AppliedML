@@ -60,3 +60,8 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 ## Persistence
 - All accepted text and binary changes are committed to branch `book-publication-recovery-final`.
 - Local deliverables carry SHA-256 checksums and a chapter/figure manifest.
+
+## Chapter completion package
+- Chapter completion requires a chapter-specific ZIP archive committed to the repository. The ZIP must contain the final editable chapter `.tex`, the compiled chapter PDF, every retained figure in PNG/SVG/PDF, the complete code-listing implementations organized by section, figure/listing manifests, and checksum/provenance files.
+- The ZIP must preserve the final chapter directory structure rather than flattening unrelated assets. The archive filename must include the chapter number, chapter title, and a `PUBLICATION_READY` marker.
+- A chapter is not marked complete until the archive is generated from the same repository commit that passed final Master QA, compilation, page-count, reference, figure, table, listing, duplicate-content, and layout checks.
