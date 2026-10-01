@@ -27,6 +27,10 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 
 ## Figure hard gates
 - Audit every canonical figure individually for scientific correctness, provenance, caption fidelity, and aesthetics.
+- Updated Master QA is the controlling acceptance standard for every chapter, section, figure, table, listing, caption, reference, and compiled page. Earlier ACCEPT/FROZEN/CANONICAL labels do not override a current failure.
+- Every retained figure must pass two independent gates: (1) scientific validity/provenance and (2) publication aesthetics. A scientifically correct but visually weak figure is REVISE; an attractive but scientifically weak or unsupported figure is REPLACE.
+- Figure acceptance requires the best defensible representation for the scientific claim: correct method/data, informative encoding, appropriate uncertainty/legends/colorbars, readable typography, compact composition, restrained premium palette, balanced panel geometry, and no unnecessary infographic grammar.
+- Each chapter and each section must be reviewed in context after figures/tables/listings are integrated so the surrounding prose actually explains the evidence and the final compiled layout remains coherent.
 - Scientifically correct but visually weak figures remain REVISE, not ACCEPT.
 - Use real data/executable computation for empirical, benchmark, application, and case-study claims.
 - No invented benchmark values or infographic substitutes for scientific renderings.
