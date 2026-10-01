@@ -36,7 +36,7 @@ Figure~\ref{fig:ch1-optimizer-selection-benchmark} separates optimization behavi
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.94\textwidth]{figures/ch01_optimizer_selection_benchmark.pdf}
+\includegraphics[width=\BookFigureWidth]{figures/ch01_optimizer_selection_benchmark.pdf}
 \caption{Controlled optimizer benchmark on the Wisconsin Diagnostic Breast Cancer dataset using the same regularized logistic-regression objective for every method. (a) Mean training binary cross-entropy across three stratified train-test splits; shaded bands show one standard deviation. L-BFGS reduces the training objective rapidly, whereas the first-order methods descend more gradually over the fixed step budget. (b) Held-out balanced accuracy for the same runs, reported as mean $\pm$ one standard deviation. Rapid objective reduction does not automatically imply the best held-out classification performance, illustrating why optimizer comparisons must report both optimization and generalization metrics.}
 \label{fig:ch1-optimizer-selection-benchmark}
 \end{figure}
@@ -60,7 +60,7 @@ L-BFGS   & 119.7 & 0.0377 & $0.9656 \pm 0.0086$ & 0.9894 & 0.1567 \\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.94\textwidth]{figures/ch01_optimizer_conditioning_sensitivity.pdf}
+\includegraphics[width=\BookFigureWidth]{figures/ch01_optimizer_conditioning_sensitivity.pdf}
 \caption{Sensitivity of convex logistic-regression optimization to controlled feature conditioning on the same Wisconsin Diagnostic Breast Cancer data. (a) Optimization steps required to reach a fixed training-loss threshold as the condition number of the regularized feature Gram matrix increases; runs that do not reach the threshold are shown at the 400-step cap. (b) Held-out balanced accuracy for the corresponding models. The experiment shows that quasi-Newton acceleration is highly effective in the better-conditioned regimes but can become numerically fragile under severe feature scaling, while the conservative first-order trajectory changes more gradually.}
 \label{fig:ch1-optimizer-conditioning}
 \end{figure}
