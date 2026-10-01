@@ -21,6 +21,8 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 ## Code hard gates
 - 15-22 substantive code listings per chapter (never exceed 25 without explicit approval).
 - Every retained listing must be titled, numbered, referenced, and discussed in the surrounding prose.
+- Every code listing must display line numbers for all code lines. Surrounding prose should cite specific line ranges when those lines implement a concept, safeguard, metric, data split, loss term, optimization step, or other point that materially supports the chapter explanation.
+- Every figure, table, and code listing must be explicitly referenced and substantively discussed in the surrounding text. No orphaned floats/listings and no token mentions that merely say a figure/table exists; the prose must explain what evidence or implementation detail the reader should take from it.
 - Remove repetitive, trivial, repair-oriented, or non-informative code dumps.
 - Retained code must be internally complete enough to support the stated pedagogical point; full implementations may live in GitHub.
 - Remove references/tooltips to code that does not exist or does not run.
