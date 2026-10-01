@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge
-from sklearn.metrics import roc_curve, precision_recall_curve, auc, confusion_matrix, balanced_accuracy_score
+from sklearn.metrics import roc_curve, precision_recall_curve, auc, confusion_matrix, balanced_accuracy_score, roc_auc_score
 from sklearn.calibration import calibration_curve
 from sklearn.manifold import TSNE, SpectralEmbedding
 from sklearn.decomposition import PCA
