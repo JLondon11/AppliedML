@@ -44,5 +44,6 @@ jobs:
             git config user.email "actions@users.noreply.github.com"
             git add book/final
             git commit -m "Generate missing final figure PDF/PNG siblings"
+            git pull --rebase origin book-publication-recovery-final
             git push origin HEAD:book-publication-recovery-final
           fi
