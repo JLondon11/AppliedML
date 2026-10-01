@@ -7,6 +7,7 @@ on:
     paths:
       - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_predictive_maintenance_cwru.py'
       - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_smart_grid_uci_power.py'
+      - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_governance_adult_audit.py'
       - '.github/workflows/ch01-real-data-application-figures.yml'
   workflow_dispatch:
 
@@ -33,6 +34,9 @@ jobs:
       - name: Generate UCI smart-grid evidence
         run: |
           python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_smart_grid_uci_power.py
+      - name: Generate UCI Adult governance audit
+        run: |
+          python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_governance_adult_audit.py
       - name: Commit generated evidence
         run: |
           if git status --porcelain | grep -q .; then
