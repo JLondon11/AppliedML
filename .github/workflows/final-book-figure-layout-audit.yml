@@ -1,0 +1,22 @@
+name: Final Book Figure Layout Audit
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/**/*.tex'
+      - 'tools/audit_figure_layout.py'
+      - '.github/workflows/final-book-figure-layout-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Audit final-book figure dimensions and spacing
+        run: |
+          python tools/audit_figure_layout.py book/final --csv book/qa/final_figure_layout_findings.csv
