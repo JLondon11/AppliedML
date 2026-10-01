@@ -1,0 +1,24 @@
+{
+  "generated": [
+    "fig_0103_model_capacity",
+    "fig_0104_inductive_bias",
+    "fig_0106_learning_curves",
+    "fig_0107_bias_variance",
+    "fig_0110_dimensionality",
+    "fig_0111_hpo",
+    "fig_0112_metrics",
+    "fig_0113_cv",
+    "fig_0117_clustering",
+    "fig_0118_svm",
+    "fig_0119_tree",
+    "fig_0120_ensembles",
+    "fig_0125_medical"
+  ],
+  "seed": 42,
+  "data_sources": [
+    "sklearn breast cancer",
+    "sklearn digits",
+    "sklearn synthetic benchmark datasets",
+    "skimage immunohistochemistry sample"
+  ]
+}
