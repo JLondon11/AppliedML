@@ -74,8 +74,13 @@ def audit_file(path: Path):
             tokens = TOKEN_RE.findall(sentence)
             if not tokens:
                 continue
+            # If the sentence ends in a numeric/scientific value, the last
+            # alphabetic token may be a preposition in a phrase such as
+            # "F1 of 0.71."  That is complete prose, not a dangling ending.
+            terminal = sentence.strip().rstrip(".!?").strip()
+            ends_numeric = bool(re.search(r"(?:^|\s)[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?%?$", terminal))
             last = tokens[-1].lower()
-            if last in DANGLING:
+            if last in DANGLING and not ends_numeric:
                 findings.append({
                     "file": str(path),
                     "line": start_line or 1,
