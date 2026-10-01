@@ -127,6 +127,7 @@ def main():
     files = [
         p for p in files
         if "book/qa" not in p.as_posix()
+        and "book/final/shared" not in p.as_posix()
         and not p.name.endswith("_POLICY.md")
         and "RELEASE_MANIFEST" not in p.name
         and p.suffix.lower() == ".tex"
