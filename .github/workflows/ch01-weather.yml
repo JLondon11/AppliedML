@@ -36,6 +36,14 @@ jobs:
             git config user.email "actions@users.noreply.github.com"
             git add book/final/01_Foundations_of_Machine_Learning
             git commit -m "Generate Chapter 1 weather figure"
-            git pull --rebase origin book-publication-recovery-final
-            git push origin HEAD:book-publication-recovery-final
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin book-publication-recovery-final
+              if git push origin HEAD:book-publication-recovery-final; then
+                break
+              fi
+              if [[ "$attempt" == "5" ]]; then
+                exit 1
+              fi
+              sleep $((attempt * 2))
+            done
           fi
