@@ -59,7 +59,7 @@ def main():
     axs[0].tick_params(axis="x",rotation=25); axs[0].legend(frameon=False,fontsize=7)
 
     abs_err=[np.abs(te["y"].to_numpy()-p) for p in (pred_persist,pred_seasonal,pred_ridge)]
-    axs[1].boxplot(abs_err,labels=["1 h\npersistence","24 h\nseasonal","ridge\nlags"],showfliers=False)
+    axs[1].boxplot(abs_err,tick_labels=["1 h\npersistence","24 h\nseasonal","ridge\nlags"],showfliers=False)
     axs[1].set_ylabel("Absolute forecast error (kW)")
     for i,ax in enumerate(axs):
         ax.spines[["top","right"]].set_visible(False); ax.tick_params(direction="out")
