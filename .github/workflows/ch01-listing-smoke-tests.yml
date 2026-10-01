@@ -6,6 +6,7 @@ on:
       - book-publication-recovery-final
     paths:
       - 'book/final/01_Foundations_of_Machine_Learning/code/**/*.py'
+      - '!book/final/01_Foundations_of_Machine_Learning/code/figures/**'
       - 'book/final/01_Foundations_of_Machine_Learning/code/requirements.txt'
       - '.github/workflows/ch01-listing-smoke-tests.yml'
   workflow_dispatch:
