@@ -1,0 +1,21 @@
+{
+  "source": "Pass20 published benchmark anchors for nuScenes detection",
+  "warning": "Methods use different sensor modalities; values are not a modality-controlled ranking.",
+  "values": [
+    {
+      "method": "BEVFormer",
+      "modality": "Camera",
+      "nds": 56.9
+    },
+    {
+      "method": "CenterPoint",
+      "modality": "LiDAR",
+      "nds": 65.5
+    },
+    {
+      "method": "BEVFormer-M",
+      "modality": "Fusion",
+      "nds": 72.9
+    }
+  ]
+}

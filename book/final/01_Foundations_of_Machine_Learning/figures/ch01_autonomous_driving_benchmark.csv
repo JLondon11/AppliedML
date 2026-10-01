@@ -1,0 +1,4 @@
+method,modality,nds
+BEVFormer,Camera,56.9
+CenterPoint,LiDAR,65.5
+BEVFormer-M,Fusion,72.9
