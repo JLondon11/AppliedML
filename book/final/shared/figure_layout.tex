@@ -1,0 +1,38 @@
+% Shared final-book figure layout settings.
+% Include once in the master preamble after graphicx/caption are loaded.
+
+% Compact, consistent float spacing.
+\setlength{\textfloatsep}{11pt plus 2pt minus 2pt}
+\setlength{\floatsep}{9pt plus 2pt minus 2pt}
+\setlength{\intextsep}{9pt plus 2pt minus 2pt}
+
+% Caption spacing and typography.
+\captionsetup[figure]{
+  font=small,
+  labelfont=bf,
+  justification=justified,
+  singlelinecheck=false,
+  skip=5pt
+}
+
+% Prefer top/bottom placement while allowing dense pages to resolve naturally.
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.88}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.82}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+
+% Canonical figure width commands.
+\newcommand{\BookFigureWidth}{0.92\textwidth}
+\newcommand{\BookWideFigureWidth}{0.96\textwidth}
+\newcommand{\BookCompactFigureWidth}{0.86\textwidth}
+
+% Production rule:
+% - Do not add positive \vspace before/after figures.
+% - Use tightly cropped source artwork.
+% - Default single-row figures to \BookFigureWidth.
+% - Use \BookWideFigureWidth only for dense multi-panel scientific figures.
+% - Use \BookCompactFigureWidth for intrinsically tall figures to maintain a
+%   visually consistent page footprint.
