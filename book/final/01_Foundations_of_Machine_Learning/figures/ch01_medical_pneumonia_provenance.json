@@ -1,0 +1,13 @@
+{
+  "dataset": "MedMNIST v2 PneumoniaMNIST",
+  "url": "https://zenodo.org/records/10519652/files/pneumoniamnist.npz?download=1",
+  "train": 4708,
+  "validation": 524,
+  "test": 624,
+  "image_shape": [
+    28,
+    28
+  ],
+  "task": "binary chest-X-ray classification: normal versus pneumonia",
+  "clinical_use": "Not intended for clinical use; educational/research benchmark."
+}
