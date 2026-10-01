@@ -1,0 +1,16 @@
+{
+  "dataset": "UCI Crowdsourced Mapping, id=400",
+  "source_url": "https://archive.ics.uci.edu/static/public/400/crowdsourced+mapping.zip",
+  "train_file_note": "UCI notes that training labels contain noise.",
+  "test_file_note": "UCI states testing labels do not contain class-label errors.",
+  "classes": [
+    "farm",
+    "forest",
+    "grass",
+    "impervious",
+    "orchard",
+    "water"
+  ],
+  "best_model": "NDVI random forest",
+  "ndvi_feature_count": 1
+}

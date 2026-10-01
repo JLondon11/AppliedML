@@ -1,0 +1,4 @@
+model,features,accuracy,macro_f1
+Max-NDVI logistic,1,0.41,0.2475504972800321
+NDVI-time-series logistic,1,0.41,0.2475504972800321
+NDVI random forest,1,0.44333333333333336,0.39258477901672223
