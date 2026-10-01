@@ -1,0 +1,39 @@
+name: Build Chapter Publication Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      chapter_dir:
+        description: 'Final chapter directory under book/final'
+        required: true
+        type: string
+      tex:
+        description: 'Final chapter .tex filename relative to chapter_dir'
+        required: true
+        type: string
+      pdf:
+        description: 'Compiled chapter PDF filename relative to chapter_dir'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Build chapter ZIP
+        run: |
+          python tools/build_chapter_release.py             "book/final/${{ inputs.chapter_dir }}"             --tex "${{ inputs.tex }}"             --pdf "${{ inputs.pdf }}"
+      - name: Commit release archive and manifest
+        run: |
+          git config user.name "AppliedML Publication Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add "book/final/${{ inputs.chapter_dir }}/PACKAGE_MANIFEST.json" book/releases/chapters
+          git commit -m "Package ${{ inputs.chapter_dir }} publication-ready chapter"
+          git pull --rebase origin book-publication-recovery-final
+          git push origin HEAD:book-publication-recovery-final
