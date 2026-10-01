@@ -4,7 +4,8 @@ from pathlib import Path
 import argparse, io, json, urllib.request, zipfile
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt\nimport matplotlib.dates as mdates
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
