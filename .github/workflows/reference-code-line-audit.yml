@@ -1,0 +1,22 @@
+name: Reference and Code-Line Audit
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/**/*.tex'
+      - 'tools/audit_references_and_code_lines.py'
+      - '.github/workflows/reference-code-line-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Audit references and listing line numbering
+        run: |
+          python tools/audit_references_and_code_lines.py book/final             --csv book/qa/reference_and_code_line_findings.csv
