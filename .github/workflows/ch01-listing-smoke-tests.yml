@@ -1,0 +1,46 @@
+name: Chapter 1 Listing Smoke Tests
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/code/**/*.py'
+      - 'book/final/01_Foundations_of_Machine_Learning/code/requirements.txt'
+      - '.github/workflows/ch01-listing-smoke-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r book/final/01_Foundations_of_Machine_Learning/code/requirements.txt
+      - name: Compile all listing implementations
+        run: |
+          python -m compileall -q book/final/01_Foundations_of_Machine_Learning/code
+      - name: Run lightweight listing scripts
+        run: |
+          set -euo pipefail
+          python book/final/01_Foundations_of_Machine_Learning/code/optimization/listing_01_01_adamw_update.py
+          python book/final/01_Foundations_of_Machine_Learning/code/optimization/credit_risk/listing_01_02_lbfgs_vs_sgd.py
+          python book/final/01_Foundations_of_Machine_Learning/code/optimization/cnn/listing_01_03_cnn_optimizer_memory_accuracy.py
+          python book/final/01_Foundations_of_Machine_Learning/code/optimization/pinn/listing_01_04_hybrid_adamw_lbfgs_pinn.py
+          python book/final/01_Foundations_of_Machine_Learning/code/optimization/reinforcement_learning/listing_01_05_ppo_clipped_surrogate.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/predictive_maintenance/listing_01_06_bearing_windowing_spectral_features.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/medical_image_classification/listing_01_07_expected_calibration_error.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/financial_fraud/listing_01_08_cost_sensitive_threshold.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/intelligent_transportation/listing_01_09_bev_bbox_iou.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/climate_weather/listing_01_10_latitude_weighted_rmse.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/edge_ai/listing_01_11_int8_post_training_quantization.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/smart_grid/listing_01_12_pinball_loss.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/aerospace_prognostics/listing_01_13_phm08_score.py
+          python book/final/01_Foundations_of_Machine_Learning/code/applications/precision_agriculture/listing_01_14_ndvi.py
