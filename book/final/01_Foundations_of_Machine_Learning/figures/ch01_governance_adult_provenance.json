@@ -1,0 +1,12 @@
+{
+  "source": "UCI Adult dataset",
+  "doi": "10.24432/C5XW20",
+  "train_file": "adult.data",
+  "test_file": "adult.test",
+  "audit_attribute": "sex",
+  "training_excluded_attributes": [
+    "sex",
+    "race"
+  ],
+  "interpretation": "descriptive group-conditional diagnostics; no normative fairness threshold asserted"
+}
