@@ -1,0 +1,41 @@
+name: Generate Chapter 1 Foundational Scientific Figures
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_foundational_scientific_figures.py'
+      - '.github/workflows/ch01-foundational-scientific-figures.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas matplotlib scipy scikit-learn scikit-image
+      - name: Generate tri-format Chapter 1 scientific figures
+        run: |
+          python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_foundational_scientific_figures.py
+      - name: Commit generated figures and provenance
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "AppliedML Publication Bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add book/final/01_Foundations_of_Machine_Learning/figures
+            git commit -m "Generate Chapter 1 foundational scientific figure assets"
+            git pull --rebase origin book-publication-recovery-final
+            git push origin HEAD:book-publication-recovery-final
+          fi
