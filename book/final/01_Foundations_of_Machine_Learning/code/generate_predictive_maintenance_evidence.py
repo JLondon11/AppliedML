@@ -32,7 +32,7 @@ def main():
 
     # Drop identifiers if present; retain machine/process variables only.
     X=X.drop(columns=[c for c in ["UID","Product ID"] if c in X.columns],errors="ignore")
-    cat=[c for c in X.columns if str(X[c].dtype)=="object"]
+    cat=[c for c in ["Type"] if c in X.columns]
     num=[c for c in X.columns if c not in cat]
 
     Xtr,Xte,ytr,yte=train_test_split(X,y,test_size=.30,stratify=y,random_state=1729)
