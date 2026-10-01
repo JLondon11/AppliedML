@@ -1,4 +1,4 @@
-\section{Optimization Benchmark Case Study}
+\section{Optimization Benchmark Analysis}
 
 Optimization behavior cannot be judged from a single learning curve or from an optimizer name in isolation. A meaningful comparison must control the model, objective, preprocessing, regularization, data split, stopping rule, and numerical precision, because any of these factors can dominate the apparent difference between optimizers. The purpose of this case study is therefore not to crown a universal optimizer, but to show how optimizer choice changes when the geometry of the objective, the conditioning of the feature representation, and the computational regime change.
 
@@ -8,13 +8,19 @@ The controlled experiment is then used as an anchor for the broader regimes deve
 
 \subsection{Case Study: Cross-Domain Optimizer Selection}
 
+Optimizer selection is often discussed as though an optimizer has a task-independent ranking, but this is not supported by either optimization theory or engineering practice. Curvature, stochasticity, numerical conditioning, regularization, batch construction, and system constraints all interact with the update rule. A defensible case study must therefore separate optimization efficiency from predictive generalization and must expose the numerical assumptions under which a method succeeds.
+
+The controlled benchmark in this section uses convex logistic regression because it provides a setting in which all methods optimize the same objective and architectural confounders are absent. That controlled setting is especially useful for identifying when rapid objective reduction does not translate into stronger held-out performance, and for observing how deliberately degraded feature conditioning changes optimizer behavior.
+
+The broader interpretation then connects the controlled findings to the chapter's nonconvex worked examples. Convolutional networks, transformers, physics-informed neural networks, and reinforcement-learning policies introduce different objective geometries and systems constraints, so the convex benchmark is used as a diagnostic anchor rather than as evidence for a universal optimizer ranking.
+
 \textbf{Problem}
 
 The scientific question is how first-order, adaptive, momentum-based, and quasi-Newton optimization differ when the predictive model and loss are held fixed, and how those conclusions change as numerical conditioning deteriorates. The controlled benchmark isolates optimizer behavior on a convex objective before the discussion extends the interpretation to nonconvex and distributed regimes.
 
 \textbf{Dataset}
 
-The quantitative benchmark uses the Wisconsin Diagnostic Breast Cancer dataset distributed with scikit-learn, containing 569 observations and 30 real-valued features. Each run uses a stratified 75/25 train-test split, with seeds 7, 19, and 41. Features are standardized using statistics computed only from the training partition. The conditioning experiment uses the same dataset but applies controlled feature rescaling after root-mean-square normalization to produce increasingly ill-conditioned design matrices without changing labels or sample membership.
+The quantitative benchmark uses the Wisconsin Diagnostic Breast Cancer dataset distributed with scikit-learn, containing 569 observations and 30 real-valued features. Each run uses a stratified 75/25 train-test split. Three fixed random seeds are used (7, 19, 41). Features are standardized using statistics computed only from the training partition. The conditioning experiment uses the same dataset but applies controlled feature rescaling after root-mean-square normalization to produce increasingly ill-conditioned design matrices without changing labels or sample membership.
 
 \textbf{Model}
 
