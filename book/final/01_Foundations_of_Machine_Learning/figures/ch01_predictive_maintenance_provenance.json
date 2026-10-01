@@ -1,7 +1,12 @@
 {
-  "dataset": "UCI AI4I 2020 Predictive Maintenance Dataset, id=601",
-  "instances": 10000,
-  "failure_cases": 339,
-  "split": "stratified 70/30 holdout, random_state=1729",
-  "note": "Dataset is synthetic but designed to reflect industrial predictive-maintenance data."
+  "source": "Case Western Reserve University Bearing Data Center",
+  "normal_file": "97.mat",
+  "fault_file": "105.mat",
+  "normal_variable": "X097_DE_time",
+  "fault_variable": "X105_DE_time",
+  "sampling_rate_hz": 12000,
+  "window_samples": 2048,
+  "hop_samples": 2048,
+  "split": "blocked first 70% windows train, final 30% windows test independently within each recording",
+  "limitations": "Two 0-hp recordings; diagnostic demonstration, not a field prevalence or fleet reliability estimate."
 }

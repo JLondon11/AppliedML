@@ -1,0 +1,3 @@
+model,balanced_accuracy,roc_auc,train_windows,test_windows
+Logistic regression,1.0,1.0,124,54
+Random forest,1.0,1.0,124,54

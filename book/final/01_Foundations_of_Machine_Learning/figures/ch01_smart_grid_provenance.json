@@ -1,0 +1,15 @@
+{
+  "source": "UCI Individual Household Electric Power Consumption, dataset 235",
+  "doi": "10.24432/C58K54",
+  "raw_sampling": "1 minute",
+  "aggregation": "hourly mean Global_active_power",
+  "missing_handling": "numeric '?' -> missing; hourly mean; interpolation limited to gaps <=3 hours; remaining missing rows dropped",
+  "split": "first 80% chronological supervised rows train, final 20% test",
+  "lags_hours": [
+    1,
+    2,
+    24,
+    25,
+    168
+  ]
+}
