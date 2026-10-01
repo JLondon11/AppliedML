@@ -1,0 +1,31 @@
+% Shared final-book code-listing settings.
+% Include once in the master preamble after listings/xcolor are loaded.
+
+\lstdefinestyle{BookCode}{
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numberstyle=\scriptsize,
+  stepnumber=1,
+  numbersep=8pt,
+  frame=single,
+  framesep=4pt,
+  xleftmargin=1.8em,
+  framexleftmargin=1.2em,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  keepspaces=true,
+  columns=fullflexible,
+  tabsize=4,
+  captionpos=b,
+  aboveskip=8pt,
+  belowskip=8pt
+}
+
+% All production listings must:
+% 1. use style=BookCode;
+% 2. have a descriptive caption;
+% 3. have a unique \label{lst:...};
+% 4. be cited and discussed in the surrounding prose;
+% 5. use prose references to specific line ranges where those lines materially
+%    implement the concept being discussed.
