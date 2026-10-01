@@ -1,0 +1,42 @@
+name: Generate Chapter 1 Representation Figure
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_representation_preprocessing.py'
+      - '.github/workflows/ch01-representation-figure.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ch01-representation-figure
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install numpy matplotlib scikit-learn
+      - name: Generate Figure 1.8
+        run: python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_representation_preprocessing.py
+      - name: Commit Figure 1.8
+        run: |
+          git config user.name "AppliedML Publication Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add book/final/01_Foundations_of_Machine_Learning/figures/figure_01_08_representation_preprocessing.*
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate Chapter 1 representation preprocessing figure"
+            git pull --rebase origin book-publication-recovery-final
+            git push origin HEAD:book-publication-recovery-final
+          fi
