@@ -43,8 +43,7 @@ def main():
     print("COMMON_COLUMNS:", common)
     Xtr=Xtr[common]; Xte=Xte[common]
 
-    import re
-    ndvi=[c for c in common if str(c).lower()=="max_ndvi" or re.match(r"^\\d{8}_N$", str(c))]
+    ndvi=[c for c in common if str(c).lower()=="max_ndvi" or (str(c).endswith("_N") and str(c)[:8].isdigit())]
     maxndvi=[c for c in common if str(c).lower()=="max_ndvi"]
     if not ndvi:
         raise RuntimeError("No NDVI features found in UCI Crowdsourced Mapping schema")
