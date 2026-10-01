@@ -116,6 +116,51 @@ def fig_0107_bias_variance():
     ax.set_xlabel("Polynomial degree (model capacity)"); ax.set_ylabel("Monte Carlo error component")
     ax.legend(frameon=False); save(fig,"figure_01_07_bias_variance")
 
+def fig_0108_representation_preprocessing():
+    X,y=load_breast_cancer(return_X_y=True)
+    Xtr,Xte,ytr,yte=train_test_split(X,y,test_size=.30,stratify=y,random_state=42)
+    scaler=StandardScaler().fit(Xtr)
+    Xs=scaler.transform(Xtr)
+    pca=PCA().fit(Xs)
+    raw_scale=np.std(Xtr,axis=0)
+    std_scale=np.std(Xs,axis=0)
+    raw_gram=(Xtr.T@Xtr)/len(Xtr)+1e-8*np.eye(Xtr.shape[1])
+    std_gram=(Xs.T@Xs)/len(Xs)+1e-8*np.eye(Xs.shape[1])
+    cond_raw=float(np.linalg.cond(raw_gram)); cond_std=float(np.linalg.cond(std_gram))
+    Xtr_p=pca.transform(Xs)[:,:10]
+    Xte_s=scaler.transform(Xte); Xte_p=pca.transform(Xte_s)[:,:10]
+    models=[
+      ("raw",make_pipeline(StandardScaler(),LogisticRegression(max_iter=1500))),
+      ("standardized",LogisticRegression(max_iter=1500)),
+      ("PCA-10",LogisticRegression(max_iter=1500))
+    ]
+    aucs=[]
+    for name,m in models:
+        if name=="raw": a,b=Xtr,Xte
+        elif name=="standardized": a,b=Xs,Xte_s
+        else: a,b=Xtr_p,Xte_p
+        m.fit(a,ytr); aucs.append(roc_auc_score(yte,m.predict_proba(b)[:,1]))
+    fig,axs=plt.subplots(1,3,figsize=(10.2,3.15))
+    order=np.argsort(raw_scale)
+    axs[0].semilogy(np.arange(len(order)),raw_scale[order],marker="o",ms=3,lw=1.2,label="raw",color=PALETTE[2])
+    axs[0].semilogy(np.arange(len(order)),std_scale[order],marker="o",ms=3,lw=1.2,label="standardized",color=PALETTE[0])
+    axs[0].set_xlabel("Feature index (sorted by raw scale)"); axs[0].set_ylabel("Training-set standard deviation"); axs[0].legend(frameon=False,fontsize=8)
+    axs[1].bar(["raw","standardized"],[cond_raw,cond_std],color=[PALETTE[2],PALETTE[1]])
+    axs[1].set_yscale("log"); axs[1].set_ylabel("Condition number of regularized Gram matrix")
+    cum=np.cumsum(pca.explained_variance_ratio_)
+    axs[2].plot(np.arange(1,len(cum)+1),cum,lw=1.8,color=PALETTE[3],label="cumulative variance")
+    ax2=axs[2].twinx()
+    ax2.scatter([1,2,3],aucs,s=35,color=[PALETTE[0],PALETTE[1],PALETTE[2]],zorder=4)
+    axs[2].set_xlabel("Principal components retained"); axs[2].set_ylabel("Cumulative explained variance")
+    ax2.set_ylabel("Held-out ROC-AUC"); ax2.set_ylim(.90,1.0)
+    axs[2].axvline(10,ls="--",lw=1,color="#777777")
+    axs[2].text(10.5,.55,"PCA-10",fontsize=8)
+    for i,a in enumerate(axs):
+        a.spines[["top","right"]].set_visible(False); a.tick_params(direction="out")
+        a.text(.5,-.23,f"({chr(97+i)})",transform=a.transAxes,ha="center",va="top",fontsize=10)
+    fig.tight_layout(w_pad=2.0)
+    save(fig,"figure_01_08_representation_preprocessing")
+
 def fig_0110_dimensionality():
     D=load_digits(); X=D.data[:700]; y=D.target[:700]
     embeds=[PCA(2,random_state=42).fit_transform(X),
