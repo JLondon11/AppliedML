@@ -42,5 +42,5 @@
     "water"
   ],
   "best_model": "NDVI random forest",
-  "ndvi_feature_count": 1
+  "ndvi_feature_count": 28
 }
