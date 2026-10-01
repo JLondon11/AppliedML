@@ -1,0 +1,7 @@
+{
+  "dataset": "UCI AI4I 2020 Predictive Maintenance Dataset, id=601",
+  "instances": 10000,
+  "failure_cases": 339,
+  "split": "stratified 70/30 holdout, random_state=1729",
+  "note": "Dataset is synthetic but designed to reflect industrial predictive-maintenance data."
+}
