@@ -5,7 +5,7 @@ on:
     branches:
       - book-publication-recovery-final
     paths:
-      - 'book/final/01_Foundations_of_Machine_Learning/source/chapter_01_foundations_of_machine_learning_integrated.tex.gz'
+      - 'book/final/01_Foundations_of_Machine_Learning/source/chunks_b64/*.b64'
       - '.github/workflows/materialize-ch01-source.yml'
   workflow_dispatch:
 
@@ -19,15 +19,32 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: book-publication-recovery-final
-      - name: Decompress integrated Chapter 1 source
+      - name: Reassemble and verify Chapter 1 source
+        shell: bash
         run: |
           set -euo pipefail
-          src='book/final/01_Foundations_of_Machine_Learning/source/chapter_01_foundations_of_machine_learning_integrated.tex.gz'
-          dst='book/final/01_Foundations_of_Machine_Learning/chapter_01_foundations_of_machine_learning.tex'
-          gzip -cd "$src" > "$dst"
-          test "$(sha256sum "$dst" | awk '{print $1}')" = 'd780d8b59fbdca95d156ee1df6631f71ba02a3e12f82dafcf9e20d823b6ca8e2'
+          base='book/final/01_Foundations_of_Machine_Learning'
+          chunk_dir="$base/source/chunks_b64"
+          gz="$base/source/chapter01_integrated_v2.reassembled.tex.gz"
+          dst="$base/chapter_01_foundations_of_machine_learning.tex"
+          : > "$gz"
+          for n in 00 01 02 03 04; do
+            test -s "$chunk_dir/part_${n}.b64"
+            base64 -d "$chunk_dir/part_${n}.b64" >> "$gz"
+          done
+          echo "Reassembled gzip:"
+          sha256sum "$gz"
+          test "$(sha256sum "$gz" | awk '{print $1}')" = '993c0d17f72b7a1cec3412b959ac8ee68bc7a7850b8e700498c512b36e308740'
+          gzip -t "$gz"
+          gzip -cd "$gz" > "$dst"
+          echo "Materialized TeX:"
+          sha256sum "$dst"
+          test "$(sha256sum "$dst" | awk '{print $1}')" = 'bf260b7d946f1719c57ee7c0ca24c398ee782af0fa05f8818c8a1c093a8d9d95'
       - name: Commit editable Chapter 1 TeX
+        shell: bash
         run: |
+          set -euo pipefail
+          rm -f book/final/01_Foundations_of_Machine_Learning/source/chapter01_integrated_v2.reassembled.tex.gz
           if git status --porcelain | grep -q .; then
             git config user.name "AppliedML Publication Bot"
             git config user.email "actions@users.noreply.github.com"
