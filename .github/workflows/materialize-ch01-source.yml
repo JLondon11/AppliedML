@@ -1,0 +1,38 @@
+name: Materialize Chapter 1 Integrated Source
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/source/chapter_01_foundations_of_machine_learning_integrated.tex.gz'
+      - '.github/workflows/materialize-ch01-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Decompress integrated Chapter 1 source
+        run: |
+          set -euo pipefail
+          src='book/final/01_Foundations_of_Machine_Learning/source/chapter_01_foundations_of_machine_learning_integrated.tex.gz'
+          dst='book/final/01_Foundations_of_Machine_Learning/chapter_01_foundations_of_machine_learning.tex'
+          gzip -cd "$src" > "$dst"
+          test "$(sha256sum "$dst" | awk '{print $1}')" = 'd780d8b59fbdca95d156ee1df6631f71ba02a3e12f82dafcf9e20d823b6ca8e2'
+      - name: Commit editable Chapter 1 TeX
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "AppliedML Publication Bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add book/final/01_Foundations_of_Machine_Learning/chapter_01_foundations_of_machine_learning.tex
+            git commit -m "Materialize integrated Chapter 1 editable TeX"
+            git pull --rebase origin book-publication-recovery-final
+            git push origin HEAD:book-publication-recovery-final
+          fi
