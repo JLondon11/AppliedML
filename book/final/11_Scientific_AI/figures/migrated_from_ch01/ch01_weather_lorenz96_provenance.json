@@ -1,0 +1,8 @@
+{
+  "system": "Lorenz-96",
+  "dimension": 20,
+  "forcing": 8.0,
+  "time_step": 0.01,
+  "integration_steps": 3000,
+  "purpose": "Numerical surrogate for chaotic forecast rollout and verification concepts; not ERA5."
+}
