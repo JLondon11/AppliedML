@@ -1,0 +1,27 @@
+name: Chapter 1 Integrated Manuscript Audit
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/**/*.tex'
+      - 'book/final/01_Foundations_of_Machine_Learning/figures/**'
+      - 'tools/audit_chapter_tex.py'
+      - '.github/workflows/ch01-integrated-manuscript-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit Chapter 1 manuscript
+        run: |
+          test -s book/final/01_Foundations_of_Machine_Learning/chapter_01_foundations_of_machine_learning.tex
+          python tools/audit_chapter_tex.py             book/final/01_Foundations_of_Machine_Learning/chapter_01_foundations_of_machine_learning.tex             --chapter-dir book/final/01_Foundations_of_Machine_Learning
