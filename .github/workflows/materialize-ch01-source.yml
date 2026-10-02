@@ -1,4 +1,5 @@
 name: Materialize Chapter 1 Integrated Source
+# source chunks complete: 00-04
 
 on:
   push:
