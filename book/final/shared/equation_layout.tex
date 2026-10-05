@@ -1,0 +1,19 @@
+% Shared final-book equation layout settings.
+% Include once in the master preamble after amsmath is loaded.
+
+% The book does not use fleqn. Displayed mathematics is centered in the text block.
+\makeatletter
+\@fleqnfalse
+\makeatother
+
+% Keep equation-number spacing conventional and avoid manual display indentation.
+\setlength{\jot}{5pt}
+
+% Production rules:
+% - Do not use the documentclass option fleqn.
+% - Do not load amsmath with fleqn.
+% - Do not set \mathindent for display equations.
+% - Do not use manual \hspace, \kern, \qquad chains, or negative spacing to
+%   visually shift an entire display equation left or right.
+% - Multi-line displays may align at =, \leq, \approx, etc., but the display
+%   block itself must remain centered in the text area.
