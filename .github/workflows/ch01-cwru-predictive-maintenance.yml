@@ -45,5 +45,10 @@ jobs:
             exit 0
           fi
           git commit -m "Generate real CWRU predictive-maintenance evidence"
-          git pull --rebase origin book-publication-recovery-final
-          git push origin HEAD:book-publication-recovery-final
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin book-publication-recovery-final
+            if git push origin HEAD:book-publication-recovery-final; then
+              break
+            fi
+            sleep 2
+          done
