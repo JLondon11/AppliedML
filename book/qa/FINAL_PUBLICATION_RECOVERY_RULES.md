@@ -70,3 +70,9 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - GitHub is the authoritative storage location for every final chapter artifact. No chapter file may exist only in a chat runtime, local workspace, temporary ZIP, or workflow artifact.
 - For every chapter, the repository must contain: final editable `.tex`; compiled chapter PDF; every retained figure in PNG, SVG, and PDF; complete code-listing implementations organized by section; figure/listing/table manifests; provenance/checksum files; and the chapter `PUBLICATION_READY.zip`.
 - A chapter is incomplete until all of those files are committed on `book-publication-recovery-final` and their repository paths are recorded in the chapter package manifest.
+
+## Equation typography hard gate
+- All displayed equations must be horizontally centered in the text block. Equation numbers remain right aligned in the standard book style.
+- The final manuscript must not use the LaTeX `fleqn` option, left-shifted display math, manual negative horizontal spacing, or section-specific equation indentation that defeats the centered equation style.
+- Multi-line `align`, `aligned`, `gather`, and related displays must be visually balanced and centered as a display block while preserving mathematical alignment at relation symbols where appropriate.
+- Inline mathematics remains inline; only display mathematics is subject to the centered-display rule.
