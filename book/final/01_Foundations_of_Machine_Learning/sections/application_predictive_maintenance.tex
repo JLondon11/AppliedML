@@ -1,66 +1,65 @@
 \subsection{Application: Predictive Maintenance for Industrial Rotating Machinery}
 
-Predictive maintenance is a foundational machine-learning application because the core challenge is not only fault prediction but also disciplined formulation of a rare-event classification problem from multivariate process measurements. Sensor values such as rotational speed, torque, temperature, and tool wear are continuous, correlated, and strongly affected by operating conditions. A useful model must therefore separate signal from operating-regime variation while avoiding leakage from identifiers, failure-mode labels, or information that would not be available at prediction time.
+Predictive maintenance is a useful Foundations application because it forces the full learning problem to be specified before a classifier is trained. Vibration recordings are not naturally tabular examples: they must first be segmented into windows, transformed into features, and separated into training and evaluation sets in a way that prevents nearly identical samples from the same physical recording from leaking across the split. The resulting problem therefore connects representation, validation, class definition, and metric choice in a single engineering workflow.
 
-The application also illustrates why class imbalance and metric selection are central to practical machine learning. Machine failures are intentionally rare in a functioning industrial process, so accuracy can remain deceptively high even when a model fails to identify most breakdowns. Precision--recall analysis, threshold selection, and the cost of false alarms versus missed failures are therefore more informative than raw accuracy. These are the same validation and decision-theoretic ideas developed earlier in this chapter.
+Bearing-fault diagnosis also illustrates why dataset provenance matters. The Case Western Reserve University (CWRU) Bearing Data Center provides controlled recordings of normal and seeded bearing-fault conditions at several motor loads. The normal baseline files and the 12-kHz drive-end fault files are not interchangeable without preprocessing: the normal recordings are sampled at a higher rate and must be aligned before time- or frequency-domain features are compared. Individual MATLAB files can also contain variables from neighboring recordings, so the loader must select the variable that matches the file identifier rather than simply taking the first \texttt{DE\_time} array.
 
-The quantitative experiment uses the UCI AI4I 2020 Predictive Maintenance dataset. The dataset is synthetic, but it was constructed to reflect common industrial predictive-maintenance variables and failure mechanisms. The goal here is not to claim production-level rotating-equipment performance; it is to provide a fully reproducible benchmark that demonstrates how feature preprocessing, class weighting, nonlinear models, and imbalance-aware evaluation affect a maintenance decision.
+The reproduced experiment in this section uses a deliberately conservative file-level holdout. Normal and 0.007-inch inner-race-fault recordings at 0, 1, and 2 hp are used for training, while the 3 hp normal and fault recordings are held out completely for testing. No window from the held-out recordings appears in model fitting. This design asks whether the learned diagnostic transfers across operating load rather than whether it can recognize another window from a recording it has already seen.
 
 \textbf{Problem}
 
-The task is to estimate the probability that a machine observation corresponds to a failure condition and to convert that probability into a maintenance alert. The learning objective must balance two competing errors: false negatives can allow a failure to go undetected, while false positives consume inspection capacity and may cause unnecessary downtime.
+The task is binary fault diagnosis from drive-end vibration: distinguish a normal bearing from a bearing with a seeded 0.007-inch inner-race fault. The engineering objective is not to estimate field failure prevalence, but to test whether simple window-level vibration features remain discriminative under an unseen motor load.
 
 \textbf{Dataset}
 
-The experiment uses the UCI AI4I 2020 Predictive Maintenance Dataset (UCI repository identifier 601). It contains 10,000 observations from a simulated milling-machine process and 339 positive machine-failure cases, corresponding to a failure prevalence of approximately 3.39\%. The predictive inputs include product type, air temperature, process temperature, rotational speed, torque, and tool wear. Identifier fields are excluded from the model. The benchmark uses a stratified 70/30 holdout split with random seed 1729 so that the rare positive class is represented in both training and evaluation partitions.
+The experiment uses CWRU normal files 97--100 and inner-race-fault files 105--108. The four normal files correspond to 0--3 hp motor loads, as do the four 0.007-inch inner-race-fault files. Normal recordings are resampled to 12 kHz so that all signals share the analysis sampling rate used for the 12-kHz drive-end fault subset. The loader explicitly selects \texttt{X097\_DE\_time} through \texttt{X100\_DE\_time} for the normal files and \texttt{X105\_DE\_time} through \texttt{X108\_DE\_time} for the fault files.
 
 \textbf{Model}
 
-Three conventional supervised-learning baselines are compared under the same split. Standard logistic regression provides a linear probabilistic baseline. Balanced logistic regression applies class weighting to change the optimization objective under the rare-event distribution. A class-balanced random forest supplies a nonlinear baseline that can model interactions among torque, speed, temperature, and wear without requiring a specialized deep architecture.
+Two conventional baselines are evaluated: standardized logistic regression and a random forest. The purpose is not to identify a state-of-the-art bearing-diagnostics architecture, but to determine whether a small set of physically interpretable summary features already separates the two conditions under the file-level load holdout.
 
 \textbf{Method}
 
-Numerical variables are standardized using statistics learned from the training partition for the logistic models, while the categorical product type is one-hot encoded. The random forest receives the same feature set with the categorical variable encoded consistently. All models are evaluated on the identical held-out partition. Average precision and ROC--AUC measure ranking quality, and a precision--recall sweep identifies the threshold with the strongest F1 score for this controlled comparison.
+Each recording is divided into non-overlapping 2048-sample windows. For each window, the feature vector contains RMS amplitude, crest factor, kurtosis, spectral centroid, and the fraction of spectral energy above 2 kHz. Listing~\ref{lst:ch1-bearing-features} shows the corresponding windowing and spectral-feature computation. The feature extraction is performed only after sampling-rate alignment. Training uses six entire recordings: normal and fault at 0, 1, and 2 hp. Testing uses only the two unseen 3 hp recordings.
 
 \textbf{Evaluation}
 
-Figure~\ref{fig:ch1-predictive-maintenance-ai4i} combines a feature-space diagnostic with the imbalance-aware model comparison. Panel (a) plots torque against rotational speed for a deterministic subset of normal observations together with all failure observations, showing that failure cases occupy overlapping rather than trivially separable regions of the operating space. Panel (b) reports precision--recall curves for the three models and includes the held-out failure prevalence as the no-skill reference. Table~\ref{tab:ch1-predictive-maintenance-benchmark} provides the reproduced numerical comparison.
+Figure~\ref{fig:ch1-predictive-maintenance-cwru} provides the real-data diagnostic. Panel (a) compares short time-domain segments from the held-out normal and fault recordings. Panel (b) compares their normalized spectra up to 4 kHz. Panel (c) shows the held-out-window geometry in RMS--kurtosis space, where the two conditions are visibly separated. Table~\ref{tab:ch1-predictive-maintenance-benchmark} reports classifier performance on the same held-out recording pair.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\BookFigureWidth]{figures/ch01_predictive_maintenance_ai4i.pdf}
-\caption{Reproduced predictive-maintenance diagnostics on the UCI AI4I 2020 dataset. (a) Torque versus rotational speed for a deterministic subset of normal observations and all observed failure cases. Failures overlap the normal operating region, illustrating why a single scalar rule is insufficient for reliable detection. (b) Precision--recall curves for standard logistic regression, class-balanced logistic regression, and a class-balanced random forest on the same stratified holdout split. The dashed horizontal line marks the test-set failure prevalence, providing the appropriate rare-event baseline for interpreting precision.}
-\label{fig:ch1-predictive-maintenance-ai4i}
+\includegraphics[width=\BookFigureWidth]{figures/figure_01_24_predictive_maintenance_cwru.pdf}
+\caption{Real-data bearing-fault diagnostics from the Case Western Reserve University Bearing Data Center under a file-level operating-condition holdout. (a) Drive-end acceleration from the completely held-out 3 hp normal recording and the held-out 3 hp recording with a 0.007-inch inner-race fault after sampling-rate alignment. (b) Normalized Fourier magnitude for the same held-out recordings, showing the broader high-frequency fault content. (c) Window-level RMS versus kurtosis for all held-out 3 hp windows. The distinct clusters explain why simple classical classifiers achieve perfect scores in this restricted two-condition experiment; the result should not be interpreted as evidence that general bearing diagnosis is solved.}
+\label{fig:ch1-predictive-maintenance-cwru}
 \end{figure}
 
 \begin{table}[t]
 \centering
 \small
-\caption{Reproduced model comparison on the UCI AI4I 2020 Predictive Maintenance Dataset. AP denotes average precision. Precision, recall, and F1 are reported at the F1-maximizing threshold for the controlled holdout comparison.}
+\caption{Reproduced CWRU normal-versus-inner-race-fault comparison using a file-level operating-condition holdout. Training uses complete 0, 1, and 2 hp recordings; testing uses only the unseen 3 hp normal and fault recordings. The perfect scores reflect this restricted two-condition benchmark and are not a claim of general field performance.}
 \label{tab:ch1-predictive-maintenance-benchmark}
-\begin{tabular}{lrrrrr}
+\begin{tabular}{lrrrr}
 \toprule
-Model & AP & ROC--AUC & F1 & Precision & Recall \\
+Model & Balanced accuracy & ROC--AUC & Train windows & Test windows \\
 \midrule
-Logistic regression & 0.4583 & 0.8939 & 0.4956 & 0.4516 & 0.5490 \\
-Balanced logistic & 0.4295 & 0.9039 & 0.4623 & 0.4742 & 0.4510 \\
-Random forest & 0.7109 & 0.9764 & 0.7109 & 0.6881 & 0.7353 \\
+Logistic regression & 1.000 & 1.000 & 324 & 119 \\
+Random forest & 1.000 & 1.000 & 324 & 119 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Results}
 
-The nonlinear random-forest baseline produces the strongest rare-event discrimination in this controlled experiment, with average precision of 0.7109, ROC--AUC of 0.9764, and F1 of 0.7109. Standard logistic regression achieves average precision of 0.4583, while class weighting improves ROC--AUC slightly but does not improve average precision or F1 under this split. The comparison demonstrates that class weighting is not automatically beneficial: it changes the optimization objective, but the resulting thresholded operating point must still be validated empirically.
+Both classifiers achieve balanced accuracy and ROC--AUC of 1.000 on the held-out 3 hp recording pair. Figure~\ref{fig:ch1-predictive-maintenance-cwru} explains why: the seeded inner-race-fault recording differs strongly from the normal baseline in amplitude distribution, high-frequency content, RMS, and kurtosis even after the operating load changes. In this experiment, the representation does more of the discriminative work than the classifier family.
 
 \textbf{Error Analysis}
 
-The precision--recall curves show that the dominant challenge is separating failures from a large population of normal observations with overlapping sensor values. False negatives should be analyzed by failure mechanism and operating region, while false positives should be examined for combinations of high torque, atypical rotational speed, elevated temperatures, or large tool wear that resemble failure conditions without crossing the true failure criteria. Error analysis should also test whether performance varies systematically by product type.
+There are no classification errors in the held-out pair, so the scientifically important question is not which samples were misclassified but why the benchmark is so separable. The fault type and size are fixed, the apparatus is controlled, and each class is represented by one recording at the held-out load. Error analysis must therefore shift from sample-level mistakes to stress testing the protocol: different fault types, smaller fault sizes, sensor locations, noise levels, and machines are the conditions most likely to reduce the observed separation.
 
 \textbf{Limitations}
 
-AI4I is synthetic rather than a direct record of fielded rotating machinery, so the benchmark cannot establish deployment performance for a specific industrial asset. The random holdout also does not model temporal drift, machine-to-machine domain shift, maintenance interventions, or repeated measurements from the same physical asset. A production study should use asset-level or time-ordered partitioning on real sensor histories and should report uncertainty across multiple machines and operating conditions.
+This experiment is a controlled diagnostic demonstration, not a fleet-reliability benchmark. It distinguishes only normal bearings from one seeded inner-race fault size on one test apparatus. The held-out-load design prevents recording leakage, but it does not test transfer across machines, bearing geometries, acquisition systems, or naturally developing faults. The perfect classifier scores are therefore evidence that this particular task is easy under the chosen representation, not evidence of universally reliable predictive maintenance.
 
 \textbf{Deployment / Engineering Implications}
 
-The Chapter 1 lesson is that a predictive-maintenance model is only one component of a decision process. Deployment requires a threshold tied to inspection cost and failure risk, monitoring for changes in failure prevalence and operating conditions, and periodic recalibration. A model with strong ROC--AUC can still be operationally poor if its precision at the maintenance threshold is inadequate, so the validation metric must be chosen to match the engineering decision rather than the convenience of the model.
+A production predictive-maintenance system should preserve the discipline used here while substantially broadening the validation domain. Windows from the same asset or recording must remain grouped, preprocessing must be learned or fixed without using future data, and performance must be stratified by operating condition and asset identity. The central Foundations lesson is that trustworthy performance begins with the split and the representation: a sophisticated classifier cannot compensate for leakage, and a perfect score on a narrow controlled benchmark does not eliminate the need for domain-shift validation.
