@@ -1,0 +1,24 @@
+name: Springer Chapter Completeness Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/**'
+      - 'tools/audit_springer_chapter_completeness.py'
+      - 'book/qa/SPRINGER_NATURE_BOOK_PRODUCTION_STANDARD.md'
+      - '.github/workflows/springer-chapter-completeness.yml'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - name: Audit Springer chapter completeness
+        run: |
+          python tools/audit_springer_chapter_completeness.py book/final
