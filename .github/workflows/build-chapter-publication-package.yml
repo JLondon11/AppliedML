@@ -26,6 +26,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: book-publication-recovery-final
+      - name: Audit section depth
+        run: |
+          python tools/audit_section_depth.py "book/final/${{ inputs.chapter_dir }}" --minimum 3 --min-words 35
       - name: Build chapter ZIP
         run: |
           python tools/build_chapter_release.py             "book/final/${{ inputs.chapter_dir }}"             --tex "${{ inputs.tex }}"             --pdf "${{ inputs.pdf }}"
