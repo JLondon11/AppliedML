@@ -15,6 +15,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.io import loadmat
 from scipy.stats import kurtosis
+from scipy.signal import resample_poly
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import balanced_accuracy_score, roc_auc_score
@@ -28,6 +29,8 @@ FILES={
     "inner_race_007_2":"107.mat","inner_race_007_3":"108.mat"
 }
 FS=12000
+FS_NORMAL=48000
+FS_FAULT=12000
 COLORS={"normal":"#355C7D","fault":"#B26E3B"}
 
 def download(cache:Path):
@@ -42,13 +45,22 @@ def download(cache:Path):
 
 def de_signal(path:Path):
     d=loadmat(path)
-    keys=[k for k in d if k.upper().endswith("DE_TIME")]
-    if not keys:
-        keys=[k for k,v in d.items() if not k.startswith("__") and hasattr(v,"shape") and np.asarray(v).size>10000]
-    if not keys:
-        raise RuntimeError(f"No vibration vector found in {path}")
-    x=np.asarray(d[keys[0]]).reshape(-1).astype(float)
-    return x,keys[0]
+    stem=path.stem
+    # CWRU files can contain variables copied from neighboring recordings
+    # (notably 99.mat contains X098_* and X099_*). Prefer the variable whose
+    # numeric prefix matches the file identifier.
+    expected=f"X{int(stem):03d}_DE_time" if stem.isdigit() else None
+    if expected and expected in d:
+        key=expected
+    else:
+        keys=[k for k in d if k.upper().endswith("DE_TIME")]
+        if not keys:
+            keys=[k for k,v in d.items() if not k.startswith("__") and hasattr(v,"shape") and np.asarray(v).size>10000]
+        if not keys:
+            raise RuntimeError(f"No vibration vector found in {path}")
+        key=keys[0]
+    x=np.asarray(d[key]).reshape(-1).astype(float)
+    return x,key
 
 def windows(x,n=2048,hop=2048):
     return np.stack([x[i:i+n] for i in range(0,len(x)-n+1,hop)])
@@ -89,6 +101,11 @@ def main():
     signals={}; keys={}; feature_map={}
     for name,path in paths.items():
         sig,key=de_signal(path)
+        # The normal baseline recordings are 48 kHz while this 12-kHz drive-end
+        # fault subset is 12 kHz. Downsample normal data by four before any
+        # time/frequency or feature comparison.
+        if name.startswith("normal_"):
+            sig=resample_poly(sig,up=1,down=4)
         signals[name]=sig; keys[name]=key
         feature_map[name]=feats(windows(sig))
 
@@ -149,7 +166,11 @@ def main():
       "normal_files":["97.mat","98.mat","99.mat","100.mat"],
       "fault_files":["105.mat","106.mat","107.mat","108.mat"],
       "variables":keys,
-      "sampling_rate_hz":FS,"window_samples":2048,"hop_samples":2048,
+      "analysis_sampling_rate_hz":FS,
+      "normal_original_sampling_rate_hz":FS_NORMAL,
+      "fault_original_sampling_rate_hz":FS_FAULT,
+      "normal_resampling":"polyphase downsample by 4 to 12 kHz before feature extraction",
+      "window_samples":2048,"hop_samples":2048,
       "split":"file-level operating-condition holdout: train on 0/1/2 hp normal and 0.007-in inner-race-fault recordings; test only on unseen 3 hp normal/fault recordings",
       "limitations":"Controlled normal-versus-inner-race-fault diagnostic using one fault size; not a field prevalence or fleet reliability estimate."
     }
