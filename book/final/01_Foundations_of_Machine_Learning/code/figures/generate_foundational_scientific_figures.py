@@ -241,8 +241,14 @@ def fig_0113_cv():
     mats=[fold[None,:],strat[None,:],np.vstack([outer,nested])]
     fig,axs=plt.subplots(1,3,figsize=(10.0,2.6))
     for ax,M in zip(axs,mats):
-        ax.imshow(M,aspect="auto",cmap="viridis",interpolation="nearest")
+        ax.imshow(M,aspect="auto",cmap="tab10",interpolation="nearest",vmin=-1,vmax=9)
         ax.set_xlabel("Sample index"); ax.set_yticks(range(M.shape[0]))
+        # Fold identity is categorical, so write the fold ID directly in each
+        # cell instead of implying a continuous magnitude with a colorbar.
+        for rr in range(M.shape[0]):
+            for cc in range(M.shape[1]):
+                ax.text(cc,rr,str(int(M[rr,cc])),ha="center",va="center",fontsize=5,
+                        color="white" if M[rr,cc] not in (0,1,2) else "black")
     axs[0].set_yticklabels(["fold"]); axs[1].set_yticklabels(["stratified fold"]); axs[2].set_yticklabels(["outer","inner"])
     for i,a in enumerate(axs): panel(a,f"({chr(97+i)})")
     save(fig,"figure_01_13_cross_validation")
