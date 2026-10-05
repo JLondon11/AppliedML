@@ -98,3 +98,9 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Do not suppress paragraph indentation with \`\\noindent\` in ordinary prose.
 - Headings, figure/table captions, equations, displayed code, lists, tables, problem/exercise labels, and other structured environments follow their own alignment rules and are not treated as body paragraphs.
 - Paragraph spacing and indentation must be controlled globally by the shared book style rather than by manual per-paragraph spacing.
+
+
+## Figure and table completeness hard gate
+- Every retained figure and every retained table assigned to a chapter must appear in that chapter's final editable source and compiled PDF. No retained figure/table may be omitted for convenience, page-count reduction, or layout simplification.
+- Each retained figure/table must be placed in the correct section, numbered by chapter, captioned, explicitly referenced in prose, and substantively discussed.
+- Final chapter QA must reconcile the frozen figure/table inventory against the compiled PDF and fail if any retained item is missing, duplicated, misnumbered, or orphaned.
