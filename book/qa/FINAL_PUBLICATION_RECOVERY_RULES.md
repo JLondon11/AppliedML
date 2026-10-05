@@ -91,3 +91,10 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Code must use a monospaced typeface through the LaTeX listing environment; every code line is numbered, every listing is titled/labeled/referenced, and the full runnable implementation is stored in GitHub.
 - Each chapter must end with a complete problem set appropriate to the chapter, including conceptual, mathematical, applied/computational, and research/design questions where appropriate.
 - The final submission package must preserve the Springer Nature expectation of separate manuscript source files and original figure files, plus chapter PDFs with embedded fonts.
+
+
+## Paragraph indentation hard gate
+- Every ordinary prose paragraph must use a visible first-line indent, including the first prose paragraph immediately following chapter, section, subsection, and subsubsection headings.
+- Do not suppress paragraph indentation with \`\\noindent\` in ordinary prose.
+- Headings, figure/table captions, equations, displayed code, lists, tables, problem/exercise labels, and other structured environments follow their own alignment rules and are not treated as body paragraphs.
+- Paragraph spacing and indentation must be controlled globally by the shared book style rather than by manual per-paragraph spacing.
