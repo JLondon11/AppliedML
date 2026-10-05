@@ -17,7 +17,8 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 URL="https://phm-datasets.s3.amazonaws.com/NASA/6.+Turbofan+Engine+Degradation+Simulation+Data+Set.zip"
-COLORS={"trajectory":"#355C7D","prediction":"#B26E3B","identity":"#657A8A"}
+COLORS={"prediction":"#B26E3B","identity":"#657A8A"}
+TRAJECTORY_COLORS=["#355C7D","#4F7C6E","#B26E3B","#7A6AA6","#657A8A","#8B5E6B"]
 SETTINGS=["setting1","setting2","setting3"]
 SENSORS=[f"s{i}" for i in range(1,22)]
 COLS=["unit","cycle",*SETTINGS,*SENSORS]
@@ -105,12 +106,12 @@ def main():
     # for visual comparison while preserving the actual recorded cycle ordering.
     units=[1,20,40,60,80,100]
     fig,axs=plt.subplots(1,2,figsize=(10.4,3.55))
-    for u in units:
+    for u,fc in zip(units,TRAJECTORY_COLORS):
         d=train[train["unit"]==u]
         x=d["cycle"].to_numpy()/d["cycle"].max()
         y=d["s11"].to_numpy(dtype=float)
         y=(y-y.mean())/max(y.std(),1e-12)
-        axs[0].plot(x,y,lw=1.1,alpha=.82,label=f"engine {u}")
+        axs[0].plot(x,y,lw=1.1,alpha=.82,color=fc,label=f"engine {u}")
     axs[0].set_xlabel("Fraction of observed run-to-failure life")
     axs[0].set_ylabel("Sensor 11 (per-engine standardized)")
     axs[0].legend(frameon=False,fontsize=7,ncol=2)
