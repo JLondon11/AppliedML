@@ -22,7 +22,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
 BASE="https://engineering.case.edu/sites/default/files"
-FILES={"normal_0":"97.mat","inner_race_007_0":"105.mat"}
+FILES={
+    "normal_0":"97.mat","normal_1":"98.mat","normal_2":"99.mat","normal_3":"100.mat",
+    "inner_race_007_0":"105.mat","inner_race_007_1":"106.mat",
+    "inner_race_007_2":"107.mat","inner_race_007_3":"108.mat"
+}
 FS=12000
 COLORS={"normal":"#355C7D","fault":"#B26E3B"}
 
@@ -64,13 +68,12 @@ def feats(W):
         out.append([rms,crest,kur,centroid,band_hi])
     return np.asarray(out)
 
-def blocked_split(F0,F1,frac=.70):
-    n0=int(len(F0)*frac); n1=int(len(F1)*frac)
-    Xtr=np.vstack([F0[:n0],F1[:n1]])
-    ytr=np.r_[np.zeros(n0,int),np.ones(n1,int)]
-    Xte=np.vstack([F0[n0:],F1[n1:]])
-    yte=np.r_[np.zeros(len(F0)-n0,int),np.ones(len(F1)-n1,int)]
-    return Xtr,ytr,Xte,yte
+def stack_files(feature_map, labels):
+    X=[]; y=[]
+    for name,target in labels:
+        X.append(feature_map[name])
+        y.append(np.full(len(feature_map[name]),target,dtype=int))
+    return np.vstack(X),np.concatenate(y)
 
 def metrics(y,p):
     pred=(p>=.5).astype(int)
@@ -83,36 +86,52 @@ def main():
     args=ap.parse_args()
     out=Path(args.out); out.mkdir(parents=True,exist_ok=True)
     paths=download(Path(args.cache))
-    normal,key0=de_signal(paths["normal_0"]); fault,key1=de_signal(paths["inner_race_007_0"])
-    W0,W1=windows(normal),windows(fault)
-    F0,F1=feats(W0),feats(W1)
-    Xtr,ytr,Xte,yte=blocked_split(F0,F1)
+    signals={}; keys={}; feature_map={}
+    for name,path in paths.items():
+        sig,key=de_signal(path)
+        signals[name]=sig; keys[name]=key
+        feature_map[name]=feats(windows(sig))
+
+    # File-level domain holdout: train on 0, 1, and 2 hp recordings; evaluate
+    # exclusively on the unseen 3 hp recordings. This prevents windows from the
+    # same recording from appearing in both train and test sets.
+    train_labels=[
+        ("normal_0",0),("normal_1",0),("normal_2",0),
+        ("inner_race_007_0",1),("inner_race_007_1",1),("inner_race_007_2",1)
+    ]
+    test_labels=[("normal_3",0),("inner_race_007_3",1)]
+    Xtr,ytr=stack_files(feature_map,train_labels)
+    Xte,yte=stack_files(feature_map,test_labels)
 
     models={
       "Logistic regression":make_pipeline(StandardScaler(),LogisticRegression(max_iter=1500,random_state=42)),
-      "Random forest":RandomForestClassifier(n_estimators=200,max_depth=6,min_samples_leaf=3,random_state=42)
+      "Random forest":RandomForestClassifier(n_estimators=300,max_depth=7,min_samples_leaf=3,random_state=42)
     }
     rows=[]
     for name,m in models.items():
         m.fit(Xtr,ytr); p=m.predict_proba(Xte)[:,1]
         ba,auc=metrics(yte,p)
         rows.append({"model":name,"balanced_accuracy":ba,"roc_auc":auc,
-                     "train_windows":len(ytr),"test_windows":len(yte)})
+                     "train_windows":len(ytr),"test_windows":len(yte),
+                     "train_recordings":6,"test_recordings":2,
+                     "test_load_hp":3})
     pd.DataFrame(rows).to_csv(out/"ch01_predictive_maintenance_benchmark.csv",index=False)
 
     fig,axs=plt.subplots(1,3,figsize=(10.6,3.15))
+    normal=signals["normal_3"]; fault=signals["inner_race_007_3"]
     nshow=2400; t=np.arange(nshow)/FS
-    axs[0].plot(t,normal[:nshow],lw=.8,color=COLORS["normal"],label="normal")
-    axs[0].plot(t,fault[:nshow],lw=.8,color=COLORS["fault"],alpha=.8,label="inner-race fault")
+    axs[0].plot(t,normal[:nshow],lw=.8,color=COLORS["normal"],label="normal, held-out 3 hp")
+    axs[0].plot(t,fault[:nshow],lw=.8,color=COLORS["fault"],alpha=.8,label="inner-race fault, held-out 3 hp")
     axs[0].set_xlabel("Time (s)"); axs[0].set_ylabel("Drive-end acceleration (recorded units)")
     axs[0].legend(frameon=False,fontsize=7)
 
-    for x,label,c in [(normal,"normal",COLORS["normal"]),(fault,"fault",COLORS["fault"])]:
+    for x,label,c0 in [(normal,"normal",COLORS["normal"]),(fault,"fault",COLORS["fault"])]:
         seg=x[:8192]-np.mean(x[:8192]); sp=np.abs(np.fft.rfft(seg)); fr=np.fft.rfftfreq(len(seg),1/FS)
-        axs[1].plot(fr,sp/max(sp.max(),1e-12),lw=1.0,label=label,color=c)
+        axs[1].plot(fr,sp/max(sp.max(),1e-12),lw=1.0,label=label,color=c0)
     axs[1].set_xlim(0,4000); axs[1].set_xlabel("Frequency (Hz)"); axs[1].set_ylabel("Normalized magnitude")
     axs[1].legend(frameon=False,fontsize=7)
 
+    F0=feature_map["normal_3"]; F1=feature_map["inner_race_007_3"]
     axs[2].scatter(F0[:,0],F0[:,2],s=12,alpha=.6,color=COLORS["normal"],label="normal")
     axs[2].scatter(F1[:,0],F1[:,2],s=12,alpha=.6,color=COLORS["fault"],label="fault")
     axs[2].set_xlabel("Window RMS"); axs[2].set_ylabel("Window kurtosis")
@@ -127,11 +146,12 @@ def main():
 
     provenance={
       "source":"Case Western Reserve University Bearing Data Center",
-      "normal_file":"97.mat","fault_file":"105.mat",
-      "normal_variable":key0,"fault_variable":key1,
+      "normal_files":["97.mat","98.mat","99.mat","100.mat"],
+      "fault_files":["105.mat","106.mat","107.mat","108.mat"],
+      "variables":keys,
       "sampling_rate_hz":FS,"window_samples":2048,"hop_samples":2048,
-      "split":"blocked first 70% windows train, final 30% windows test independently within each recording",
-      "limitations":"Two 0-hp recordings; diagnostic demonstration, not a field prevalence or fleet reliability estimate."
+      "split":"file-level operating-condition holdout: train on 0/1/2 hp normal and 0.007-in inner-race-fault recordings; test only on unseen 3 hp normal/fault recordings",
+      "limitations":"Controlled normal-versus-inner-race-fault diagnostic using one fault size; not a field prevalence or fleet reliability estimate."
     }
     (out/"ch01_predictive_maintenance_provenance.json").write_text(json.dumps(provenance,indent=2))
 
