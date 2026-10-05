@@ -65,3 +65,8 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Chapter completion requires a chapter-specific ZIP archive committed to the repository. The ZIP must contain the final editable chapter `.tex`, the compiled chapter PDF, every retained figure in PNG/SVG/PDF, the complete code-listing implementations organized by section, figure/listing manifests, and checksum/provenance files.
 - The ZIP must preserve the final chapter directory structure rather than flattening unrelated assets. The archive filename must include the chapter number, chapter title, and a `PUBLICATION_READY` marker.
 - A chapter is not marked complete until the archive is generated from the same repository commit that passed final Master QA, compilation, page-count, reference, figure, table, listing, duplicate-content, and layout checks.
+
+## Repository completeness hard gate
+- GitHub is the authoritative storage location for every final chapter artifact. No chapter file may exist only in a chat runtime, local workspace, temporary ZIP, or workflow artifact.
+- For every chapter, the repository must contain: final editable `.tex`; compiled chapter PDF; every retained figure in PNG, SVG, and PDF; complete code-listing implementations organized by section; figure/listing/table manifests; provenance/checksum files; and the chapter `PUBLICATION_READY.zip`.
+- A chapter is incomplete until all of those files are committed on `book-publication-recovery-final` and their repository paths are recorded in the chapter package manifest.
