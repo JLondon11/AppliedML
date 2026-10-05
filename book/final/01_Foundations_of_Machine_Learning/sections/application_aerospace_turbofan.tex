@@ -39,12 +39,12 @@ def phm_score(y_true_rul, y_pred_rul):
     return float(np.sum(scores))
 \end{lstlisting}
 
-Figure~\ref{fig:ch1-turbofan-prognostics} provides a reproducible numerical prognostics rendering: panel (a) shows multiple degradation trajectories with engine-specific degradation rates, and panel (b) shows a reference remaining-life trajectory together with a noisy model estimate. The figure is deliberately identified as a numerical reconstruction rather than as a plot of NASA records.
+Figure~\ref{fig:ch1-turbofan-prognostics} now uses the NASA C-MAPSS FD001 records directly. Panel (a) shows actual Sensor 11 trajectories from six FD001 training engines after per-engine standardization for visual comparison. Panel (b) evaluates a reproducible histogram-gradient-boosting RUL model at the final observed cycle of each of the 100 FD001 test engines against NASA's provided true remaining-life targets. The reproduced test-set RMSE is 19.05 cycles and the MAE is 14.39 cycles.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\BookFigureWidth]{figures/ch01_turbofan_prognostics.pdf}
-\caption{Numerical turbofan-prognostics rendering used to illustrate trajectory-level degradation and remaining-useful-life estimation without misrepresenting simulated curves as NASA C-MAPSS measurements. (a) Eight engine-like normalized health trajectories with different degradation rates and small stochastic perturbations. (b) Reference remaining useful life for one trajectory and a noisy estimated RUL sequence. The numerical reconstruction is used only to illustrate evaluation structure; empirical benchmark claims are taken from the cited C-MAPSS literature and must be compared under matched preprocessing and scoring conventions.}
+\includegraphics[width=\BookFigureWidth]{figures/ch01_turbofan_cmapss_fd001.pdf}
+\caption{Reproduced prognostics evidence from the NASA C-MAPSS FD001 turbofan degradation benchmark. (a) Actual Sensor 11 trajectories from six FD001 training engines plotted against the fraction of each run-to-failure trajectory; the sensor values are standardized separately within each engine only for visual comparison, while the underlying cycle order is unchanged. (b) Predicted versus NASA-provided true remaining useful life for the 100 FD001 test engines at each engine's final observed cycle. The model is a reproducible histogram-gradient-boosting regressor trained on capped training RUL targets and selected operating/sensor variables; the dashed identity line marks perfect prediction. Test RMSE is 19.05 cycles and MAE is 14.39 cycles.}
 \label{fig:ch1-turbofan-prognostics}
 \end{figure}
 
@@ -68,15 +68,15 @@ CNN+FNN PHM comparison & FD001--FD004 & scores 1287 / 13,570 / 1596 / 7886 \\
 
 \textbf{Results}
 
-The published anchors demonstrate why a single FD001 number is insufficient for judging a prognostics method. Recurrent, convolutional, attention-based, and ensemble models can all produce competitive FD001 error, yet performance can change materially on FD002--FD004 when operating conditions and fault modes vary. For this reason, Table~\ref{tab:ch1-cmapss-benchmark} is used as a protocol-aware comparison rather than a leaderboard.
+The reproduced FD001 experiment yields an RMSE of 19.05 cycles and an MAE of 14.39 cycles at the final observed cycle of the 100 NASA test engines. These values are not presented as a state-of-the-art result; they establish a transparent, reproducible classical baseline tied to the exact feature set and capped-RUL protocol recorded in the repository. The published anchors in Table~\ref{tab:ch1-cmapss-benchmark} then show why a single FD001 number is insufficient for judging a prognostics method: recurrent, convolutional, attention-based, and ensemble models can all report competitive FD001 error, yet performance can change materially on FD002--FD004 when operating conditions and fault modes vary.
 
 \textbf{Error Analysis}
 
-Error analysis is performed by engine trajectory, benchmark subset, operating regime, and degradation stage. Early-life predictions are often nearly constant when capped-RUL targets are used, while late-life prediction requires the model to detect accelerating degradation. Residuals should therefore be stratified into early, middle, and late life, with particular attention to positive RUL error near failure because late predictions are penalized more severely by the PHM score. Additional diagnostics should identify whether specific sensor channels or operating conditions dominate the error.
+The FD001 residuals show both optimistic and conservative errors, with the largest absolute deviations concentrated among engines whose final observed state still has substantial remaining life. This is consistent with the capped training target: the model sees many early-life rows compressed to the same target ceiling and therefore has less information for discriminating very large RUL values. Error analysis should therefore be stratified by true RUL range and engine trajectory, with particular attention to positive prediction error near failure because late maintenance decisions are penalized more severely by the PHM score.
 
 \textbf{Limitations}
 
-The figure in this Application is a reproducible numerical rendering, not a substitute for a protocol-matched C-MAPSS experiment. The benchmark values in Table~\ref{tab:ch1-cmapss-benchmark} come from published studies summarized in Pass20 and should not be recombined as though all studies used identical preprocessing. A final reproduced benchmark requires the exact NASA files, an explicit RUL-cap policy, the selected sensors, the normalization procedure, the train/test protocol, and the scoring implementation.
+The reproduced experiment is limited to FD001, which contains one operating condition and one fault mode, and it evaluates a single classical gradient-boosting configuration rather than an exhaustive model search. The training target is capped at 125 cycles, so early-life behavior depends on that modeling choice. The published values in Table~\ref{tab:ch1-cmapss-benchmark} should not be compared as a single leaderboard unless RUL cap, sensor subset, normalization, windowing, train/test files, and scoring convention match exactly.
 
 \textbf{Deployment / Engineering Implications}
 
