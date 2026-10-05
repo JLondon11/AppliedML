@@ -1,51 +1,52 @@
-# Chapter 1 Final Figure Audit Matrix
+# Chapter 1 Final Figure Audit Matrix — Asset-Level Freeze
 
-Scope: all 21 currently retained Chapter 1 figure stems on `book-publication-recovery-final`.
+Repository branch: `book-publication-recovery-final`
 
-Acceptance standard: a figure is FINAL ACCEPT only after it passes all of:
-1. chapter relevance;
-2. scientific correctness;
-3. provenance/reproducibility;
-4. no data leakage / protocol error;
-5. no semantic duplication;
-6. correct caption/panel mapping;
-7. quantitative legend/colorbar where needed;
-8. compact publication aesthetics;
-9. correct size/whitespace in the compiled chapter;
-10. explicit discussion in surrounding prose.
+This matrix freezes the **22 current retained Chapter 1 figure families** after individual scientific, provenance, redundancy, and rendered-artwork inspection. Every retained family has matching PNG, SVG, and PDF files.
 
-| Figure stem | Current decision | Scientific audit |
-|---|---|---|
-| ch01_credit_card_fraud_imbalance | ACCEPT-SCIENCE; final visual/layout pass pending | Real OpenML/ULB credit-card data, chronological split, reproduced PR/ROC/threshold metrics. |
-| ch01_medical_pneumoniamnist | ACCEPT-SCIENCE; final visual/layout pass pending | Real MedMNIST v2 PneumoniaMNIST benchmark with explicit nonclinical-use limitation and provenance. |
-| ch01_optimizer_conditioning_sensitivity | ACCEPT-SCIENCE; final visual/layout pass pending | Controlled numerical experiment on real WDBC data; conditioning manipulation and failure regime explicitly defined. |
-| ch01_optimizer_selection_benchmark | ACCEPT-SCIENCE; final visual/layout pass pending | Same regularized logistic objective across optimizers, repeated fixed splits, held-out metrics and uncertainty. |
-| ch01_predictive_maintenance_ai4i | REPLACE / RECONCILE | Current repository naming is inconsistent with the stronger CWRU bearing-data provenance/generator. Final Foundations figure should use the real CWRU vibration evidence and a matching stem/caption/provenance package, not retain an ambiguous AI4I-labelled asset. |
-| ch01_smart_grid_load_forecasting | ACCEPT-SCIENCE; final visual/layout pass pending | Real UCI household electric-power data with chronological lag-based forecasting protocol and provenance. |
-| ch01_turbofan_prognostics | REPLACE | Current artwork is an explicitly labeled numerical reconstruction. For a final Application figure, the best defensible scientific choice is a protocol-matched real C-MAPSS rendering/experiment if the source data are available. |
-| figure_01_03_model_capacity | ACCEPT-SCIENCE; final visual/layout pass pending | Controlled polynomial-capacity experiment on the same sampled regression problem; no empirical benchmark claim. |
-| figure_01_04_inductive_bias | ACCEPT-SCIENCE; final visual/layout pass pending | Multiple interpolants fit the same finite observations and diverge between samples; valid computational illustration of inductive bias. |
-| figure_01_06_learning_curves | REGENERATE | Audit found train/validation leakage because scaling was originally fit before the split. Generator fixed in commit `7617159fc8ac7cb253ad034e460bf25d5bc6649f`; figure must be regenerated before acceptance. |
-| figure_01_07_bias_variance | ACCEPT-SCIENCE; final visual/layout pass pending | Monte Carlo bias/variance decomposition from repeated noisy polynomial-regression samples. |
-| figure_01_08_representation_preprocessing | ACCEPT-SCIENCE; final visual/layout pass pending | Train-only scaler/PCA fit, quantitative conditioning and held-out ROC-AUC diagnostics. |
-| figure_01_10_dimensionality | ACCEPT-SCIENCE; final visual/layout pass pending | Real sklearn digits data with PCA, t-SNE, and spectral embedding; no invented performance claim. |
-| figure_01_11_hpo | REGENERATE | Audit found preprocessing leakage because standardization was originally performed once before cross-validation. Generator fixed to use fold-internal pipelines in commit `7617159fc8ac7cb253ad034e460bf25d5bc6649f`; figure must be regenerated. |
-| figure_01_12_metrics | ACCEPT-SCIENCE; final visual/layout pass pending | Real WDBC held-out classifier evaluation: ROC, PR, calibration, and confusion-matrix diagnostics. |
-| figure_01_13_cross_validation | REVISE | Split-assignment computation is valid, but fold IDs are encoded categorically without a clear categorical legend/direct labels. Redesign for clearer publication interpretation. |
-| figure_01_15_governance_adult_audit | ACCEPT-SCIENCE; final visual/layout pass pending | Real UCI Adult test data, sensitive audit attributes excluded from training features, descriptive group-conditional error/calibration diagnostics, no unsupported normative fairness threshold. |
-| figure_01_17_clustering | ACCEPT-SCIENCE; final visual/layout pass pending | Actual k-means, hierarchical, DBSCAN, and GMM outputs on a matched controlled clustering dataset. |
-| figure_01_18_svm | ACCEPT-SCIENCE; final visual/layout pass pending | Actual linear/RBF SVM decision surfaces and support vectors on a controlled nonlinear benchmark. |
-| figure_01_19_tree | ACCEPT-SCIENCE; final visual/layout pass pending | Actual trained decision tree, decision surface, feature importance, and split-count diagnostics. |
-| figure_01_20_ensembles | REGENERATE-MINOR | Scientific design is valid; SVC probability calibration path lacked explicit deterministic seed. Generator fixed in commit `7617159fc8ac7cb253ad034e460bf25d5bc6649f`; regenerate before final acceptance. |
+**Important:** `FINAL ACCEPT — ASSET` means the standalone scientific artwork is accepted. A figure is not publication-final until the integrated Chapter 1 PDF also passes caption fidelity, sequential numbering, section placement, size/whitespace, accessibility alt text, and substantive in-text discussion.
 
-## Current conclusion
+| Retained figure stem | PNG blob SHA | Asset decision | Scientific / visual basis |
+|---|---|---|---|
+| `figure_01_03_model_capacity` | `f4e6e181925f04d5051469425fde6742db91cd97` | FINAL ACCEPT — ASSET | Controlled same-sample polynomial capacity experiment clearly distinguishes underfit, intermediate fit, and unstable high-capacity behavior. Caption must explicitly explain edge instability of the highest-degree fit. |
+| `figure_01_04_inductive_bias` | `c530ed6423d822ba7cfa7917a7c9a1373f05eb82` | FINAL ACCEPT — ASSET | Multiple hypotheses fit the same finite observations but diverge between/outside samples; direct computational demonstration of inductive bias. |
+| `figure_01_06_learning_curves` | `239da4ac06f82778405b8efac0585375c002962e` | FINAL ACCEPT — ASSET | Redesigned after leakage and visual audit. Five-fold learning curves now show distinct underfit, well-fit, and high-variance regimes with training/CV uncertainty. |
+| `figure_01_07_bias_variance` | `cd4c2d0352f02069a4217b9b4b1440ff86ea8148` | FINAL ACCEPT — ASSET | Monte Carlo polynomial experiment now explicitly separates squared bias, variance, irreducible noise, and expected test MSE. |
+| `figure_01_08_representation_preprocessing` | `a3b6c57e64e64d2a13396c6d0e716d5495c43741` | FINAL ACCEPT — ASSET | Train-only scaling/PCA; quantitative feature-scale, condition-number, and held-out ROC-AUC diagnostics. |
+| `figure_01_10_dimensionality` | `d0d18185d6075d07fb2b2d311a8362495dc80053` | FINAL ACCEPT — ASSET | Real sklearn digits; PCA, t-SNE, and Isomap. Isomap replaced a collapsed spectral-embedding panel after visual audit. |
+| `figure_01_11_hpo` | `a6380f44065d5fbc9327f6e74c643578cd756b67` | FINAL ACCEPT — ASSET | Fold-internal preprocessing pipeline eliminates prior CV leakage; matched-budget random/grid/coarse-to-fine search trajectories are clear and quantitative. |
+| `figure_01_12_metrics` | `265c979499927e6a832a93baaf3871a4f8ec1983` | FINAL ACCEPT — ASSET | Real WDBC held-out ROC, PR, calibration, and confusion-matrix diagnostics; confusion matrix now has categorical class ticks and quantitative count colorbar. |
+| `figure_01_13_cross_validation` | `a5ac883efaa3dca2e145a22eeb3300ae4b68ed25` | FINAL ACCEPT — ASSET | Redesigned from dense fold-ID heatmap to readable train/validation/outer-test assignment matrices with direct categorical legend. |
+| `figure_01_15_governance_adult_audit` | `cb4ebe67ac538b127dae3d38fc60c77d41c6c484` | FINAL ACCEPT — ASSET | Real UCI Adult test data; audit attributes excluded from training; descriptive group-conditional error/calibration diagnostics without unsupported normative fairness threshold. |
+| `figure_01_17_clustering` | `129791386af2af2f728d000ba36dd25be27f6ced` | FINAL ACCEPT — ASSET | Actual k-means, agglomerative, DBSCAN, and GMM outputs on the same controlled dataset. Caption must state cluster colors are algorithm-local labels, not cross-panel identities. |
+| `figure_01_18_svm` | `d4ddcb180453c81158880ea7fc2dbbe7348256df` | FINAL ACCEPT — ASSET | Actual linear/RBF SVM decision functions and support vectors on a matched nonlinear benchmark. |
+| `figure_01_19_tree` | `b4e9b3d4b659a57c5116e2e9ad0e6c31d0a3f897` | FINAL ACCEPT — ASSET | Decision surface plus capacity/generalization diagnostic; weak split-count panel replaced by training/validation accuracy versus depth and leaf count. |
+| `figure_01_20_ensembles` | `773fe9def03e03af98f10b5147263afdc1e0bdb4` | FINAL ACCEPT — ASSET | Actual bagging, boosting, random-forest, and stacking decision surfaces; deterministic probability model configuration. |
+| `figure_01_24_predictive_maintenance_cwru` | `352386a0841a4bc71e4dcfaadd87809eb7869b46` | FINAL ACCEPT — ASSET | Real CWRU vibration data. Correct file-variable mapping, 48-kHz normal-to-12-kHz fault sampling alignment, file-level 0/1/2-hp train versus unseen 3-hp test. Perfect scores are explicitly framed as restricted-benchmark limitation. |
+| `figure_01_25_medical_preprocessing` | `257c9835c2ee3821f60afeb25e7c615cfeebeb9a` | FINAL ACCEPT — ASSET | Real scikit-image immunohistochemistry sample, grayscale conversion, and computed Otsu binary mask; valid preprocessing demonstration, not clinical evidence. |
+| `ch01_optimizer_selection_benchmark` | `b6552175e0779bee874d69db1d55a23b383dd079` | FINAL ACCEPT — ASSET | Repeated-split real WDBC optimizer benchmark; same objective/model across methods; convergence plus held-out uncertainty. |
+| `ch01_optimizer_conditioning_sensitivity` | `32dfbd7251114d669910e740cb5391f59adc57fa` | FINAL ACCEPT — ASSET | Controlled conditioning perturbation on real WDBC data; clearly exposes regime-dependent L-BFGS behavior and threshold cap. |
+| `ch01_credit_card_fraud_imbalance` | `68ea787aead8975eeee998963c3b5e3d2f6411c9` | FINAL ACCEPT — ASSET | Real OpenML/ULB credit-card data with chronological split; precision-recall and fixed-review-budget diagnostics appropriate for extreme imbalance. |
+| `ch01_medical_pneumoniamnist` | `1f60c6de1935db60d238d6332dd4bb484f4881f5` | FINAL ACCEPT — ASSET | Real MedMNIST v2 PneumoniaMNIST examples and reproduced model precision-recall comparison; explicitly nonclinical educational/research scope. |
+| `ch01_smart_grid_load_forecasting` | `fd736cac4b84e50f5c59a3c1f013eb52cb4b5668` | FINAL ACCEPT — ASSET | Real UCI household-power data; causal lag features, chronological holdout, strong seasonal baseline, readable held-out-week date axis and hour-of-day error diagnostic. |
+| `ch01_turbofan_cmapss_fd001` | `7017c9dde78ab2210fd12c87723c8bf69bbc2abc` | FINAL ACCEPT — ASSET | Real NASA C-MAPSS FD001. Actual sensor trajectories plus reproduced 100-engine true-vs-predicted RUL diagnostic; RMSE 19.05 cycles, MAE 14.39 cycles, restrained palette. |
 
-No blanket FINAL ACCEPT is authorized yet.
+## Removed / superseded figure families
 
-Current categories:
-- 15 figures are scientifically acceptable in design/provenance and await final visual/layout/caption inspection.
-- 3 figures require regeneration after protocol/reproducibility fixes (1.6, 1.11, 1.20).
-- 1 figure requires visual-semantic redesign for categorical clarity (1.13).
-- 2 Application figures require replacement/reconciliation (predictive-maintenance naming/evidence package and turbofan/C-MAPSS).
+The following are intentionally excluded from the final Chapter 1 figure inventory:
+- duplicate learning-paradigm and feature-workflow figures;
+- deployment/CI-CD, deep-network, backpropagation, autonomous-driving, climate, edge-AI, and precision-agriculture figures moved to their conceptually correct later chapters;
+- synthetic AI4I predictive-maintenance figure, superseded by the real CWRU experiment;
+- numerical/synthetic turbofan rendering, superseded by the real NASA C-MAPSS FD001 experiment;
+- duplicate UCI smart-grid figure package, superseded by `ch01_smart_grid_load_forecasting`.
 
-The final publication PDF must use only figures that have been promoted to FINAL ACCEPT after regeneration/replacement and compiled-page visual inspection.
+## Remaining figure gate
+
+All 22 standalone figure assets are now accepted. The Chapter 1 **publication** figure gate remains open until the integrated manuscript confirms:
+- every figure appears exactly once;
+- numbering is sequential and captions match the final artwork;
+- every panel is described in the unified caption;
+- each figure is explicitly discussed in prose;
+- figure sizing and whitespace are consistent on the compiled page;
+- no figure/table/listing collisions or large vertical gaps occur;
+- alt-text inventory covers all 22 retained figures.
