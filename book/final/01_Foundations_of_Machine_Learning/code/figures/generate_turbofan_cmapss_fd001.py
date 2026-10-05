@@ -41,10 +41,26 @@ def read_space_table(z,name,cols):
     return pd.read_csv(io.BytesIO(raw),sep=r"\s+",header=None,names=cols,engine="python")
 
 def load_fd001(cache:Path):
-    with zipfile.ZipFile(download(cache)) as z:
+    # NASA's repository package may wrap the classic C-MAPSS files inside a
+    # nested ZIP (for example CMAPSSData.zip). Support both layouts.
+    outer=zipfile.ZipFile(download(cache))
+    z=outer
+    close_inner=False
+    if not any(n.endswith("train_FD001.txt") for n in outer.namelist()):
+        nested=[n for n in outer.namelist() if n.lower().endswith(".zip")]
+        if not nested:
+            raise RuntimeError("C-MAPSS text files and nested ZIP not found in NASA archive")
+        raw=outer.read(nested[0])
+        z=zipfile.ZipFile(io.BytesIO(raw))
+        close_inner=True
+    try:
         train=read_space_table(z,find_member(z,"train_FD001.txt"),COLS)
         test=read_space_table(z,find_member(z,"test_FD001.txt"),COLS)
         rul=read_space_table(z,find_member(z,"RUL_FD001.txt"),["rul"])
+    finally:
+        if close_inner:
+            z.close()
+        outer.close()
     return train,test,rul["rul"].to_numpy(dtype=float)
 
 def add_train_rul(train):
