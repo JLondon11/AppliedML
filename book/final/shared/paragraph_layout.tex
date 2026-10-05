@@ -1,0 +1,18 @@
+% Shared final-book paragraph layout settings.
+% Include once in the master preamble.
+
+% First-line indentation for all ordinary prose paragraphs, including the first
+% paragraph after headings.
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+
+% Restore indentation after sectional headings (standard LaTeX suppresses it).
+\makeatletter
+\@afterindenttrue
+\makeatother
+
+% Production rules:
+% - Do not use \noindent for ordinary prose.
+% - Do not insert blank vertical space between ordinary paragraphs.
+% - Captions, lists, tables, equations, code listings, and exercise labels use
+%   their own environment-specific alignment.
