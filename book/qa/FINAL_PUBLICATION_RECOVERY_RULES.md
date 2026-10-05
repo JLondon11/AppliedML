@@ -76,3 +76,18 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - The final manuscript must not use the LaTeX `fleqn` option, left-shifted display math, manual negative horizontal spacing, or section-specific equation indentation that defeats the centered equation style.
 - Multi-line `align`, `aligned`, `gather`, and related displays must be visually balanced and centered as a display block while preserving mathematical alignment at relation symbols where appropriate.
 - Inline mathematics remains inline; only display mathematics is subject to the centered-display rule.
+
+
+## Springer Nature book-production hard gate
+- The final manuscript must be structured with the current Springer Nature **book/monograph LaTeX template or compatible standard LaTeX book-class structure**. Do not use a journal article template for the book.
+- Do not introduce custom body fonts or arbitrary chapter-specific font sizes. Use the Springer Nature book template/macro hierarchy and its default typography; Springer Nature creates the final house page layout during production.
+- All compiled chapter PDFs must have fonts embedded and must visually match the same book-wide typographic hierarchy.
+- Each chapter must be a separate editable source file and a separately compiled PDF, with all associated references, figure legends, tables, exercises/problem sets, and chapter-end material complete.
+- Every chapter must include all pedagogically required elements that belong to it: figures, quantitative tables, numbered code listings, equations, worked examples, Applications, Case Studies, references, and end-of-chapter problem sets/exercises. No element may be omitted merely to simplify compilation.
+- Figures and tables must be numbered by chapter and cited in sequential order in the prose. Captions remain outside the artwork. Tables must be real LaTeX tables, not rasterized table images.
+- Every figure must have a chapter-level accessibility/alt-text entry separate from its scientific caption.
+- Didactic elements such as examples, questions, exercises, summaries, and key messages must use a consistent Springer-compatible style across the whole book.
+- Display equations must be native LaTeX mathematics, centered in the text block, and never supplied as images.
+- Code must use a monospaced typeface through the LaTeX listing environment; every code line is numbered, every listing is titled/labeled/referenced, and the full runnable implementation is stored in GitHub.
+- Each chapter must end with a complete problem set appropriate to the chapter, including conceptual, mathematical, applied/computational, and research/design questions where appropriate.
+- The final submission package must preserve the Springer Nature expectation of separate manuscript source files and original figure files, plus chapter PDFs with embedded fonts.
