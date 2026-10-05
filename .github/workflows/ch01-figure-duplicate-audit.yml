@@ -1,0 +1,29 @@
+name: Chapter 1 Figure Duplicate Audit
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/figures/*.png'
+      - 'tools/audit_figure_duplicates.py'
+      - '.github/workflows/ch01-figure-duplicate-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install duplicate-audit dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pillow
+      - name: Audit Chapter 1 figures for exact and near duplicates
+        run: |
+          python tools/audit_figure_duplicates.py             book/final/01_Foundations_of_Machine_Learning/figures
