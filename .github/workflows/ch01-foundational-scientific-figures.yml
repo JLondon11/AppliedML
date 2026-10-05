@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ch01-foundational-scientific-figures
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -26,6 +30,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install numpy pandas matplotlib scipy scikit-learn scikit-image
+      - name: Sync latest publication branch
+        run: |
+          git pull --ff-only origin book-publication-recovery-final
       - name: Generate tri-format Chapter 1 scientific figures
         run: |
           python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_foundational_scientific_figures.py
