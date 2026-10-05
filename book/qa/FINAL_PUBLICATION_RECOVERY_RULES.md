@@ -114,3 +114,23 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Sections centered on figures/tables/code must still contain enough prose to explain the scientific question, the evidence or implementation, and the interpretation; floats/listings do not substitute for paragraph depth.
 - Applications and Case Studies keep their stricter narrative-first structure: at least three substantive introductory/background paragraphs before the structured Problem/Dataset/Model/Method/Evaluation/Results/Error Analysis/Limitations/Implications fields.
 - Short transitional headings may be merged into neighboring sections rather than padded artificially. Do not preserve a thin heading solely for historical structure.
+
+
+## Application and Case Study structured-field formatting hard gate
+- Every Application and Case Study must begin with **several substantive introductory/background paragraphs** before any structured field labels appear. The default expectation is at least three substantial opening paragraphs, and more where domain context, motivation, or methodological background requires it.
+- After the introductory/background narrative, structured fields must use **bold inline labels followed immediately by prose on the same paragraph line**.
+- Each structured field must appear as its own separate paragraph. Do not place a bold label alone on one line with its prose beginning in a separate paragraph.
+- Example format:
+  \`\`\`
+  \\textbf{Objective:} prose describing the objective.
+
+  \\textbf{Problem:} prose defining the technical problem.
+
+  \\textbf{Metrics:} prose defining the evaluation metrics.
+
+  \\textbf{Results:} prose interpreting the results.
+  \`\`\`
+- Appropriate field labels may include Objective, Problem, Dataset, Model, Method, Metrics, Evaluation, Results, Error Analysis, Limitations, Deployment / Engineering Implications, Research Implications, and Future Directions. Use only fields that are meaningful to the specific Application or Case Study.
+- Applications normally include Objective, Problem, Dataset, Model, Method, Metrics or Evaluation, Results, Error Analysis, Limitations, and Deployment / Engineering Implications.
+- Case Studies normally include Objective, Problem, Dataset or Evidence Base, Method, Metrics or Evaluation, Results, Error Analysis, Limitations, and Research Implications or Future Directions.
+- Do not use generic boilerplate merely to satisfy a field list. Each field must contain chapter-specific substantive technical prose.
