@@ -3,6 +3,7 @@ import argparse, json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from ucimlrepo import fetch_ucirepo
 from sklearn.linear_model import Ridge
 from sklearn.ensemble import HistGradientBoostingRegressor
@@ -77,8 +78,10 @@ def main():
     for name in ["Persistence (24 h)","Ridge","HistGBR"]:
         axs[0].plot(t,preds[name][-n:],lw=1.25,color=COLORS[name],label=name)
     axs[0].set_ylabel("Hourly active power (kW)")
-    axs[0].set_xlabel("Time")
-    axs[0].tick_params(axis="x",rotation=25)
+    axs[0].set_xlabel("Held-out week")
+    axs[0].xaxis.set_major_locator(mdates.DayLocator(interval=2))
+    axs[0].xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+    axs[0].tick_params(axis="x",rotation=0)
     axs[0].legend(frameon=False,fontsize=7,ncol=2)
 
     # RMSE by hour of day for strongest model and persistence.
