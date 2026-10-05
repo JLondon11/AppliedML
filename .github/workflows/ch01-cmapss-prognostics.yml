@@ -1,0 +1,49 @@
+name: Generate Chapter 1 NASA C-MAPSS Prognostics Figure
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/code/figures/generate_turbofan_cmapss_fd001.py'
+      - '.github/workflows/ch01-cmapss-prognostics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ch01-cmapss-prognostics
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas matplotlib scikit-learn
+      - name: Sync latest publication branch
+        run: |
+          git pull --ff-only origin book-publication-recovery-final
+      - name: Generate NASA C-MAPSS evidence
+        run: |
+          python book/final/01_Foundations_of_Machine_Learning/code/figures/generate_turbofan_cmapss_fd001.py
+      - name: Commit generated assets
+        run: |
+          git config user.name "AppliedML Publication Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add book/final/01_Foundations_of_Machine_Learning/figures/ch01_turbofan_cmapss_fd001.*                   book/final/01_Foundations_of_Machine_Learning/figures/ch01_cmapss_fd001_predictions.csv                   book/final/01_Foundations_of_Machine_Learning/figures/ch01_turbofan_cmapss_fd001_provenance.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Generate real NASA C-MAPSS prognostics evidence"
+          git pull --rebase origin book-publication-recovery-final
+          git push origin HEAD:book-publication-recovery-final
