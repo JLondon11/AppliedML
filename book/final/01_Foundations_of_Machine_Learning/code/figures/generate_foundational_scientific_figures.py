@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer, load_digits, make_moons, make_blobs
-from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score
+from sklearn.model_selection import train_test_split, StratifiedKFold, KFold, cross_val_score, learning_curve
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge
 from sklearn.metrics import roc_curve, precision_recall_curve, auc, confusion_matrix, balanced_accuracy_score, roc_auc_score
 from sklearn.calibration import calibration_curve
-from sklearn.manifold import TSNE, SpectralEmbedding
+from sklearn.manifold import TSNE, Isomap
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.mixture import GaussianMixture
@@ -18,6 +18,8 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier, export_text
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, BaggingClassifier, StackingClassifier
 from skimage import data, color, filters
+from matplotlib.colors import ListedColormap, BoundaryNorm
+from matplotlib.patches import Patch
 
 OUT = None
 PALETTE = ["#355C7D","#4F7C6E","#B26E3B","#7A6AA6","#657A8A","#8B5E6B","#6E7D58","#4D6C73"]
@@ -76,24 +78,29 @@ def fig_0104_inductive_bias():
     save(fig,"figure_01_04_inductive_bias")
 
 def fig_0106_learning_curves():
-    X,y=load_breast_cancer(return_X_y=True)
-    Xtr_raw,Xv_raw,ytr,yv=train_test_split(X,y,test_size=.3,stratify=y,random_state=42)
-    scaler=StandardScaler().fit(Xtr_raw)
-    Xtr=scaler.transform(Xtr_raw)
-    Xv=scaler.transform(Xv_raw)
-    settings=[("underfit",1e-1),("balanced",1e-3),("overfit",1e-7)]
+    X,y=make_moons(n_samples=900,noise=.28,random_state=42)
+    cv=StratifiedKFold(5,shuffle=True,random_state=42)
+    train_sizes=np.linspace(.12,1.0,8)
+    models=[
+        ("underfit",make_pipeline(StandardScaler(),SVC(kernel="linear",C=.08))),
+        ("well fit",make_pipeline(StandardScaler(),SVC(kernel="rbf",C=3.0,gamma=1.5))),
+        ("high variance",DecisionTreeClassifier(random_state=42))
+    ]
     fig,axs=plt.subplots(1,3,figsize=(10.2,3.2))
-    for ax,(name,alpha),c in zip(axs,settings,PALETTE[:3]):
-        from sklearn.linear_model import SGDClassifier
-        clf=SGDClassifier(loss="log_loss",alpha=alpha,learning_rate="constant",eta0=.01,random_state=42)
-        classes=np.array([0,1]); tr=[]; va=[]
-        for epoch in range(1,61):
-            clf.partial_fit(Xtr,ytr,classes=classes)
-            tr.append(balanced_accuracy_score(ytr,clf.predict(Xtr)))
-            va.append(balanced_accuracy_score(yv,clf.predict(Xv)))
-        ax.plot(range(1,61),tr,lw=1.7,label="train",color=c)
-        ax.plot(range(1,61),va,lw=1.7,label="validation",color="#555555")
-        ax.set_ylim(.5,1.02); ax.set_xlabel("Epoch"); ax.set_ylabel("Balanced accuracy")
+    for ax,(name,model),accent in zip(axs,models,[PALETTE[0],PALETTE[1],PALETTE[2]]):
+        n,tr,va=learning_curve(
+            model,X,y,cv=cv,train_sizes=train_sizes,scoring="balanced_accuracy",
+            shuffle=True,random_state=42,n_jobs=1
+        )
+        trm,trs=tr.mean(1),tr.std(1)
+        vam,vas=va.mean(1),va.std(1)
+        ax.plot(n,trm,marker="o",ms=3.5,lw=1.8,color=accent,label="training")
+        ax.fill_between(n,trm-trs,trm+trs,color=accent,alpha=.12)
+        ax.plot(n,vam,marker="o",ms=3.5,lw=1.8,color="#555555",label="cross-validation")
+        ax.fill_between(n,vam-vas,vam+vas,color="#777777",alpha=.10)
+        ax.set_xlabel("Training examples")
+        ax.set_ylabel("Balanced accuracy")
+        ax.set_ylim(.5,1.02)
         ax.legend(frameon=False,fontsize=8)
     for i,a in enumerate(axs): panel(a,f"({chr(97+i)})")
     save(fig,"figure_01_06_learning_curves")
@@ -103,21 +110,31 @@ def fig_0107_bias_variance():
     ftrue=np.sin(np.pi*grid)
     degrees=[1,3,5,9,15]
     nrep=120
-    bias2=[]; var=[]; mse=[]
+    noise_sigma=.25
+    bias2=[]; var=[]
     for d in degrees:
         preds=[]
-        for r in range(nrep):
-            x=RNG.uniform(-1,1,24); y=np.sin(np.pi*x)+RNG.normal(0,.25,len(x))
+        for _ in range(nrep):
+            x=RNG.uniform(-1,1,24)
+            y=np.sin(np.pi*x)+RNG.normal(0,noise_sigma,len(x))
             model=make_pipeline(PolynomialFeatures(d),Ridge(alpha=1e-5))
-            model.fit(x[:,None],y); preds.append(model.predict(grid[:,None]))
-        P=np.vstack(preds); mean=P.mean(0)
-        bias2.append(np.mean((mean-ftrue)**2)); var.append(np.mean(P.var(0))); mse.append(np.mean((P-ftrue)**2))
-    fig,ax=plt.subplots(figsize=(6.8,3.5))
-    ax.plot(degrees,bias2,marker="o",lw=2,label="squared bias",color=PALETTE[0])
-    ax.plot(degrees,var,marker="o",lw=2,label="variance",color=PALETTE[2])
-    ax.plot(degrees,mse,marker="o",lw=2,label="expected error",color=PALETTE[1])
-    ax.set_xlabel("Polynomial degree (model capacity)"); ax.set_ylabel("Monte Carlo error component")
-    ax.legend(frameon=False); save(fig,"figure_01_07_bias_variance")
+            model.fit(x[:,None],y)
+            preds.append(model.predict(grid[:,None]))
+        P=np.vstack(preds)
+        mean=P.mean(0)
+        bias2.append(float(np.mean((mean-ftrue)**2)))
+        var.append(float(np.mean(P.var(0))))
+    noise=np.full(len(degrees),noise_sigma**2)
+    total=np.asarray(bias2)+np.asarray(var)+noise
+    fig,ax=plt.subplots(figsize=(7.2,3.6))
+    ax.plot(degrees,bias2,marker="o",lw=1.9,label="squared bias",color=PALETTE[0])
+    ax.plot(degrees,var,marker="o",lw=1.9,label="variance",color=PALETTE[2])
+    ax.plot(degrees,noise,ls="--",lw=1.5,label="irreducible noise",color="#777777")
+    ax.plot(degrees,total,marker="o",lw=2.2,label="expected test MSE",color=PALETTE[1])
+    ax.set_xlabel("Polynomial degree (model capacity)")
+    ax.set_ylabel("Bias--variance error component")
+    ax.legend(frameon=False,ncol=2,fontsize=8)
+    save(fig,"figure_01_07_bias_variance")
 
 def fig_0108_representation_preprocessing():
     X,y=load_breast_cancer(return_X_y=True)
@@ -166,9 +183,11 @@ def fig_0108_representation_preprocessing():
 
 def fig_0110_dimensionality():
     D=load_digits(); X=D.data[:700]; y=D.target[:700]
-    embeds=[PCA(2,random_state=42).fit_transform(X),
-            TSNE(2,random_state=42,init="pca",learning_rate="auto",perplexity=30,max_iter=700).fit_transform(X),
-            SpectralEmbedding(2,n_neighbors=15,random_state=42).fit_transform(X)]
+    embeds=[
+        PCA(2,random_state=42).fit_transform(X),
+        TSNE(2,random_state=42,init="pca",learning_rate="auto",perplexity=30,max_iter=700).fit_transform(X),
+        Isomap(n_components=2,n_neighbors=12).fit_transform(X)
+    ]
     fig,axs=plt.subplots(1,3,figsize=(9.6,3.0))
     for ax,E in zip(axs,embeds):
         ax.scatter(E[:,0],E[:,1],c=y,cmap="tab10",s=7,alpha=.75,linewidths=0)
@@ -220,36 +239,55 @@ def fig_0112_metrics():
     axs[0].plot(fpr,tpr,lw=2,color=PALETTE[0]); axs[0].plot([0,1],[0,1],"--",lw=1,color="#888")
     axs[0].set_xlabel("False-positive rate"); axs[0].set_ylabel("True-positive rate")
     axs[1].plot(rc,pr,lw=2,color=PALETTE[1]); axs[1].set_xlabel("Recall"); axs[1].set_ylabel("Precision")
-    axs[2].plot(mean,frac,marker="o",lw=1.8,color=PALETTE[2]); axs[2].plot([0,1],[0,1],"--",lw=1,color="#888"); axs[2].set_xlabel("Mean predicted probability"); axs[2].set_ylabel("Observed fraction")
-    im=axs[3].imshow(cm,cmap="Blues")
+    axs[2].plot(mean,frac,marker="o",lw=1.8,color=PALETTE[2]); axs[2].plot([0,1],[0,1],"--",lw=1,color="#888")
+    axs[2].set_xlabel("Mean predicted probability"); axs[2].set_ylabel("Observed fraction")
+    im=axs[3].imshow(cm,cmap="Blues",vmin=0,vmax=cm.max())
     for (i,j),v in np.ndenumerate(cm): axs[3].text(j,i,str(v),ha="center",va="center")
-    axs[3].set_xlabel("Predicted"); axs[3].set_ylabel("True")
+    axs[3].set_xticks([0,1],["0","1"]); axs[3].set_yticks([0,1],["0","1"])
+    axs[3].set_xlabel("Predicted class"); axs[3].set_ylabel("True class")
+    fig.colorbar(im,ax=axs[3],fraction=.046,pad=.04,label="Count")
     for i,a in enumerate(axs): panel(a,f"({chr(97+i)})")
     save(fig,"figure_01_12_metrics")
 
 def fig_0113_cv():
-    n=48; y=np.array([0]*28+[1]*20)
-    k=6
-    fold=np.arange(n)%k
-    strat=np.empty(n,int)
-    for cls in [0,1]:
-        idx=np.where(y==cls)[0]
-        strat[idx]=np.arange(len(idx))%k
-    # nested: outer rows with inner validation codes for one held-out outer fold
-    outer=np.arange(n)%4
-    nested=np.full(n,-1); train=np.where(outer!=0)[0]; nested[train]=np.arange(len(train))%5
-    mats=[fold[None,:],strat[None,:],np.vstack([outer,nested])]
-    fig,axs=plt.subplots(1,3,figsize=(10.0,2.6))
-    for ax,M in zip(axs,mats):
-        ax.imshow(M,aspect="auto",cmap="tab10",interpolation="nearest",vmin=-1,vmax=9)
-        ax.set_xlabel("Sample index"); ax.set_yticks(range(M.shape[0]))
-        # Fold identity is categorical, so write the fold ID directly in each
-        # cell instead of implying a continuous magnitude with a colorbar.
-        for rr in range(M.shape[0]):
-            for cc in range(M.shape[1]):
-                ax.text(cc,rr,str(int(M[rr,cc])),ha="center",va="center",fontsize=5,
-                        color="white" if M[rr,cc] not in (0,1,2) else "black")
-    axs[0].set_yticklabels(["fold"]); axs[1].set_yticklabels(["stratified fold"]); axs[2].set_yticklabels(["outer","inner"])
+    n=48
+    y=np.array([0]*28+[1]*20)
+    idx=np.arange(n)
+
+    kf=KFold(6,shuffle=False)
+    skf=StratifiedKFold(6,shuffle=True,random_state=42)
+    M1=np.zeros((6,n),dtype=int)
+    M2=np.zeros((6,n),dtype=int)
+    for r,(_,te) in enumerate(kf.split(idx)):
+        M1[r,te]=1
+    for r,(_,te) in enumerate(skf.split(idx,y)):
+        M2[r,te]=1
+
+    outer=StratifiedKFold(4,shuffle=True,random_state=42)
+    outer_train,outer_test=next(outer.split(idx,y))
+    inner=StratifiedKFold(5,shuffle=True,random_state=42)
+    M3=np.zeros((6,n),dtype=int)
+    M3[0,outer_test]=2
+    for r,(tr_rel,val_rel) in enumerate(inner.split(outer_train,y[outer_train]),start=1):
+        M3[r,outer_test]=2
+        M3[r,outer_train[val_rel]]=1
+
+    cmap=ListedColormap(["#ECEFF1",PALETTE[1],PALETTE[2]])
+    norm=BoundaryNorm([-.5,.5,1.5,2.5],cmap.N)
+    fig,axs=plt.subplots(1,3,figsize=(10.4,3.15))
+    for ax,M in zip(axs,[M1,M2,M3]):
+        ax.imshow(M,aspect="auto",cmap=cmap,norm=norm,interpolation="nearest")
+        ax.set_xlabel("Sample index")
+        ax.set_xticks([0,12,24,36,47])
+    axs[0].set_ylabel("Fold")
+    axs[0].set_yticks(range(6),[str(i) for i in range(1,7)])
+    axs[1].set_yticks(range(6),[str(i) for i in range(1,7)])
+    axs[2].set_yticks(range(6),["outer test","inner 1","inner 2","inner 3","inner 4","inner 5"])
+    axs[2].legend(handles=[
+        Patch(facecolor="#ECEFF1",edgecolor="none",label="training"),
+        Patch(facecolor=PALETTE[1],edgecolor="none",label="validation/test"),
+        Patch(facecolor=PALETTE[2],edgecolor="none",label="outer test")
+    ],frameon=False,fontsize=7,loc="upper right")
     for i,a in enumerate(axs): panel(a,f"({chr(97+i)})")
     save(fig,"figure_01_13_cross_validation")
 
@@ -283,12 +321,28 @@ def fig_0118_svm():
     save(fig,"figure_01_18_svm")
 
 def fig_0119_tree():
-    X,y=make_moons(n_samples=400,noise=.22,random_state=42)
-    m=DecisionTreeClassifier(max_depth=4,min_samples_leaf=12,random_state=42).fit(X,y)
-    fig,axs=plt.subplots(1,2,figsize=(8.6,3.4)); _surface(axs[0],m,X,y); axs[0].set_xticks([]); axs[0].set_yticks([])
-    imp=m.feature_importances_; counts=np.bincount(m.tree_.feature[m.tree_.feature>=0],minlength=2)
-    x=np.arange(2); axs[1].bar(x-.18,imp,width=.36,label="importance",color=PALETTE[0]); axs[1].bar(x+.18,counts/max(counts.max(),1),width=.36,label="normalized split count",color=PALETTE[2])
-    axs[1].set_xticks(x,["feature 1","feature 2"]); axs[1].set_ylim(0,1.05); axs[1].legend(frameon=False,fontsize=8)
+    X,y=make_moons(n_samples=500,noise=.24,random_state=42)
+    Xtr,Xte,ytr,yte=train_test_split(X,y,test_size=.35,stratify=y,random_state=42)
+    m=DecisionTreeClassifier(max_depth=4,min_samples_leaf=10,random_state=42).fit(Xtr,ytr)
+    fig,axs=plt.subplots(1,2,figsize=(8.8,3.45))
+    _surface(axs[0],m,Xte,yte)
+    axs[0].set_xticks([]); axs[0].set_yticks([])
+
+    depths=np.arange(1,11)
+    train_scores=[]; test_scores=[]; leaves=[]
+    for d in depths:
+        t=DecisionTreeClassifier(max_depth=int(d),min_samples_leaf=2,random_state=42).fit(Xtr,ytr)
+        train_scores.append(balanced_accuracy_score(ytr,t.predict(Xtr)))
+        test_scores.append(balanced_accuracy_score(yte,t.predict(Xte)))
+        leaves.append(t.get_n_leaves())
+    axs[1].plot(depths,train_scores,marker="o",ms=3.5,lw=1.8,color=PALETTE[0],label="training")
+    axs[1].plot(depths,test_scores,marker="o",ms=3.5,lw=1.8,color=PALETTE[1],label="validation")
+    axs[1].set_xlabel("Maximum tree depth"); axs[1].set_ylabel("Balanced accuracy"); axs[1].set_ylim(.5,1.02)
+    ax2=axs[1].twinx()
+    ax2.plot(depths,leaves,ls="--",lw=1.5,color=PALETTE[2],label="leaf count")
+    ax2.set_ylabel("Leaf count")
+    h1,l1=axs[1].get_legend_handles_labels(); h2,l2=ax2.get_legend_handles_labels()
+    axs[1].legend(h1+h2,l1+l2,frameon=False,fontsize=8,loc="lower right")
     for i,a in enumerate(axs): panel(a,f"({chr(97+i)})")
     save(fig,"figure_01_19_tree")
 
