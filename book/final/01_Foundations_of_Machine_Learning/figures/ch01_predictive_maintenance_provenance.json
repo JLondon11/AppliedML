@@ -1,12 +1,30 @@
 {
   "source": "Case Western Reserve University Bearing Data Center",
-  "normal_file": "97.mat",
-  "fault_file": "105.mat",
-  "normal_variable": "X097_DE_time",
-  "fault_variable": "X105_DE_time",
+  "normal_files": [
+    "97.mat",
+    "98.mat",
+    "99.mat",
+    "100.mat"
+  ],
+  "fault_files": [
+    "105.mat",
+    "106.mat",
+    "107.mat",
+    "108.mat"
+  ],
+  "variables": {
+    "normal_0": "X097_DE_time",
+    "normal_1": "X098_DE_time",
+    "normal_2": "X098_DE_time",
+    "normal_3": "X100_DE_time",
+    "inner_race_007_0": "X105_DE_time",
+    "inner_race_007_1": "X106_DE_time",
+    "inner_race_007_2": "X107_DE_time",
+    "inner_race_007_3": "X108_DE_time"
+  },
   "sampling_rate_hz": 12000,
   "window_samples": 2048,
   "hop_samples": 2048,
-  "split": "blocked first 70% windows train, final 30% windows test independently within each recording",
-  "limitations": "Two 0-hp recordings; diagnostic demonstration, not a field prevalence or fleet reliability estimate."
+  "split": "file-level operating-condition holdout: train on 0/1/2 hp normal and 0.007-in inner-race-fault recordings; test only on unseen 3 hp normal/fault recordings",
+  "limitations": "Controlled normal-versus-inner-race-fault diagnostic using one fault size; not a field prevalence or fleet reliability estimate."
 }
