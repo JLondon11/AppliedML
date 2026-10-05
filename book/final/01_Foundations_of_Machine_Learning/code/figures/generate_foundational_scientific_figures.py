@@ -77,7 +77,10 @@ def fig_0104_inductive_bias():
 
 def fig_0106_learning_curves():
     X,y=load_breast_cancer(return_X_y=True)
-    Xtr,Xv,ytr,yv=train_test_split(StandardScaler().fit_transform(X),y,test_size=.3,stratify=y,random_state=42)
+    Xtr_raw,Xv_raw,ytr,yv=train_test_split(X,y,test_size=.3,stratify=y,random_state=42)
+    scaler=StandardScaler().fit(Xtr_raw)
+    Xtr=scaler.transform(Xtr_raw)
+    Xv=scaler.transform(Xv_raw)
     settings=[("underfit",1e-1),("balanced",1e-3),("overfit",1e-7)]
     fig,axs=plt.subplots(1,3,figsize=(10.2,3.2))
     for ax,(name,alpha),c in zip(axs,settings,PALETTE[:3]):
@@ -175,12 +178,12 @@ def fig_0110_dimensionality():
 
 def fig_0111_hpo():
     X,y=load_breast_cancer(return_X_y=True)
-    X=StandardScaler().fit_transform(X)
     cv=StratifiedKFold(4,shuffle=True,random_state=42)
     Cs=np.logspace(-4,3,36)
     scores=[]
     for C in Cs:
-        s=cross_val_score(LogisticRegression(C=C,max_iter=1500),X,y,cv=cv,scoring="roc_auc").mean()
+        model=make_pipeline(StandardScaler(),LogisticRegression(C=C,max_iter=1500))
+        s=cross_val_score(model,X,y,cv=cv,scoring="roc_auc").mean()
         scores.append(s)
     scores=np.array(scores)
     # matched 12-evaluation budgets
@@ -290,7 +293,7 @@ def fig_0120_ensembles():
       BaggingClassifier(estimator=base,n_estimators=80,random_state=42).fit(X,y),
       GradientBoostingClassifier(n_estimators=80,max_depth=2,random_state=42).fit(X,y),
       RandomForestClassifier(n_estimators=120,max_depth=5,random_state=42).fit(X,y),
-      StackingClassifier(estimators=[("rf",RandomForestClassifier(n_estimators=60,max_depth=4,random_state=42)),("svm",SVC(probability=True,C=2,gamma=2))],final_estimator=LogisticRegression()).fit(X,y)
+      StackingClassifier(estimators=[("rf",RandomForestClassifier(n_estimators=60,max_depth=4,random_state=42)),("svm",SVC(probability=True,C=2,gamma=2,random_state=42))],final_estimator=LogisticRegression()).fit(X,y)
     ]
     fig,axs=plt.subplots(1,4,figsize=(12,2.8))
     for ax,m in zip(axs,models): _surface(ax,m,X,y); ax.set_xticks([]); ax.set_yticks([])
