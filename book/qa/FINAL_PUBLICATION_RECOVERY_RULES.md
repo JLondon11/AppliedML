@@ -104,3 +104,13 @@ Later Pass15/Pass16 packages, accepted figure ZIPs, QA reports, and Book Editing
 - Every retained figure and every retained table assigned to a chapter must appear in that chapter's final editable source and compiled PDF. No retained figure/table may be omitted for convenience, page-count reduction, or layout simplification.
 - Each retained figure/table must be placed in the correct section, numbered by chapter, captioned, explicitly referenced in prose, and substantively discussed.
 - Final chapter QA must reconcile the frozen figure/table inventory against the compiled PDF and fail if any retained item is missing, duplicated, misnumbered, or orphaned.
+
+
+## Section depth hard gate
+- Every ordinary chapter section and subsection must contain at least **three substantive prose paragraphs**; four or more are preferred when the topic requires background, derivation, interpretation, limitations, or engineering implications.
+- A section with only one or two substantive paragraphs is incomplete and must be expanded with chapter-relevant technical detail rather than filler.
+- Paragraphs must add distinct value. Repetition, generic transitions, boilerplate, caption restatement, or sentence fragments do not count toward the minimum.
+- Mathematical sections should normally include conceptual setup, derivation/technical development, and interpretation or consequence in separate substantive paragraphs.
+- Sections centered on figures/tables/code must still contain enough prose to explain the scientific question, the evidence or implementation, and the interpretation; floats/listings do not substitute for paragraph depth.
+- Applications and Case Studies keep their stricter narrative-first structure: at least three substantive introductory/background paragraphs before the structured Problem/Dataset/Model/Method/Evaluation/Results/Error Analysis/Limitations/Implications fields.
+- Short transitional headings may be merged into neighboring sections rather than padded artificially. Do not preserve a thin heading solely for historical structure.
