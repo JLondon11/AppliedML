@@ -6,7 +6,9 @@ The public ULB/Worldline credit-card fraud benchmark contains anonymized Europea
 
 The experiment in this section uses the same chronological train/test split and the same held-out test set for all models. It compares an ordinary logistic-regression baseline, a class-weighted logistic-regression model, and a class-balanced random forest. The purpose is not to identify a universal ``best fraud detector,'' but to demonstrate how class weighting, nonlinear decision boundaries, temporal evaluation, and threshold selection alter the interpretation of model quality.
 
-\\textbf{Problem:} The operational task is to rank incoming transactions by fraud risk and to convert those scores into an investigation queue with an acceptable tradeoff between fraud recall and analyst workload. Because the fraud prevalence is only a fraction of one percent, the problem must be treated as rare-event classification rather than as ordinary balanced classification.
+\\textbf{Objective:} The objective is to evaluate rare-event fraud ranking under a chronological holdout and to show how imbalance treatment and operating-threshold choice change the practical interpretation of model quality.
+
+\textbf{Problem:} The operational task is to rank incoming transactions by fraud risk and to convert those scores into an investigation queue with an acceptable tradeoff between fraud recall and analyst workload. Because the fraud prevalence is only a fraction of one percent, the problem must be treated as rare-event classification rather than as ordinary balanced classification.
 
 \\textbf{Dataset:} The benchmark uses the public \texttt{creditcard} dataset from OpenML (dataset 1597), corresponding to the ULB/Worldline credit-card fraud benchmark. The dataset contains 284,807 transactions, of which 492 are labeled as fraud. Features \texttt{V1}--\texttt{V28} are anonymized principal components; \texttt{Time} and \texttt{Amount} provide the remaining numerical attributes. To reduce temporal leakage, transactions are ordered by \texttt{Time}; the earliest 70\% (199,364 transactions) are used for training and the latest 30\% (85,443 transactions) for testing.
 
@@ -33,7 +35,7 @@ def select_cost_optimal_threshold(y_true, y_prob,
     return min(rows, key=lambda x: x[1]), rows
 \end{lstlisting}
 
-\\textbf{Evaluation:} Figure~\ref{fig:ch1-credit-card-fraud} emphasizes the metrics that matter under severe imbalance. Panel (a) shows the precision--recall curves for all three models together with the test-set fraud prevalence. Panel (b) reports precision and recall when only the top 1\% of scored transactions are sent for review. Table~\ref{tab:ch1-fraud-benchmark} provides the corresponding ranking and thresholded metrics.
+\\textbf{Metrics:} The principal metrics are average precision, ROC--AUC, best held-out F1, precision, recall, and recall at a fixed top-1\% review budget; the cost-sensitive threshold calculation provides an additional operational decision criterion.  Figure~\ref{fig:ch1-credit-card-fraud} emphasizes the metrics that matter under severe imbalance. Panel (a) shows the precision--recall curves for all three models together with the test-set fraud prevalence. Panel (b) reports precision and recall when only the top 1\% of scored transactions are sent for review. Table~\ref{tab:ch1-fraud-benchmark} provides the corresponding ranking and thresholded metrics.
 
 \begin{figure}[t]
 \centering
