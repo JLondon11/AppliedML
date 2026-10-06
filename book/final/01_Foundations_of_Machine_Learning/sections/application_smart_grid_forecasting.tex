@@ -6,7 +6,9 @@ The application also illustrates why simple baselines matter. A sophisticated mo
 
 The reproduced experiment uses the UCI Individual Household Electric Power Consumption dataset. Minute-level active-power measurements are aggregated to hourly load, and only lagged information available before the forecast time is used as input. A chronological train/test split is maintained after lag construction so that the held-out interval occurs strictly after the training interval.
 
-\\textbf{Problem:} The task is one-step-ahead hourly electricity-demand forecasting. For each hour, the model predicts active power using recent demand history and calendar variables. The engineering objective is to reduce forecast error relative to a seasonal persistence rule while preserving a validation protocol that matches operational forecasting.
+\\textbf{Objective:} The objective is to construct a causal one-step-ahead hourly load-forecasting benchmark and determine whether learned models improve on a strong 24-hour seasonal persistence baseline under a strictly chronological holdout.
+
+\textbf{Problem:} The task is one-step-ahead hourly electricity-demand forecasting. For each hour, the model predicts active power using recent demand history and calendar variables. The engineering objective is to reduce forecast error relative to a seasonal persistence rule while preserving a validation protocol that matches operational forecasting.
 
 \\textbf{Dataset:} The experiment uses the UCI Individual Household Electric Power Consumption dataset (repository identifier 235), containing more than two million one-minute measurements collected from a household in Sceaux, France, from December 2006 through November 2010. The experiment aggregates global active power to hourly means and uses the final approximately 18 months of hourly observations to keep the benchmark computationally compact while preserving daily and weekly seasonality.
 
@@ -14,7 +16,7 @@ The reproduced experiment uses the UCI Individual Household Electric Power Consu
 
 \\textbf{Method:} Each supervised example contains demand lags at 1, 24, and 168 hours, a rolling 24-hour mean computed only from past values, and sine/cosine encodings of hour of day and day of week. After removing rows made incomplete by lag construction, the first 80\% of observations are used for training and the final 20\% for testing. This chronological split prevents future demand from leaking into model fitting.
 
-\\textbf{Evaluation:} Mean absolute error, root-mean-square error, and mean absolute percentage error summarize held-out forecast quality. Figure~\ref{fig:ch1-smart-grid-forecasting} contains two diagnostics. Panel (a) compares observed hourly demand with the three model forecasts over the final seven days of the test interval. Panel (b) reports hour-of-day RMSE for the 24-hour persistence baseline and the nonlinear gradient-boosting model, revealing when daily periodicity is easiest or hardest to predict. Table~\ref{tab:ch1-smart-grid-benchmark} reports the aggregate metrics.
+\\textbf{Metrics:} The principal metrics are mean absolute error (MAE), root-mean-square error (RMSE), and mean absolute percentage error (MAPE) on the chronological test interval, supplemented by hour-of-day RMSE diagnostics.  Mean absolute error, root-mean-square error, and mean absolute percentage error summarize held-out forecast quality. Figure~\ref{fig:ch1-smart-grid-forecasting} contains two diagnostics. Panel (a) compares observed hourly demand with the three model forecasts over the final seven days of the test interval. Panel (b) reports hour-of-day RMSE for the 24-hour persistence baseline and the nonlinear gradient-boosting model, revealing when daily periodicity is easiest or hardest to predict. Table~\ref{tab:ch1-smart-grid-benchmark} reports the aggregate metrics.
 
 \begin{figure}[t]
 \centering
