@@ -6,6 +6,7 @@ on:
     paths:
       - '**/*.tex'
       - 'tools/audit_case_study_application_structure.py'
+      - 'tools/audit_application_case_structure.py'
       - 'book/qa/CASE_STUDY_APPLICATION_PROSE_QA.md'
 
 jobs:
@@ -19,3 +20,6 @@ jobs:
             --csv book/qa/case_study_application_findings.csv \
             --min-intro-paragraphs 3 \
             --near-duplicate-threshold 0.72
+      - name: Audit narrative-first inline structured fields
+        run: |
+          python tools/audit_application_case_structure.py book/final
