@@ -4,15 +4,15 @@
 Checks:
 - at least several substantive introductory/background paragraphs before the
   first structured lead-in;
-- each structured label is bolded on its own line;
-- substantive prose follows each label in the next paragraph;
+- each structured field uses an inline bold label followed by substantive prose in the same paragraph;
+- structured fields begin only after the narrative introduction;
 - no repeated generic lead-ins within one case-study/application section;
 - no near-duplicate labeled prose by token-set similarity.
 
 This implements the book's publication rule that Applications and Case Studies
-begin with narrative background before standalone bold labels such as Problem,
-Dataset, Model, Method, Evaluation, Results, Error Analysis, Limitations, and
-Implications.
+begin with narrative background before inline bold fields such as Objective,
+Problem, Dataset, Model, Method, Metrics, Results, Error Analysis, Limitations,
+and Implications.
 """
 from __future__ import annotations
 
@@ -27,19 +27,23 @@ SECTION_RE = re.compile(r"\\(?:sub)*section\*?\{([^}]*)\}", re.I)
 CASE_RE = re.compile(r"\b(case\s*study|application)\b", re.I)
 
 LEADINS = [
-    "Problem", "Dataset", "Data", "Method", "Model", "Experimental Setup",
-    "Results", "Evaluation", "Error Analysis", "Limitations", "Deployment",
+    "Objective", "Problem", "Dataset", "Data", "Method", "Model", "Experimental Setup",
+    "Metrics", "Results", "Evaluation", "Error Analysis", "Limitations", "Deployment",
     "Deployment / Engineering Implications", "Engineering Implications",
     "Research Implications", "Future Directions", "Lessons Learned",
     "Implications", "Business Impact"
 ]
 LEADIN_ALT = "|".join(re.escape(x) for x in sorted(LEADINS, key=len, reverse=True))
-STANDALONE_RE = re.compile(
-    rf"^\s*\\textbf\{{(?P<label>{LEADIN_ALT})\.?\}}\s*$",
+INLINE_RE = re.compile(
+    rf"^\s*\\textbf\{{(?P<label>{LEADIN_ALT}):\}}\s+(?P<prose>.+)$",
+    re.I,
+)
+BARE_RE = re.compile(
+    rf"^\s*\\textbf\{{(?P<label>{LEADIN_ALT})[:.]?\}}\s*$",
     re.I,
 )
 ANY_LEAD_RE = re.compile(
-    rf"\\textbf\{{(?P<label>{LEADIN_ALT})\.?\}}",
+    rf"\\textbf\{{(?P<label>{LEADIN_ALT})[:.]?\}}",
     re.I,
 )
 
@@ -102,28 +106,32 @@ def audit_file(path: Path, min_intro_paragraphs=3, near_dup=0.72):
         labeled=[]
         first_label_idx=None
         for pi,(ln,p) in enumerate(pars):
-            m=STANDALONE_RE.match(p)
+            m=INLINE_RE.match(p)
             if m:
                 label=m.group("label").strip().lower()
-                prose=""
-                prose_line=ln
-                if pi+1 < len(pars):
-                    prose_line, prose = pars[pi+1]
-                labeled.append((label,ln,prose_line,prose))
+                prose=m.group("prose").strip()
+                labeled.append((label,ln,ln,prose))
                 if first_label_idx is None:
                     first_label_idx=pi
+            elif BARE_RE.match(p):
+                m2=BARE_RE.match(p)
+                findings.append(dict(
+                    file=str(path),section=sec["title"],line=ln,
+                    kind="lead-in-format",label=m2.group("label"),
+                    detail="Structured field must use inline form \\textbf{Label:} prose in the same paragraph."
+                ))
             elif ANY_LEAD_RE.search(p):
                 findings.append(dict(
                     file=str(path),section=sec["title"],line=ln,
                     kind="lead-in-format",label=ANY_LEAD_RE.search(p).group("label"),
-                    detail="Structured label must be bolded on its own line, with prose beginning in the following paragraph."
+                    detail="Structured field must use a colon inside the bold label and prose in the same paragraph."
                 ))
 
         if not labeled:
             findings.append(dict(
                 file=str(path),section=sec["title"],line=sec["start"],
                 kind="no-structured-leadins",label="",
-                detail="No recognized standalone bold structured lead-ins found."
+                detail="No recognized inline bold structured fields found."
             ))
             continue
 
@@ -138,11 +146,11 @@ def audit_file(path: Path, min_intro_paragraphs=3, near_dup=0.72):
 
         for label,label_ln,prose_ln,prose in labeled:
             words=WORD_RE.findall(plain(prose))
-            if not prose or STANDALONE_RE.match(prose) or len(words)<8:
+            if not prose or len(words)<8:
                 findings.append(dict(
                     file=str(path),section=sec["title"],line=label_ln,
                     kind="missing-prose-after-leadin",label=label,
-                    detail="Standalone bold lead-in must be followed by a substantive prose paragraph."
+                    detail="Inline bold structured field must include substantive prose in the same paragraph."
                 ))
 
         counts=Counter(label for label,_,_,_ in labeled)
