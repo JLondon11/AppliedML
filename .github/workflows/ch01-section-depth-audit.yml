@@ -1,0 +1,25 @@
+name: Chapter 1 Section Depth Audit
+
+on:
+  push:
+    branches:
+      - book-publication-recovery-final
+    paths:
+      - 'book/final/01_Foundations_of_Machine_Learning/**/*.tex'
+      - 'tools/audit_section_depth.py'
+      - '.github/workflows/ch01-section-depth-audit.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: book-publication-recovery-final
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit Chapter 1 section depth
+        run: |
+          python tools/audit_section_depth.py             book/final/01_Foundations_of_Machine_Learning             --minimum 3 --min-words 35
