@@ -39,8 +39,8 @@ P=np.vstack(parts)
 np.save(OUT/'Figure_5_03_synthetic_point_cloud.npy',P)
 
 fig=plt.figure(figsize=(11.8,5.8),facecolor='white')
-fig.text(.50,.96,'Three computational representations of the same sampled 3D surface',ha='center',fontsize=12,color=NAVY)
-fig.text(.50,.918,'Point samples are deterministic simulated geometry, not a sensor scan',ha='center',fontsize=9,color=SLATE)
+# Main title resides in the LaTeX caption, not in the artwork.
+# Data provenance is stated in the LaTeX caption.
 axes=[fig.add_axes([.045,.27,.275,.55],projection='3d'),fig.add_axes([.373,.27,.275,.55],projection='3d'),fig.add_axes([.710,.31,.235,.45])]
 q=P[::7]
 axes[0].scatter(q[:,0],q[:,1],q[:,2],s=.35,c=PLUM,alpha=.55,rasterized=False)
@@ -57,13 +57,13 @@ axes[2].set_aspect('equal');axes[2].set_xlabel('x (m)');axes[2].set_ylabel('y (m
 fig.text(.175,.19,'unordered points  →  shared per-point MLP  →  symmetric pool',ha='center',fontsize=8,color=PLUM)
 fig.text(.51,.19,'metric voxel grid  →  3D / sparse convolution',ha='center',fontsize=8,color=TEAL)
 fig.text(.82,.19,'projection  →  2D convolution',ha='center',fontsize=8,color=GOLD)
-fig.text(.5,.105,'Grid-based representations (voxelization and projection) impose discretization; direct set methods do not.',ha='center',fontsize=9,color=SLATE)
+# No explanatory caption printed in artwork.
 for ext in ['png','pdf','svg']:
     fig.savefig(OUT/f'Figure_5_01_Point_Cloud_Representations.{ext}',dpi=250,bbox_inches='tight',pad_inches=.15)
 plt.close(fig)
 
 fig=plt.figure(figsize=(11.7,6),facecolor='white')
-ax3=fig.add_axes([.015,.18,.35,.73],projection='3d')
+ax3=fig.add_axes([.01,.20,.32,.63],projection='3d')
 q=P[::5]
 ax3.scatter(q[:,0],q[:,1],q[:,2],s=.45,alpha=.7,color=PLUM,rasterized=False)
 ax3.view_init(elev=20,azim=-58);ax3.set_box_aspect((3.8,1.6,1.7));ax3.set_axis_off()
@@ -71,7 +71,7 @@ ax3.set_title('3D point set (synthetic geometry)',color=NAVY,fontsize=11,pad=12)
 views=[('Side view','x','z',NAVY),('Front view','y','z',TEAL),('Top view','x','y',GOLD),('Rear view','y','z',PLUM)]
 cols=[(0,2),(1,2),(0,1),(1,2)]
 for i,((name,xname,yname,color),(cx,cy)) in enumerate(zip(views,cols)):
-    ax=fig.add_axes([.413+(i%2)*.286,.54-(i//2)*.37,.25,.285])
+    ax=fig.add_axes([.415+(i%2)*.310,.59-(i//2)*.39,.225,.225])
     values=P[:,[cx,cy]].copy()
     if i==3:values[:,0]*=-1
     ax.hist2d(values[:,0],values[:,1],bins=(75,52),cmap=('cividis' if i%2==0 else 'viridis'))
@@ -79,8 +79,8 @@ for i,((name,xname,yname,color),(cx,cy)) in enumerate(zip(views,cols)):
     ax.set_xlabel(xname+' (m)',fontsize=8)
     ax.set_ylabel(yname+' (m)',fontsize=8)
     ax.tick_params(labelsize=7)
-fig.text(.50,.955,'Orthographic multi-view projections from a single 3D point cloud',ha='center',fontsize=12,color=NAVY)
-fig.text(.50,.06,'Each view is a genuine numerical projection of the same 3D coordinates; the suppressed axis is not recoverable from one view alone.',ha='center',fontsize=8.4,color=SLATE)
+# Main title resides in LaTeX caption.
+# Projection limitations described in LaTeX caption.
 for ext in ['png','pdf','svg']:
     fig.savefig(OUT/f'Figure_5_03_Computed_Multiview.{ext}',dpi=240,bbox_inches='tight',pad_inches=.16)
 plt.close(fig)
