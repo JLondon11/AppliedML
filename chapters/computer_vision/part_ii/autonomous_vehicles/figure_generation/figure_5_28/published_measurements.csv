@@ -1,0 +1,3 @@
+model,range_min_m,range_max_m,latency_ms,source
+Faster R-CNN,0,30,182,Christiansen et al. Sensors 2016 doi:10.3390/s16111904
+DeepAnomaly,45,90,25,Christiansen et al. Sensors 2016 doi:10.3390/s16111904
