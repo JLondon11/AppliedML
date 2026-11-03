@@ -1,0 +1,10 @@
+metric,value
+heldout_detection_f1_fixed_threshold,0.770552850186193
+heldout_detection_f1_trained_logistic,0.9268171669560903
+heldout_detection_auc_trained_logistic,0.977442
+track_position_rmse_m_per_axis_matched,0.4632780700814683
+collision_rate_reactive,0.20625
+collision_rate_tracked_predictive,0.1875
+evaluation_episodes,160
+train_samples,12000
+test_samples,4000
