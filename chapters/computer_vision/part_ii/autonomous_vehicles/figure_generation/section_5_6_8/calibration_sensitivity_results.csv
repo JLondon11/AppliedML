@@ -1,0 +1,9 @@
+perturbation,magnitude,rms_image_reprojection_error_px
+time_offset_ms,0,0.0
+time_offset_ms,50.0,2.4189068963970857
+time_offset_ms,100.0,4.837813792794174
+time_offset_ms,200.0,9.675627585588348
+yaw_error_deg,0,0.0
+yaw_error_deg,0.1,1.192280119394424
+yaw_error_deg,0.25,2.980711688017359
+yaw_error_deg,0.5,5.961523166960169
