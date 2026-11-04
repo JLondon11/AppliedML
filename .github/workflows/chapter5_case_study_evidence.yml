@@ -1,0 +1,25 @@
+name: Chapter 5 case-study evidence integrity
+
+on:
+  push:
+    paths:
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/**'
+      - '.github/workflows/chapter5_case_study_evidence.yml'
+  pull_request:
+    paths:
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/**'
+      - '.github/workflows/chapter5_case_study_evidence.yml'
+  workflow_dispatch:
+
+jobs:
+  evidence-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout book source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify Chapter 5 manuscript-to-code evidence inventory
+        run: python chapters/computer_vision/part_ii/autonomous_vehicles/qa/verify_case_study_evidence.py
