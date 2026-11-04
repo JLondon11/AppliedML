@@ -17,6 +17,13 @@ def verify_scene(scene):
     if not t.is_file():raise FileNotFoundError('Original posed-scene transforms.json required')
     data=json.loads(t.read_text());frames=data.get('frames',[])
     if len(frames)<12:raise ValueError('A real, >=12 frame scene is required')
+    train=set(data.get('train_filenames',[]))
+    test=set(data.get('test_filenames',[]))
+    if not train or not test or train & test:
+        raise ValueError('Require explicit disjoint train_filenames and test_filenames')
+    known={item.get('file_path') for item in frames}
+    if not (train | test).issubset(known):
+        raise ValueError('Train/test split includes file not in dataset')
     for item in frames:
         if not item.get('file_path') or 'transform_matrix' not in item:
             raise ValueError('Missing image or pose')
