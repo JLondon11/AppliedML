@@ -64,3 +64,4 @@ chapter_number,chapter,path
 11,"Scientific AI","chapters/scientific_ai/production_pass14/resolve_remaining.py"
 11,"Scientific AI","chapters/scientific_ai/production_pass14/resolve_remaining_figures.py"
 12,"Systems Engineering and MLOps","chapters/systems_engineering_and_mlops/figure_generation/generate_figures.py"
+1,"Foundations of Machine Learning","chapters/foundations_machine_learning/code/case_studies/medical_diagnosis_wdbc.py"\n1,"Foundations of Machine Learning","chapters/foundations_machine_learning/code/case_studies/weather_seattle.py"\n1,"Foundations of Machine Learning","chapters/foundations_machine_learning/code/case_studies/edge_digits_quantization.py"\n1,"Foundations of Machine Learning","chapters/foundations_machine_learning/code/case_studies/aerospace_cmapss_fd001.py"\n
