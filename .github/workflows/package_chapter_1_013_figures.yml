@@ -1,0 +1,43 @@
+name: Package Chapter 1 v013 Figures
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/package_chapter_1_013_figures.yml"
+      - "chapters/foundations_machine_learning/figures/Chapter_1_013/**"
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify complete tri-format figure set
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR="chapters/foundations_machine_learning/figures/Chapter_1_013"
+          test -d "$DIR"
+          PNG_COUNT=$(find "$DIR" -maxdepth 1 -type f -name '*.png' | wc -l)
+          SVG_COUNT=$(find "$DIR" -maxdepth 1 -type f -name '*.svg' | wc -l)
+          PDF_COUNT=$(find "$DIR" -maxdepth 1 -type f -name '*.pdf' | wc -l)
+          echo "PNG: $PNG_COUNT"
+          echo "SVG: $SVG_COUNT"
+          echo "PDF: $PDF_COUNT"
+          test "$PNG_COUNT" -eq 22
+          test "$SVG_COUNT" -eq 22
+          test "$PDF_COUNT" -eq 22
+          test -f "$DIR/MANIFEST.md"
+
+      - name: Upload complete Chapter 1 v013 figure package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Chapter_1_013_Figures_COMPLETE_66_Assets
+          path: chapters/foundations_machine_learning/figures/Chapter_1_013/
+          if-no-files-found: error
+          retention-days: 90
