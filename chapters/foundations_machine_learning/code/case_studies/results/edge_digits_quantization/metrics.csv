@@ -1,0 +1,3 @@
+representation,accuracy,weight_bytes
+float64,0.9740740740740741,5120
+int8,0.9722222222222222,640
