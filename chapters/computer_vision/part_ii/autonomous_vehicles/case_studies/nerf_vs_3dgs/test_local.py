@@ -7,7 +7,7 @@ def main():
         path=Path(td)
         records=[{'file_path':f'images/{i:04d}.png','transform_matrix':
           [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]} for i in range(12)]
-        (path/'transforms.json').write_text(json.dumps({'frames':records}))
+        (path/'transforms.json').write_text(json.dumps({'frames':records,'train_filenames':[r['file_path'] for r in records[:10]],'test_filenames':[r['file_path'] for r in records[10:]]}))
         try:verify_scene(path)
         except FileNotFoundError:pass
         else:raise AssertionError('Real original frames should be required')
