@@ -1,9 +1,15 @@
-# CV5-CS08 — Case Study: Neural Radiance Fields versus 3D Gaussian Splatting for Real-Time Rendering
+# Chapter 5 — Matched Nerfacto and Gaussian splatting evaluation
 
-**Master QA: BLOCKED.** Current material: Real-image stereo baseline; section-local figures: 1; tables: 1.
+**Master QA: BLOCKED pending actual training/evaluation on a real posed dataset and GPU.** `run_nerfstudio_pair.py` runs two named **Nerfstudio implementations** on the *same* real scene and filename-defined evaluation split: `nerfacto` (NeRF family) and `splatfacto` (Gaussian splatting). It captures actual train logs, `ns-eval` outputs, rendered novel views, checkpoint configs, training wall-clock time, PSNR, SSIM, LPIPS, and dataset transforms hash.
 
-Existing related code: figure_generation/real_photo_baselines/generate_real_photo_baselines.py. This code is only supporting evidence and does not establish inference by the named model.
+References: [Nerfstudio CLI](https://docs.nerf.studio/reference/cli/ns_train.html), [ns-eval](https://docs.nerf.studio/reference/cli/ns_eval.html), [original Gaussian Splatting paper](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/), [Mip-NeRF360](https://jonbarron.info/mipnerf360/). **Nerfacto is not the original Mip-NeRF360 method**; do not re-label this as replicating the chapter's historical table or as its exact paper architectures.
 
-Required completion: NeRF and 3DGS novel-view outputs and metrics on matched scenes. Provide a dataset/source/license manifest, model publication and checkpoint hash, reproducible environment/config and seeds, a real executable named-model inference entry point, evaluation of real inputs, per-sample recorded outputs and metrics, generated scientific figures, a sourced comparison table and scientific interpretation in the manuscript. Cite the primary model/dataset references and preserve figure/table provenance.
+Example after installing Nerfstudio and CUDA per official instructions:
+```bash
+python test_local.py
+python run_nerfstudio_pair.py --scene /original/posed_real_scene --output results/comparison
+```
 
-Do not fabricate model results or treat published-data replots/controlled tests as real-dataset model inference.
+The dataset must contain `transforms.json`, at least 12 real images, valid camera pose transforms, and a documented **held-out file-defined evaluation split**. The tool records real metrics only when both training and evaluation programs succeed. **It does not measure FPS**; model rendering throughput must be measured in a separate controlled hardware protocol before comparing real-time suitability. No dataset or GPU-based results were available in this environment, and none are invented.
+
+The local unit test verifies dataset/provenance and JSON output contracts only. Named-model real-data figures, table values and manuscript integration remain to be completed.
