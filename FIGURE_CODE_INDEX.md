@@ -8,7 +8,7 @@ This index records the canonical chapter-level entry points for figure-generatio
 | Computer Vision Part II — Autonomous Systems | `chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/generate_figures.py` |
 | Deep Learning Part I | `chapters/deep_learning/part_i/figure_generation/generate_figures.py` |
 | Deep Learning Part II | `chapters/deep_learning/part_ii/figure_generation/generate_figures.py` |
-| Foundations of Machine Learning | `chapters/foundations_machine_learning/figure_generation/generate_figures.py` |
+| Foundations of Machine Learning | `chapters/foundations_machine_learning/figure_generation/generate_figures.py` for general figures; empirical application figures use `chapters/foundations_machine_learning/code/case_studies/` |
 | Generative AI Part I | `chapters/generative_ai_part_i/figure_generation/generate_figures.py` |
 | Generative AI Part II | `chapters/generative_ai_part_ii/figure_generation/generate_figures.py` plus section-specific scaling-law scripts |
 | NLP Part I | `chapters/nlp_part_i/figure_generation/generate_figures.py` plus figure-specific scripts under `chapters/nlp_part_i/figures/` |
@@ -32,3 +32,20 @@ Code location alone is not sufficient for Master-QA acceptance. For an empirical
 ## Section placement
 
 Where a figure has a section-specific experiment directory (for example NLP Part II scaling laws, BERT sentiment, enterprise RAG, interpretability, or Scientific AI ophthalmology), that directory is the canonical source. Shared chapter-level generators are retained as orchestration/fallback entry points for deterministic non-empirical figures.
+
+
+## Foundations of Machine Learning empirical overrides
+
+For Chapter 1 empirical applications, the section-specific real-data implementations
+under `chapters/foundations_machine_learning/code/case_studies/` take precedence
+over historical simulated or numerical fallback panels whenever the manuscript
+presents real-world case-study evidence:
+
+- `medical_diagnosis_wdbc.py`
+- `weather_seattle.py`
+- `edge_digits_quantization.py`
+- `aerospace_cmapss_fd001.py`
+
+Historical Lorenz-96, simulated degradation, or other numerical reconstructions
+may remain as conceptual illustrations, but they are not acceptable substitutes
+for real-data case-study result figures.
