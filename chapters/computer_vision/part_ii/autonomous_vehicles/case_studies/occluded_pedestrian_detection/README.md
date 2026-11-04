@@ -1,9 +1,18 @@
-# CV5-CS11 — Application: Pedestrian Detection Under Occlusion
+# Chapter 5 — Occluded-pedestrian detection
 
-**Master QA: BLOCKED.** Current material: No experimental output; section-local figures: 0; tables: 0.
+**Master QA: BLOCKED**. This repository includes an executable real-image model evaluation pipeline, but no pretrained checkpoint or CrowdHuman original images were available in the current runtime; there are **no measured checkpoint-inference results**.
 
-Existing related code: No identified matching model-specific implementation. This code is only supporting evidence and does not establish inference by the named model.
+Dataset: [CrowdHuman](https://www.crowdhuman.org/download), official `annotation_val.odgt`. The ODGT contains `gtboxes` with `fbox` full-body, `vbox` visible-body, `tag` and optional `extra.ignore`. Paper: Shao et al., CrowdHuman: A Benchmark for Detecting Human in a Crowd, arXiv:1805.00123. Model: [torchvision Faster R-CNN ResNet-50 FPN](https://pytorch.org/vision/stable/models/generated/torchvision.models.detection.fasterrcnn_resnet50_fpn.html), **COCO-pretrained** checkpoint, with exact framework version / weights SHA recorded.
 
-Required completion: Trained detector predictions stratified by occlusion. Provide a dataset/source/license manifest, model publication and checkpoint hash, reproducible environment/config and seeds, a real executable named-model inference entry point, evaluation of real inputs, per-sample recorded outputs and metrics, generated scientific figures, a sourced comparison table and scientific interpretation in the manuscript. Cite the primary model/dataset references and preserve figure/table provenance.
+```bash
+pip install numpy opencv-python torch torchvision
+python evaluate_crowdhuman_frcnn.py \
+ --image-dir /data/CrowdHuman/Images \
+ --annotations-odgt /data/CrowdHuman/annotation_val.odgt \
+ --checkpoint /models/fasterrcnn_resnet50_fpn_coco.pth \
+ --output results/
+```
 
-Do not fabricate model results or treat published-data replots/controlled tests as real-dataset model inference.
+Results include actual model overlays (full-body GT vs predicted boxes), per-person matching, three occlusion-stratified recall rows, and reproducibility manifest. Occlusion is a **proxy** 1-visible bounding-box area/full-body bounding-box area, not pixel visibility or CrowdHuman's native occlusion labeling. Local recall (IoU50 full-body GT) must **not** be called official CrowdHuman mAP, MR or JI. No checkpoint or dataset distributed in the repository. No model results fabricated.
+
+Notes: the checkpoint must be an exact 91-class torchvision COCO Faster R-CNN state dictionary, loaded with strict=True. Unit tests exercise algorithms only, not neural inference. CrowdHuman is real crowded pedestrian imagery; evaluation on it alone does not certify autonomous-highway safety.
