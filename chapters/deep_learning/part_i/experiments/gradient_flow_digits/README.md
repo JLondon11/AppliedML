@@ -7,3 +7,7 @@ One CPU run measured held-out accuracy of **85.33%** for the plain network and *
 Run: `python run.py` with torch, numpy, scikit-learn, matplotlib. The script regenerates metrics.json, held-out accuracy/loss curves, gradient norm plot and both confusion matrices inside `outputs/`.
 
 Dataset citation: [scikit-learn `load_digits`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html). Training protocol and measured metrics are saved in `metrics_verified.json`. The generated graphics are available in the companion artifact package; GitHub figure-binary publication is pending.
+
+## Dataset and partition sizes
+
+The real scikit-learn Digits dataset contains **1,797 labeled handwritten-digit images**, each of size **8 × 8 pixels**. A stratified random split (seed **2705**) allocated **1,347 images to training** and **450 images to held-out testing**, used identically for the plain and residual networks. **No separate validation subset was used (validation n = 0)**. Training losses were computed on the training subset; reported final accuracies and macro-F1 scores come from the held-out test subset. This experiment is **not MNIST**.
