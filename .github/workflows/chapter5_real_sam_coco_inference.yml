@@ -32,7 +32,11 @@ jobs:
         run: |
           mkdir -p /tmp/ch5_sam/source /tmp/ch5_sam/weights
           curl --fail --location --retry 3 --output /tmp/ch5_sam/source/annotations_trainval2017.zip \
-            https://images.cocodataset.org/annotations/annotations_trainval2017.zip
+            https://huggingface.co/datasets/pcuenq/coco-2017-mirror/resolve/5200d2cffae8121713bec767b4693bdafc0eeb0b/annotations_trainval2017.zip
+          curl --fail --location --retry 3 --output /tmp/ch5_sam/source/val2017.zip \
+            https://huggingface.co/datasets/pcuenq/coco-2017-mirror/resolve/5200d2cffae8121713bec767b4693bdafc0eeb0b/val2017.zip
+          echo '113a836d90195ee1f884e704da6304dfaaecff1f023f49b6ca93c4aaae470268  /tmp/ch5_sam/source/annotations_trainval2017.zip' | sha256sum --check
+          echo '4f7e2ccb2866ec5041993c9cf2a952bbed69647b115d0f74da7ce8f4bef82f05  /tmp/ch5_sam/source/val2017.zip' | sha256sum --check
           unzip -q /tmp/ch5_sam/source/annotations_trainval2017.zip \
             annotations/instances_val2017.json -d /tmp/ch5_sam/source
           curl --fail --location --retry 3 --output /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth \
@@ -43,7 +47,8 @@ jobs:
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py \
             --original-json /tmp/ch5_sam/source/annotations/instances_val2017.json \
-            --output-dir /tmp/ch5_sam/subset --count 3
+            --output-dir /tmp/ch5_sam/subset --count 3 \
+            --original-image-zip /tmp/ch5_sam/source/val2017.zip
           test -s /tmp/ch5_sam/subset/instances_subset.json
       - name: Run original SAM ViT-B on real photographs and masks
         run: |
