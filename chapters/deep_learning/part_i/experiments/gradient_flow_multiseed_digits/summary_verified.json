@@ -1,0 +1,31 @@
+{
+  "dataset": "sklearn Digits 8x8 (not MNIST)",
+  "total": 1797,
+  "train": 1078,
+  "validation": 359,
+  "test": 360,
+  "split_seed": 20261105,
+  "seeds": [
+    21,
+    42,
+    84
+  ],
+  "epochs_per_run": 35,
+  "model_parameters_each": 38090,
+  "plain_test_accuracy": [
+    0.8222222222222222,
+    0.9083333333333333,
+    0.8277777777777777
+  ],
+  "residual_test_accuracy": [
+    0.9638888888888889,
+    0.9583333333333334,
+    0.9611111111111111
+  ],
+  "plain_test_accuracy_mean": 0.8527777777777779,
+  "plain_test_accuracy_sample_std": 0.048192643258048555,
+  "residual_test_accuracy_mean": 0.9611111111111111,
+  "residual_test_accuracy_sample_std": 0.002777777777777768,
+  "selection": "best checkpoint independently by minimum validation cross-entropy",
+  "status": "executed CPU; three seeds and one fixed stratified partition"
+}
