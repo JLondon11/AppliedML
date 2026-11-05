@@ -47,6 +47,11 @@ jobs:
             --images "${{ inputs.images || '8' }}" \
             --max-objects "${{ inputs.max_objects || '24' }}" \
             --seed 20261105
+      - name: Generate publication figures from actual predictions
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/sam_coco_cpu/plot_results.py \
+            --csv ch5_sam_results/per_object.csv \
+            --output ch5_sam_results
       - name: Upload full per-instance measurements and provenance
         if: always()
         uses: actions/upload-artifact@v4
