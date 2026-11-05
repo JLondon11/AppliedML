@@ -1,0 +1,53 @@
+name: Chapter 5 real pretrained pedestrian inference
+
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_real_pedestrian_inference.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_pennfudan_pretrained.py'
+  workflow_dispatch:
+
+jobs:
+  real-pretrained-pedestrian-inference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout original source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install CPU inference and figure dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+          python -m pip install pillow matplotlib numpy
+
+      - name: Download original annotated Penn-Fudan pedestrian images
+        run: |
+          mkdir -p /tmp/ch5_data
+          curl --fail --location --retry 3 --output /tmp/ch5_data/PennFudanPed.zip \
+            https://www.cis.upenn.edu/~jshi/ped_html/PennFudanPed.zip
+          unzip -q /tmp/ch5_data/PennFudanPed.zip -d /tmp/ch5_data/
+          test -d /tmp/ch5_data/PennFudanPed/PedMasks
+
+      - name: Run original pretrained Faster R-CNN on real photographs
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_pennfudan_pretrained.py \
+            --dataset-root /tmp/ch5_data/PennFudanPed \
+            --output /tmp/ch5_outputs \
+            --n-images 12 --score-threshold 0.25
+          test -s /tmp/ch5_outputs/metrics.csv
+          test -s /tmp/ch5_outputs/detections.csv
+          test -s /tmp/ch5_outputs/provenance.json
+
+      - name: Retain actual predictions, tables, and scientific figures
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-pennfudan-real-pretrained-inference
+          path: /tmp/ch5_outputs/
+          retention-days: 90
