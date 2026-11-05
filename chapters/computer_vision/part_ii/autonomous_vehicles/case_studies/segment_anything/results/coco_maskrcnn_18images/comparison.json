@@ -1,0 +1,23 @@
+{
+  "dataset": "Original COCO 2017, same 18 scenes and exact 59 instance annotation IDs as seeded SAM run",
+  "sam_run": 41980537230,
+  "maskrcnn_run": 41981859101,
+  "sam_checkpoint_sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912",
+  "maskrcnn_checkpoint_sha256": "bf2d0c1efbc936eeee2bc95a48e80ebc86b891f61b0106485937fc29f9315fc0",
+  "n_scenes": 18,
+  "n_instances": 59,
+  "maskrcnn_matched_instances": 56,
+  "sam_oraclebox_mean_iou": 0.7773286117506403,
+  "maskrcnn_automatic_mask_mean_iou": 0.7453008745762045,
+  "paired_mean_iou_difference": 0.032027737174435494,
+  "image_cluster_95_interval": [
+    -0.024172769288849576,
+    0.09164503262111097
+  ],
+  "bootstrap": {
+    "clusters": "image IDs",
+    "draws": 10000,
+    "seed": 20261105
+  },
+  "scope": "SAM supplied GT boxes; Mask R-CNN performs category + detection without prompts. NOT equal information, NOT full COCO AP; CI crosses zero. Exact 59 annotation IDs checked."
+}
