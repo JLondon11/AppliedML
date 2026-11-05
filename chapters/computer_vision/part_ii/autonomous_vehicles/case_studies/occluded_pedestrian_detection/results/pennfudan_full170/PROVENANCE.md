@@ -1,0 +1,7 @@
+# Executed full-data pretrained detector experiment
+
+**Successful GitHub Actions execution:** https://github.com/JLondon11/AppliedML/actions/runs/41980566831. The run downloaded original Penn–Fudan real photographs and original instance-mask labels, loaded the official COCO-pretrained torchvision Faster R-CNN MobileNetV3-Large 320-FPN weights (checkpoint SHA-256 `907ea3f91ff92242bc1baea8049276a3e76bca48ce7560bd268cc029f37977b5`) and evaluated all 170 source images, sorted by filename. No fine-tuning.
+
+**Actual data-derived results:** 423 original persons; 1,199 retained person predictions at score>=0.01; 417 confidence-ranked one-to-one TP matches at IoU>=0.5; local all-point AP50=0.9681834843; retained-prediction precision=0.3477898249; recall=0.9858156028. PyTorch 2.15.0+cpu, torchvision 0.29.2+cpu. Source script `evaluate_pennfudan_pretrained.py`; output artifact `chapter5-pennfudan-full170-FRCNN-inference` contains full predictions.csv, per-source-image SHA256, and model output PNG/PDF/SVG.
+
+**Scientific limits:** Local custom AP50, not an official COCO or CrowdHuman score. Penn–Fudan contains 170 annotated images, not an official occlusion-stratified ground-truth protocol. Confidence threshold 0.01 differs from prior 12-image run 0.25, so direct operating-point precision comparisons are confounded. No autonomous-vehicle deployment or occlusion-specific benchmark is claimed.
