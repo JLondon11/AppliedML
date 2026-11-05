@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 import urllib.request
+import zipfile
 from pathlib import Path
 
 
@@ -43,6 +44,7 @@ def main():
     p.add_argument("--original-json", type=Path, required=True)
     p.add_argument("--output-dir", type=Path, required=True)
     p.add_argument("--count", type=int, default=3)
+    p.add_argument("--original-image-zip", type=Path, help="Original val2017.zip with verified checksum")
     a = p.parse_args()
     if not a.original_json.is_file():
         raise FileNotFoundError("Original COCO instances_val2017.json missing")
@@ -52,7 +54,14 @@ def main():
     for im in selected["images"]:
         file = a.output_dir / im["file_name"]
         url = "https://images.cocodataset.org/val2017/" + im["file_name"]
-        urllib.request.urlretrieve(url, file)
+        if a.original_image_zip:
+            if not a.original_image_zip.is_file():
+                raise FileNotFoundError(a.original_image_zip)
+            with zipfile.ZipFile(a.original_image_zip) as archive:
+                member = "val2017/" + im["file_name"]
+                file.write_bytes(archive.read(member))
+        else:
+            urllib.request.urlretrieve(url, file)
         if file.stat().st_size < 10000:
             raise ValueError(f"Original source JPEG suspiciously small: {file}")
     (a.output_dir / "instances_subset.json").write_text(json.dumps(selected))
