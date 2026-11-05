@@ -1,0 +1,26 @@
+\paragraph{Dataset and evaluation protocol.}
+The experiment used 1,797 grayscale $8\times 8$ handwritten digit images from the scikit-learn Digits dataset. A stratified partition assigned 1,078 observations to training, 359 to validation, and 360 to testing, with a fixed split seed of 20261105 and no overlap between sets. A plain eight-layer tanh multilayer perceptron and a corresponding residual network (residual scaling factor 0.25) each contained 38,090 parameters. Both models were trained for 35 epochs with Adam (learning rate 0.001) under three initialization seeds (21, 42, and 84). For each run, the checkpoint minimizing validation cross-entropy was selected before computing final held-out test metrics.
+
+\paragraph{Results and limitations.}
+The plain network achieved test accuracies of 82.22\%, 90.83\%, and 82.78\%, giving a three-seed mean of 85.28\% (sample standard deviation 4.82 percentage points). The residual network achieved 96.39\%, 95.83\%, and 96.11\%, giving a mean of 96.11\% (sample standard deviation 0.28 percentage points). Figure~\ref{fig:ch2_gradient_multiseed_accuracy} compares the actual test accuracies across seeds; Figure~\ref{fig:ch2_gradient_multiseed_val} displays the validation loss trajectories; and Figure~\ref{fig:ch2_gradient_multiseed_grad} compares layer-wise gradient magnitudes measured at initialization. The results support an optimization benefit from the evaluated scaled residual connections, but the small number of seeds and single dataset partition limit broader inference. They are not MNIST benchmark measurements.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{experiments/gradient_flow_multiseed_digits/outputs/test_accuracy_seeds.pdf}
+\caption{Measured held-out test accuracy for three independent initializations of the plain tanh and scaled residual tanh architectures on the scikit-learn Digits dataset. Identical training, validation, and test partitions are used in all six runs.}
+\label{fig:ch2_gradient_multiseed_accuracy}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{experiments/gradient_flow_multiseed_digits/outputs/validation_loss_seeds.pdf}
+\caption{Mean validation cross-entropy across the three initializations of each model, with bands indicating one sample standard deviation. Validation observations are disjoint from the training and final held-out testing subsets.}
+\label{fig:ch2_gradient_multiseed_val}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{experiments/gradient_flow_multiseed_digits/outputs/gradient_norms_seeds.pdf}
+\caption{Initial per-layer weight-gradient Euclidean norms averaged over three independently initialized networks for each architecture. Gradients are computed using the first 128 training observations before optimizer updates and shown on a logarithmic scale.}
+\label{fig:ch2_gradient_multiseed_grad}
+\end{figure}
