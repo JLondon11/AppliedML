@@ -1,0 +1,67 @@
+name: Chapter 5 real SAM ViT-B inference on COCO
+
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_real_sam_coco_inference.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_sam_coco.py'
+  workflow_dispatch:
+
+jobs:
+  real-original-sam-coco:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU PyTorch and original SAM code
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision
+          python -m pip install numpy matplotlib opencv-python-headless pycocotools
+          python -m pip install git+https://github.com/facebookresearch/segment-anything.git
+      - name: Obtain original COCO 2017 annotations and official SAM checkpoint
+        run: |
+          mkdir -p /tmp/ch5_sam/source /tmp/ch5_sam/weights
+          curl --fail --location --retry 3 --output /tmp/ch5_sam/source/annotations_trainval2017.zip \
+            https://images.cocodataset.org/annotations/annotations_trainval2017.zip
+          unzip -q /tmp/ch5_sam/source/annotations_trainval2017.zip \
+            annotations/instances_val2017.json -d /tmp/ch5_sam/source
+          curl --fail --location --retry 3 --output /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth \
+            https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth
+          test $(stat -c %s /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth) -gt 300000000
+          echo 'ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912  /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth' | sha256sum --check
+      - name: Select and download original annotated COCO photographs
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py \
+            --original-json /tmp/ch5_sam/source/annotations/instances_val2017.json \
+            --output-dir /tmp/ch5_sam/subset --count 3
+          test -s /tmp/ch5_sam/subset/instances_subset.json
+      - name: Run original SAM ViT-B on real photographs and masks
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_sam_coco.py \
+            --coco-json /tmp/ch5_sam/subset/instances_subset.json \
+            --images /tmp/ch5_sam/subset \
+            --checkpoint /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth \
+            --model-type vit_b --device cpu --max-objects 8 \
+            --max-plots 4 --min-box-area 3000 \
+            --output /tmp/ch5_sam/results
+          cp /tmp/ch5_sam/subset/selection_provenance.json /tmp/ch5_sam/results/
+          test -s /tmp/ch5_sam/results/per_object_metrics.csv
+          test -s /tmp/ch5_sam/results/metrics_summary.json
+          test -s /tmp/ch5_sam/results/Figures/sam_vs_grabcut_iou.pdf
+      - name: Upload genuine original SAM predictions and numerical evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-original-SAM-ViTB-real-COCO-inference
+          path: /tmp/ch5_sam/results/
+          retention-days: 90
