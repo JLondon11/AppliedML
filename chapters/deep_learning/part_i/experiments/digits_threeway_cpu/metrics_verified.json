@@ -1,0 +1,20 @@
+{
+  "dataset": "scikit-learn Digits 8x8 (NOT MNIST)",
+  "total_samples": 1797,
+  "training_samples": 1078,
+  "validation_samples": 359,
+  "testing_samples": 360,
+  "split_seed": 20261105,
+  "epochs_trained": 51,
+  "best_validation_epoch": 43,
+  "optimizer": "Adam 0.002",
+  "selection": "minimum validation cross-entropy; patience 8",
+  "test_accuracy": 0.975,
+  "test_macro_f1": 0.9752197620045024,
+  "test_cross_entropy": 0.0992889404296875,
+  "correct_test_predictions": 351,
+  "model_parameters": 28930,
+  "torch_version": "2.10.0+cpu",
+  "execution": "executed single CPU run",
+  "status": "not MNIST, not a multi-seed benchmark"
+}
