@@ -1,0 +1,14 @@
+{
+  "dataset": "Original COCO 2017 validation instance masks",
+  "model": "Official Meta SAM ViT-B",
+  "checkpoint_sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912",
+  "images": 18,
+  "instances": 59,
+  "sam_mean_iou": 0.7773286117506403,
+  "sam_mean_dice": 0.8578804396587679,
+  "grabcut_paired_samples": 35,
+  "paired_sam_iou": 0.8183574240327118,
+  "paired_grabcut_iou": 0.6215055936801296,
+  "prompt_protocol": "Original COCO oracle boxes; no fine-tuning",
+  "scope": "Fixed-seed randomized image-ID selection with >=2 eligible noncrowd objects >=3000px; NOT official COCO AP or full-population inference"
+}
