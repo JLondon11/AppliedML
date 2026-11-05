@@ -1,0 +1,7 @@
+class,visdrone_category,coco_category,local_ap50,original_gt_count,detections,true_positives,false_positives
+pedestrian,1,0,0.19010663920955564,339,1140,115,1025
+bicycle,3,1,0.0027829313543599257,28,76,2,74
+car,4,2,0.48769179862033374,250,1123,187,936
+truck,6,7,0.0,1,82,0,82
+bus,9,5,,0,29,0,0
+motor,10,3,0.022646795941551737,354,139,18,121
