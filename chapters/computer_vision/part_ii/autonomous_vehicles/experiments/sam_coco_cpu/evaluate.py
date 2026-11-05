@@ -9,7 +9,6 @@ import json
 import os
 import random
 import urllib.request
-import zipfile
 from pathlib import Path
 
 import cv2
@@ -18,8 +17,8 @@ import torch
 from pycocotools.coco import COCO
 from segment_anything import sam_model_registry, SamPredictor
 
-ANNOTATIONS = "https://images.cocodataset.org/annotations/annotations_trainval2017.zip"
-IMAGE_ROOT = "https://images.cocodataset.org/val2017/"
+ANNOTATIONS = "https://huggingface.co/datasets/pcuenq/coco2017-instances/resolve/main/instances_val2017.json"
+IMAGE_ROOT = "https://huggingface.co/datasets/merve/coco/resolve/main/val2017/"
 CHECKPOINT = "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
 
 
@@ -69,11 +68,12 @@ def main():
         p.error("--images and --max-objects must be positive")
     torch.set_num_threads(min(4, os.cpu_count() or 1))
     args.out.mkdir(parents=True, exist_ok=True)
-    archive = download(ANNOTATIONS, args.work / "annotations_trainval2017.zip")
-    with zipfile.ZipFile(archive) as z:
-        raw = json.load(z.open("annotations/instances_val2017.json"))
-    annotation_path = args.work / "instances_val2017.json"
-    annotation_path.write_text(json.dumps(raw))
+    annotation_path = download(ANNOTATIONS, args.work / "instances_val2017.json")
+    expected_annotations_sha256 = "e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f"
+    if sha256(annotation_path) != expected_annotations_sha256:
+        raise RuntimeError("COCO 2017 validation annotations do not match the verified SHA-256")
+    with annotation_path.open() as fh:
+        raw = json.load(fh)
     eligible = sorted({int(a["image_id"]) for a in raw["annotations"]
                        if not a.get("iscrowd") and a.get("area", 0) >= args.min_area})
     if len(eligible) < args.images:
