@@ -1,0 +1,7 @@
+metric,value
+local_ap50,0.9681834843380837
+ground_truth_persons,423
+predicted_boxes,1199
+true_positives,417
+precision_at_last_prediction,0.347789824854045
+recall_at_last_prediction,0.9858156028368794
