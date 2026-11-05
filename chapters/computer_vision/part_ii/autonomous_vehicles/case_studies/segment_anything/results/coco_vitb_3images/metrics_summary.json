@@ -1,0 +1,16 @@
+{
+  "dataset": "COCO 2017 validation instance masks",
+  "model": "Meta SAM vit_b",
+  "prompt_protocol": "Oracle COCO ground-truth box, no fine-tuning",
+  "instances": 8,
+  "images": 3,
+  "sam_mean_iou": 0.8628225174975672,
+  "sam_mean_dice": 0.9251755029211902,
+  "grabcut_paired_samples": 6,
+  "paired_sam_iou": 0.8747302910070786,
+  "paired_grabcut_iou": 0.5260045809447624,
+  "checkpoint_sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912",
+  "annotations_sha256": "c943c99af8e0a178d1eba1a13a67950529a5c9b889d6f6e2c8e680c19308d42b",
+  "torch_version": "2.15.0+cpu",
+  "warning": "Not COCO AP, not prompt-free, not official SAM benchmark."
+}
