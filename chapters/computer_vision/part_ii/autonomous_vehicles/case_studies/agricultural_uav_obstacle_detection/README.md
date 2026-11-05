@@ -24,3 +24,8 @@ python track_visdrone_video.py --checkpoint /data/visdrone_yolo.pt \
 Creates genuinely inferred `tracks.csv` and annotated frames. It does **not** compute IDF1 or HOTA; use the official VisDrone identity annotations and appropriate matching protocol to add valid benchmark results.
 
 Unit tests must not be confused with neural inference. No benchmark numbers, detections, tracking metrics or figures from the named model are claimed in the current chapter; it remains under Master QA remediation.
+
+
+## Real aerial photograph transfer baseline (initiated 2026-11-04)
+
+`evaluate_visdrone_coco_pretrained.py` and `.github/workflows/chapter5_real_visdrone_yolo_inference.yml` run an additional, **separately labeled** YOLO11n COCO-pretrained baseline on original annotated VisDrone validation photographs, recording genuine predictions, local mapped-category AP50, and annotated output figures. This uses only unambiguously paired COCO/VisDrone categories (pedestrian, bicycle, car, truck, bus, motor). It is **not** a VisDrone-fine-tuned model; unmatched classes, ignored regions and nonstandard category mapping prevent official challenge AP claims. This cross-domain aerial-image example does **not** satisfy the case study’s agricultural field obstacle-detection / DeepAnomaly inference requirement. Mark as completed only after GitHub Actions success and inspection of its artifact.
