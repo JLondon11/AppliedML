@@ -9,12 +9,13 @@ noncrowd; first 3 such images. All eligible annotations per image retained.
 import argparse
 import hashlib
 import json
+import random
 import urllib.request
 import zipfile
 from pathlib import Path
 
 
-def choose(data, count=3, min_area=3000):
+def choose(data, count=3, min_area=3000, seed=None):
     candidates = {}
     for ann in data["annotations"]:
         if ann.get("iscrowd", 0) or ann.get("area", 0) < min_area:
@@ -23,7 +24,10 @@ def choose(data, count=3, min_area=3000):
             continue
         candidates.setdefault(ann["image_id"], []).append(ann)
     images = []
-    for im in sorted(data["images"], key=lambda x: x["id"]):
+    selection = sorted(data["images"], key=lambda x: x["id"])
+    if seed is not None:
+        random.Random(seed).shuffle(selection)
+    for im in selection:
         eligible = candidates.get(im["id"], [])
         if len(eligible) >= 2:
             images.append(im)
@@ -44,12 +48,13 @@ def main():
     p.add_argument("--original-json", type=Path, required=True)
     p.add_argument("--output-dir", type=Path, required=True)
     p.add_argument("--count", type=int, default=3)
+    p.add_argument("--seed", type=int, help="Uniform deterministic shuffle of val2017 image IDs before applying eligibility criterion")
     p.add_argument("--original-image-zip", type=Path, help="Original val2017.zip with verified checksum")
     a = p.parse_args()
     if not a.original_json.is_file():
         raise FileNotFoundError("Original COCO instances_val2017.json missing")
     d = json.loads(a.original_json.read_text())
-    selected = choose(d, a.count)
+    selected = choose(d, a.count, seed=a.seed)
     a.output_dir.mkdir(parents=True, exist_ok=True)
     for im in selected["images"]:
         file = a.output_dir / im["file_name"]
@@ -72,7 +77,8 @@ def main():
             im["file_name"]: hashlib.sha256((a.output_dir / im["file_name"]).read_bytes()).hexdigest()
             for im in selected["images"]
         },
-        "selection": "ascending COCO image ID, >=2 noncrowd segmented objects with area>=3000",
+        "selection": ("ascending COCO image ID" if a.seed is None else "fixed-seed uniform shuffle of COCO image IDs") + ", >=2 noncrowd segmented objects with area>=3000",
+        "random_seed": a.seed,
         "scope": "small nonrandom sample from genuine val2017; NOT full COCO test set"
     }
     (a.output_dir / "selection_provenance.json").write_text(json.dumps(report, indent=2) + "\n")
