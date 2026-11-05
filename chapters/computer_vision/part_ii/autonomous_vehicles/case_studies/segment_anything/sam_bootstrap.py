@@ -65,7 +65,8 @@ def main():
         v=data['metrics'][k];mean=v['point']
         ax.errorbar(mean,3-j,xerr=[[mean-v['lower95']],[v['upper95']-mean]],
                     fmt='o',capsize=3,ms=5,color='#087f7b')
-    ax.set_yticks(range(4),names[::-1])
+    labels=['SAM IoU, all objects','SAM IoU, paired','GrabCut IoU, paired','SAM minus GrabCut IoU']
+    ax.set_yticks(range(4),labels[::-1])
     ax.set_xlabel('Mean IoU and image-cluster bootstrap interval (95%)')
     ax.axvline(0,color='#9099a8',ls=':')
     ax.spines[['right','top']].set_visible(False)
