@@ -1,0 +1,47 @@
+name: Chapter 5 real VisDrone YOLO inference
+
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_real_visdrone_yolo_inference.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_coco_pretrained.py'
+  workflow_dispatch:
+
+jobs:
+  actual-real-aerial-inference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install real pretrained YOLO inference requirements
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ultralytics opencv-python-headless matplotlib numpy
+      - name: Download original VisDrone DET validation images and annotations
+        run: |
+          mkdir -p /tmp/ch5_visdrone
+          curl --fail --location --retry 3 -o /tmp/ch5_visdrone/VisDrone2019-DET-val.zip \
+            https://github.com/ultralytics/assets/releases/download/v0.0.0/VisDrone2019-DET-val.zip
+          unzip -q /tmp/ch5_visdrone/VisDrone2019-DET-val.zip -d /tmp/ch5_visdrone
+          test -d /tmp/ch5_visdrone/VisDrone2019-DET-val/images
+          test -d /tmp/ch5_visdrone/VisDrone2019-DET-val/annotations
+      - name: Actual YOLO11n inference on 24 real annotated aerial images
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_coco_pretrained.py \
+            --images /tmp/ch5_visdrone/VisDrone2019-DET-val/images \
+            --annotations /tmp/ch5_visdrone/VisDrone2019-DET-val/annotations \
+            --output /tmp/ch5_visdrone_outputs \
+            --max-images 24 --max-figures 5 --conf .01 --imgsz 640
+          test -s /tmp/ch5_visdrone_outputs/summary_metrics.csv
+          test -s /tmp/ch5_visdrone_outputs/predictions.csv
+          test -s /tmp/ch5_visdrone_outputs/provenance.json
+      - name: Upload original predictions, numerical results and figures
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-visdrone-actual-yolo11n-inference
+          path: /tmp/ch5_visdrone_outputs/
+          retention-days: 90
