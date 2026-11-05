@@ -123,7 +123,7 @@ def main():
                     fg = np.zeros((1, 65), np.float64)
                     cv2.grabCut(bgr, gc_mask, (x1, y1, x2 - x1, y2 - y1),
                                 bg, fg, 5, cv2.GC_INIT_WITH_RECT)
-                    grabcut_iou, grabcut_dice = score(np.isin(gc_mask, [2, 3]), gt)
+                    grabcut_iou, grabcut_dice = score(np.isin(gc_mask, [cv2.GC_FGD, cv2.GC_PR_FGD]), gt)
                 except cv2.error:
                     pass
             rows.append([image_id, a["id"], a["category_id"], sam_iou, sam_dice,
