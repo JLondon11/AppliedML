@@ -198,7 +198,10 @@ def main():
         source_hashes.append(dict(file=imgpath.name, sha256=sha256(imgpath),
                                   labels_sha256=sha256(gtpath)))
         if j < args.max_figures:
-            render(bgr, gt, pred, args.output / "Figures" / imgpath.stem)
+            # Display a stricter threshold for legible publication panels only.
+            # AP50 evaluation and exported predictions still use --conf (default 0.01).
+            display_pred = pred[pred[:, 4] >= .25]
+            render(bgr, gt, display_pred, args.output / "Figures" / imgpath.stem)
     per_class = []
     for vd, coco, name in MAPPING:
         ap, n_gt, n_det, tp, fp = ap50(records, vd)
@@ -230,7 +233,7 @@ def main():
         checkpoint_sha256=sha256(weights_path),
         ultralytics_version=ultralytics_version,
         torch_version=torch.__version__,
-        imgsz=args.imgsz, confidence_cutoff=args.conf,
+        imgsz=args.imgsz, confidence_cutoff=args.conf, figure_confidence_cutoff=0.25,
         mapping=[dict(visdrone=vd, coco=coco, name=name) for vd,coco,name in MAPPING],
         source_files=source_hashes,
         scope="Small sorted real validation subset; local AP50 computed without official ignored-region matching. NOT official VisDrone challenge AP; NOT agricultural field data; no tracking performance.",
