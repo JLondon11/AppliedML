@@ -1,0 +1,41 @@
+{
+  "dataset": "scikit-learn Digits (8x8; NOT MNIST)",
+  "samples": 1797,
+  "train": 1347,
+  "test": 450,
+  "seed": 2705,
+  "epochs": 20,
+  "optimizer": "Adam lr=0.001",
+  "architecture": "8 hidden 64x64 tanh layers, plain vs residual scaling 0.25; both 38090 parameters",
+  "plain_tanh": {
+    "accuracy": 0.8533333333333334,
+    "macro_f1": 0.8558018907831068
+  },
+  "residual_tanh": {
+    "accuracy": 0.9688888888888889,
+    "macro_f1": 0.9689143051900437
+  },
+  "initial_hidden_weight_gradient_L2": {
+    "plain": [
+      0.0038290899246931076,
+      0.003847922198474407,
+      0.004276349674910307,
+      0.005185065791010857,
+      0.007771569769829512,
+      0.01208448689430952,
+      0.019832128658890724,
+      0.032471660524606705
+    ],
+    "residual": [
+      0.04330746829509735,
+      0.04385765269398689,
+      0.04341425374150276,
+      0.044496070593595505,
+      0.044207241386175156,
+      0.044523000717163086,
+      0.04462609067559242,
+      0.04495649039745331
+    ]
+  },
+  "note": "Single fixed stratified held-out split and one initialization; comparisons are descriptive, not a general benchmark."
+}
