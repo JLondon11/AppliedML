@@ -1,0 +1,11 @@
+# Chapter 5 — Actual YOLO11n inference on 24 real VisDrone aerial images
+
+**Successful experiment:** [Original GitHub Actions execution](https://github.com/JLondon11/AppliedML/actions/runs/41942041254). Actual images were downloaded from the upstream [Ultralytics VisDrone2019-DET validation archive](https://github.com/ultralytics/assets/releases/download/v0.0.0/VisDrone2019-DET-val.zip), retaining the benchmark's original annotations; model weights were downloaded as the official `yolo11n.pt` COCO-pretrained checkpoint. Predictions, sampled PNG/PDF/SVG figures and original provenance JSON reside in the run's downloadable artifact `chapter5-visdrone-actual-yolo11n-inference`.
+
+Dataset source: Zhu et al., *Detection and Tracking Meet Drones Challenge*, IEEE TPAMI. Original validation images: first 24 alphabetically sorted filenames. Model: **YOLO11n COCO-pretrained without VisDrone fine-tuning**. Checkpoint SHA-256: `0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1`. Ultralytics 8.4.202, torch 2.15.0+cu132, CPU device, image size 640, input detection confidence threshold 0.01, local IoU50 confidence-ordered greedy assignment. The rerun uses 0.25 *figure display* threshold only.
+
+Only clearly paired classes are counted: VisDrone pedestrian ↔ COCO person, bicycle ↔ bicycle, car ↔ car, truck ↔ truck, bus ↔ bus, motor ↔ motorcycle. Other VisDrone categories remain **unmapped**. The official VisDrone ignored-region protocol is NOT implemented, so this is NOT an official benchmark AP comparison or a competitive evaluation of a fine-tuned aerial detector.
+
+Measured 24-image local macro AP50 across the five mapped classes with nonzero ground-truth counts: **0.1406456330**. Mapped ground truths: 972; retained model detections: 2,589; correct matches: 322; local cutoff recall: 0.3312757. Some predicted boxes fall over ignored regions, uncommon classes, or other out-of-protocol locations. No cause can be assigned without a more detailed error study.
+
+**Critical limitation:** VisDrone is predominantly urban aerial imagery. It is neither agricultural field anomaly/obstacle imagery nor an end-to-end drone tracking or planning experiment. This is relevant to Chapter 5's YOLO autonomous drone section but NOT proof of agricultural DeepAnomaly, tracker IDF1, or flight safety. **Full Master QA remains BLOCKED.**
