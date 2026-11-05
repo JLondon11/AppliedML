@@ -1,0 +1,33 @@
+\paragraph{Dataset and experimental protocol.}
+The scikit-learn Digits dataset contains 1,797 labeled grayscale handwritten-digit images, each with spatial resolution $8\times 8$ pixels. A stratified random partition (seed 20261105) assigned 1,078 images to training, 359 to validation, and 360 to held-out testing. The three subsets were disjoint. A convolutional neural network containing two $3\times3$ convolutional layers and 28,930 trainable parameters was optimized using Adam with a learning rate of 0.002. The best model checkpoint was selected using validation cross-entropy; testing data did not determine training duration or model selection.
+
+\paragraph{Measured results and interpretation.}
+Training continued for 51 epochs and the minimum validation loss occurred at epoch 43, as shown in Figure~\ref{fig:ch2_digits_threeway_loss}. After restoring that checkpoint, the model classified 351 of 360 previously held-out test images correctly, giving 97.50\% test accuracy, macro-averaged $F_1$ of 0.9752, and a test cross-entropy of 0.0993. Figure~\ref{fig:ch2_digits_threeway_cm} presents the test-set confusion matrix; Figure~\ref{fig:ch2_digits_threeway_examples} compares actual predictions with ground-truth test labels; and Figure~\ref{fig:ch2_digits_threeway_maps} shows activation maps from the first convolutional layer for a held-out sample. These results represent one model and one fixed partition of the scikit-learn Digits dataset and must not be interpreted as MNIST benchmark performance or as a multi-seed estimate of generalization.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{experiments/digits_threeway_cpu/outputs/train_validation_loss.pdf}
+\caption{Actual training and validation cross-entropy across epochs for the two-convolution-layer CNN trained on the scikit-learn Digits dataset. The vertical marker identifies epoch 43, selected by minimum validation loss. Neither curve includes held-out test data.}
+\label{fig:ch2_digits_threeway_loss}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.66\linewidth]{experiments/digits_threeway_cpu/outputs/test_confusion_matrix.pdf}
+\caption{Confusion matrix computed from predictions on the 360-image held-out test split of the scikit-learn Digits dataset. Each cell gives the number of test images in the corresponding true/predicted class pair.}
+\label{fig:ch2_digits_threeway_cm}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{experiments/digits_threeway_cpu/outputs/heldout_predictions.pdf}
+\caption{Examples from the held-out test subset, shown with ground-truth digit classes and predictions from the CNN checkpoint selected on validation data.}
+\label{fig:ch2_digits_threeway_examples}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\linewidth]{experiments/digits_threeway_cpu/outputs/feature_maps.pdf}
+\caption{Activations of the 16 first-layer convolutional filters for a held-out handwritten-digit image from the scikit-learn Digits dataset. Each panel shows a computed response map, not a learned filter-weight visualization.}
+\label{fig:ch2_digits_threeway_maps}
+\end{figure}
