@@ -1,0 +1,12 @@
+{
+  "dataset": "sklearn Digits; NOT MNIST",
+  "n_total": 1797,
+  "n_train": 1347,
+  "n_test": 450,
+  "seed": 17,
+  "epochs": 12,
+  "framework": "torch 2.10.0+cpu",
+  "test_accuracy": 0.9422222222222222,
+  "test_macro_f1": 0.9412379616588039,
+  "execution_status": "executed on CPU; one stratified train/test split; no independent replication"
+}
