@@ -13,3 +13,7 @@ One executed CPU run yielded: held-out accuracy 0.9422222222 and macro-F1 0.9412
 This result must not be presented as MNIST, CIFAR-10, or as a published benchmark comparison. No claim of broad generalization is warranted by a single train/test split. Official dataset documentation: https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html
 
 **Outstanding Chapter 2 evidence:** MNIST, CIFAR-10, UCI HAR/LSTM-GRU, NOAA/NRL/HURDAT2 hurricane images, Stanford Dogs transfer learning, optical-flow (KITTI/Sintel or actual video), style-transfer outputs and comparative ablations must be executed on their own datasets.
+
+## Dataset and partition sizes
+
+The real scikit-learn Digits dataset contains **1,797 labeled handwritten-digit images**, each of size **8 × 8 pixels**. A stratified random split (seed **17**) assigned **1,347 samples to training** and **450 to the held-out test set**. **No separate validation set was used (validation n = 0)**; thus the held-out accuracy and macro-F1 are test-set metrics from one split, not independent validation results. This dataset is **not MNIST**.
