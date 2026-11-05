@@ -1,0 +1,60 @@
+{
+  "dataset": "Original COCO 2017 validation instance masks",
+  "model": "Official Meta SAM ViT-B checkpoint with oracle ground-truth box prompts",
+  "checkpoint_sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912",
+  "source_runs": [
+    {
+      "run": 41980537230,
+      "selection": "fixed-seed shuffled scene IDs",
+      "n_images": 18,
+      "n_objects": 59,
+      "sam_mean_iou": 0.7773286117506403
+    },
+    {
+      "run": 41981250063,
+      "selection": "ascending eligible scene IDs",
+      "n_images": 24,
+      "n_objects": 88,
+      "sam_mean_iou": 0.7794836658085079
+    }
+  ],
+  "distinct_images": 42,
+  "total_objects": 147,
+  "gt_box_prompt": true,
+  "overlapping_image_ids": 0,
+  "paired_grabcut_valid_objects": 99,
+  "bootstrap": {
+    "clusters": "image IDs",
+    "draws": 10000,
+    "seed": 20261105,
+    "interval_definition": "percentile 2.5 / 97.5, conditional on selected nonrandom scenes"
+  },
+  "results": {
+    "sam_mean_iou": {
+      "estimate": 0.7786187121390236,
+      "lower95": 0.746349529399999,
+      "upper95": 0.8090720731119281
+    },
+    "sam_mean_dice": {
+      "estimate": 0.8577038635232835,
+      "lower95": 0.8304908712143306,
+      "upper95": 0.8822431518434742
+    },
+    "paired_sam_iou": {
+      "estimate": 0.8062725695842572,
+      "lower95": 0.7734335799442099,
+      "upper95": 0.8398754525247849
+    },
+    "paired_grabcut_iou": {
+      "estimate": 0.4864770976716845,
+      "lower95": 0.3841488706104697,
+      "upper95": 0.6034062431229195
+    },
+    "paired_difference": {
+      "estimate": 0.3197954719125727,
+      "lower95": 0.21350992246947503,
+      "upper95": 0.41308963464646087
+    }
+  },
+  "warning": "Local small selected-scene oracle-prompt IoU, NOT official COCO AP, population CI, prompt-free SAM, or equal-conditions supervised benchmark"
+}
