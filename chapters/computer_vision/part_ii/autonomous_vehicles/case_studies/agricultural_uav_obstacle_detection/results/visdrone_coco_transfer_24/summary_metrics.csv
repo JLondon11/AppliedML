@@ -1,0 +1,7 @@
+metric,value
+n_images,24
+n_original_gt,972
+n_detections,2589
+local_macro_AP50,0.1406456330251602
+local_micro_recall_at_cutoff,0.33127572016460904
+class_count_evaluated,5
