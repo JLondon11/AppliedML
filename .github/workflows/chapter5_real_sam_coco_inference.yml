@@ -47,7 +47,7 @@ jobs:
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py \
             --original-json /tmp/ch5_sam/source/annotations/instances_val2017.json \
-            --output-dir /tmp/ch5_sam/subset --count 3 \
+            --output-dir /tmp/ch5_sam/subset --count 24 \
             --original-image-zip /tmp/ch5_sam/source/val2017.zip
           test -s /tmp/ch5_sam/subset/instances_subset.json
       - name: Run original SAM ViT-B on real photographs and masks
@@ -56,8 +56,8 @@ jobs:
             --coco-json /tmp/ch5_sam/subset/instances_subset.json \
             --images /tmp/ch5_sam/subset \
             --checkpoint /tmp/ch5_sam/weights/sam_vit_b_01ec64.pth \
-            --model-type vit_b --device cpu --max-objects 8 \
-            --max-plots 4 --min-box-area 3000 \
+            --model-type vit_b --device cpu --max-objects 240 \
+            --max-plots 6 --min-box-area 3000 \
             --output /tmp/ch5_sam/results
           cp /tmp/ch5_sam/subset/selection_provenance.json /tmp/ch5_sam/results/
           test -s /tmp/ch5_sam/results/per_object_metrics.csv
