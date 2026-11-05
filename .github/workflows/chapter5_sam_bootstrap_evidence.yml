@@ -1,0 +1,52 @@
+name: Chapter 5 SAM independent uncertainty verification
+
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_sam_bootstrap_evidence.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/sam_bootstrap.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify-original-result-uncertainty:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy matplotlib
+      - name: Download actual successful model-output artifact
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 41980537230
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: chapter5-expanded-SAM-ViTB-COCO-real-inference
+          path: /tmp/original_sam_results
+      - name: Recompute image-cluster bootstrap from genuine recorded instance IoUs
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/sam_bootstrap.py \
+            --per-object-csv /tmp/original_sam_results/per_object_metrics.csv \
+            --output /tmp/sam_uncertainty --seed 20261104 --draws 10000
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/sam_uncertainty/bootstrap_uncertainty.json'))
+          assert d['n_images']==18, d
+          assert d['n_objects']==59, d
+          assert d['n_paired']==35, d
+          mean=d['metrics']['sam_mean_iou']['point']
+          assert abs(mean-0.7773286117506403)<1e-12, mean
+          gain=d['metrics']['paired_iou_difference']['point']
+          assert abs(gain-0.19685183035258233)<1e-12, gain
+          print('PASS: exact source measurements and cluster bootstrap')
+          PY
+      - name: Archive newly computed uncertainty figure and table
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-SAM-cluster-bootstrap-from-original-outputs
+          path: /tmp/sam_uncertainty/
+          retention-days: 90
