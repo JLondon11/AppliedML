@@ -5,11 +5,11 @@ on:
       images:
         description: "Number of seeded COCO validation images"
         required: false
-        default: "8"
+        default: "40"
       max_objects:
         description: "Maximum scored object instances"
         required: false
-        default: "24"
+        default: "120"
   push:
     branches:
       - chapter5-cpu-sam-validation-20261105
@@ -44,8 +44,8 @@ jobs:
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/sam_coco_cpu/evaluate.py \
             --work "${{ runner.temp }}/ch5_sam_data" \
             --out "ch5_sam_results" \
-            --images "${{ inputs.images || '8' }}" \
-            --max-objects "${{ inputs.max_objects || '24' }}" \
+            --images "${{ inputs.images || '40' }}" \
+            --max-objects "${{ inputs.max_objects || '120' }}" \
             --seed 20261105
       - name: Generate publication figures from actual predictions
         run: |
