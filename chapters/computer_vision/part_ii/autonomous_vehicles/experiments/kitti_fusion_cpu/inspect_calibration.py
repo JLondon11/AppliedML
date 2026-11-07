@@ -25,6 +25,19 @@ for name in ("000008.png","000008.pkl","000008.txt"):
             print("PICKLE_TYPE",type(obj).__name__,flush=True)
             if isinstance(obj,dict):
                 print("TOP_KEYS",list(obj),flush=True)
+                for z in obj.get("data_list",[]):
+                    print("SCENE_KEYS",list(z),flush=True)
+                    for k,v in z.items():
+                        if isinstance(v,dict):
+                            print("SCENE_DICT",k,list(v),flush=True)
+                            if k in ("images","lidar_points"):
+                                for kk,vv in v.items():
+                                    if isinstance(vv,dict):
+                                        print("SCENE_SUBDICT",k,kk,list(vv),flush=True)
+                                        for kkk,vvv in vv.items():
+                                            if isinstance(vvv,(list,tuple,np.ndarray)):
+                                                print("SCENE_ARRAY",k,kk,kkk,np.asarray(vvv).shape,flush=True)
+                    break
                 for key,val in obj.items():
                     if isinstance(val,dict):
                         print("DICT",key,list(val),flush=True)
