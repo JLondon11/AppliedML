@@ -25,7 +25,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install torch-pointcloud numpy matplotlib huggingface_hub
+          python -m pip install torch-pointcloud spconv numpy matplotlib huggingface_hub
       - name: Run original pretrained PointPillars on original KITTI frame
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/execute.py --out pointpillars_results
