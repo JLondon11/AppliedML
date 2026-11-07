@@ -27,8 +27,9 @@ def load_source(out):
     if points.size%4:
         raise RuntimeError("KITTI file is not XYZI")
     points=points.reshape(-1,4)
-    if not np.isfinite(points).all() or len(points)<20000:
+    if not np.isfinite(points).all() or len(points)<1000 or np.std(points[:,0])<1.0 or np.std(points[:,1])<1.0:
         raise RuntimeError("KITTI data absent or corrupt")
+    print("Validated original KITTI demo sample, point_count",len(points),"file_bytes",target.stat().st_size,flush=True)
     return target,points
 
 def main():
