@@ -51,7 +51,7 @@ def main():
                                task="detection",pretrained=True,return_info=True)
     model=model.cpu().eval()
     sample={"pos":torch.from_numpy(points[:,:3].copy()),
-            "intensity":torch.from_numpy(points[:,3:4].copy()),
+            "x":torch.from_numpy(points[:,3:4].copy()),
             "frame":"000008"}
     sample=info["transform"](sample)
     data=collate([sample],cat_keys=[DataKeys.POS_VOXEL])
