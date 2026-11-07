@@ -18,6 +18,7 @@ Source: Kaggle NEU steel-surface defect database (user-uploaded `archive (2).zip
 | Real only | 0.7194 ± 0.0774 | 0.7066 ± 0.0901 |
 | Horizontal flip | 0.7000 ± 0.0528 | 0.6910 ± 0.0551 |
 | Conditional GAN augmented | 0.5269 ± 0.0811 | 0.5004 ± 0.0754 |
+| Size-matched real-image repeats and flips | 0.7963 ± 0.0243 | 0.7875 ± 0.0284 |
 
 Paired GAN-minus-real accuracy difference: -0.1926 (about **-19.26 percentage points**), negative for all three seeds. A nominal t-based 95% interval over three seed differences is [-0.2070, -0.1782], **not** a robust population uncertainty interval: seeds share the same finite test set and are not independent datasets. Mean handcrafted feature distances from real data are large, and samples show repetitive defects/textures; neither the proxy nor sample appearance is equivalent to validated FID/KID or expert judgments.
 
@@ -33,3 +34,6 @@ python chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run
 
 ## Scientific limitations
 Only three seeds and a single fixed held-out split. No convergence guarantee for a 300-step conditional GAN. The horizontal-flip arm is not matched in training sample count to GAN augmentation, so gains/losses may be confounded by optimization exposure. No established pre-trained generative quality evaluator, expert labels on generated samples, external test set, architecture ablation, or compute-matched non-GAN synthetic-control arm. Because generating valid defect images is a key case-study requirement, full Master QA **HOLD** remains appropriate. This is a completed measured comparison for the stated protocol, not general evidence about GAN augmentation.
+
+## Matched-size non-generative control (completed)
+The additional control draws 120 training photographs per class with replacement from the original training partition, applies random horizontal flips to half the extra copies, and appends 720 real-derived examples, matching the GAN arm's added sample count. Under three matched seeds and the same 12 classifier epochs, the test accuracy was 0.8167 / 0.8028 / 0.7694; mean 0.7963, sample SD 0.0243. Macro-F1 mean 0.7875, sample SD 0.0284. This is **26.94 percentage points higher** than the GAN arm. Detailed results and scientific LaTeX report are in the Pass 13 deliverable ZIP. The conclusion remains specific to this short GAN training budget; generator fidelity, training convergence, and generality remain unverified.
