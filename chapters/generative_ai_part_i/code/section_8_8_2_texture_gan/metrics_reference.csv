@@ -1,0 +1,10 @@
+texture,method,n_train_patches,n_heldout_patches,n_evaluation_samples,standardized_mean_feature_distance
+brick,GAN,713,217,100,2.356375
+brick,constant_mean_baseline,713,217,100,7.246906
+brick,real_train_patches_reference,713,217,100,0.695720
+gravel,GAN,713,217,100,5.344645
+gravel,constant_mean_baseline,713,217,100,18.291330
+gravel,real_train_patches_reference,713,217,100,0.198051
+grass,GAN,713,217,100,7.123228
+grass,constant_mean_baseline,713,217,100,13.560668
+grass,real_train_patches_reference,713,217,100,0.992984
