@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/chapter5-crowdhuman-cpu.yml"
       - "chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_cpu/**"
+      - "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_crowdhuman_frcnn.py"
 permissions:
   contents: read
 jobs:
