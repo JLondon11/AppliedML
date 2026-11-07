@@ -1,41 +1,35 @@
-"""Figure 5.44: actual distinct Middlebury stereo motorcycle photographs and CPU StereoSGBM."""
+"""Figure 5.44: source Middlebury left/right images and actual StereoSGBM disparity."""
 from pathlib import Path
 import csv
-import cv2
 import numpy as np
+import cv2
 from skimage import data
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/"Figures"
-OUT.mkdir(parents=True,exist_ok=True)
+OUT=ROOT/"Figures";OUT.mkdir(exist_ok=True)
 left,right,reference=data.stereo_motorcycle()
 assert left.shape==right.shape and not np.array_equal(left,right)
-gl=cv2.cvtColor(left,cv2.COLOR_RGB2GRAY)
-gr=cv2.cvtColor(right,cv2.COLOR_RGB2GRAY)
-block=7
-model=cv2.StereoSGBM_create(minDisparity=0,numDisparities=96,blockSize=block,
- P1=8*block**2,P2=32*block**2,disp12MaxDiff=1,uniquenessRatio=10,
- speckleWindowSize=80,speckleRange=2,preFilterCap=31,mode=cv2.STEREO_SGBM_MODE_SGBM_3WAY)
-disparity=model.compute(gl,gr).astype(np.float32)/16.0
-valid=np.isfinite(disparity)&(disparity>0)
-fig,axes=plt.subplots(1,3,figsize=(12.5,3.75),gridspec_kw={"width_ratios":[1,1,1.07]})
-for ax,img,title in zip(axes[:2],[left,right],["(a) Left camera","(b) Right camera"]):
- ax.imshow(img);ax.set_axis_off();ax.set_title(title,fontsize=11,pad=4)
- ax.add_patch(Rectangle((330,120),165,145,edgecolor="#ffcf57",facecolor="none",lw=1.8))
-im=axes[2].imshow(np.ma.masked_where(~valid,disparity),cmap="viridis",vmin=0,vmax=96)
-axes[2].set_axis_off();axes[2].set_title("(c) StereoSGBM disparity",fontsize=11,pad=4)
-bar=fig.colorbar(im,ax=axes[2],fraction=.043,pad=.02)
-bar.set_label("Disparity (pixels)",fontsize=10)
-fig.subplots_adjust(left=.01,right=.99,top=.90,bottom=.02,wspace=.06)
-for ext in ("pdf","png","svg"):
- fig.savefig(OUT/f"stereo_sgbm_executed.{ext}",dpi=220,facecolor="white",bbox_inches="tight",pad_inches=.07)
+bl=cv2.cvtColor(left,cv2.COLOR_RGB2GRAY);br=cv2.cvtColor(right,cv2.COLOR_RGB2GRAY)
+b=7
+sgbm=cv2.StereoSGBM_create(minDisparity=0,numDisparities=96,blockSize=b,P1=8*b*b,P2=32*b*b,disp12MaxDiff=1,uniquenessRatio=10,speckleWindowSize=80,speckleRange=2,preFilterCap=31,mode=cv2.STEREO_SGBM_MODE_SGBM_3WAY)
+disparity=sgbm.compute(bl,br).astype(np.float32)/16
+valid=(disparity>0)&np.isfinite(disparity)
+x,y,w,h=330,120,165,145
+l_crop=left[y:y+h,x:x+w];r_crop=right[y:y+h,x:x+w]
+difference=np.mean(abs(l_crop.astype(float)-r_crop.astype(float)),axis=2)
+fig,axs=plt.subplots(2,3,figsize=(12.0,6.0),gridspec_kw={"height_ratios":[1.65,1]},layout="constrained")
+for j,(im,label) in enumerate([(left,"(a) Left camera"),(right,"(b) Right camera")]):
+ ax=axs[0,j];ax.imshow(im);ax.add_patch(Rectangle((x,y),w,h,ec="#f6ca48",fc="none",lw=2));ax.set_title(label,fontsize=11);ax.axis("off")
+ax=axs[0,2];m=ax.imshow(np.ma.masked_where(~valid,disparity),cmap="viridis",vmin=0,vmax=96);ax.set_title("(c) Measured disparity",fontsize=11);ax.axis("off");fig.colorbar(m,ax=ax,shrink=.67,label="Disparity (pixels)")
+for j,(im,label) in enumerate([(l_crop,"(d) Enlarged left crop"),(r_crop,"(e) Enlarged right crop")]):
+ ax=axs[1,j];ax.imshow(im,interpolation="nearest");ax.set_title(label,fontsize=10);ax.axis("off")
+ax=axs[1,2];m=ax.imshow(difference,cmap="magma",vmin=0,vmax=100);ax.set_title("(f) Same-coordinate crop RGB difference",fontsize=10);ax.axis("off");fig.colorbar(m,ax=ax,shrink=.78,label="Mean absolute channel difference")
+for ext in ("png","pdf","svg"):fig.savefig(OUT/f"stereo_sgbm_executed.{ext}",dpi=220,bbox_inches="tight",pad_inches=.05,facecolor="white")
 plt.close(fig)
-with (OUT/"stereo_figure_544_metrics.csv").open("w",newline="") as fh:
- w=csv.writer(fh);w.writerow(["metric","value","definition"])
- w.writerow(["positive_disparity_fraction",f"{valid.mean():.8f}","positive StereoSGBM pixels / all image pixels"])
- w.writerow(["left_right_rgb_mae",f"{np.mean(np.abs(left.astype(float)-right.astype(float))):.8f}","mean absolute RGB difference of separate original images"])
-print("Positive disparity pixel fraction:",valid.mean())
+metrics={"positive_disparity_fraction":float(valid.mean()),"left_right_rgb_mae":float(np.mean(abs(left.astype(float)-right.astype(float)))),"crop_rgb_mae":float(difference.mean()),"image_width":left.shape[1],"image_height":left.shape[0]}
+with (ROOT/"code"/"stereo_figure_544_metrics.csv").open("w",newline="") as fh:
+ writer=csv.writer(fh);writer.writerow(["metric","value"]);writer.writerows(metrics.items())
+print(metrics)
