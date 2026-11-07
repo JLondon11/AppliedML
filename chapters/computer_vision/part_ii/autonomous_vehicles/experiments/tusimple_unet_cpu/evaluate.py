@@ -67,6 +67,14 @@ def original_frame(z,members,path):
     for key in keys:
         if key in members:
             return z.read(members[key])
+    pieces=name.split("/")
+    if len(pieces)>=4 and pieces[-1]=="20.jpg":
+        # A verified dataset mirror flattens clips/<sequence>/<clip>/20.jpg
+        # to tusimple/training/frames/<sequence>_<clip>.jpg.
+        flat=pieces[-3]+"_"+pieces[-2]+".jpg"
+        flatmatches=[k for k in members if k.endswith("/training/frames/"+flat)]
+        if len(flatmatches)==1:
+            return z.read(members[flatmatches[0]])
     suffix="/".join(name.split("/")[-3:])
     matches=[member for member in members if member.endswith("/"+name) or member.endswith("/"+suffix)]
     if len(matches)==1:
