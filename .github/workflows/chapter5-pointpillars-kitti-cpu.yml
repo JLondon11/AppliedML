@@ -1,0 +1,42 @@
+name: Chapter 5 — CPU PointPillars on original KITTI sample
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chapter5-cpu-sam-validation-20261105
+    paths:
+      - ".github/workflows/chapter5-pointpillars-kitti-cpu.yml"
+      - "chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/**"
+permissions:
+  contents: read
+jobs:
+  pointpillars:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU Torch and detection backend
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install torch-pointcloud numpy matplotlib huggingface_hub
+      - name: Run original pretrained PointPillars on original KITTI frame
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/execute.py --out pointpillars_results
+      - name: Exclude original KITTI frame from the published artifact
+        if: always()
+        run: rm -f pointpillars_results/KITTI_000008_original_velodyne.bin
+      - name: Upload measured PointPillars predictions and plots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-pointpillars-kitti-singleframe-cpu
+          path: pointpillars_results/
+          if-no-files-found: warn
+          retention-days: 30
