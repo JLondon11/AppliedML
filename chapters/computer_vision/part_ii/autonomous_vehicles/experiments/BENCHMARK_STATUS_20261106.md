@@ -59,3 +59,12 @@ results explicitly distinguished from independently computed chapter results.
 - Evaluation: greedy one-to-one matching to full-body boxes at IoU >=0.50.
 - This is not official CrowdHuman AP/MR/JI and not a cross-dataset validation score.
 - Figure and aggregate input values: `figure_generation/generate_crowdhuman_96image_recall.py`, `figure_generation/crowdhuman_96image_counts.csv`.
+
+## Trained TuSimple U-Net inference (completed; NOT official benchmark)
+- Execution: https://github.com/JLondon11/AppliedML/actions/runs/42348974908
+- Actual externally trained Keras U-Net, 12 original annotated TuSimple *training* frames from a mirrored archive, genuine CPU predictions, 224×224 input.
+- Local mask protocol: 4-pixel-wide source annotation polylines; predicted mask threshold 0.5 and output resized into source image grid.
+- Recorded results: micro precision 0.1550374258, micro recall 0.3460779117, micro IoU 0.1199101406, micro Dice 0.2141424320, macro IoU 0.1201887677.
+- Per-frame CSV, numerical JSON and plot artifact archived in GitHub Actions run. Figure generator and evaluator are version-controlled under `experiments/tusimple_unet_cpu/`.
+- Critically, these are labeled training frames. Original pretrained-model training membership cannot be excluded, so no held-out generalization can be inferred. Mask-width sensitivity and undocumented training preprocessor may explain some error.
+- This is not official TuSimple lane-point accuracy, and values cannot be numerically compared to SCNN/RESA/UFLD leaderboard scores. A held-out official-protocol study remains REQUIRED.
