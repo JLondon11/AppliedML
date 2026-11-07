@@ -47,3 +47,15 @@ Only publish measured outputs when the actual model ran successfully and an
 artifact with per-sample metrics, original data identifier, checkpoint identity,
 protocol, and processing code is retained. Keep published-paper benchmark
 results explicitly distinguished from independently computed chapter results.
+
+## Expanded CrowdHuman CPU experiment (completed)
+- Run: https://github.com/JLondon11/AppliedML/actions/runs/42323774125
+- Genuine model inference completed on **96 original validation photographs** with **2,296 full-body person annotations**.
+- Low visible/full-body area occlusion proxy: 653 / 861 = 0.7584204413 recall.
+- Medium proxy: 325 / 638 = 0.5094043887 recall.
+- Heavy proxy: 92 / 797 = 0.1154328733 recall.
+- Overall local IoU50 recall: 1070 / 2296 = 0.4660278746.
+- Model: COCO-pretrained Faster R-CNN ResNet50-FPN; person class; prediction confidence >=0.30.
+- Evaluation: greedy one-to-one matching to full-body boxes at IoU >=0.50.
+- This is not official CrowdHuman AP/MR/JI and not a cross-dataset validation score.
+- Figure and aggregate input values: `figure_generation/generate_crowdhuman_96image_recall.py`, `figure_generation/crowdhuman_96image_counts.csv`.
