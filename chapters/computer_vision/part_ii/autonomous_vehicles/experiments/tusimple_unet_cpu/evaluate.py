@@ -67,10 +67,12 @@ def original_frame(z,members,path):
     for key in keys:
         if key in members:
             return z.read(members[key])
-    matches=[member for member in members if member.endswith("/"+name)]
+    suffix="/".join(name.split("/")[-3:])
+    matches=[member for member in members if member.endswith("/"+name) or member.endswith("/"+suffix)]
     if len(matches)==1:
         return z.read(members[matches[0]])
-    raise FileNotFoundError("Annotated original frame not found in archive: "+name)
+    examples=[v for v in members if v.lower().endswith((".jpg",".jpeg",".png"))][:12]
+    raise FileNotFoundError("Annotated original frame not found uniquely in archive: "+name+"; suffix="+suffix+"; matches="+repr(matches[:8])+"; first image entries="+repr(examples))
 
 
 def gt_mask(record,hw,thickness=4):
