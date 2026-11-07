@@ -13,7 +13,7 @@ Northeastern University NEU Surface Defect Database, Song and Yan (2013), *Appli
 - Evaluate only once on the held-out original test images; save per-image probabilities, macro-F1, balanced accuracy, confusion matrices, training traces, and figures.
 - Maintain SHA-256 input manifest, code-version metadata, and restrictions on using test labels.
 
-The complete local `run.py`, `test_pipeline.py`, requirements, and QA package is available as **Chapter6_NEU_Benchmark_Pass10_Code_And_QA.zip** in the chapter deliverables. It is not yet included in this GitHub folder; the complete run.py still needs a verified GitHub commit.
+The complete `run.py`, `test_pipeline.py`, and `requirements.txt` have now been committed within this folder. The local execution and QA files are additionally packaged in **Chapter6_NEU_Benchmark_Pass10_Code_And_QA.zip**. A real-data benchmark run and independent CI verification are still required.
 
 ## QA
 A deterministic **fabricated-noise fixture** was used solely for software testing; end-to-end smoke test PASSED. Its classifier accuracy is not evidence about NEU and MUST NOT appear in the chapter as benchmark data. Actual NEU images could not be fetched by the execution runtime. No real NEU model checkpoints, predictions, or scientific result figures have been produced.
