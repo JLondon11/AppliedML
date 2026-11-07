@@ -1,0 +1,7 @@
+texture,augment_horizontal_flip,steps,n_training_patches,n_heldout_patches,n_generated,feature_distance
+brick,0,120,713,217,100,11.681413
+brick,1,120,713,217,100,10.493758
+gravel,0,120,713,217,100,26.291688
+gravel,1,120,713,217,100,17.2938
+grass,0,120,713,217,100,19.412618
+grass,1,120,713,217,100,16.421878
