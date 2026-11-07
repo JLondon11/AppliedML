@@ -13,7 +13,7 @@ permissions:
 jobs:
   crowdhuman-cpu:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     env:
       OMP_NUM_THREADS: "4"
       MKL_NUM_THREADS: "4"
@@ -30,14 +30,14 @@ jobs:
       - name: Prepare licensed original validation samples and genuine weights
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_cpu/prepare.py \
-            --out "${{ runner.temp }}/crowdhuman" --images 24 --seed 20261106
+            --out "${{ runner.temp }}/crowdhuman" --images 96 --seed 20261106
       - name: Execute pretrained Faster R-CNN on real CrowdHuman photographs
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_crowdhuman_frcnn.py \
             --image-dir "${{ runner.temp }}/crowdhuman/images" \
             --annotations-odgt "${{ runner.temp }}/crowdhuman/subset.odgt" \
             --checkpoint "${{ runner.temp }}/crowdhuman/fasterrcnn_resnet50_fpn_coco_state_dict.pth" \
-            --output crowdhuman_results --max-images 24
+            --output crowdhuman_results --max-images 96
       - name: Plot measured local recall against annotation occlusion proxy
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_cpu/plot_results.py \
