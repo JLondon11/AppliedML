@@ -4,7 +4,7 @@
 
 | Unit | Real execution in record | Complete-unit status | Principal claim-matched blocker |
 |---|---|---|---|
-| KITTI 3D detection | PointPillars, 1 genuine KITTI LiDAR scene | PENDING | Multi-scene 3D detection metric where broad accuracy is claimed |
+| KITTI 3D detection | **CERTIFIED original-scene PointPillars 3D GT localization experiment** CV5-EXP-KITTI-ORIGINAL-3D-GT-006 (6/6 car matches at 3D IoU 0.7, one training scene) | PENDING | Complete original held-out split with KITTI official AP40 across class and difficulty, repeated hardware-matched full-pipeline latency |
 | Agricultural UAV obstacles | VisDrone aerial urban detection | PENDING | Agricultural field images and agricultural obstacle model |
 | YOLO drone | Original aerial-image model predictions | PENDING | Video tracking with real identity labels and control evidence |
 | Cross-dataset driving | Matched Penn-Fudan/CrowdHuman 2D pedestrian detection | PENDING | Original driving-domain paired benchmark |
@@ -16,7 +16,7 @@
 | TuSimple lane detection | **CERTIFIED bounded original-test U-Net vs HSV classical comparator** CV5-EXP-TUSIMPLE-32-PAIRED-005 | **APPROVED — scoped application** CV5-UNIT-10-TUSIMPLE-LANE-003 | Certified original-photo mask-overlap teaching objective; checkpoint training history, independent generalization and official TuSimple lane-point ranking NOT claimed |
 | Pedestrian occlusion | **CERTIFIED** CrowdHuman 96-image experiment (003), corrected paired CrowdHuman 48-image experiment (004; authoritative 5000-bootstrap run 42525235516), and Penn-Fudan 170-image comparison (002) | **APPROVED — scoped application** CV5-UNIT-11-PEDESTRIAN-OCCLUSION-002 | Original-data box-area proxy recall and paired frozen detector comparison certified; no official CrowdHuman MR/AP/JI or deployment claims |
 
-**Experiment certificates:** 5. **Complete unit certificates:** 3 of 11. These counts are not interchangeable.
+**Experiment certificates:** 6. **Complete unit certificates:** 3 of 11. These counts are not interchangeable.
 
 Sections can only be scoped down if the resulting scientific objective still teaches the concept announced in the title and covers the chapter's pedagogical requirements. Evidence cannot be obtained by renaming an unrelated experiment.
 
