@@ -1,0 +1,24 @@
+name: Chapter 5 — Strict eleven-unit scientific certification
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chapter5-cpu-sam-validation-20261105
+    paths:
+      - .github/workflows/chapter5-strict-all-unit-certification.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/qa/strict_11_unit_certification.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/qa/STRICT_11_UNIT_GATE.csv
+permissions:
+  contents: read
+jobs:
+  full-experimental-certification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Require all 11 units to pass each of 10 scientific criteria
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/qa/strict_11_unit_certification.py \
+            chapters/computer_vision/part_ii/autonomous_vehicles/qa/STRICT_11_UNIT_GATE.csv
