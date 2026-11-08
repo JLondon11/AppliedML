@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/chapter5-kitti-original-3d-gt-local.yml
       - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/evaluate_single_scene_original_3d_gt.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_original_3d_gt_local.py
 permissions:
   actions: read
   contents: read
@@ -34,6 +35,9 @@ jobs:
       - name: Calculate original-frame 3D rotated box intersection over union against real labels
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/evaluate_single_scene_original_3d_gt.py gt3d/pointpillars.zip gt3d/000008.pkl --out gt3d/scored_results
+      - name: Independently verify all measured original KITTI 3D matches
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_original_3d_gt_local.py gt3d/scored_results | tee gt3d/scored_results/independent_audit.json
       - name: Archive measured original GT evaluation, no original image or LiDAR redistribution
         if: always()
         uses: actions/upload-artifact@v4
