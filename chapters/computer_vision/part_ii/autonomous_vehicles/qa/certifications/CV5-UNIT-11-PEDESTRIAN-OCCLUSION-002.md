@@ -1,38 +1,40 @@
-# CV5-UNIT-11-PEDESTRIAN-OCCLUSION-002 — APPROVED, claim-scoped graduate textbook application
+# CV5-UNIT-11-PEDESTRIAN-OCCLUSION-002 — APPROVED (claim-scoped graduate-level application)
 
-**Date:** 2026-11-08. **Unit title:** Application: Pedestrian Detection Under Occlusion, Chapter 5, §5.8. **Level:** full instructional *application unit* approval within the stated scope; not official challenge, clinical/automotive safety, or full chapter accreditation.
+**Date:** 2026-11-08. **Revision:** corrected original paired CrowdHuman rerun 42525235516 and revised Chapter 5 Pass 20, 122 pages. **Unit:** Application: Pedestrian Detection Under Occlusion (§5.8).
 
-## Exact educational/scientific scope
+## Scope of the approved scientific and educational claim
 
-This application teaches quantification of person-detection recall under increasing **annotation-box area proxy occlusion** in original crowded photographs, comparisons between two standard pretrained Faster R-CNN model configurations on the *same* original CrowdHuman scenes, and critical interpretation of uncertainty, detection failure and limited cross-dataset transfer. The manuscript explicitly states that the proxy is not per-person visible-pixel fraction, and carefully distinguishes this application from unexecuted specialized head/part-based detectors, full CityPersons or CrowdHuman challenge protocols, and deployment safety.
+The application demonstrates original-data measurement of **frozen pretrained full-body pedestrian detector recall under an explicit bounding-box annotation occlusion proxy**, a true two-model matched-image comparison, cluster-based uncertainty, and meaningful limitations. It does *not* claim evaluation of specialized part-based networks, CityPersons official miss rate, CrowdHuman official AP/MR/JI, complete validation-set generalization, causal isolation of architecture, or operational safety.
 
-**Supporting formally verified experiments:**
-- `CV5-EXP-CROWDHUMAN-96-OCCLUSION-003`: 96 original CrowdHuman images, 2296 people, one genuine ResNet50-FPN trained model; low/medium/heavy proxy-occlusion recall and 5000 image-cluster bootstrap, original-output figure.
-- `CV5-EXP-CROWDHUMAN-48-PAIRED-004`: 48 *other seeded* original CrowdHuman photographs, 1589 people, both actual COCO-pretrained Faster R-CNN variants evaluated against the identical annotations, threshold and IoU rule; 2500 paired image-cluster bootstrap, scientific paired-output figure.
-- `CV5-EXP-PENNFUDAN-170-PAIRED-FRCNN-002`: all 170 original Penn-Fudan photographs and 423 annotated people, two frozen pretrained detectors, original AP50 and paired CI; included as an expressly independent pedestrian-domain contrast only, **not** occlusion benchmark evidence.
-- Earlier 12-image Penn-Fudan visual diagnostic is labeled as a separate pilot, with limits stated.
+The previously overbroad objective and model descriptions were corrected so the text names the Faster R-CNN ResNet50-FPN and MobileNetV3-Large 320-FPN detectors actually executed. Descriptions of part-based models, CityPersons and official miss rates are contextual research material, clearly distinguished from executed experiments.
 
-## Ten proportional graduate-book criteria — reviewed
+## Authentic executed experiments supporting the unit
 
-1. **Topic/dataset/model:** PASS. CrowdHuman original full-body and visible-box data match the stated pedestrian occlusion question. Standard pretrained detectors, not misrepresented as specialized occlusion-aware architectures.
-2. **Authentic real data/partition:** PASS within limited claims. 96-image and 48-image original validation subsets correctly identified as **separate** samples. No artificial annotations, and no study claims full-population or official challenge performance. No local training on evaluation data.
-3. **Actual named-model execution:** PASS. Two official torchvision pretrained Faster R-CNN configurations executed in GitHub Actions, including corrected paired run `42524129054`; 96-image original detector run `42323774125`.
-4. **Dataset counts/configuration:** PASS. Original CrowdHuman full dataset splits sourced, exact 96/2296 and 48/1589 evaluated sizes, scores, model weights, image selection seed, no fine-tuning, IoU50, and proxy thresholds documented. Original Penn-Fudan sizes and its different score cutoff are separately declared.
-5. **Task metrics and meaningful comparisons:** PASS. Original full-body IoU50 one-to-one per-stratum recall, measured real baseline detector on the same 48 frames, full-Penn paired AP50 only in different context. No unexecuted official MR/AP claim.
-6. **Scientific code-generated result figures:** PASS. Both original 96-image and true same-frame 48-image outputs, including all three occlusion strata and per-image comparison. Real photographic prediction evidence from 96-image original run is documented separately from aggregate plotting; figures integrated with text, table and captions.
-7. **Full code/provenance:** PASS. Original code, source dataset and pretrained checkpoint, successful Actions logs and hashed output artifact, corrected full-precision CSV, complete verifier committed to GitHub by section.
-8. **Local/published separation:** PASS. Local recall, original dataset citations and historical CityPersons/CrowdHuman challenge metric descriptions are clearly differentiated.
-9. **Uncertainty/failure/limitations:** PASS. 5000-cluster bootstrap for 96-image run, 2500 paired cluster bootstrap for same-frame 48-image run, low overall/heavy recall and uncertainty intervals, size/confounding and domain limitations. No unwarranted architectural causal claims.
-10. **Numerical/manuscript integrity:** PASS. Independently recomputed every one of 3,178 paired model/person rows, 1,589 same-person pair keys, 48 original-image hashes, 4 paired bootstrap CIs and earlier 2,296-person counts; corrected round-to-boundary export problem; compiled chapter PDF 121 pages with no unresolved references or overfull boxes; visually checked original Table 5.23 and Figure 5.56 and caption.
+1. **Original CrowdHuman single detector** `CV5-EXP-CROWDHUMAN-96-OCCLUSION-003`: 96 original validation images, 2,296 annotated people, real COCO-pretrained ResNet50-FPN inference; 1,070 matched eligible full-body persons; low 653/861=0.7584, medium 325/638=0.5094, heavy 92/797=0.1154; 5,000 original-photo-cluster bootstrap replicates. No boundary mismatch in its recorded results.
+2. **Original CrowdHuman two-detector matched comparison** `CV5-EXP-CROWDHUMAN-48-PAIRED-004`: 48 distinct original sample photos, 1,589 eligible annotated people, 3,178 actual per-person/model match records, COCO-pretrained MobileNetV3-FPN vs ResNet50-FPN. After stable numerical boundary rule, overall recall 323/1589=0.2033 versus 688/1589=0.4330. Low 219/595=0.3681 vs 462/595=0.7765; medium 74/415=0.1783 vs 169/415=0.4072; heavy 30/579=0.0518 vs 57/579=0.0984. Paired overall difference 0.2297 with 5,000-draw 95% image-cluster bootstrap CI [0.1538,0.3134]. **Corrected actual model rerun:** https://github.com/JLondon11/AppliedML/actions/runs/42525235516; artifact SHA256 `ef036deb489c9762b4e99fac34fd0d3d4b19f291c2dc21880ae2483ad2320688`.
+3. **Original Penn–Fudan contrast** `CV5-EXP-PENNFUDAN-170-PAIRED-FRCNN-002`: 170 of 170 original images, 423 annotated people, two real model architectures and genuine locally computed AP50/uncertainty; complementary cross-domain detection evidence, **not** an occlusion result.
 
-## Results that bound the claim
+The separate 12-photo Penn–Fudan pilot is explicitly introductory and not used as full-set benchmark evidence. The 96- and 48-image CrowdHuman experiments are **different seeded samples and are never pooled**. Training and checkpoint configuration are independently documented; no local fine-tuning occurred.
 
-On the 48-image paired sample, MobileNetV3-FPN full-body person recall was 323/1589 = 0.2033, ResNet50-FPN was 688/1589 = 0.4330. At heavy proxy occlusion, recall was 30/579 = 0.0518 versus 57/579 = 0.0984. Overall absolute paired difference 0.2297 (95% image-cluster bootstrap interval [0.1540, 0.3134]); substantially lower heavy-group recall is a measured association, not causation.
+## Ten graduate textbook scientific criteria
 
-On the **separate** 96-image CrowdHuman sample, 1070/2296 eligible people were matched by ResNet50-FPN, with 653/861 low, 325/638 medium and 92/797 heavy proxy-occlusion recall counts. Do not pool these samples.
+| # | Criterion | Finding |
+|---|---|---|
+| 1 | Topic/dataset/model alignment | PASS — original CrowdHuman full/visible annotated pedestrians and two named pretrained detectors directly match proxy-occlusion application |
+| 2 | Original-data held-out protocol | PASS within claimed scope — authenticated validation photographs and original ODGT; explicitly nonrepresentative subset; no local training |
+| 3 | Actual named-model execution | PASS — successful original pretrained inference on both 96-photo single model and 48-photo matched pair |
+| 4 | Counts/configuration | PASS — 96/2296, 48/1589, 170/423; fixed confidence and IoU, image-selection seed, checkpoint, no local training |
+| 5 | Meaningful metrics/comparator | PASS — one-to-one original full-body IoU50 recall by occlusion proxy with paired architecture comparator; complementary full-set Penn AP50 |
+| 6 | Scientific figures from real outcomes | PASS — calibrated measurements visualized with code-generated group recall and per-image plots in correct section; original prediction outputs are separately documented |
+| 7 | Complete code/provenance | PASS — original pretrained implementation, dependencies, workflow, source data/checkpoints, per-object CSV, SHA256 and independently committed verifier |
+| 8 | Separation of measured/published | PASS — original local results not mistaken for official CrowdHuman/CityPersons leaderboard scores |
+| 9 | Proper uncertainty and limitations | PASS — 5,000 photo-cluster replicates in both genuine CrowdHuman experiments; low heavy-group recall, confounding, proxy and sample-size limitations |
+| 10 | Numerical/figure/table integrity | PASS — all 3,178 paired records audited; corrected three exact-0.20 boundary persons; no model matches altered; original group numerators verified, confidence intervals recomputed and PDF rebuilt with zero missing refs or overfull boxes |
 
-## Noncertified claims, explicitly excluded
+## Exclusions and certification extent
 
-This approval makes **no claim** of official CrowdHuman AP, log-average miss rate, Jaccard Index, full 4370-image validation leaderboard, CityPersons official 'reasonable' test performance, occlusion-specialized head/part detector inference, fielded autonomous vehicle safety, causal inference about occlusion independent of scale/crowd density, or model generalization beyond evaluated original subsets. Future additions claiming these require extra executed experiments and re-audit.
+No full CrowdHuman validation (4,370 images), official CrowdHuman miss rate/AP/Jaccard or CityPersons benchmark, specialized occlusion-aware head detector, causal backbone ablation, tracking or operational autonomous-vehicle assessment is claimed. The occlusion variable is the ratio of annotation rectangle areas rather than the visible-pixel fraction. Source sample sizes are expressly reported, and statistical intervals are conditional on those samples.
 
-**Disposition:** This complete *claim-scoped graduate instructional application unit* is APPROVED under the revised two-level policy. This does not imply Chapter 5 as a whole is certified. Scientific certificate is internally audited, not third-party accredited.
+**Decision: APPROVED, the complete claim-scoped graduate textbook *application* within the above real-data objective.** This is an internally reviewed scientific unit certification and does not approve the other nine units or Chapter 5 overall.
+
+**Evidence:** certificates 002/003/004, independent source-record audits, corrected run 42525235516, original 96-photo and complete Penn–Fudan runs, and rendered 122-page manuscript Pass 20.
