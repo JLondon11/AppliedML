@@ -1,0 +1,5 @@
+model,RMSE_ppm_mean,MAE_ppm_mean
+CVAE_prior_mean,0.4868,0.3856
+ridge,0.6673,0.5244
+persistence,1.4799,1.1958
+seasonal_drift,2.0913,1.8574
