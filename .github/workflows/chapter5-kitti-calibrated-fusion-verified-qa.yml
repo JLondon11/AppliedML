@@ -28,7 +28,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p genuine_sensor_fusion
-          gh run download 42356021439 --repo "${{ github.repository }}" --name chapter5-kitti-late-fusion-cpu-measured --dir genuine_sensor_fusion
+          gh run download 42356021439 --repo "${{ github.repository }}" --name chapter5-kitti-camera-lidar-real-late-fusion --dir genuine_sensor_fusion
           (cd genuine_sensor_fusion && zip -q -r ../genuine_sensor_fusion.zip .)
       - name: Independently reproduce every class-aware one-to-one projected detection association
         run: |
