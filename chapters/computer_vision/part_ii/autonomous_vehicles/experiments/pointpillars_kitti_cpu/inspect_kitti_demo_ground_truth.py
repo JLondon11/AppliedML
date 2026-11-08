@@ -15,6 +15,10 @@ def main():
     print("SCENES",len(records))
     for scene in records[:1]:
         print("SCENE_KEYS",sorted(str(x) for x in scene.keys()))
+        print("CAM2_KEYS",sorted(str(x) for x in scene["images"]["CAM2"].keys()))
+        for key in ("lidar2cam","cam2img"):
+            value=scene["images"]["CAM2"].get(key)
+            print("CALIBRATION",key,value)
         print("INSTANCE_COUNT",len(scene.get("instances",[])))
         for k,x in enumerate(scene.get("instances",[])):
             print("GT_3D_INSTANCE",k,"CLASS",x.get("bbox_label_3d"),"BOX",x.get("bbox_3d"),"DIFFICULTY",x.get("difficulty"))
