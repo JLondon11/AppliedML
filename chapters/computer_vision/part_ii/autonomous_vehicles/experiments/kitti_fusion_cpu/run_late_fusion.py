@@ -213,7 +213,9 @@ def main():
     ax.set(xlim=(0,width),ylim=(height,0),
            xlabel="CAM2 horizontal image coordinate (pixels)",
            ylabel="CAM2 vertical image coordinate (pixels)")
-    # The figure must display the ORIGINAL KITTI camera image beneath genuine\n    # detector predictions, not merely schematic boxes on blank axes.\n    ax.imshow(cv2.cvtColor(image,cv2.COLOR_BGR2RGB),\n              extent=(0,width,height,0),origin="upper",interpolation="nearest")
+    # Original KITTI photo underlies both genuine model prediction sets.
+    ax.imshow(cv2.cvtColor(image,cv2.COLOR_BGR2RGB),
+              extent=(0,width,height,0),origin="upper",interpolation="nearest")
     for i,d in enumerate(lidar):
         x1,y1,x2,y2=d["bbox2d"]
         ax.add_patch(Rectangle((x1,y1),x2-x1,y2-y1,fc="none",
@@ -233,7 +235,7 @@ def main():
     ax.plot([],[],c="#c66c47",label="Camera Faster R-CNN detection")
     ax.plot([],[],c="#518859",label="IoU-matched cross-sensor association")
     ax.legend(fontsize=8,loc="upper right")
-    ax.grid(alpha=.09)\n    ax.set_title("")
+    ax.grid(alpha=.09)
     for extension in ("pdf","png","svg"):
         fig.savefig(a.out/f"kitti_calibrated_late_fusion.{extension}",
                     dpi=220,bbox_inches="tight")
