@@ -1,0 +1,60 @@
+{
+  "chapter": "generative_ai_part_i",
+  "generator": "chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
+  "figures": [
+    {
+      "figure": "03",
+      "category": "illustration",
+      "status": "unverified",
+      "generator": "figure03",
+      "dataset": "generated Gaussian mixtures",
+      "protocol": "fixed NumPy random seed 13; conceptual precision/recall demonstration",
+      "artifact": "outputs/figure_03.png"
+    },
+    {
+      "figure": "10",
+      "category": "empirical",
+      "status": "unverified",
+      "generator": "figures10_11_14",
+      "dataset": "scikit-learn digits dataset (1797 8x8 images)",
+      "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; latent interpolation",
+      "artifact": "outputs/figure_10.png"
+    },
+    {
+      "figure": "11",
+      "category": "empirical",
+      "status": "unverified",
+      "generator": "figures10_11_14",
+      "dataset": "scikit-learn digits dataset (1797 8x8 images)",
+      "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; negative ELBO",
+      "artifact": "outputs/figure_11.png"
+    },
+    {
+      "figure": "14",
+      "category": "empirical",
+      "status": "unverified",
+      "generator": "figures10_11_14",
+      "dataset": "scikit-learn digits dataset (1797 8x8 images)",
+      "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; 10-neighbor purity on validation embeddings",
+      "artifact": "outputs/figure_14.png"
+    },
+    {
+      "figure": "20",
+      "category": "illustration",
+      "status": "unverified",
+      "generator": "figure20",
+      "dataset": "analytical functions only",
+      "protocol": "hand-defined curves and frequency components; not training measurements",
+      "artifact": "outputs/figure_20.png"
+    },
+    {
+      "figure": "24",
+      "category": "illustration",
+      "status": "unverified",
+      "generator": "figure24",
+      "dataset": "generated sine waves and noise",
+      "protocol": "fixed NumPy random seed 24; conceptual noising visualization, not trained-model inference",
+      "artifact": "outputs/figure_24.png"
+    }
+  ]
+}
