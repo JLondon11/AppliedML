@@ -8,6 +8,7 @@ on:
       - chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_real_execution.py
       - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/association_threshold_sensitivity.py
       - chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_projection_from_calibration.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/inspect_kitti_demo_ground_truth.py
 permissions:
   contents: read
   actions: read
@@ -45,6 +46,9 @@ jobs:
         run: |
           curl --fail --location --retry 3 -o kitti_qa/000008.pkl https://raw.githubusercontent.com/open-mmlab/mmdetection3d/main/demo/data/kitti/000008.pkl
           python chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_projection_from_calibration.py kitti_qa/000008.pkl kitti_qa/fusion.zip | tee kitti_qa/calibration_audit.json
+      - name: Inspect original KITTI metadata for genuine 3D annotations
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/inspect_kitti_demo_ground_truth.py kitti_qa/000008.pkl | tee kitti_qa/ground_truth_schema.txt
       - name: Generate original-data measured association sensitivity figure
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/association_threshold_sensitivity.py kitti_qa/fusion.zip --out kitti_qa/sensitivity
@@ -56,6 +60,7 @@ jobs:
           path: |
             kitti_qa/audit.json
             kitti_qa/calibration_audit.json
+            kitti_qa/ground_truth_schema.txt
             kitti_qa/sensitivity/
           if-no-files-found: warn
           retention-days: 90
