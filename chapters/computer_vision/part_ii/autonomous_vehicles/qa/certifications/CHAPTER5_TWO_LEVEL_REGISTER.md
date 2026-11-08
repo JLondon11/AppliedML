@@ -14,10 +14,10 @@
 | NeRF versus 3DGS | Stereo geometry only | PENDING | Paired real-scene NeRF and 3DGS |
 | Segment Anything | **CERTIFIED bounded experiment:** CV5-EXP-SAM-COCO-ORACLEBOX-001 | PENDING | Broader claims require broader matching experiments or scientifically valid narrowing and re-audit |
 | TuSimple lane detection | Pretrained U-Net on 32 original test-partition frames | PENDING | Checkpoint train membership and suitable task reference/comparator |
-| Pedestrian occlusion | **CERTIFIED bounded 170-image Penn-Fudan two-model comparison (CV5-EXP-PENNFUDAN-170-PAIRED-FRCNN-002)** and 96-image CrowdHuman experimental evidence | PENDING | Matched occlusion benchmark and comparator for the broad section |
+| Pedestrian occlusion | **CERTIFIED bounded 170-image Penn-Fudan two-model comparison (CV5-EXP-PENNFUDAN-170-PAIRED-FRCNN-002)** and **CERTIFIED bounded 96-image CrowdHuman occlusion-proxy experiment (CV5-EXP-CROWDHUMAN-96-OCCLUSION-003)** | PENDING | Matched occlusion benchmark and comparator for the broad section |
 
-**Experiment certificates:** 2. **Complete unit certificates:** 0 of 11. These counts are not interchangeable.
+**Experiment certificates:** 3. **Complete unit certificates:** 0 of 11. These counts are not interchangeable.
 
 Sections can only be scoped down if the resulting scientific objective still teaches the concept announced in the title and covers the chapter's pedagogical requirements. Evidence cannot be obtained by renaming an unrelated experiment.
 
-See `../GRADUATE_EXPERIMENT_CERTIFICATION_POLICY.md` and `CV5-EXP-SAM-COCO-ORACLEBOX-001.md`.
+See `../GRADUATE_EXPERIMENT_CERTIFICATION_POLICY.md` and the individually numbered experiment certificates in this directory.
