@@ -20,7 +20,10 @@ sys.path.insert(0,str(CASE))
 from evaluate_crowdhuman_frcnn import annotations,assign_recall
 STRATA=("low","medium","heavy")
 def bin_occlusion(v):
-    return "low" if v<.2 else "medium" if v<.5 else "heavy"
+    # Stable binning at exact published decimal thresholds (0.20 and 0.50).
+    # Avoid binary floating-point artifacts, e.g. 1 - 0.8 < 0.2.
+    v = round(float(v), 12)
+    return "low" if v < .2 else "medium" if v < .5 else "heavy"
 
 def read_original(images,odgt,n):
     records=[json.loads(line) for line in odgt.read_text().splitlines() if line.strip()]
@@ -63,7 +66,7 @@ def summary(person):
         result[group]["recall"]=result[group]["matched"]/max(1,len(xs))
     return result
 
-def paired_bootstrap(data,keys,draws=2500,seed=20261108):
+def paired_bootstrap(data,keys,draws=5000,seed=20261108):
     rng=np.random.default_rng(seed)
     idxs=sorted(keys)
     out={k:[] for k in ("overall",)+STRATA}
@@ -116,7 +119,8 @@ def main():
             "occlusion_proxy":"1 - visible bounding box area/full bounding box area",
             "metrics":computed,
             "paired_difference_resnet_minus_mobilenet_CI95":intervals,
-            "paired_bootstrap":"2500 resamples of original photograph clusters, seed 20261108"}
+            "paired_bootstrap":"5000 resamples of original photograph clusters, seed 20261108",
+            "occlusion_threshold_policy":"Round proxy to 12 decimal places before applying low <0.20, medium [0.20,0.50), heavy >=0.50"}
     with (a.out/"per_person_paired.csv").open("w",newline="") as f:
         fields=["model","image","instance","occlusion_bin","occlusion_area_proxy","matched_IoU50","image_sha256"]
         wr=csv.DictWriter(f,fieldnames=fields);wr.writeheader()
