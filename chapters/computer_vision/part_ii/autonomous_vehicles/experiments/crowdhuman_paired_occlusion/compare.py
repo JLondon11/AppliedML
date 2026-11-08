@@ -50,7 +50,7 @@ def evaluate(model,weights,frames,conf):
         hits=assign_recall(preds,gt)
         for j,((box,occ),hit) in enumerate(zip(gt,hits)):
             person.append({"image":name,"instance":j,"occlusion_bin":bin_occlusion(occ),
-                          "occlusion_area_proxy":round(float(occ),8),"matched_IoU50":int(hit),
+                          "occlusion_area_proxy":float(occ),"matched_IoU50":int(hit),
                           "image_sha256":digest})
         print(f"REAL {i}/{len(frames)} {name} people={len(gt)} hits={sum(hits)}",flush=True)
     return person
