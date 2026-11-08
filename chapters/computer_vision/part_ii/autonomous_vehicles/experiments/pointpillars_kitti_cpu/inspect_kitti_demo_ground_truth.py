@@ -16,6 +16,8 @@ def main():
     for scene in records[:1]:
         print("SCENE_KEYS",sorted(str(x) for x in scene.keys()))
         print("INSTANCE_COUNT",len(scene.get("instances",[])))
+        for k,x in enumerate(scene.get("instances",[])):
+            print("GT_3D_INSTANCE",k,"CLASS",x.get("bbox_label_3d"),"BOX",x.get("bbox_3d"),"DIFFICULTY",x.get("difficulty"))
         for x in scene.get("instances",[])[:4]:
             print("INSTANCE_KEYS",sorted(str(y) for y in x.keys()))
             print("INSTANCE_CLASS",x.get("bbox_label_3d",x.get("name","unknown")))
