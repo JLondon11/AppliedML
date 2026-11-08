@@ -1,0 +1,40 @@
+name: Chapter 5 — TuSimple pretrained neural inference on original heldout test frames
+on:
+  workflow_dispatch:
+  push:
+    branches: [chapter5-cpu-sam-validation-20261105]
+    paths:
+      - .github/workflows/chapter5-tusimple-original-test-cpu.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/tusimple_unet_cpu/evaluate_heldout.py
+permissions:
+  contents: read
+jobs:
+  original-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      KERAS_BACKEND: torch
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+      HF_HUB_DISABLE_PROGRESS_BARS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install genuine CPU U-Net dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "keras>=3.4,<4" huggingface_hub hf_xet numpy opencv-python-headless matplotlib h5py
+      - name: Run actual pretrained U-Net on matched original TuSimple TEST frames
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/tusimple_unet_cpu/evaluate_heldout.py --images 32 --seed 20261107 --out actual_test_results
+      - name: Publish only measurements and scientific plots, not source road photos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-tusimple-original-test-pretrained-unet-measured
+          path: actual_test_results/
+          if-no-files-found: warn
+          retention-days: 30
