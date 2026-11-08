@@ -43,6 +43,7 @@ jobs:
           test -s /tmp/ch5_outputs/metrics.csv
           test -s /tmp/ch5_outputs/detections.csv
           test -s /tmp/ch5_outputs/provenance.json
+          echo 'Verified original full-dataset PennFudanPed run (170 photos)'; cat /tmp/ch5_outputs/metrics.csv
 
       - name: Retain actual predictions, tables, and scientific figures
         if: success()

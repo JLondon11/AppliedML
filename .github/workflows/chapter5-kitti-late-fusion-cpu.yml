@@ -1,0 +1,40 @@
+name: Chapter 5 — Original KITTI two-pretrained-model calibrated late fusion
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chapter5-cpu-sam-validation-20261105
+    paths:
+      - .github/workflows/chapter5-kitti-late-fusion-cpu.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/run_late_fusion.py
+permissions:
+  contents: read
+jobs:
+  kitti-late-fusion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install genuine model CPU dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install torch-pointcloud spconv numpy matplotlib opencv-python-headless huggingface_hub
+      - name: Run both pretrained models on same real calibrated KITTI scene
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/run_late_fusion.py \
+            --out fusion_evidence --scratch "${{ runner.temp }}/original_kitti"
+      - name: Upload only original-model predictions, metrics and scientific figures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-kitti-camera-lidar-real-late-fusion
+          path: fusion_evidence/
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,66 @@
+name: Chapter 5 KITTI actual-model evidence consistency and sensitivity QA
+on:
+  workflow_dispatch:
+  push:
+    branches: [chapter5-cpu-sam-validation-20261105]
+    paths:
+      - .github/workflows/chapter5-kitti-evidence-certification-qa.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_real_execution.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/association_threshold_sensitivity.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_projection_from_calibration.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/inspect_kitti_demo_ground_truth.py
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify-original-executed-outputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical and plotting dependencies
+        run: python -m pip install numpy matplotlib
+      - name: Compile-check all three original KITTI Python implementations
+        run: |
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/execute.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/run_late_fusion.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_real_execution.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_projection_from_calibration.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/association_threshold_sensitivity.py
+      - name: Restore archived original pretrained KITTI model outputs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p kitti_qa/original_pointpillars kitti_qa/original_fusion
+          gh run download 42354827106 --repo "${{ github.repository }}" --name chapter5-pointpillars-kitti-singleframe-cpu --dir kitti_qa/original_pointpillars
+          gh run download 42528996737 --repo "${{ github.repository }}" --name chapter5-kitti-camera-lidar-real-late-fusion --dir kitti_qa/original_fusion
+          (cd kitti_qa/original_pointpillars && zip -q -r ../pointpillars.zip .)
+          (cd kitti_qa/original_fusion && zip -q -r ../fusion.zip .)
+      - name: Independently audit actual pretrained 3D, 2D and cross-modal model outputs
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_real_execution.py kitti_qa/pointpillars.zip kitti_qa/fusion.zip | tee kitti_qa/audit.json
+      - name: Verify 3D box projections independently against original KITTI CAM2 calibration
+        run: |
+          curl --fail --location --retry 3 -o kitti_qa/000008.pkl https://raw.githubusercontent.com/open-mmlab/mmdetection3d/main/demo/data/kitti/000008.pkl
+          python chapters/computer_vision/part_ii/autonomous_vehicles/qa/certifications/verify_kitti_projection_from_calibration.py kitti_qa/000008.pkl kitti_qa/fusion.zip | tee kitti_qa/calibration_audit.json
+      - name: Inspect original KITTI metadata for genuine 3D annotations
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/inspect_kitti_demo_ground_truth.py kitti_qa/000008.pkl | tee kitti_qa/ground_truth_schema.txt
+      - name: Generate original-data measured association sensitivity figure
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/kitti_fusion_cpu/association_threshold_sensitivity.py kitti_qa/fusion.zip --out kitti_qa/sensitivity
+      - name: Archive verified scientific evidence (no original raw LiDAR or photo redistribution)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-kitti-model-evidence-independent-qa
+          path: |
+            kitti_qa/audit.json
+            kitti_qa/calibration_audit.json
+            kitti_qa/ground_truth_schema.txt
+            kitti_qa/sensitivity/
+          if-no-files-found: warn
+          retention-days: 90

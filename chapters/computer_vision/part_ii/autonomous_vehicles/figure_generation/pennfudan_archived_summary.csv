@@ -1,0 +1,8 @@
+metric,value
+annotated_images,12
+reference_persons,21
+person_class_detections,31
+matched_true_positives,21
+ranked_ap50,0.9935
+confidence_threshold,0.25
+matching_iou_threshold,0.5

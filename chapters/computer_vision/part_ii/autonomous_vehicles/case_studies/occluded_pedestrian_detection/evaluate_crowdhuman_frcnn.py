@@ -68,7 +68,7 @@ def main():
         gt=annotations(r)
         rgb=cv2.cvtColor(img,cv2.COLOR_BGR2RGB).copy()
         with torch.inference_mode():
-            out=model(torch.from_numpy(rgb).permute(2,0,1).float().div(255))[0]
+            out=model([torch.from_numpy(rgb).permute(2,0,1).float().div(255)])[0]
         bb=out['boxes'].cpu().numpy();sc=out['scores'].cpu().numpy();cl=out['labels'].cpu().numpy()
         pred=[(b,float(s)) for b,s,c in zip(bb,sc,cl) if int(c)==1 and s>=args.score_threshold]
         matched=assign_recall(pred,gt)
