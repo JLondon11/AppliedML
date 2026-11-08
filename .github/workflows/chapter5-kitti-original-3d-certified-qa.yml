@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/chapter5-kitti-original-3d-certified-qa.yml
       - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/verify_original_3d_gt.py
+      - chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/integrate_verified_kitti_3d_gt.py
 permissions:
   actions: read
   contents: read
@@ -26,6 +27,11 @@ jobs:
           mkdir -p verified_kitti_gt
           gh run download 42531178943 --repo "${{ github.repository }}" --name chapter5-kitti-000008-genuine-3d-gt-versus-pointpillars --dir verified_kitti_gt
           (cd verified_kitti_gt && zip -q -r ../kitti_original_gt_artifact.zip .)
+      - name: Compile-check full source for scientific evaluation and manuscript integration
+        run: |
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/evaluate_single_scene_original_3d_gt.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/verify_original_3d_gt.py
+          python -m py_compile chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/integrate_verified_kitti_3d_gt.py
       - name: Independently verify original real-data 3D geometry and all matches
         run: |
           python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/pointpillars_kitti_cpu/verify_original_3d_gt.py kitti_original_gt_artifact.zip
