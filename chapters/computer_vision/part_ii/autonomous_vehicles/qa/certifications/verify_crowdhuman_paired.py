@@ -2,7 +2,7 @@
 
 Usage: python verify_crowdhuman_paired.py ARTIFACT_DIRECTORY
 Requires per_person_paired.csv and metrics.json from successful Actions model run.
-Independently recomputes all counts, architecture comparisons, and 2500 paired
+Independently recomputes all counts, architecture comparisons, and 5000 paired
 image-cluster bootstrap percentile intervals.
 """
 import argparse,csv,json,hashlib
@@ -29,7 +29,7 @@ def main(root):
         assert left["image_sha256"]==right["image_sha256"]
         oc=float(left["occlusion_area_proxy"])
         assert 0<=oc<=1
-        assert left["occlusion_bin"]==("low" if oc<.2 else "medium" if oc<.5 else "heavy")
+        assert left["occlusion_bin"]==("low" if round(oc,12)<.2 else "medium" if round(oc,12)<.5 else "heavy")
         assert all(int(x["matched_IoU50"]) in (0,1) for x in (left,right))
         if key[0] in digest_by_image:assert digest_by_image[key[0]]==left["image_sha256"]
         digest_by_image[key[0]]=left["image_sha256"]
@@ -51,7 +51,7 @@ def main(root):
             assert (hits,n)==(r["matched"],r["count"])
             assert abs(hits/n-r["recall"])<1e-12
     rng=np.random.default_rng(20261108)
-    draws=rng.integers(0,48,size=(2500,48))
+    draws=rng.integers(0,48,size=(5000,48))
     ci={}
     for b in bins:
         v=np.array([counts[(im,b)] for im in keys])
