@@ -70,4 +70,4 @@ jobs:
           git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/metrics.json
           git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/Figure_004_KV_Cache_Memory_Hierarchy.png
           git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/production_record.json
-          git diff --cached --quiet || (git commit -m "Archive measured Chapter 9 KV cache experimental figure" && git push)
+          git diff --cached --quiet || (git commit -m "Archive measured Chapter 9 KV cache experimental figure" && git pull --rebase origin main && git push origin HEAD:main)
