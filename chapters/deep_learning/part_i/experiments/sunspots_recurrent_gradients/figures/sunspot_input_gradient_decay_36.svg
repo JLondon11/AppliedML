@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" role="img" aria-label="Measured 36-year real sunspot input-gradient decay for RNN LSTM and GRU initialized over three seeds" xmlns:xlink="http://www.w3.org/1999/xlink"><rect width="940" height="520" fill="#fff"/><text x="100" y="37" font-family="DejaVu Sans,Arial" font-size="22" font-weight="700" fill="#203347">Input-gradient attenuation over 36-year sunspot windows</text>
+<line x1="118" y1="417" x2="835" y2="417" stroke="#e2e9ef"/><text x="105" y="422" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-11</text>
+<line x1="118" y1="349.6" x2="835" y2="349.6" stroke="#e2e9ef"/><text x="105" y="354.6" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-10</text>
+<line x1="118" y1="282.2" x2="835" y2="282.2" stroke="#e2e9ef"/><text x="105" y="287.2" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-9</text>
+<line x1="118" y1="214.8" x2="835" y2="214.8" stroke="#e2e9ef"/><text x="105" y="219.8" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-8</text>
+<line x1="118" y1="147.39999999999998" x2="835" y2="147.39999999999998" stroke="#e2e9ef"/><text x="105" y="152.39999999999998" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-7</text>
+<line x1="118" y1="80" x2="835" y2="80" stroke="#e2e9ef"/><text x="105" y="85" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">10^-6</text>
+<text x="263" y="443" font-family="DejaVu Sans,Arial" font-size="15" fill="#273b4e" text-anchor="middle">17</text>
+<text x="508" y="443" font-family="DejaVu Sans,Arial" font-size="15" fill="#273b4e" text-anchor="middle">42</text>
+<text x="753" y="443" font-family="DejaVu Sans,Arial" font-size="15" fill="#273b4e" text-anchor="middle">84</text>
+<polyline fill="none" stroke="#315e8a" stroke-width="2.5" points="263.00,342.81 508.00,206.08 753.00,252.42"/>
+<circle cx="263" cy="342.81424707389556" r="5.3" fill="#315e8a" stroke="white" stroke-width="1.4"/>
+<circle cx="508" cy="206.0815326413868" r="5.3" fill="#315e8a" stroke="white" stroke-width="1.4"/>
+<circle cx="753" cy="252.42171669278164" r="5.3" fill="#315e8a" stroke="white" stroke-width="1.4"/>
+<polyline fill="none" stroke="#c4794a" stroke-width="2.5" points="263.00,151.08 508.00,169.11 753.00,179.20"/>
+<circle cx="263" cy="151.08248189797018" r="5.3" fill="#c4794a" stroke="white" stroke-width="1.4"/>
+<circle cx="508" cy="169.11108709975846" r="5.3" fill="#c4794a" stroke="white" stroke-width="1.4"/>
+<circle cx="753" cy="179.19694647988277" r="5.3" fill="#c4794a" stroke="white" stroke-width="1.4"/>
+<polyline fill="none" stroke="#407e75" stroke-width="2.5" points="263.00,182.44 508.00,243.93 753.00,171.95"/>
+<circle cx="263" cy="182.4401580625323" r="5.3" fill="#407e75" stroke="white" stroke-width="1.4"/>
+<circle cx="508" cy="243.92975975860995" r="5.3" fill="#407e75" stroke="white" stroke-width="1.4"/>
+<circle cx="753" cy="171.9456125032848" r="5.3" fill="#407e75" stroke="white" stroke-width="1.4"/>
+<text x="472" y="479" font-family="DejaVu Sans,Arial" font-size="15" text-anchor="middle" fill="#465564">Initialization seed (all gradients computed from genuine training windows)</text><text x="25" y="263" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="middle" transform="rotate(-90 25 263)" fill="#465564">Oldest / newest input-gradient ratio (log scale)</text>
+<line x1="545" y1="58" x2="565" y2="58" stroke="#315e8a" stroke-width="3"/><text x="570" y="63" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">RNN</text>
+<line x1="643" y1="58" x2="663" y2="58" stroke="#c4794a" stroke-width="3"/><text x="668" y="63" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">LSTM</text>
+<line x1="741" y1="58" x2="761" y2="58" stroke="#407e75" stroke-width="3"/><text x="766" y="63" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">GRU</text>
+</svg>
