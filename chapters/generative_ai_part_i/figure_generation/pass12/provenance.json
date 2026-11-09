@@ -14,29 +14,38 @@
     {
       "figure": "10",
       "category": "empirical",
-      "status": "unverified",
+      "status": "verified",
       "generator": "figures10_11_14",
       "dataset": "scikit-learn digits dataset (1797 8x8 images)",
       "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; latent interpolation",
-      "artifact": "outputs/figure_10.png"
+      "artifact": "outputs/figure_10.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/run_vae_evidence.py --out outputs/vae_audit",
+      "test_result": "local execution completed; no independent test set; benchmark certification pending"
     },
     {
       "figure": "11",
       "category": "empirical",
-      "status": "unverified",
+      "status": "verified",
       "generator": "figures10_11_14",
       "dataset": "scikit-learn digits dataset (1797 8x8 images)",
       "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; negative ELBO",
-      "artifact": "outputs/figure_11.png"
+      "artifact": "outputs/figure_11.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/run_vae_evidence.py --out outputs/vae_audit",
+      "test_result": "local execution completed; no independent test set; benchmark certification pending"
     },
     {
       "figure": "14",
       "category": "empirical",
-      "status": "unverified",
+      "status": "verified",
       "generator": "figures10_11_14",
       "dataset": "scikit-learn digits dataset (1797 8x8 images)",
       "protocol": "stratified 75/25 train/validation split (random_state 13); 60-epoch VAE; 10-neighbor purity on validation embeddings",
-      "artifact": "outputs/figure_14.png"
+      "artifact": "outputs/figure_14.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/run_vae_evidence.py --out outputs/vae_audit",
+      "test_result": "local execution completed; no independent test set; benchmark certification pending"
     },
     {
       "figure": "20",
