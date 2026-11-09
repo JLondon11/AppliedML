@@ -85,6 +85,19 @@
       "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_measured_metrics.json",
       "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_comparison.py --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddim_comparison",
       "test_result": "Executed locally on real-trained checkpoint; three-seed diagnostics measured; perceptual-quality certification pending"
+    },
+    {
+      "figure": "24-QUALITY",
+      "category": "empirical",
+      "status": "verified",
+      "generator": "quality_benchmark.py",
+      "dataset": "Real scikit-learn handwritten digits; 1257 training, 270 validation, 270 independent test; DDPM/DDIM outputs from trained real-data checkpoint",
+      "protocol": "Training-only 32-feature digit classifier evaluated on independent test; feature Fréchet, classifier confidence, class diversity, nearest-neighbor proximity and raw output-range metrics; 3 seeds x 128 images/method; real/real calibration",
+      "artifact": "outputs/quality/quality_diagnostics.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/quality_measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/quality_benchmark.py --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/quality",
+      "test_result": "Executed locally on real dataset; 4 numeric metric tests passed; domain-specific quality diagnostics only, not canonical FID or full quality certification",
+      "notes": "Supplemental candidate figure; insertion in the chapter manuscript not verified."
     }
   ]
 }
