@@ -1,0 +1,41 @@
+name: Chapter 9 SciFact real-data scientific assistant evaluation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-scifact.yml'
+      - 'chapters/nlp_part_ii/experiments/scifact_scientific_assistant/**'
+
+permissions:
+  contents: read
+
+jobs:
+  scifact_evidence_experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install numerical evaluation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy>=1.26,<3" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - name: Run official SciFact held-out development experiment
+        run: |
+          cd chapters/nlp_part_ii/experiments/scifact_scientific_assistant
+          python run.py --download --data-dir "$RUNNER_TEMP/scifact" --output results
+          test -s results/metrics.json
+          test -s results/predictions_dev.jsonl
+          test -s results/scifact_evidence_recall.pdf
+          test -s results/scifact_verification_confusion.pdf
+      - name: Upload measured evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-scifact-measured-results
+          path: chapters/nlp_part_ii/experiments/scifact_scientific_assistant/results/
+          if-no-files-found: error
+          retention-days: 90
