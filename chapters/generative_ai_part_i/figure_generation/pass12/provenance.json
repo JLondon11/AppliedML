@@ -73,6 +73,18 @@
       "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/ddpm_measured_metrics.json",
       "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/ddpm_digits_experiment.py --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm --epochs 45",
       "test_result": "Executed on real digits locally; independent test MSE 0.26056 versus 0.99816 zero-predictor baseline; weak visual samples; generation-quality certification outstanding"
+    },
+    {
+      "figure": "24-DDIM",
+      "category": "empirical",
+      "status": "verified",
+      "generator": "ddim_ddpm_comparison.py",
+      "dataset": "sklearn real handwritten-digits; 1257 train / 270 validation / 270 independent test",
+      "protocol": "Matched checkpoint with DDPM 100 versus deterministic DDIM 100, 50, 20 steps; 3 independent seeds, 128 samples per seed and method; model-generated outputs compared with held-out real-image reference",
+      "artifact": "outputs/ddim_comparison/ddpm_ddim_real_digits.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_comparison.py --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddim_comparison",
+      "test_result": "Executed locally on real-trained checkpoint; three-seed diagnostics measured; perceptual-quality certification pending"
     }
   ]
 }
