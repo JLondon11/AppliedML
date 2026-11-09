@@ -1,0 +1,65 @@
+{
+  "source": "Local executed run; real sklearn digits validation data",
+  "seed": 13,
+  "train": 1347,
+  "validation": 450,
+  "test": 0,
+  "vae_checkpoint_sha256": "1f116e5f6c122c5966bb9cef3fb0312a62279af9b52b2ca22a3e98c43c431384",
+  "figure03": {
+    "support_precision_recall_5nn_unmodified_validation": [
+      0.8644444444444445,
+      0.8797327394209354
+    ],
+    "support_precision_recall_5nn_vae_reconstruction": [
+      0.22666666666666666,
+      0
+    ]
+  },
+  "figure20": {
+    "noise_sd": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.35
+    ],
+    "reconstruction_mae": [
+      0.15400409698486328,
+      0.15454573929309845,
+      0.1554757058620453,
+      0.1582222729921341,
+      0.16470709443092346
+    ],
+    "reconstruction_rmse": [
+      0.22636248171329498,
+      0.22697359323501587,
+      0.2280353307723999,
+      0.23155498504638672,
+      0.24043020606040955
+    ]
+  },
+  "figure24": {
+    "model": "trained conditional denoising MLP (NOT DDPM/DDIM)",
+    "training_epochs": 35,
+    "final_training_mse": 0.022618699802255844,
+    "noise_sd": [
+      0.05,
+      0.15,
+      0.3,
+      0.45
+    ],
+    "corrupted_mse": [
+      0.0017473509069532156,
+      0.014280366711318493,
+      0.05273990333080292,
+      0.09983673691749573
+    ],
+    "denoised_mse": [
+      0.011908999644219875,
+      0.014749757945537567,
+      0.02346334047615528,
+      0.035113152116537094
+    ]
+  },
+  "limitations": "Actual measured results from real digit images with controlled experimental perturbations. Validation only; Figure 24 does not establish diffusion-model performance."
+}
