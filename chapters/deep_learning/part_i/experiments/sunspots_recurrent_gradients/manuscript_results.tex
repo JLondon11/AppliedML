@@ -1,0 +1,22 @@
+\subsection{Case Study: Recurrent Input-Gradient Attenuation with Observed Sunspot Series}
+\label{sec:ch2_recurrent_sunspot_gradient}
+
+Although recurrent neural networks can represent temporal dependencies through hidden-state recursion, their optimization depends on gradients propagating across many time steps. Gated architectures such as the LSTM and GRU were developed partly to address limitations of simple recurrent networks over long sequences~\cite{Hochreiter:1997,Cho:2014}. To examine this mechanism with observed rather than fabricated input values, this study uses the annual National Geophysical Data Center sunspot record distributed through \texttt{statsmodels}~\cite{Sunspots:Statsmodels}. The investigation measures input-gradient sensitivity at initialization; it does not infer training performance from those gradients.
+
+The source series contains 309 annual observations spanning 1700--2008. Input windows of 12 and 36 observed annual values are used to predict the following year's sunspot count, yielding 297 and 273 windows, respectively. For 12-year windows, the chronological split provides 178 training, 60 validation, and 59 testing windows. For 36-year windows, the split provides 154 training, 60 validation, and 59 testing windows. Values are standardized using statistics from the training period only. Three random initialization seeds (17, 42, and 84) are applied to vanilla tanh RNN, LSTM, and GRU models with 16 hidden units and a linear prediction head. For each initialized model, automatic differentiation computes the squared-loss input gradients for 24 genuine training sequences selected deterministically. Validation and testing observations are not used in the gradient computation.
+
+Figure~\ref{fig:ch2_recurrent_sunspots_gradient12} shows the gradient magnitude as a function of lag for 12-year sequences; Figure~\ref{fig:ch2_recurrent_sunspots_gradient36} presents the corresponding result for 36-year sequences. For each seed, the ratio of the median absolute gradient at the oldest input to that at the most recent input quantifies attenuation. At the longer sequence length, the median ratio across the three seeds was $2.77\times 10^{-9}$ for the vanilla RNN, $4.76\times10^{-8}$ for LSTM, and $3.02\times10^{-8}$ for GRU. All networks exhibited pronounced attenuation at these random initializations, with both gated variants retaining larger median ratios than the vanilla network in this specific experiment. These observations are conditional on the architecture, parameter initialization, loss, and selected data windows; they do not demonstrate that either gated architecture will predict more accurately after training.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{experiments/sunspots_recurrent_gradients/outputs/recurrent_input_gradient_12.pdf}
+\caption{Input-gradient magnitude for vanilla RNN, LSTM, and GRU on observed 12-year sunspot input windows. Each curve is the geometric mean across three initialization seeds of the median absolute squared-loss input gradient for 24 genuine training windows. Lag 1 denotes the most recent observed year; the vertical axis is logarithmic.}
+\label{fig:ch2_recurrent_sunspots_gradient12}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{experiments/sunspots_recurrent_gradients/outputs/recurrent_input_gradient_36.pdf}
+\caption{Gradient sensitivity for the corresponding 36-year real-data sequences, with the same initialized architectures and seeds. The decay with increasing lag is measured by automatic differentiation from actual observed sunspot values rather than from synthetic data.}
+\label{fig:ch2_recurrent_sunspots_gradient36}
+\end{figure}
