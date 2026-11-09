@@ -1,0 +1,26 @@
+\subsection{Case Study: LSTM versus GRU Forecasting with Real Sunspot Observations}
+\label{sec:ch2_sunspot_forecast}
+The annual sunspot record from the National Geophysical Data Center, distributed with the \texttt{statsmodels} scientific dataset collection, contains 309 observations from 1700 through 2008. This application investigates whether long short-term memory and gated recurrent unit networks can predict the annual sunspot number from the twelve preceding observed values. The LSTM was introduced by Hochreiter and Schmidhuber (1997), and GRU-style gated recurrence by Cho et al. (2014). Unlike a synthetic sequence benchmark, the input and target values in this study are authentic measurements.
+
+The twelve-year lookback produced 297 supervised windows: 178 training windows (target years 1712--1889), 60 validation windows (1890--1949), and 59 held-out testing windows (1950--2008). The partition is chronological, and normalization uses only training-period statistics. For each architecture, three random seeds initialized one recurrent layer containing 16 hidden units and a linear forecasting head. Validation loss selected checkpoints and early stopping; the final testing observations were held out until evaluation. The persistence baseline predicts the coming year's count as equal to the immediately preceding observed count. All models use twelve previous \emph{observed} annual values for one-step-ahead prediction rather than a recursively generated long-horizon trajectory.
+
+Across three seeds, LSTM achieved an average test RMSE of 20.6796 sunspots (sample standard deviation 0.4830), and GRU achieved 20.6677 (sample standard deviation 2.1251). The corresponding average MAEs were 15.7665 and 15.3927 sunspots. A one-year persistence baseline had test RMSE 33.1750 and MAE 25.4508. Figure~\ref{fig:ch2_sunspot_predictions} displays actual model predictions alongside held-out observations; Figure~\ref{fig:ch2_sunspot_rmse} compares per-seed test errors; and Figure~\ref{fig:ch2_sunspot_val_loss} shows the validation histories. Although both recurrent networks improved on the simple persistence baseline under this protocol, their almost identical mean test RMSE values do not justify a broad architectural ranking.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{experiments/sunspots_lstm_gru/outputs/sunspots_test_forecasts.pdf}
+\caption{Observed annual sunspot numbers and one-year-ahead forecasts on the held-out period 1950--2008, produced by trained LSTM and GRU models (seed 17). The measurements are from the NGDC annual sunspot series distributed by statsmodels.}
+\label{fig:ch2_sunspot_predictions}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{experiments/sunspots_lstm_gru/outputs/sunspots_rmse_by_seed.pdf}
+\caption{Actual held-out test RMSE across three initialization seeds for LSTM and GRU, with the persistence forecasting baseline. All six runs use the same chronological training, validation and testing target-year partition.}
+\label{fig:ch2_sunspot_rmse}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{experiments/sunspots_lstm_gru/outputs/sunspots_validation_histories.pdf}
+\caption{Measured validation mean-squared error histories for LSTM and GRU models, computed on the 60 validation windows only. Validation outcomes determine checkpoint selection but do not include test-period targets.}
+\label{fig:ch2_sunspot_val_loss}
+\end{figure}
