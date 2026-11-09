@@ -4,12 +4,15 @@
   "figures": [
     {
       "figure": "03",
-      "category": "illustration",
-      "status": "unverified",
-      "generator": "figure03",
-      "dataset": "generated Gaussian mixtures",
-      "protocol": "fixed NumPy random seed 13; conceptual precision/recall demonstration",
-      "artifact": "outputs/figure_03.png"
+      "category": "empirical",
+      "status": "verified",
+      "generator": "generate_pass12_figures.py → real_data_figures.run",
+      "dataset": "scikit-learn handwritten digits, 1347 train / 450 validation; controlled noise applied to real images",
+      "protocol": "VAE checkpoint trained for 60 epochs on real digits; five-NN support / VAE noise sensitivity / 35-epoch trained conditional denoiser as applicable",
+      "artifact": "outputs/figure_03.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/replacement_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
+      "test_result": "Measured real-data figure produced locally; independent benchmark certification outstanding"
     },
     {
       "figure": "10",
@@ -49,21 +52,27 @@
     },
     {
       "figure": "20",
-      "category": "illustration",
-      "status": "unverified",
-      "generator": "figure20",
-      "dataset": "analytical functions only",
-      "protocol": "hand-defined curves and frequency components; not training measurements",
-      "artifact": "outputs/figure_20.png"
+      "category": "empirical",
+      "status": "verified",
+      "generator": "generate_pass12_figures.py → real_data_figures.run",
+      "dataset": "scikit-learn handwritten digits, 1347 train / 450 validation; controlled noise applied to real images",
+      "protocol": "VAE checkpoint trained for 60 epochs on real digits; five-NN support / VAE noise sensitivity / 35-epoch trained conditional denoiser as applicable",
+      "artifact": "outputs/figure_20.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/replacement_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
+      "test_result": "Measured real-data figure produced locally; independent benchmark certification outstanding"
     },
     {
       "figure": "24",
-      "category": "illustration",
+      "category": "empirical",
       "status": "unverified",
-      "generator": "figure24",
-      "dataset": "generated sine waves and noise",
-      "protocol": "fixed NumPy random seed 24; conceptual noising visualization, not trained-model inference",
-      "artifact": "outputs/figure_24.png"
+      "generator": "generate_pass12_figures.py → real_data_figures.run",
+      "dataset": "scikit-learn handwritten digits, 1347 train / 450 validation; controlled noise applied to real images",
+      "protocol": "VAE checkpoint trained for 60 epochs on real digits; five-NN support / VAE noise sensitivity / 35-epoch trained conditional denoiser as applicable",
+      "artifact": "outputs/figure_24.png",
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/replacement_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
+      "test_result": "Measured real-data denoising, but diffusion-model-specific validation still outstanding"
     }
   ]
 }
