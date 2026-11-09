@@ -1,0 +1,28 @@
+\subsection{Case Study: Sequence-Length Ablation with Observed Sunspot Data}
+\label{sec:ch2_sunspot_length_ablation}
+The influence of recurrent history length was evaluated using the annual sunspot record distributed by \texttt{statsmodels} from the National Geophysical Data Center. The original series contains 309 annual observations from 1700 to 2008. The experiment compares vanilla RNN, LSTM, and GRU models for one-step-ahead forecasting using 12 or 36 preceding observed annual values, with three independent initialization seeds (17, 42, and 84). Model design and normalization are held fixed within each configuration, while the recurrent cell type and history length are varied. A persistence forecast predicting the next observed count as the most recent count provides a simple non-neural baseline.
+
+For 12-year sequences, there were 178 training windows (target years 1712--1889), 60 validation windows (1890--1949), and 59 testing windows (1950--2008). The 36-year sequences yielded 154 training windows, 60 validation windows, and 59 testing windows, with the same validation and test target years. The different numbers of training windows follow from the differing historical context requirements. Input normalization was computed from the original training-period observations alone. Every model was trained with Adam, selected by minimum validation mean-squared error, and evaluated only on held-out testing years after checkpoint selection. These predictions use preceding \emph{observed} annual values and do not represent a recursive multiyear rollout.
+
+The 12-year configurations produced mean held-out test RMSE values of 20.543, 20.621, and 20.323 sunspots for RNN, LSTM, and GRU, respectively. With a 36-year input history the corresponding means were 20.591, 20.344, and 20.203. The persistence baseline achieved RMSE 33.175 on the common 59-year test period. Figure~\ref{fig:ch2_sunspots_length_rmse} compares means and between-seed standard deviations. Figure~\ref{fig:ch2_sunspots_length_forecast} shows actual one-step predictions and observations for the 36-year configuration at seed 17, and Figure~\ref{fig:ch2_sunspots_length_validation} presents measured validation loss histories. The modest average differences across input lengths do not establish a universally optimal history length. In particular, the larger attenuation of early input gradients at initialization for 36-year sequences should not be interpreted as proof of a corresponding decline in forecasting accuracy after training.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\linewidth]{experiments/sunspots_sequence_length_ablation/outputs/lookback_rmse_comparison.pdf}
+\caption{Held-out one-step sunspot forecast RMSE for vanilla RNN, LSTM, and GRU using 12- and 36-year observed histories. Symbols give means over three initialization seeds; vertical bars show one sample standard deviation; the horizontal reference is the persistence-baseline RMSE of 33.175. All scores use the same 59 test target years (1950--2008).}
+\label{fig:ch2_sunspots_length_rmse}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{experiments/sunspots_sequence_length_ablation/outputs/heldout_forecasts_36.pdf}
+\caption{Real NGDC sunspot observations and held-out one-step predictions from trained RNN, LSTM, and GRU models using 36-year input windows (seed 17). The figure contains measured output, not illustrative or synthesized forecasts.}
+\label{fig:ch2_sunspots_length_forecast}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.76\linewidth]{experiments/sunspots_sequence_length_ablation/outputs/validation_histories.pdf}
+\caption{Validation mean-squared error over training epochs for the three recurrent cell types at 12- and 36-year lookbacks, seed 17. The loss values were calculated on the 60 validation windows, and held-out test measurements were not used to choose model checkpoints.}
+\label{fig:ch2_sunspots_length_validation}
+\end{figure}
