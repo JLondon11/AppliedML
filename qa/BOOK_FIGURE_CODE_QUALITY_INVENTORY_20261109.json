@@ -1,0 +1,487 @@
+{
+  "date": "2026-11-09",
+  "repo": "JLondon11/AppliedML",
+  "figure_related_python_files_discovered": 93,
+  "by_chapter_family": {
+    "_shared": 1,
+    "computer_vision": 20,
+    "deep_learning": 4,
+    "foundations_machine_learning": 3,
+    "generative_ai_part_i": 12,
+    "generative_ai_part_ii": 8,
+    "nlp_part_i": 4,
+    "nlp_part_ii": 21,
+    "reinforcement_learning": 1,
+    "scientific_ai": 18,
+    "systems_engineering_and_mlops": 1
+  },
+  "scope": "Path-based inventory of Python figure/plot/render scripts. Does not enumerate every manuscript figure or linked artwork. Scientific AI Figures 2–12 additionally received a source inspection; other figure scripts remain unverified at figure/output level.",
+  "status": "PARTIAL_AUDIT_NOT_ALL_FIGURES_CERTIFIED",
+  "records": [
+    {
+      "source": "chapters/_shared/figure_generation_runtime.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_i/foundations/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_i/foundations/production_pass14/blood_cell_detection/generate_figures_13_14.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_i/foundations/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/render_verified_pointpillars.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/code/generate_figure_28.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/code/generate_figure_29_notes.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/code/reconcile_figures_22_24_26.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/figure_5_28/replot_published_agriculture.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/figure_5_38/generate_calibration_geometry.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_photo_baselines/generate_real_photo_baselines.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_stereo_comparison/compare_middlebury_stereo.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/section_5_6_8/execute_train_track_plan.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/section_5_6_8/generate_calibration_sensitivity.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/section_5_6_8/summarize_paired_outcomes.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/autonomous_vehicles/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/figure_code/batch_01/generate_figure_5_2.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/figure_code/batch_01/generate_figures_5_1_5_3.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/computer_vision/part_ii/figure_code/batch_03/generate_figure_5_14_kalman.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/deep_learning/part_i/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/deep_learning/part_i/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/deep_learning/part_i/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/deep_learning/part_ii/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/foundations_machine_learning/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/foundations_machine_learning/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/foundations_machine_learning/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_publication.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/publication_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/compose_ddpm_figure24.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_comparison.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/ddpm_digits_experiment.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/quality_benchmark.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/real_data_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/figure_generation/pass12/run_vae_evidence.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_i/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/code/figure03_scaled_attention/experiment.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/code/figure04_kv_cache/experiment.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/code/figure05_sparse_experts/experiment.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/experiment.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/figure_generation/production_dispatch.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/qa/audit_figure_evidence.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/generative_ai_part_ii/scaling_laws/figure_04_compute_quality_pareto_frontier/figure04_chinchilla_frontier.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_i/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_i/figures/figure_06/generate_figure_06_distributional_semantics.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_i/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_i/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_bert_sentiment_architecture.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_bert_sentiment_loss_curves.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/shared_experiment/run_figures_08_09.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_retrieval_quality_topk.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/render_figure_12.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/figure_generation/finqa_tatqa_evidence_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/interpretability/figure_05_layerwise_representations/figure_05_layerwise_representations.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/figure_06_attention_head_specialization.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/interpretability/figure_06_attention_head_specialization/render_figure_06.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/production_pass13/rebuild_figures_09_11_12.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/scaling_laws/figure_01_scaling_laws/figure_01_scaling_laws.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/scaling_laws/figure_02_compute_optimal_scaling/figure_02_compute_optimal_scaling.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/tokenization_and_representation/figure_03_bpe/figure_03_bpe.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/figure_04_embedding_geometry.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/nlp_part_ii/tokenization_and_representation/figure_04_embedding_geometry/render_figure_04.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/reinforcement_learning/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_02_scientific_discovery.py",
+      "verification": "RENDERED_FROM_AUTHENTIC_DATA",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py",
+      "verification": "RENDERED_FROM_AUTHENTIC_DATA",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_04_data_provenance.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_05_whole_slide_imaging.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_06_drug_discovery.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_07_multimodal_oncology.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_08_wdbc_baselines.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_09_digital_twin.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_10_pinn_workflow.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_11_pinn_residual.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/figure_12_retinal_pipeline.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/render_verified_figures_02_03.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/test_figure_02_real_data.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/code/test_figure_03_real_data.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/ophthalmology/figure_14_gradcam_retinal_application/figure_14_gradcam_retinal.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/production_pass14/generate_closure_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/scientific_ai/production_pass14/resolve_remaining_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    },
+    {
+      "source": "chapters/systems_engineering_and_mlops/figure_generation/generate_figures.py",
+      "verification": "NOT_MANUALLY_VERIFIED",
+      "script_presence_only": true
+    }
+  ]
+}
