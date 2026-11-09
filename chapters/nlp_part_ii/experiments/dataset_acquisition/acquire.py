@@ -5,7 +5,6 @@ from pathlib import Path
 import requests
 
 SOURCES={
- "imdb":"https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz",
  "scifact":"https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
  "cnn_dailymail_test":"https://huggingface.co/datasets/abisee/cnn_dailymail/resolve/main/3.0.0/test-00000-of-00001.parquet",
 }
@@ -82,6 +81,31 @@ def sha(path):
         for block in iter(lambda:f.read(1024*1024),b""):h.update(block)
     return h.hexdigest()
 
+IMDB_PARQUET={
+ "train":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/train-00000-of-00001.parquet",
+          "db47d16b5c297cc0dd625e519c81319c24c9149e70e8496de5475f6fa928342c"),
+ "test":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/test-00000-of-00001.parquet",
+         "b52e26e2f872d282ffac460bf9770b25ac6f102cda0e6ca7158df98c94e8b3da"),
+}
+
+def acquire_imdb_parquet(out):
+    import pyarrow.parquet as pq
+    parts=[]
+    counts={}
+    for split,(url,expected_sha) in IMDB_PARQUET.items():
+        file=out/("imdb_"+split+".parquet")
+        if not file.exists():download(url,file)
+        actual_sha=sha(file)
+        if actual_sha!=expected_sha:raise ValueError(f"Official IMDb {split} hash mismatch: {actual_sha}")
+        table=pq.read_table(file,columns=["label"])
+        labels=table.column("label").to_pylist()
+        distribution={str(k):labels.count(k) for k in [0,1]}
+        if len(labels)!=25000 or distribution!={"0":12500,"1":12500}:
+            raise ValueError(f"IMDb {split} official split mismatch: {distribution}")
+        parts.append(str(file))
+        counts[split]={"rows":len(labels),"labels":distribution,"sha256":actual_sha}
+    return {"files":parts,"counts":counts}
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--output",required=True,type=Path)
@@ -91,7 +115,11 @@ def main():
     records=[]
     for name in args.datasets:
         try:
-            if name=="wmt14":
+            if name=="imdb":
+                validation=acquire_imdb_parquet(args.output)
+                file=args.output/"imdb_train.parquet"
+                source="huggingface:stanfordnlp/imdb plain_text train/test Parquet, pinned SHA256"
+            elif name=="wmt14":
                 file,validation=get_wmt(args.output)
                 source="huggingface:wmt/wmt14 de-en test"
             else:
