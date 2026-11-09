@@ -31,25 +31,25 @@ jobs:
           python -m unittest discover -s tools/scientific_qa -p 'test_*.py'
       - name: Execute real-data VAE
         run: |
-          python chapters/generative_ai_part_i/figure_generation/pass12/run_vae_evidence.py --out outputs/vae_audit
+          python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py
       - name: Verify evidence structure
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          p = Path("outputs/vae_audit")
+          p = Path("chapters/generative_ai_part_i/figure_generation/pass12/outputs")
           m = json.loads((p / "metrics.json").read_text())
           assert m["dataset_samples"] == 1797
           assert m["train_samples"] == 1347
           assert m["validation_samples"] == 450
           assert m["test_samples"] == 0
           assert 0 <= m["validation_latent_10nn_purity_mean"] <= 1
-          for name in ("history.csv", "validation_embeddings.csv", "vae_validation.png", "vae_interpolation.png", "vae_model.pt"):
+          for name in ("history.csv", "validation_embeddings.csv", "vae_validation.png", "vae_interpolation.png", "vae_model.pt", "replacement_metrics.json", "replacement_measurements.csv", "denoiser_model.pt", "figure_03.png", "figure_10.png", "figure_11.png", "figure_14.png", "figure_20.png", "figure_24.png"):
               assert (p / name).stat().st_size > 0
           print("Evidence structure validated; independent test certification remains pending.")
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: digits-vae-measured-evidence
-          path: outputs/vae_audit/
+          path: chapters/generative_ai_part_i/figure_generation/pass12/outputs/
           retention-days: 30
