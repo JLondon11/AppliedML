@@ -1,0 +1,90 @@
+{
+  "dataset": "NGDC annual sunspot record, statsmodels.datasets.sunspots (1700-2008)",
+  "observations_total": 309,
+  "training_windows": 178,
+  "validation_windows": 60,
+  "testing_windows": 59,
+  "target_years": {
+    "train": "1712-1889",
+    "val": "1890-1949",
+    "test": "1950-2008"
+  },
+  "lookback": 12,
+  "seed": [
+    17,
+    42,
+    84
+  ],
+  "runs": [
+    {
+      "kind": "LSTM",
+      "seed": 17,
+      "epochs_run": 26,
+      "checkpoint_epoch": 11,
+      "test_mae": 15.71699047088623,
+      "test_rmse": 21.22438785672223,
+      "parameters": 1233
+    },
+    {
+      "kind": "GRU",
+      "seed": 17,
+      "epochs_run": 68,
+      "checkpoint_epoch": 53,
+      "test_mae": 14.449129104614258,
+      "test_rmse": 19.880876931818804,
+      "parameters": 929
+    },
+    {
+      "kind": "LSTM",
+      "seed": 42,
+      "epochs_run": 30,
+      "checkpoint_epoch": 15,
+      "test_mae": 16.003324508666992,
+      "test_rmse": 20.303857837032012,
+      "parameters": 1233
+    },
+    {
+      "kind": "GRU",
+      "seed": 42,
+      "epochs_run": 32,
+      "checkpoint_epoch": 17,
+      "test_mae": 14.609500885009766,
+      "test_rmse": 19.04829693087539,
+      "parameters": 929
+    },
+    {
+      "kind": "LSTM",
+      "seed": 84,
+      "epochs_run": 37,
+      "checkpoint_epoch": 22,
+      "test_mae": 15.5791654586792,
+      "test_rmse": 20.510450723160314,
+      "parameters": 1233
+    },
+    {
+      "kind": "GRU",
+      "seed": 84,
+      "epochs_run": 26,
+      "checkpoint_epoch": 11,
+      "test_mae": 17.11948585510254,
+      "test_rmse": 23.074017385802424,
+      "parameters": 929
+    }
+  ],
+  "aggregate": {
+    "LSTM": {
+      "mean_test_rmse": 20.679565472304855,
+      "sd_test_rmse": 0.4830048944590351,
+      "mean_test_mae": 15.766493479410807
+    },
+    "GRU": {
+      "mean_test_rmse": 20.66773041616554,
+      "sd_test_rmse": 2.125078845519838,
+      "mean_test_mae": 15.392705281575521
+    },
+    "persistence_test_rmse": 33.17500647607322,
+    "persistence_test_mae": 25.45084571838379
+  },
+  "source_values_sha256_float32": "9bcbe9dcdc8c75ef925a2f360ab677c2d84a17c6e65a8cf6644be24b82c5be09",
+  "limitations": "One chronology and three seeds; one-year prediction from 12 known prior observed counts; not recursive multiyear forecasts."
+}
