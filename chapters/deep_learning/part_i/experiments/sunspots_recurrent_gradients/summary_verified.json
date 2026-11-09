@@ -1,0 +1,88 @@
+{
+  "dataset": "NGDC annual sunspot data (statsmodels.sunspots)",
+  "n_observations": 309,
+  "year_range": [
+    1700,
+    2008
+  ],
+  "lookbacks": [
+    12,
+    36
+  ],
+  "window_split": {
+    "12": {
+      "train": 178,
+      "validation": 60,
+      "test": 59
+    },
+    "36": {
+      "train": 154,
+      "validation": 60,
+      "test": 59
+    }
+  },
+  "normalization": "190 observations 1700–1889, training period only",
+  "gradient_examples_per_run": 24,
+  "architectures": [
+    "RNN",
+    "LSTM",
+    "GRU"
+  ],
+  "seeds": [
+    17,
+    42,
+    84
+  ],
+  "models_trained": false,
+  "measurement": "Absolute input gradient of squared loss at random initialization, median across 24 authentic training windows; ratio oldest lag over newest lag",
+  "ratios_by_seed": {
+    "12": {
+      "RNN": [
+        0.00007006519444985315,
+        0.001624561846256256,
+        0.003027954138815403
+      ],
+      "LSTM": [
+        0.0013777634594589472,
+        0.001102795940823853,
+        0.0011587591143324971
+      ],
+      "GRU": [
+        0.001258943579159677,
+        0.009486249648034573,
+        0.0007701230933889747
+      ]
+    },
+    "36": {
+      "RNN": [
+        1.2608947219661104e-10,
+        1.3469581894298699e-8,
+        2.7657587331475497e-9
+      ],
+      "LSTM": [
+        8.817871588462367e-8,
+        4.762961225424078e-8,
+        3.3747003413964194e-8
+      ],
+      "GRU": [
+        3.0207608858745516e-8,
+        3.6966447680697456e-9,
+        4.323363711478123e-8
+      ]
+    }
+  },
+  "median_ratios": {
+    "12": {
+      "RNN": 0.001624561846256256,
+      "LSTM": 0.0011587591143324971,
+      "GRU": 0.001258943579159677
+    },
+    "36": {
+      "RNN": 2.7657587331475497e-9,
+      "LSTM": 4.762961225424078e-8,
+      "GRU": 3.0207608858745516e-8
+    }
+  },
+  "source_values_sha256_float32": "9bcbe9dcdc8c75ef925a2f360ab677c2d84a17c6e65a8cf6644be24b82c5be09",
+  "disclaimer": "This does not measure trained forecasting performance and does not certify the named HAR or other dataset-specific chapter experiments."
+}
