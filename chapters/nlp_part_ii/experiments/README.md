@@ -29,3 +29,15 @@ The runner fine-tunes LayoutLMv3's extractive QA head using OCR-aligned answer s
 A complete experiment requires actual dataset and model execution logs, exact model and dataset versions, train/validation/test IDs, checkpoints, run seed, measured results, baseline comparisons, full test predictions, and figures that can be regenerated from those predictions. Input-contract tests and the earlier manuscript retrieval pilot cannot substitute for the named model executions.
 
 **2026-11-08 execution status:** The current environment has PyTorch but does not have the IMDb and DocVQA data, pretrained BERT/LayoutLMv3 weights, or the Transformers/Datasets packages. External dataset and model hosts are inaccessible here. Therefore, **neither of these two experiments has yet been executed or scientifically certified**.
+
+
+## Summarization and machine translation (pretrained-model evaluation)
+
+```bash
+python seq2seq_evaluation/run.py --task summarization --output results/bart_cnn
+python seq2seq_evaluation/run.py --task translation --output results/marian_wmt14
+```
+
+The summarization runner executes `facebook/bart-large-cnn` on the full labeled `abisee/cnn_dailymail` 3.0.0 test split and measures ROUGE-1, ROUGE-2, and ROUGE-L. The translation runner executes `Helsinki-NLP/opus-mt-de-en` on the `wmt/wmt14` de-en test split and measures corpus SacreBLEU and chrF. Both save every reference and actual model prediction, dataset fingerprints, metrics and performance figures. `--max-examples` is for smoke tests only, and the output JSON marks whether the complete test set was evaluated. Pin `--revision` to a checkpoint commit for final certification. These are pretrained-model **evaluation** experiments, not fine-tuning experiments; describe them accurately.
+
+**Execution status:** Neither runner has been executed here because required benchmark data and pretrained weights are missing from the local environment. Documentation of code and published source papers is not a measured result.
