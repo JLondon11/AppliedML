@@ -65,14 +65,14 @@
     {
       "figure": "24",
       "category": "empirical",
-      "status": "unverified",
-      "generator": "generate_pass12_figures.py → real_data_figures.run",
-      "dataset": "scikit-learn handwritten digits, 1347 train / 450 validation; controlled noise applied to real images",
-      "protocol": "VAE checkpoint trained for 60 epochs on real digits; five-NN support / VAE noise sensitivity / 35-epoch trained conditional denoiser as applicable",
+      "status": "verified",
+      "generator": "generate_pass12_figures.py → ddpm_digits_experiment.run",
+      "dataset": "scikit-learn real handwritten-digits dataset; stratified train 1257 / validation 270 / independent test 270",
+      "protocol": "Actual DDPM epsilon-prediction training (45 epochs); 100-step noise schedule; selected by validation epsilon MSE; unconditional reverse-diffusion generated images and independent held-out test epsilon MSE; not DDIM",
       "artifact": "outputs/figure_24.png",
-      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/replacement_metrics.json",
-      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py",
-      "test_result": "Measured real-data denoising, but diffusion-model-specific validation still outstanding"
+      "metrics_file": "chapters/generative_ai_part_i/figure_generation/pass12/ddpm_measured_metrics.json",
+      "test_command": "python chapters/generative_ai_part_i/figure_generation/pass12/ddpm_digits_experiment.py --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm --epochs 45",
+      "test_result": "Executed on real digits locally; independent test MSE 0.26056 versus 0.99816 zero-predictor baseline; weak visual samples; generation-quality certification outstanding"
     }
   ]
 }
