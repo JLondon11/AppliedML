@@ -32,13 +32,23 @@ jobs:
             --evidence chapters/generative_ai_part_ii/qa/figure_evidence.json \
             --report chapter9_figure_audit.json \
             --production
+      - name: Inspect final manuscript and captions
+        run: |
+          python chapters/generative_ai_part_ii/qa/audit_manuscript_integration.py \
+            --root . --report chapter9_manuscript_audit.json
       - name: Upload complete discrepancy report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chapter9-figure-inventory-and-evidence-audit
-          path: chapter9_figure_audit.json
+          path: |
+            chapter9_figure_audit.json
+            chapter9_manuscript_audit.json
           retention-days: 30
+      - name: Require final manuscript integration
+        run: |
+          python chapters/generative_ai_part_ii/qa/audit_manuscript_integration.py \
+            --root . --report chapter9_manuscript_audit.json --strict
       - name: Require every figure to have verified real-data provenance
         run: |
           python chapters/generative_ai_part_ii/qa/audit_figure_evidence.py \
