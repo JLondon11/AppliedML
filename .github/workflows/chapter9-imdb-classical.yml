@@ -1,0 +1,34 @@
+name: Chapter 9 full IMDb logistic baseline
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-imdb-classical.yml'
+      - 'chapters/nlp_part_ii/experiments/imdb_classical/run.py'
+permissions:
+  contents: read
+jobs:
+  imdb_classical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install "numpy>=1.26,<3" "datasets>=2.19,<5" "scikit-learn>=1.4,<2" "scipy>=1.12,<2" "matplotlib>=3.8,<4"
+      - name: Fit baseline and evaluate complete real IMDb test set
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_classical/run.py --output chapters/nlp_part_ii/experiments/imdb_classical/results
+          test -s chapters/nlp_part_ii/experiments/imdb_classical/results/results.json
+          test -s chapters/nlp_part_ii/experiments/imdb_classical/results/predictions_test.jsonl
+      - name: Save measured evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-imdb-classical-measured-results
+          path: chapters/nlp_part_ii/experiments/imdb_classical/results/
+          if-no-files-found: error
+          retention-days: 90
