@@ -1,0 +1,31 @@
+name: Chapter 9 public DocVQA 1200 document dataset
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-docvqa-sample-acquisition.yml
+      - chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_docvqa_public.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dataset and image dependencies
+        run: python -m pip install -q 'datasets==2.21.0' 'Pillow>=10,<13' 'numpy<3'
+      - name: Download and verify real DocVQA image QA subset
+        run: python chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_docvqa_public.py --output data/docvqa_public
+      - name: Save original-image manifests and dataset provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-docvqa-public-1200
+          path: data/docvqa_public/
+          retention-days: 7
+          compression-level: 5
+          if-no-files-found: warn
