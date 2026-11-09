@@ -63,8 +63,19 @@ def validate_manifest(path: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifests', type=Path, nargs='+')
+    parser.add_argument('--require-real-data', action='store_true',
+                        help='reject conceptual-only or simulation-only figure records')
     args = parser.parse_args(argv)
     errors = [error for path in args.manifests for error in validate_manifest(path)]
+    if args.require_real_data:
+        for path in args.manifests:
+            try:
+                data = json.loads(path.read_text(encoding='utf-8'))
+                for i, record in enumerate(data.get('figures', [])):
+                    if not isinstance(record, dict) or record.get('category') != 'empirical':
+                        errors.append(f'{path}: figures[{i}] is not classified as real-data empirical evidence')
+            except (OSError, UnicodeError, ValueError, AttributeError):
+                pass  # validate_manifest already records malformed manifests
     if errors:
         for error in errors:
             print(error, file=sys.stderr)
