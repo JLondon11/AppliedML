@@ -1,0 +1,37 @@
+name: Chapter 9 real BERT-base IMDb held-out inference
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-bert-base-imdb.yml'
+      - 'chapters/nlp_part_ii/experiments/imdb_bert/run_published_bert_base.py'
+permissions:
+  contents: read
+jobs:
+  bert_base_imdb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install model packages
+        run: |
+          python -m pip install "torch>=2.3,<3" "transformers>=4.45,<5" "datasets>=2.19,<5" "numpy>=1.26,<3" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - name: Execute published BERT-base model on all 25000 IMDb test reviews
+        env:
+          OMP_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_bert/run_published_bert_base.py --output chapters/nlp_part_ii/experiments/imdb_bert/results/bert-base --batch-size 32 --max-length 128
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/bert-base/results.json
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/bert-base/predictions_test.jsonl
+      - name: Save measured BERT-base results
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-imdb-published-bert-base-real-results
+          path: chapters/nlp_part_ii/experiments/imdb_bert/results/bert-base/
+          if-no-files-found: error
+          retention-days: 90
