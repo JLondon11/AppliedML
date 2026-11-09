@@ -1,0 +1,80 @@
+{
+  "dataset_name": "scikit-learn real handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "split_seed": 47,
+  "model_widths": [
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "training_seeds": [
+    11,
+    17,
+    23
+  ],
+  "epochs": 35,
+  "trained_runs": 15,
+  "by_width": [
+    {
+      "width": 8,
+      "parameters": 682,
+      "mean_test_ce": 0.5471449593702952,
+      "sd_test_ce": 0.07146897101437207,
+      "mean_train_seconds": 0.252609981333336,
+      "mean_train_flops_proxy": 173164320.0,
+      "mean_test_accuracy": 0.8432098825772604
+    },
+    {
+      "width": 16,
+      "parameters": 1482,
+      "mean_test_ce": 0.17456004520257315,
+      "sd_test_ce": 0.034548629491501615,
+      "mean_train_seconds": 0.19130163866666314,
+      "mean_train_flops_proxy": 380116800.0,
+      "mean_test_accuracy": 0.9567901094754537
+    },
+    {
+      "width": 32,
+      "parameters": 3466,
+      "mean_test_ce": 0.11827172338962555,
+      "sd_test_ce": 0.00454835763278677,
+      "mean_train_seconds": 0.1988620909999952,
+      "mean_train_flops_proxy": 895386240.0,
+      "mean_test_accuracy": 0.9753086368242899
+    },
+    {
+      "width": 64,
+      "parameters": 8970,
+      "mean_test_ce": 0.10246178259452184,
+      "sd_test_ce": 0.008787130185420116,
+      "mean_train_seconds": 0.21712405699999712,
+      "mean_train_flops_proxy": 2331383040.0,
+      "mean_test_accuracy": 0.9728394945462545
+    },
+    {
+      "width": 128,
+      "parameters": 26122,
+      "mean_test_ce": 0.10867680609226227,
+      "sd_test_ce": 0.0037504021883454585,
+      "mean_train_seconds": 0.2632010470000002,
+      "mean_train_flops_proxy": 6825208320.0,
+      "mean_test_accuracy": 0.9753086368242899
+    }
+  ],
+  "pareto_widths": [
+    8,
+    16,
+    32,
+    64
+  ],
+  "method": "five real-data trained MLP widths, three seeds, independent test loss",
+  "limitations": "Small handwritten-digit classification study, NOT Chinchilla or LLM scaling. Training FLOPs is an architecture-derived proxy; wall-clock measured on local CPU."
+}
