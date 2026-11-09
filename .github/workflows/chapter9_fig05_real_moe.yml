@@ -1,0 +1,72 @@
+name: Chapter 9 Figure 5 real-data sparse MoE
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figure05_sparse_experts/experiment.py"
+      - "tools/scientific_qa/test_chapter9_moe.py"
+      - ".github/workflows/chapter9_fig05_real_moe.yml"
+permissions:
+  contents: write
+jobs:
+  moe-real-digits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install numpy scikit-learn matplotlib torch
+      - name: Validate MoE mathematics and gradients
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_moe.py' -v
+      - name: Train MoE and record actual real-data inference
+        run: |
+          python chapters/generative_ai_part_ii/code/figure05_sparse_experts/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs --epochs 45
+      - name: Verify routing, partitions, and output hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          root=Path("chapters/generative_ai_part_ii")
+          src=root/"code/figure05_sparse_experts/experiment.py"
+          out=root/"code/figure05_sparse_experts/outputs"
+          metrics=out/"metrics.json"
+          figure=out/"Figure_005_Sparse_Expert_Routing.png"
+          m=json.loads(metrics.read_text())
+          assert m["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert m["split_disjoint"] is True
+          assert m["selected_experts_per_sample"]==2
+          assert math.isclose(sum(m["expert_selection_fraction"]),2,abs_tol=1e-5)
+          assert m["max_sparse_row_sum_error"]<1e-5
+          assert math.isfinite(m["independent_test_accuracy"])
+          assert figure.stat().st_size>1000
+          checksum=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          record={
+            "figure_number":5,"status":"VERIFIED","evidence_type":"measured_real_dataset",
+            "dataset":"scikit-learn real handwritten digits","dataset_name":m["dataset_name"],
+            "dataset_source_url":m["dataset_source_url"],"split_counts":m["split_counts"],
+            "split_disjoint":True,"model_or_method":m["method"],"method":m["method"],
+            "experiment_protocol":"45-epoch top-2 expert routing, 4 experts; checkpoint selected on 270-image validation split; independent 270-image test and per-image selected expert weights",
+            "generator":str(src),"generator_sha256":checksum(src),
+            "figure_path":str(figure),"figure_sha256":checksum(figure),
+            "metrics_path":str(metrics),"metrics_sha256":checksum(metrics),
+            "caption":"A real held-out handwritten digit, its actual learned four-expert routing probabilities and selected top-two weights, and observed mean routing and expert selection frequency across all 270 independent test images; this is a compact trained MoE, not a foundation-scale language model."}
+          (out/"production_record.json").write_text(json.dumps(record,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figure05-real-sparse-moe
+          path: chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs/
+          retention-days: 90
+      - name: Commit generated measured outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs/test_predictions_routes.csv
+          git add -f chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs/Figure_005_Sparse_Expert_Routing.png
+          git add -f chapters/generative_ai_part_ii/code/figure05_sparse_experts/outputs/production_record.json
+          git diff --cached --quiet || (git commit -m "Archive measured Chapter 9 sparse MoE routing evidence" && git pull --rebase origin main && git push origin HEAD:main)
