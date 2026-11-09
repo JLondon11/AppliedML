@@ -27,7 +27,7 @@ jobs:
           python -m pip install numpy scikit-learn matplotlib torch
       - name: Validate figure provenance
         run: |
-          python tools/scientific_qa/validate_provenance.py chapters/generative_ai_part_i/figure_generation/pass12/provenance.json
+          python tools/scientific_qa/validate_provenance.py --require-real-data chapters/generative_ai_part_i/figure_generation/pass12/provenance.json
           python -m unittest discover -s tools/scientific_qa -p 'test_*.py'
       - name: Execute real-data VAE
         run: |
