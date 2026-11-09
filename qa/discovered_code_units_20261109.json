@@ -1,0 +1,733 @@
+{
+  "schema": "book-repository-code-discovery-v1",
+  "audit_date": "2026-11-09",
+  "repository": "JLondon11/AppliedML",
+  "note": "Automatically identified code-bearing units; no inference about run status, correctness, data provenance, or manuscript completeness. This is not exhaustive of all application/case-study sections.",
+  "discovered_count": 54,
+  "units": [
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/evaluate_fastmri.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_coco_pretrained.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_yolo.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/test_evaluator.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/track_visdrone_video.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/README.md",
+      "evidence_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24/per_class_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24/summary_metrics.csv"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/evaluate_tusimple_onnx.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/render_verified_pointpillars.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/run_pointpillars_kitti.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/run_nerfstudio_pair.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_crowdhuman_frcnn.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_pennfudan_pretrained.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/README.md",
+      "evidence_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/results/pennfudan_12/metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/results/pennfudan_full170/metrics.csv"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/evaluate_pipeline_trace.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/analyze_sam_42_images.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/compare_maskrcnn_sam.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_maskrcnn_coco_same_scene.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_sam_coco.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/sam_bootstrap.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/test_local.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/README.md",
+      "evidence_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_maskrcnn_18images/comparison.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/metrics_summary.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/per_object_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/selection_provenance.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_42images/pooled_results.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_expanded_18images/bootstrap_uncertainty.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_expanded_18images/metrics_summary.json"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/evaluate_visdrone_coco_pretrained.py"
+      ],
+      "readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/README.md",
+      "evidence_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/results/visdrone_coco_transfer_24/per_class_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/results/visdrone_coco_transfer_24/summary_metrics.csv"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/digits_cpu_pilot",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/digits_cpu_pilot/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/digits_cpu_pilot/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/digits_threeway_cpu",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/digits_threeway_cpu/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/digits_threeway_cpu/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/gradient_flow_digits",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_digits/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/gradient_flow_digits/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/README.md",
+      "evidence_files": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/summary_verified.json"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/README.md",
+      "evidence_files": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/summary_verified.json"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/README.md",
+      "evidence_files": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/summary_verified.json"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/run.py"
+      ],
+      "readme": "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/README.md",
+      "evidence_files": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/summary_verified.json"
+      ],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/foundations_machine_learning/code/case_studies/aerospace_cmapss_fd001.py",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/foundations_machine_learning/code/case_studies/aerospace_cmapss_fd001.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/foundations_machine_learning/code/case_studies/edge_digits_quantization.py",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/foundations_machine_learning/code/case_studies/edge_digits_quantization.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/foundations_machine_learning/code/case_studies/medical_diagnosis_wdbc.py",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/foundations_machine_learning/code/case_studies/medical_diagnosis_wdbc.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/foundations_machine_learning/code/case_studies/weather_seattle.py",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/foundations_machine_learning/code/case_studies/weather_seattle.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/run.py",
+        "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/run.py",
+        "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/reproduce_esol.py",
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/run.py",
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/run.py",
+        "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration/run.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/analyze_multiseed.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/publication_figures.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_multiseed.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_repeat_control.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/test_pipeline.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/verify_evidence.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/test_outputs.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation",
+      "type": "section_experiment_candidate",
+      "code": [
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/test_outputs.py",
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/texture_gan_reference.py"
+      ],
+      "readme": "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_bert_sentiment_architecture.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_bert_sentiment_loss_curves.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/shared_experiment/run_figures_08_09.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/case_studies/enterprise_rag",
+      "type": "case_study_candidate",
+      "code": [
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_retrieval_quality_topk.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/render_figure_12.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/chapter9_retrieval",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/chapter9_retrieval/shortcut_evidence_audit.py"
+      ],
+      "readme": "chapters/nlp_part_ii/experiments/chapter9_retrieval/README.md",
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/dataset_acquisition",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire.py",
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_docvqa_public.py",
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_financial.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/docvqa_layoutlmv3",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/docvqa_layoutlmv3/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/finqa_evidence",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/finqa_evidence/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/imdb_baseline",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/imdb_baseline/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/imdb_bert",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/imdb_bert/pilot.py",
+        "chapters/nlp_part_ii/experiments/imdb_bert/run.py",
+        "chapters/nlp_part_ii/experiments/imdb_bert/run_published_bert_base.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/imdb_bilstm",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/imdb_bilstm/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/imdb_classical",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/imdb_classical/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/imdb_comparison",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/imdb_comparison/paired_model_audit.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/scifact_evidence",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/scifact_evidence/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/scifact_scientific_assistant",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/bert_finetune.py",
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/flan_t5_rag.py",
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/seq2seq_evaluation",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/matched_bart_lead3_audit.py",
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/run.py",
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/wmt14_full_error_audit.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/summarization_lead3",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/summarization_lead3/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/summarization_matched",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/summarization_matched/compare.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/tatqa_modality",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/tatqa_modality/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/tests",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/tests/test_runner_invariants.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/wmt14_copy_baseline",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/wmt14_copy_baseline/run.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    },
+    {
+      "path": "chapters/nlp_part_ii/experiments/wmt14_matched",
+      "type": "experiment_candidate",
+      "code": [
+        "chapters/nlp_part_ii/experiments/wmt14_matched/compare.py"
+      ],
+      "readme": null,
+      "evidence_files": [],
+      "status": "UNCERTIFIED_DISCOVERED",
+      "data_provenance": "NOT_AUDITED",
+      "manuscript_link": "NOT_AUDITED"
+    }
+  ]
+}
