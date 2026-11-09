@@ -12,6 +12,7 @@ on:
     paths:
       - "chapters/generative_ai_part_ii/**"
       - "tools/scientific_qa/test_chapter9_figure_evidence.py"
+      - "tools/scientific_qa/test_chapter9_production_evidence.py"
       - ".github/workflows/chapter9_figure_evidence.yml"
 
 jobs:
@@ -23,7 +24,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Test fail-closed scientific provenance checks
-        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_figure_evidence.py' -v
+        run: |
+          python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_figure_evidence.py' -v
           python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_production_evidence.py' -v
       - name: Inventory all frozen Chapter 9 figures
         run: |
@@ -57,4 +59,5 @@ jobs:
             --generator chapters/generative_ai_part_ii/figure_generation/generate_figures.py \
             --evidence chapters/generative_ai_part_ii/qa/figure_evidence.json \
             --report chapter9_figure_audit.json \
+            --production \
             --strict
