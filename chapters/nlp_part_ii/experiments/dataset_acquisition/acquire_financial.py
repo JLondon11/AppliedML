@@ -7,9 +7,9 @@ FILES={
  "finqa_train":("https://raw.githubusercontent.com/czyssrs/FinQA/main/dataset/train.json","finqa"),
  "finqa_dev":("https://raw.githubusercontent.com/czyssrs/FinQA/main/dataset/dev.json","finqa"),
  "finqa_test":("https://raw.githubusercontent.com/czyssrs/FinQA/main/dataset/test.json","finqa"),
- "tatqa_train":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/main/dataset_raw/tatqa_dataset_train.json","tatqa"),
- "tatqa_dev":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/main/dataset_raw/tatqa_dataset_dev.json","tatqa"),
- "tatqa_test":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/main/dataset_raw/tatqa_dataset_test_gold.json","tatqa"),
+ "tatqa_train":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/master/dataset_raw/tatqa_dataset_train.json","tatqa"),
+ "tatqa_dev":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/master/dataset_raw/tatqa_dataset_dev.json","tatqa"),
+ "tatqa_test":("https://raw.githubusercontent.com/NExTplusplus/TAT-QA/master/dataset_raw/tatqa_dataset_test_gold.json","tatqa"),
 }
 
 def grab(url,path):
