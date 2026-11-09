@@ -104,7 +104,7 @@ def main():
     print(f"Chapter 9: verified {n}/{len(rows)}; HOLD {len(rows)-n}")
     for row in rows:
         if row["reasons"]:
-            print(f"figure {row['figure']}: {', '.join(row['reasons'])}")
+            print(f"figure {row['figure']} | section={row['section']} | class={row['class']} | topic={row['key']} | asset={row['frozen_asset']} | issues={', '.join(row['reasons'])}")
     return int(args.strict and n != len(rows))
 
 
