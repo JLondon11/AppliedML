@@ -1,0 +1,154 @@
+{
+  "dataset_name": "scikit-learn real handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "seed": 31,
+  "epochs": 45,
+  "selected_epoch": 38,
+  "validation_accuracy": 0.9740740740740741,
+  "independent_test_accuracy": 0.9481481481481482,
+  "test_confusion_matrix": [
+    [
+      26,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      27,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      27,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      25,
+      0,
+      0,
+      0,
+      1,
+      2,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      24,
+      1,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      25,
+      0,
+      0,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      26,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      27,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      25,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      24
+    ]
+  ],
+  "selected_experts_per_sample": 2,
+  "expert_count": 4,
+  "mean_routing_probabilities": [
+    0.2500965893268585,
+    0.28457871079444885,
+    0.23420612514019012,
+    0.2311185598373413
+  ],
+  "expert_selection_fraction": [
+    0.4888888895511627,
+    0.6111111044883728,
+    0.4555555582046509,
+    0.4444444477558136
+  ],
+  "max_sparse_row_sum_error": 1.1920928955078125e-07,
+  "method": "top-2 sparse mixture-of-experts classifier on real handwritten-digit images",
+  "limitations": "Not a foundation-model MoE; routing measured on 270 real held-out images. Expert selection fractions sum to 2."
+}
