@@ -1,0 +1,39 @@
+{
+  "dataset": "scikit-image immunohistochemistry tissue microscopy 512x512 RGB",
+  "source_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+  "source_images": 1,
+  "spatial_partitions": {
+    "train_rows": [
+      0,
+      319
+    ],
+    "validation_rows": [
+      320,
+      383
+    ],
+    "test_rows": [
+      384,
+      511
+    ]
+  },
+  "n_train_patches": 589,
+  "n_val_patches": 93,
+  "n_test_patches": 217,
+  "n_prior_samples": 128,
+  "seed": 20261109,
+  "epochs": 12,
+  "selected_epoch": 12,
+  "test_reconstruction_PSNR_dB": 20.175723237419664,
+  "test_reconstruction_SSIM": 0.2926982465770937,
+  "test_reconstruction_MSE": 0.010446896710033928,
+  "test_nearest_training_patch_MSE": 0.010597637854516506,
+  "prior_nearest_training_patch_MSE": 0.006500366802356439,
+  "limitations": [
+    "one tissue source image; not patient independent",
+    "patch overlap within each partition",
+    "prior sample quality not judged by a pathologist",
+    "reconstruction scores are not unconditional-generation quality",
+    "no pathology labels or downstream clinical utility",
+    "no GAN/diffusion benchmark"
+  ]
+}
