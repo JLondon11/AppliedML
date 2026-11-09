@@ -1,35 +1,102 @@
-"""Reproduce Scientific AI Figure 2 from explicit mathematical models."""
+"""Scientific AI Figure 2 from authentic NGDC annual sunspot observations.
+No fabricated measurements, simulated fields, or artificially noisy observations.
+Usage: python figure_02_scientific_discovery.py --output-dir figures
+"""
+from pathlib import Path
+import argparse, hashlib, json
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
-np.random.seed(7)
-fig=plt.figure(figsize=(15,7.6)); gs=GridSpec(2,4,figure=fig,height_ratios=[1,.055],hspace=.12,wspace=.48)
-ax1=fig.add_subplot(gs[0,0])
-x=np.linspace(0,2*np.pi,26); t=np.linspace(0,2*np.pi,22); X,T=np.meshgrid(x,t)
-U=np.sin(X-.75*T)+.28*np.sin(2*X+.35*T)
-im=ax1.pcolormesh(x,t,U,shading="auto",cmap="coolwarm",vmin=-1.3,vmax=1.3)
-ax1.scatter(X[::3,::3].ravel(),T[::3,::3].ravel(),s=9,facecolors="none",edgecolors="k",linewidths=.45)
-ax1.set(xlabel=r"$x$",ylabel=r"$t$",title="Observation and measurement")
-fig.colorbar(im,ax=ax1,fraction=.046,pad=.03,label=r"$u(x,t)$")
-ax2=fig.add_subplot(gs[0,1]); y=np.linspace(-1,1,400); u=1-y*y
-ax2.plot(u,y,lw=2); ax2.axhline(-1,lw=.8); ax2.axhline(1,lw=.8)
-ax2.set(xlim=(0,1.05),ylim=(-1.15,1.15),xlabel=r"$u/U_{\max}$",ylabel=r"$y/h$",title="Mechanistic representation")
-ax2.text(.04,.96,r"$u/U_{\max}=1-(y/h)^2$",transform=ax2.transAxes,ha="left",va="top")
-def f(q):
-    xx,yy,zz=q
-    return np.array([10*(yy-xx),xx*(28-zz)-yy,xx*yy-(8/3)*zz])
-dt=.005;n=6000;q=np.empty((n,3));q[0]=[1,1,1]
-for k in range(n-1):
-    k1=f(q[k]);k2=f(q[k]+dt*k1/2);k3=f(q[k]+dt*k2/2);k4=f(q[k]+dt*k3)
-    q[k+1]=q[k]+dt*(k1+2*k2+2*k3+k4)/6
-ax3=fig.add_subplot(gs[0,2],projection="3d");ax3.plot(q[:,0],q[:,1],q[:,2],lw=.55)
-ax3.set(xlabel=r"$x$",ylabel=r"$y$",zlabel=r"$z$",title="Numerical simulation");ax3.view_init(25,-55)
-ax4=fig.add_subplot(gs[0,3]);xs=np.linspace(-2.5,2.5,70)
-truth=np.exp(-.55*xs**2)*np.cos(2.1*xs);idx=np.arange(0,len(xs),7);xo=xs[idx];yo=truth[idx]+np.random.normal(0,.045,len(idx))
-deg=8;Phi=np.vander(xo,deg+1,increasing=True);coef=np.linalg.solve(Phi.T@Phi+1e-3*np.eye(deg+1),Phi.T@yo)
-pred=np.vander(xs,deg+1,increasing=True)@coef
-ax4.plot(xs,truth,"--",lw=1.4,label="Reference");ax4.scatter(xo,yo,s=22,label="Sparse observations",zorder=3);ax4.plot(xs,pred,lw=2,label="Learned approximation")
-ax4.set(xlabel=r"$x$",ylabel=r"$u(x)$",title="Data-driven scientific inference");ax4.legend(frameon=False,fontsize=8)
-for i,L in enumerate(["(a)","(b)","(c)","(d)"]):
-    a=fig.add_subplot(gs[1,i]);a.axis("off");a.text(.5,.5,L,ha="center",va="center",fontsize=13)
-fig.savefig("../figures/figure_02_evolution_scientific_discovery.svg",bbox_inches="tight",facecolor="white")
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+from statsmodels.datasets import sunspots
+
+def main(out):
+    out=Path(out);out.mkdir(exist_ok=True,parents=True)
+    data=sunspots.load_pandas().data
+    years=data.YEAR.to_numpy(dtype=int)
+    values=data.SUNACTIVITY.to_numpy(dtype=np.float64)
+    assert len(values)==309 and years[0]==1700 and years[-1]==2008
+    assert np.isfinite(values).all() and np.all(np.diff(years)==1)
+    L=12
+    X=np.stack([values[i-L:i] for i in range(L,len(values))])
+    y=values[L:]; ty=years[L:]
+    train=ty<=1889
+    val=(ty>=1890)&(ty<=1949)
+    test=ty>=1950
+    assert tuple(map(int,(train.sum(),val.sum(),test.sum())))==(178,60,59)
+    mu=X[train].mean(0); sd=X[train].std(0);sd[sd==0]=1
+    Xt=(X[train]-mu)/sd
+    Xv=(X[val]-mu)/sd
+    Xh=(X[test]-mu)/sd
+    tuning=[]
+    for alpha in [0.1,1.,10.,100.,1000.]:
+        r=Ridge(alpha=alpha).fit(Xt,y[train])
+        e=float(np.sqrt(mean_squared_error(y[val],r.predict(Xv))))
+        tuning.append({"alpha":alpha,"validation_rmse":e})
+    chosen=min(tuning,key=lambda z:z["validation_rmse"])["alpha"]
+    model=Ridge(alpha=chosen).fit(Xt,y[train])
+    pred=model.predict(Xh); persistence=X[test,-1]
+    rmse=float(np.sqrt(mean_squared_error(y[test],pred)))
+    base=float(np.sqrt(mean_squared_error(y[test],persistence)))
+    assert np.isfinite(rmse) and np.isfinite(base)
+    plt.rcParams.update({"font.family":"DejaVu Sans","font.size":10,
+        "axes.spines.top":False,"axes.spines.right":False})
+    fig,axes=plt.subplots(2,2,figsize=(12.2,7.7),constrained_layout=True)
+    a,b,c,d=axes.flat
+    a.plot(years,values,color="#315b79",lw=1.25)
+    a.set(title="(a) Recorded annual sunspot numbers",xlabel="Year",ylabel="Sunspot number")
+    avg=np.convolve(values,np.ones(11)/11,mode="valid")
+    yavg=np.convolve(years,np.ones(11)/11,mode="valid")
+    b.plot(years,values,color="#b9c5ce",lw=.8,label="Observed annual values")
+    b.plot(yavg,avg,color="#af673c",lw=2.2,label="Observed 11-year rolling average")
+    b.set(title="(b) Recorded temporal structure",xlabel="Year",ylabel="Sunspot number")
+    b.legend(frameon=False,fontsize=8)
+    c.scatter(values[:-1],values[1:],s=10,alpha=.6,color="#387c71")
+    c.set(title="(c) Observed one-year lag relationship",
+          xlabel="Observed sunspots at year t - 1",ylabel="Observed sunspots at year t")
+    c.set_xlim(left=0);c.set_ylim(bottom=0)
+    d.plot(ty[test],y[test],color="#243f59",lw=2,label="Observed sunspots, held-out")
+    d.plot(ty[test],pred,color="#b66b43",lw=1.7,
+           label=f"Fitted Ridge forecast (RMSE {rmse:.2f})")
+    d.plot(ty[test],persistence,color="#678777",lw=1,alpha=.65,
+           label=f"Persistence (RMSE {base:.2f})")
+    d.set(title="(d) Real-data forecast evaluation (1950-2008)",
+          xlabel="Held-out target year",ylabel="Sunspot number")
+    d.legend(frameon=False,fontsize=8)
+    for ax in axes.flat:ax.grid(alpha=.15)
+    for ext in ["svg","png","pdf"]:
+        fig.savefig(out/f"figure_02_evolution_scientific_discovery.{ext}",
+                    dpi=220,facecolor="white")
+    plt.close(fig)
+    result={"dataset":"NGDC annual sunspots from statsmodels.datasets.sunspots",
+      "dataset_url":"https://www.statsmodels.org/stable/datasets/generated/sunspots.html",
+      "dataset_observations":309,"dataset_years":[1700,2008],
+      "dataset_values_float64_sha256":hashlib.sha256(values.tobytes()).hexdigest(),
+      "lookback":12,"training_windows":int(train.sum()),
+      "validation_windows":int(val.sum()),"testing_windows":int(test.sum()),
+      "train_target_years":[1712,1889],"validation_target_years":[1890,1949],
+      "test_target_years":[1950,2008],
+      "model":"Ridge regression fitted to 12 observed prior years",
+      "selection_criterion":"minimum validation RMSE; held-out test not used for tuning",
+      "alpha_validation_records":tuning,"selected_alpha":chosen,
+      "heldout_rmse":rmse,
+      "heldout_mae":float(mean_absolute_error(y[test],pred)),
+      "persistence_heldout_rmse":base,
+      "persistence_heldout_mae":float(mean_absolute_error(y[test],persistence)),
+      "test_target_years":ty[test].tolist(),"observed_test":y[test].tolist(),
+      "ridge_predictions_test":pred.tolist(),
+      "persistence_predictions_test":persistence.tolist()}
+    assert np.isclose(rmse,np.sqrt(np.mean((np.array(result["observed_test"])-np.array(result["ridge_predictions_test"]))**2)),rtol=1e-12)
+    (out/"figure_02_scientific_discovery_evidence.json").write_text(json.dumps(result,indent=2)+"\n")
+    return result
+
+if __name__=="__main__":
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--output-dir",default=str(Path(__file__).resolve().parent/"outputs"))
+    args=parser.parse_args()
+    r=main(args.output_dir)
+    print(json.dumps({k:r[k] for k in
+        ["dataset_observations","training_windows","validation_windows",
+         "testing_windows","selected_alpha","heldout_rmse","persistence_heldout_rmse"]},indent=2))
