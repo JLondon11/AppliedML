@@ -1,4 +1,4 @@
-name: Scientific evidence — digits VAE DDPM DDIM
+name: Scientific evidence — digits VAE DDPM DDIM quality
 on:
   workflow_dispatch:
   push:
@@ -37,6 +37,11 @@ jobs:
           python chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_comparison.py \
             --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt \
             --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddim_comparison
+      - name: Evaluate classifier-feature quality on real digits
+        run: |
+          OPENBLAS_NUM_THREADS=1 python chapters/generative_ai_part_i/figure_generation/pass12/quality_benchmark.py \
+            --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt \
+            --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/quality
       - name: Verify evidence structure
         run: |
           python - <<'PY'
@@ -56,6 +61,12 @@ jobs:
           comparison = json.loads((p/"ddim_comparison"/"comparison_metrics.json").read_text())
           assert comparison["train"] == 1257 and comparison["test"] == 270
           assert comparison["ddim_eta"] == 0.0
+          quality = json.loads((p/"quality"/"quality_metrics.json").read_text())
+          assert quality["split"] == {"training":1257,"validation":270,"independent_test":270}
+          assert quality["independent_test_digit_classification_accuracy"] > .90
+          assert len(quality["metrics"]) == 4
+          for fname in ("quality_per_seed.csv","quality_diagnostics.png"):
+              assert (p/"quality"/fname).stat().st_size > 0
           assert set(comparison["summary"]) == {"DDPM-100","DDIM-100","DDIM-50","DDIM-20"}
           for name in ("comparison_metrics.csv", "ddpm_ddim_real_digits.png", "ddpm_ddim_diagnostics.png"):
               assert (p/"ddim_comparison"/name).stat().st_size > 0
