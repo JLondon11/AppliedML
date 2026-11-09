@@ -1,0 +1,73 @@
+{
+  "dataset": "NGDC annual sunspots 1700-2008 via statsmodels",
+  "dataset_observations": 309,
+  "split_12": {
+    "training": 178,
+    "validation": 60,
+    "testing": 59
+  },
+  "split_36": {
+    "training": 154,
+    "validation": 60,
+    "testing": 59
+  },
+  "training_target_years_12": [
+    1712,
+    1889
+  ],
+  "training_target_years_36": [
+    1736,
+    1889
+  ],
+  "validation_target_years": [
+    1890,
+    1949
+  ],
+  "testing_target_years": [
+    1950,
+    2008
+  ],
+  "seeds": [
+    17,
+    42,
+    84
+  ],
+  "trained_models": 18,
+  "models": [
+    "RNN",
+    "LSTM",
+    "GRU"
+  ],
+  "lengths": [
+    12,
+    36
+  ],
+  "metric": "RMSE on common 59 annual held-out test targets",
+  "rmse_mean": {
+    "12": {
+      "RNN": 20.542825703439462,
+      "LSTM": 20.620616895963895,
+      "GRU": 20.322964158771512
+    },
+    "36": {
+      "RNN": 20.59087369755846,
+      "LSTM": 20.344286825210535,
+      "GRU": 20.20268219901794
+    }
+  },
+  "rmse_sample_sd": {
+    "12": {
+      "RNN": 0.15335454227726814,
+      "LSTM": 1.5746683097872125,
+      "GRU": 2.274442604874937
+    },
+    "36": {
+      "RNN": 1.3449873718461292,
+      "LSTM": 2.324982832177042,
+      "GRU": 1.1637401814599468
+    }
+  },
+  "persistence_rmse": 33.17500647607322,
+  "method": "Chronological partition and train-only normalization; minimum-validation-MSE checkpoint per model; test data never used for model selection",
+  "scope": "one-step predictions using previous observed sunspot counts; one split and three seeds; different architecture parameter counts"
+}
