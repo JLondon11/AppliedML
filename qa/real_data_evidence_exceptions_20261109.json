@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-11-09",
+  "decision_standard": "All manuscript empirical figures/results must trace to actual observed dataset records and executed model outputs; any synthetic data arms or fabricated numerical examples are prohibited as real-data evidence.",
+  "confirmed_prohibited": [
+    {
+      "unit": "Chapter 6 cross-domain synthetic-source evaluation",
+      "path": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/run.py",
+      "kind": "synthetic_training_data",
+      "evidence": "Source loads generated_seed{seed}.pt generated GAN images as alternative source training examples; README explicitly calls them synthetic defect images.",
+      "action": "Exclude GAN-source comparisons/figures/metrics from the publication manuscript under the strict real-data-only policy. Retain code in GitHub with restricted/archived status for traceability; replace manuscript with fully observed-data benchmark if needed.",
+      "status": "HOLD_NO_SYNTHETIC_DATA"
+    }
+  ],
+  "require_provenance_review": [
+    {
+      "unit": "Chapter 2 generic figure generation",
+      "path": "chapters/deep_learning/part_i/figure_generation/generate_figures.py",
+      "reason": "Figure generator presence alone does not prove real dataset backing for its charts."
+    },
+    {
+      "unit": "Chapter 6 figure generation",
+      "path": "chapters/generative_ai_part_i/figure_generation/generate_figures.py",
+      "reason": "Requires traceability for every empirical chart; code presence alone is insufficient."
+    },
+    {
+      "unit": "Chapter 6 cross-domain synthetic evaluation inherited results",
+      "path": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/measured_scores_pass21.csv",
+      "reason": "Numerically measured metrics were obtained using a synthetic-data training arm, so do not qualify as real-data-only evidence."
+    }
+  ],
+  "rules_for_all_chapters": [
+    "Empirical data must be authentic real-world recorded observations, cited and provenance-checked.",
+    "Real-data model predictions and measured metrics must come from actual code execution, not hand-specified vectors.",
+    "Model-generated or augmented images must never be mistaken for genuine observations; synthetic replacement training datasets are prohibited in certified examples.",
+    "Every figure/table is linked to committed code, named source dataset, split counts, actual raw metrics/predictions, and hash or verifiable GitHub asset.",
+    "No unit can be certified merely because its code compiles or a source file exists.",
+    "Explanatory architecture drawings are not experimental figures and must not contain fabricated numerical results."
+  ],
+  "current_global_status": "NOT CERTIFIED; named experimental units remain missing or unverified."
+}
