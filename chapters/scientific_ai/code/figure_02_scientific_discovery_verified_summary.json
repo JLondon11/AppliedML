@@ -1,0 +1,53 @@
+{
+  "status": "executed_locally_and_reproduced_from_authentic_data",
+  "chapter": "Scientific AI",
+  "figure": "figure_02_evolution_scientific_discovery.svg",
+  "source": "chapters/scientific_ai/code/figure_02_scientific_discovery.py",
+  "dataset": "NGDC annual sunspots via statsmodels",
+  "dataset_records": 309,
+  "observation_years": [
+    1700,
+    2008
+  ],
+  "dataset_values_float64_sha256": "66c86ecdcd5950f61f6243f924fdfa10a44596e94816291062fdda266a31c86d",
+  "model": "Ridge regression on preceding 12 recorded sunspot values",
+  "train_windows": 178,
+  "val_windows": 60,
+  "test_windows": 59,
+  "training_target_years": [
+    1712,
+    1889
+  ],
+  "validation_target_years": [
+    1890,
+    1949
+  ],
+  "test_target_years": [
+    1950,
+    2008
+  ],
+  "candidate_alphas": [
+    0.1,
+    1,
+    10,
+    100,
+    1000
+  ],
+  "validation_rmse": [
+    14.455027053973405,
+    14.115750317018708,
+    13.720853946610436,
+    17.49257525902626,
+    27.907826956435375
+  ],
+  "chosen_alpha": 10,
+  "heldout_test_rmse": 19.382488684016636,
+  "heldout_test_mae": 14.090176926482778,
+  "persistence_test_rmse": 33.17500590729642,
+  "persistence_test_mae": 25.450847457627116,
+  "result_json": "figure_02_scientific_discovery_evidence.json",
+  "original_problem": "Prior code created np.sin simulated fields, a Lorenz numerical trajectory, and additive random noise mislabeled sparse observations; no real dataset loader.",
+  "remediation": "Replaced with authentic observed annual series, rolling observed series, observed one-year lag scatter and computed held-out forecast comparison.",
+  "limitations": "One dataset and one split; results only describe this forecasting example. Manuscript and final compiled PDF not independently checked.",
+  "data_source_url": "https://www.statsmodels.org/stable/datasets/generated/sunspots.html"
+}
