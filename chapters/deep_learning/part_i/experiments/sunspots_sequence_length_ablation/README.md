@@ -1,0 +1,9 @@
+# Chapter 2: Real-data RNN / LSTM / GRU history-length ablation
+
+This study runs **18 real training experiments** (three model types × two input history lengths × three initialization seeds) using the original **309 annual NGDC sunspot observations from 1700–2008** distributed through statsmodels. For 12-year inputs the chronological split contains **178 training, 60 validation, and 59 testing windows**. For 36-year inputs it contains **154 training, 60 validation, and 59 testing windows**. The validation target period is 1890–1949 and the test target period is 1950–2008. Train-only normalization and validation-only checkpoint selection are used; the same held-out target years are evaluated across configurations.
+
+Mean held-out test RMSE (sunspot number) for 12-year windows: RNN 20.543, LSTM 20.621, GRU 20.323. For 36-year windows: RNN 20.591, LSTM 20.344, GRU 20.203. The one-year persistence baseline has RMSE 33.175. Standard deviations across seeds appear in `summary_verified.json`. These are single-partition, three-seed results and model parameter counts are not identical.
+
+Run `python run.py` with numpy, torch, scikit-learn, statsmodels and matplotlib. The generator saves all actual training trajectories, best validation checkpoints, test forecasts and ground truth in `outputs/results.json`, and produces four figure pairs in PNG/PDF: lookback RMSE comparison, 12- and 36-year test forecasts, and validation histories. Each figure corresponds to actual executed real-data experiments.
+
+The comparison uses one-step forecasts based on preceding *observed* annual values, not recursive out-of-sample multistep trajectories. Dataset citation: https://www.statsmodels.org/stable/datasets/generated/sunspots.html . Important scientific limitation: results do not certify the Chapter 2 MNIST, CIFAR-10, UCI HAR, satellite hurricane, Stanford Dogs, style-transfer or optical-flow experiments.
