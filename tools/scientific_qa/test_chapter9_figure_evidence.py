@@ -8,7 +8,7 @@ import unittest
 import zlib
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "chapters/generative_ai_part_ii/qa"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "chapters/generative_ai_part_ii/qa"))
 from audit_figure_evidence import audit, frozen_specs
 
 
