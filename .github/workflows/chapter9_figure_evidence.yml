@@ -15,6 +15,9 @@ on:
       - "tools/scientific_qa/test_chapter9_production_evidence.py"
       - ".github/workflows/chapter9_figure_evidence.yml"
 
+permissions:
+  contents: write
+
 jobs:
   audit-chapter9:
     runs-on: ubuntu-latest
@@ -35,6 +38,26 @@ jobs:
             --evidence chapters/generative_ai_part_ii/qa/figure_evidence.json \
             --report chapter9_figure_audit.json \
             --production
+      - name: Render SHA-verified real-data Figures 1-5
+        run: |
+          for n in 1 2 3 4 5; do
+            python chapters/generative_ai_part_ii/figure_generation/generate_figures.py \
+              --figure "$n" \
+              --output-root chapters/generative_ai_part_ii/figures
+          done
+          python - <<'PY'
+          from pathlib import Path
+          root=Path("chapters/generative_ai_part_ii/figures")
+          assert len(list(root.glob("Figure_00[1-5]_*.png")))==5
+          for figure in root.glob("Figure_00[1-5]_*.png"):
+              assert figure.stat().st_size>1000
+          PY
+      - name: Commit exact frozen-figure production copies
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/figures/Figure_00[1-5]_*.png
+          git diff --cached --quiet || (git commit -m "Publish SHA-verified real-data Chapter 9 Figures 1-5" && git pull --rebase origin main && git push origin HEAD:main)
       - name: Inspect final manuscript and captions
         run: |
           python chapters/generative_ai_part_ii/qa/audit_manuscript_integration.py \
