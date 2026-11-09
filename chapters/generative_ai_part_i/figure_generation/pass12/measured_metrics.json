@@ -1,0 +1,32 @@
+{
+  "evidence_type": "measured_validation_not_test",
+  "source": "sklearn.datasets.load_digits",
+  "dataset_samples": 1797,
+  "train_samples": 1347,
+  "validation_samples": 450,
+  "test_samples": 0,
+  "features": 64,
+  "classes": 10,
+  "seed": 13,
+  "epochs": 60,
+  "batch_size": 128,
+  "optimizer": "Adam",
+  "learning_rate": 0.002,
+  "final_train_elbo": 25.802818893058795,
+  "final_validation_elbo_stochastic": 25.915145128038194,
+  "final_validation_bce_deterministic": 23.750125868055555,
+  "final_validation_kl": 1.3794767252604168,
+  "validation_latent_10nn_purity_mean": 0.5102222222222222,
+  "validation_latent_10nn_purity_sd": 0.3428330084245526,
+  "sample_index_hash_sha256": "90140239d9e0492a0d582273f5fc917bdba61660d8d638293c4a69ee4f2a7263",
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "sklearn": "1.8.0",
+  "torch": "2.10.0+cpu",
+  "figure_numbers": [
+    10,
+    11,
+    14
+  ],
+  "limitations": "A validation split only; no holdout test set or independent benchmark comparison."
+}
