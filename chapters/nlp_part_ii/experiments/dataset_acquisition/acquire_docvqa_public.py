@@ -19,6 +19,7 @@ def main():
  if len(ds["train"])!=1000 or len(ds["test"])!=200:
   raise ValueError("Expected 1000/200 sample; dataset changed")
  dataset={}
+ corrected_boxes=0
  for split in ("train","test"):
   rows=[]
   for i,r in enumerate(ds[split]):
@@ -35,8 +36,11 @@ def main():
    for b in boxes:
     if not isinstance(b,(tuple,list)) or len(b)!=4:raise ValueError("Malformed bounding box")
     bb=[int(round(float(v))) for v in b]
-    if not(all(0<=x<=1000 for x in bb) and bb[0]<=bb[2] and bb[1]<=bb[3]):
-     raise ValueError("Invalid normalized bbox "+repr(bb))
+    if not all(0<=x<=1000 for x in bb):
+     raise ValueError("Out-of-range normalized bbox "+repr(bb))
+    if bb[0]>bb[2] or bb[1]>bb[3]:
+     corrected_boxes+=1
+     bb=[min(bb[0],bb[2]),min(bb[1],bb[3]),max(bb[0],bb[2]),max(bb[1],bb[3])]
     normalized.append(bb)
    answers=r["answers"]
    if isinstance(answers,str):answers=[answers]
@@ -65,6 +69,7 @@ def main():
    "question_counts":{s:len(v) for s,v in splits.items()},
    "document_counts":{s:len({r["document_id"] for r in v}) for s,v in splits.items()},
    "train_validation_test_doc_disjoint":True,"seed":a.seed,
+   "ocr_bbox_corner_reordering_count":corrected_boxes,
    "downloaded_dataset_splits":{"train":1000,"test":200},
    "limitations":["Not full DocVQA","Eval only on 200 provided test items",
       "Acquisition checks OCR and image overlap but does not execute a model"]}
