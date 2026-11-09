@@ -1,0 +1,74 @@
+{
+  "dataset": "sklearn.datasets.load_digits (actual 8x8 handwritten-digit images)",
+  "dataset_count": 1797,
+  "training_count": 1257,
+  "validation_count": 270,
+  "test_count": 270,
+  "split": "two-stage stratified fixed-size split; no index overlap",
+  "seed": 17,
+  "epochs_run": 45,
+  "checkpoint_epoch_selected_by_validation": 45,
+  "diffusion_timesteps": 100,
+  "beta_start": 0.0005000000237487257,
+  "beta_end": 0.0949999988079071,
+  "terminal_alpha_bar": 0.007192886900156736,
+  "model": "DDPM noise predictor MLP 66-256-256-64",
+  "objective": "epsilon MSE for forward noising of real training images",
+  "selected_validation_mse": {
+    "9": {
+      "predicted_noise_mse": 0.7120488943877044,
+      "zero_predictor_mse": 1.0136451332657426
+    },
+    "24": {
+      "predicted_noise_mse": 0.304028194921988,
+      "zero_predictor_mse": 0.9935920962580929
+    },
+    "49": {
+      "predicted_noise_mse": 0.11867275767856174,
+      "zero_predictor_mse": 0.9921053356594509
+    },
+    "74": {
+      "predicted_noise_mse": 0.07988180849287245,
+      "zero_predictor_mse": 1.0009759196528683
+    },
+    "99": {
+      "predicted_noise_mse": 0.08963438713992083,
+      "zero_predictor_mse": 0.9978789082279912
+    }
+  },
+  "independent_test_mse": {
+    "9": {
+      "predicted_noise_mse": 0.709731423413312,
+      "zero_predictor_mse": 0.9990466188501429
+    },
+    "24": {
+      "predicted_noise_mse": 0.30781479764867714,
+      "zero_predictor_mse": 0.9923056284586589
+    },
+    "49": {
+      "predicted_noise_mse": 0.12299878685562698,
+      "zero_predictor_mse": 0.9986047674108435
+    },
+    "74": {
+      "predicted_noise_mse": 0.08093625527841074,
+      "zero_predictor_mse": 1.0191220778006094
+    },
+    "99": {
+      "predicted_noise_mse": 0.08133736583921644,
+      "zero_predictor_mse": 0.9817152129279243
+    }
+  },
+  "independent_test_mean_epsilon_mse": 0.2605637258070487,
+  "independent_test_baseline_mean_epsilon_mse": 0.9981588610896358,
+  "generated_sample_raw_value_range": [
+    -3.0450968742370605,
+    2.8868870735168457
+  ],
+  "test_index_sha256": "aec3d2f624ed6a0fba6a454fbe1b952bf829ac4207cbed5e50445523241bbf56",
+  "software": {
+    "numpy": "2.3.5",
+    "scikit_learn": "1.8.0",
+    "torch": "2.10.0+cpu"
+  },
+  "limitations": "Small 8x8 DDPM demonstration. Measured epsilon-MSE is not a generated-image quality metric; generated samples are imperfect and lack independent quality evaluation. No DDIM comparison; no SOTA claim."
+}
