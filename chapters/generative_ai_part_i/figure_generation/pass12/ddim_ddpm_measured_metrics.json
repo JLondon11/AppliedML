@@ -1,0 +1,38 @@
+{
+  "dataset": "sklearn.datasets.load_digits",
+  "train": 1257,
+  "validation": 270,
+  "test": 270,
+  "checkpoint_sha256": "a3f573596d581370325a400e34e9d07945e2953c0c1bf7d4f730ffff3140e53d",
+  "sampling_seeds": [
+    201,
+    202,
+    203
+  ],
+  "samples_per_seed": 128,
+  "ddim_eta": 0,
+  "diagnostic_units": "Euclidean distance in normalized [-1,1] 64-dimensional pixel space",
+  "methods": {
+    "DDPM-100": {
+      "nearest_training_distance_mean": 4.203615749254823,
+      "sd_across_seeds": 0.14185364799557512,
+      "out_of_range_pixel_fraction": 0.2932535807291667
+    },
+    "DDIM-100": {
+      "nearest_training_distance_mean": 7.011819134776791,
+      "sd_across_seeds": 0.25263347896703253,
+      "out_of_range_pixel_fraction": 0.4495849609375
+    },
+    "DDIM-50": {
+      "nearest_training_distance_mean": 7.041063477595647,
+      "sd_across_seeds": 0.25355319273880356,
+      "out_of_range_pixel_fraction": 0.4532063802083333
+    },
+    "DDIM-20": {
+      "nearest_training_distance_mean": 7.13820322478811,
+      "sd_across_seeds": 0.2563580121920564,
+      "out_of_range_pixel_fraction": 0.465576171875
+    }
+  },
+  "scientific_limitations": "These are raw-pixel diagnostics, not perceptual fidelity or FID. All methods use the same DDPM-trained noise predictor. The generated outputs exhibit substantial visual artifacts. No claim of general DDPM superiority, quality certification or independent DDIM training."
+}
