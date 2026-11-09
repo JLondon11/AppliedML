@@ -17,7 +17,7 @@ This index records the canonical chapter-level entry points for figure-generatio
 | Scientific AI | `chapters/scientific_ai/figure_generation/generate_figures.py`, `chapters/scientific_ai/code/`, and application-specific directories |
 | Systems Engineering & MLOps | `chapters/systems_engineering_and_mlops/figure_generation/generate_figures.py` |
 
-## Current production overrides
+## Canonical chapter numbering\n\nThe repository release manifest identifies **Chapter 8 = Generative AI Part I** and **Chapter 9 = Generative AI Part II**. The Pass 12 digits/VAE/DDPM/DDIM experiments stored under Generative AI Part I belong to Chapter 8 unless the actual manuscript establishes a different explicitly reviewed mapping. Reusing their figure labels for Chapter 9 without frozen-inventory, source, caption and evidence reconciliation is prohibited.\n\n## Current production overrides
 
 The exact Pass 12 Generative AI Part I generators for figures 3, 10, 11, 14, 20, and 24 are in:
 
