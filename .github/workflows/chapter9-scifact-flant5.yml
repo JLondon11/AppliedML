@@ -1,0 +1,40 @@
+name: Chapter 9 SciFact generative RAG evaluation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-scifact-flant5.yml'
+      - 'chapters/nlp_part_ii/experiments/scifact_scientific_assistant/flan_t5_rag.py'
+
+permissions:
+  contents: read
+
+jobs:
+  scifact_flan_t5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install model inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "torch>=2.3,<3" "transformers>=4.45,<5" "sentencepiece>=0.2,<1" "numpy>=1.26,<3" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - name: Generate and evaluate 300 held-out SciFact responses
+        run: |
+          cd chapters/nlp_part_ii/experiments/scifact_scientific_assistant
+          python flan_t5_rag.py --download --data-dir "$RUNNER_TEMP/scifact" --output flan-results
+          test -s flan-results/metrics.json
+          test -s flan-results/generative_predictions_dev.jsonl
+          test -s flan-results/generated_label_confusion.pdf
+      - name: Upload actual generative model outputs and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-scifact-flan-t5-generative-results
+          path: chapters/nlp_part_ii/experiments/scifact_scientific_assistant/flan-results/
+          if-no-files-found: error
+          retention-days: 90
