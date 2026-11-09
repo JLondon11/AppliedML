@@ -23,7 +23,8 @@ jobs:
         with:
           python-version: "3.11"
       - name: Test fail-closed scientific provenance checks
-        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_*.py' -v
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_figure_evidence.py' -v
+          python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_production_evidence.py' -v
       - name: Inventory all frozen Chapter 9 figures
         run: |
           python chapters/generative_ai_part_ii/qa/audit_figure_evidence.py \
