@@ -1,0 +1,92 @@
+{
+  "date": "2026-11-09",
+  "repository": "JLondon11/AppliedML",
+  "scope": "Scientific AI code-based figures 2–12; code inspected for each, new renderings visually inspected only for Figures 2 and 3.",
+  "scoring": {
+    "scientific_validity": "dataset provenance, actual execution, output arithmetic, labeling",
+    "informativeness": "clear hypothesis, quantitative signals, comparison utility, no redundant panels",
+    "aesthetics": "white background, premium restrained palette, legible typography, axes/units/caption matching, balanced arrangement"
+  },
+  "certification": "HOLD; further artifact/manuscript/primary-dataset checks required",
+  "figures": [
+    {
+      "figure": "Figure 2",
+      "kind": "measured",
+      "status": "REGENERATED_VERIFIED_DATA",
+      "problem": "Redundant time-series panels and cramped legend",
+      "action": "Redesigned 3-panel scientific figure from 309 real annual sunspot observations and saved 59 held-out model predictions",
+      "code": "chapters/scientific_ai/code/render_verified_figures_02_03.py"
+    },
+    {
+      "figure": "Figure 3",
+      "kind": "measured",
+      "status": "REGENERATED_VERIFIED_DATA",
+      "problem": "Generic F1..F8 labels; oversized ROC with little discriminative information; uneven whitespace",
+      "action": "Four panels with named biomedical variables and measured held-out confusion matrix; 569 WDBC cases",
+      "code": "chapters/scientific_ai/code/render_verified_figures_02_03.py"
+    },
+    {
+      "figure": "Figure 4",
+      "kind": "conceptual_schema",
+      "status": "ILLUSTRATION_NEEDS_EDITORIAL_INSPECTION",
+      "problem": "Generic provenance DAG uses illustrative file names and entities, no empirical data",
+      "action": "Retain only as explicitly labeled provenance schematic; verify semantics, arrows, caption and legibility"
+    },
+    {
+      "figure": "Figure 5",
+      "kind": "conceptual_illustration",
+      "status": "SCHEMATIC_NOT_REAL_PHOTOGRAPH",
+      "problem": "Randomly placed colored nuclei depict tissue; cannot be presented as authentic histology observations",
+      "action": "Replace image-bearing observational panels with actual cited pathology slides if manuscript represents them as data; conceptual pipeline must be explicitly identified"
+    },
+    {
+      "figure": "Figure 6",
+      "kind": "research_evidence",
+      "status": "DATASET_AND_ASSETS_UNVERIFIED",
+      "problem": "Code references Drug Repurposing Hub chemical structures and published Stokes MIC measurements",
+      "action": "Verify exact chemical structures, MIC citations, numerical provenance and actual figure against code"
+    },
+    {
+      "figure": "Figure 7",
+      "kind": "conceptual_schema",
+      "status": "SCHEMATIC_NEEDS_COHORT_AUDIT",
+      "problem": "Multi-modal oncology graph includes dataset names but explicitly warns against unpaired cohorts",
+      "action": "Check caption does not suggest patient-level pairing not established by data"
+    },
+    {
+      "figure": "Figure 8",
+      "kind": "measured",
+      "status": "REQUIRES_NUMERICAL_AND_VISUAL_QA",
+      "problem": "Source loads WDBC dataset and executes model comparisons; output and figure assets not verified in this pass",
+      "action": "Recompute metrics from held-out predictions and inspect axes/uncertainty/sample sizes"
+    },
+    {
+      "figure": "Figure 9",
+      "kind": "conceptual_schema",
+      "status": "ILLUSTRATION_NEEDS_EDITORIAL_INSPECTION",
+      "problem": "Digital-twin state-space diagram includes modeled density-like decoration",
+      "action": "Label as schematic, never observed density; verify symbols and captions"
+    },
+    {
+      "figure": "Figure 10",
+      "kind": "conceptual_schema",
+      "status": "POTENTIAL_MISLABELED_OBSERVATIONS",
+      "problem": "PINN workflow diagram uses random coordinates to draw point-cloud markers",
+      "action": "Do not present random point markers as measured observations; replace with real measured sample geometry or explicit schematic symbols"
+    },
+    {
+      "figure": "Figure 11",
+      "kind": "simulation_result",
+      "status": "HOLD_REAL_DATA_REQUIREMENT",
+      "problem": "PINN is trained on an analytical PDE with randomly sampled collocation points and exact synthetic solution, not actual observed scientific measurements",
+      "action": "Replace empirical result with observation-grounded PDE study, or remove from empirical evidence and clearly label analytic validation"
+    },
+    {
+      "figure": "Figure 12",
+      "kind": "conceptual_schema",
+      "status": "ILLUSTRATION_NEEDS_EDITORIAL_INSPECTION",
+      "problem": "Retinal image/OCT pipeline graph is schematic; no real image evidence in its generator",
+      "action": "If application/case study requires outputs, add real fundus/OCT images and measured inference; keep schematic distinguishable"
+    }
+  ]
+}
