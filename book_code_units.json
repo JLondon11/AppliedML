@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0",
+  "updated_utc": "2026-11-09",
+  "description": "Partial unit registry. Expand to every named application/case study in all chapters before global certification. No unit here is declared fully certified.",
+  "units": [
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "LSTM time-series forecasting",
+      "kind": "application",
+      "dataset": "NGDC annual sunspots",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "figure_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "evidence": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/summary_verified.json",
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/manuscript_results.tex"
+      ],
+      "status": "validated"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Human activity recognition",
+      "kind": "application",
+      "dataset": "UCI HAR sensor data",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Hurricane intensity estimation",
+      "kind": "application",
+      "dataset": "NOAA or NRL satellite imagery with HURDAT2 storm observations",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "CIFAR-10 classification",
+      "kind": "application",
+      "dataset": "CIFAR-10",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "MNIST handwritten digits",
+      "kind": "application",
+      "dataset": "MNIST (28x28) original dataset",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Dog-breed transfer learning",
+      "kind": "application",
+      "dataset": "Stanford Dogs",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Neural artistic style transfer",
+      "kind": "application",
+      "dataset": "Real content and style image files",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Video style transfer and optical flow",
+      "kind": "application",
+      "dataset": "Real video frames / KITTI or MPI Sintel",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "LSTM versus GRU for sensor sequence classification",
+      "kind": "case_study",
+      "dataset": "UCI HAR",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Vanishing gradients in recurrent networks",
+      "kind": "case_study",
+      "dataset": "NGDC sunspots",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/run.py"
+      ],
+      "figure_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/run.py"
+      ],
+      "evidence": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/summary_verified.json",
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/manuscript_results.tex"
+      ],
+      "status": "validated"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Transfer-learning frozen versus fine-tuned ablation",
+      "kind": "case_study",
+      "dataset": "Stanford Dogs or specified equivalent domain",
+      "code": [],
+      "figure_code": [],
+      "evidence": [],
+      "status": "blocked"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Additional: LSTM/GRU time series forecast comparison",
+      "kind": "supporting_case_study",
+      "dataset": "NGDC annual sunspots",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "figure_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "evidence": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/summary_verified.json"
+      ],
+      "status": "validated"
+    },
+    {
+      "chapter": "Chapter 2: Deep Learning Part I",
+      "unit": "Additional: RNN/LSTM/GRU sequence length ablation",
+      "kind": "supporting_case_study",
+      "dataset": "NGDC annual sunspots",
+      "code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/run.py"
+      ],
+      "figure_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/run.py"
+      ],
+      "evidence": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/summary_verified.json",
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/manuscript_results.tex"
+      ],
+      "status": "validated"
+    }
+  ]
+}
