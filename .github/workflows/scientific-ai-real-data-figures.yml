@@ -1,0 +1,42 @@
+name: Scientific AI real-data figure verification
+on:
+  push:
+    paths:
+      - 'chapters/scientific_ai/code/figure_02_scientific_discovery.py'
+      - 'chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py'
+      - 'chapters/scientific_ai/code/test_figure_02_real_data.py'
+      - 'chapters/scientific_ai/code/test_figure_03_real_data.py'
+      - '.github/workflows/scientific-ai-real-data-figures.yml'
+  pull_request:
+    paths:
+      - 'chapters/scientific_ai/code/**'
+      - '.github/workflows/scientific-ai-real-data-figures.yml'
+  workflow_dispatch:
+jobs:
+  real-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific packages
+        run: python -m pip install numpy scipy scikit-learn statsmodels matplotlib
+      - name: Verify Figure 2 and Figure 3 authentic datasets and metrics
+        run: |
+          python chapters/scientific_ai/code/test_figure_02_real_data.py
+          python chapters/scientific_ai/code/test_figure_03_real_data.py
+      - name: Regenerate publication figures from genuine scientific data
+        run: |
+          python chapters/scientific_ai/code/figure_02_scientific_discovery.py
+          python chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py
+      - name: Archive generated scientific figures and numerical evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: scientific-ai-figures-02-03-real-data
+          path: |
+            chapters/scientific_ai/figures/figure_02_evolution_scientific_discovery.*
+            chapters/scientific_ai/figures/figure_02_scientific_discovery_evidence.json
+            chapters/scientific_ai/figures/figure_03_evolution_scientific_ai.*
+            chapters/scientific_ai/figures/figure_03_scientific_ai_real_data_evidence.json
+          if-no-files-found: error
