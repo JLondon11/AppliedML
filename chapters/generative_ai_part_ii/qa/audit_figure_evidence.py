@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 import zlib
+from production_evidence import validate_production
 
 EXPECTED = 11
 NEEDED = ("dataset", "generator", "experiment_protocol", "metrics_path",
@@ -30,7 +31,7 @@ def frozen_specs(path):
     return specs
 
 
-def audit(specs, evidence, root):
+def audit(specs, evidence, root, production=False):
     root = Path(root).resolve()
     by_id = {}
     for record in evidence.get("figures", []):
@@ -60,6 +61,8 @@ def audit(specs, evidence, root):
                 "chapters/generative_ai_part_ii/figure_generation/generate_figures.py",
             ):
                 reasons.append("generic figure fallback cannot certify an experiment")
+            if production:
+                reasons.extend(validate_production(record, root, n))
             for kind in ("metrics", "figure"):
                 rel = record.get(kind + "_path")
                 checksum = record.get(kind + "_sha256")
@@ -87,11 +90,12 @@ def main():
     p.add_argument("--root", type=Path, required=True)
     p.add_argument("--report", type=Path, required=True)
     p.add_argument("--strict", action="store_true")
+    p.add_argument("--production", action="store_true", help="Enforce real-dataset production certification")
     args = p.parse_args()
     specs = frozen_specs(args.generator)
     if len(specs) != EXPECTED:
         p.error(f"Frozen inventory expected {EXPECTED} figures; found {len(specs)}")
-    rows = audit(specs, json.loads(args.evidence.read_text()), args.root)
+    rows = audit(specs, json.loads(args.evidence.read_text()), args.root, production=args.production)
     n = sum(r["status"] == "VERIFIED" for r in rows)
     report = {"canonical_chapter": 9, "name": "Generative AI Part II",
               "total": len(rows), "verified": n, "hold": len(rows) - n, "figures": rows}
