@@ -1,8 +1,9 @@
 """Run all six Pass-12 figures exclusively from real handwritten-digit experiments.
 
 Figures 03, 10, 11, 14, 20, 24 are measured from sklearn digits.
-Figures 20/24 use controlled noise interventions on the real digits dataset.
-The Fig 24 denoiser is NOT a DDPM/DDIM sampler.
+Figure 20 applies controlled perturbations to real validation data.
+Figure 24 uses a genuinely trained DDPM with held-out test metrics.
+DDIM and score-based SDE results are NOT claimed.
 """
 import csv
 import shutil
@@ -13,6 +14,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from run_vae_evidence import run as run_vae
 from real_data_figures import run as run_replacements
+from ddpm_digits_experiment import run as run_ddpm
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "outputs"
@@ -23,6 +25,10 @@ def render_evidence_outputs():
     # Genuine trained-model checkpoint, measured epoch histories and validation embeddings.
     run_vae(OUT, epochs=60, seed=13)
     run_replacements(OUT, epochs=35, seed=13)
+    ddpm_out=OUT/'ddpm'
+    run_ddpm(ddpm_out, epochs=45, seed=17)
+    # Override the older conditional-denoiser graphic with authentic DDPM samples.
+    shutil.copyfile(ddpm_out/'ddpm_generated_samples.png', OUT/'figure_24.png')
     shutil.copyfile(OUT / "vae_interpolation.png", OUT / "figure_10.png")
 
     with (OUT / "history.csv").open(newline="") as f:
