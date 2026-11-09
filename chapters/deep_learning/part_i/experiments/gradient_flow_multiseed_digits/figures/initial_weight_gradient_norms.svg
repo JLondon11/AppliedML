@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="520" viewBox="0 0 940 520" role="img" aria-label="Gradient magnitude by hidden layer (three-seed average)"><rect width="940" height="520" fill="#fff"/><text x="94" y="35" font-family="DejaVu Sans,Arial" font-size="21" font-weight="700" fill="#203347">Gradient magnitude by hidden layer (three-seed average)</text>
+<line x1="102" y1="413.0" x2="820" y2="413.0" stroke="#e0e7ed"/><text x="90" y="418.0" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.002</text>
+<line x1="102" y1="333.8" x2="820" y2="333.8" stroke="#e0e7ed"/><text x="90" y="338.8" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.005</text>
+<line x1="102" y1="273.9" x2="820" y2="273.9" stroke="#e0e7ed"/><text x="90" y="278.9" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.010</text>
+<line x1="102" y1="214.1" x2="820" y2="214.1" stroke="#e0e7ed"/><text x="90" y="219.1" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.020</text>
+<line x1="102" y1="134.9" x2="820" y2="134.9" stroke="#e0e7ed"/><text x="90" y="139.9" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.050</text>
+<line x1="102" y1="75.0" x2="820" y2="75.0" stroke="#e0e7ed"/><text x="90" y="80.0" text-anchor="end" font-family="DejaVu Sans,Arial" font-size="14" fill="#465564">0.100</text>
+<text x="102.0" y="437" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="middle" fill="#465564">1</text>
+<text x="512.3" y="437" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="middle" fill="#465564">5</text>
+<text x="820.0" y="437" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="middle" fill="#465564">8</text>
+<line x1="102" y1="75" x2="102" y2="413" stroke="#556474"/><line x1="102" y1="413" x2="820" y2="413" stroke="#556474"/>
+<polyline points="102.00,369.51 204.57,364.78 307.14,359.95 409.71,344.28 512.29,318.15 614.86,279.30 717.43,250.53 820.00,208.91" fill="none" stroke="#356b9b" stroke-width="3.0"/>
+<circle cx="102.00" cy="369.51" r="4.3" fill="#356b9b"/>
+<circle cx="204.57" cy="364.78" r="4.3" fill="#356b9b"/>
+<circle cx="307.14" cy="359.95" r="4.3" fill="#356b9b"/>
+<circle cx="409.71" cy="344.28" r="4.3" fill="#356b9b"/>
+<circle cx="512.29" cy="318.15" r="4.3" fill="#356b9b"/>
+<circle cx="614.86" cy="279.30" r="4.3" fill="#356b9b"/>
+<circle cx="717.43" cy="250.53" r="4.3" fill="#356b9b"/>
+<circle cx="820.00" cy="208.91" r="4.3" fill="#356b9b"/>
+<line x1="560" y1="54" x2="580" y2="54" stroke="#356b9b" stroke-width="4"/><text x="585" y="59" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">Plain</text>
+<polyline points="102.00,137.73 204.57,137.36 307.14,137.80 409.71,137.43 512.29,137.39 614.86,136.34 717.43,134.84 820.00,135.92" fill="none" stroke="#bd6f42" stroke-width="3.0"/>
+<circle cx="102.00" cy="137.73" r="4.3" fill="#bd6f42"/>
+<circle cx="204.57" cy="137.36" r="4.3" fill="#bd6f42"/>
+<circle cx="307.14" cy="137.80" r="4.3" fill="#bd6f42"/>
+<circle cx="409.71" cy="137.43" r="4.3" fill="#bd6f42"/>
+<circle cx="512.29" cy="137.39" r="4.3" fill="#bd6f42"/>
+<circle cx="614.86" cy="136.34" r="4.3" fill="#bd6f42"/>
+<circle cx="717.43" cy="134.84" r="4.3" fill="#bd6f42"/>
+<circle cx="820.00" cy="135.92" r="4.3" fill="#bd6f42"/>
+<line x1="685" y1="54" x2="705" y2="54" stroke="#bd6f42" stroke-width="4"/><text x="710" y="59" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">Residual</text>
+<text x="458" y="477" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="15" fill="#465564">Hidden layer index, input to output</text><text x="20" y="250" transform="rotate(-90 20 250)" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="15" fill="#465564">Initial weight gradient L2 norm (log scale)</text></svg>
