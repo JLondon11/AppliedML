@@ -1,0 +1,53 @@
+{
+  "figure": "Figure 3 – Scientific AI workflow",
+  "status": "actual CPU execution complete; figure generated from authentic recorded observations",
+  "source_script": "chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py",
+  "dataset": "Wisconsin Diagnostic Breast Cancer (real digitized FNA cell nuclei measurements, UCI)",
+  "dataset_url": "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic",
+  "samples": 569,
+  "features": 30,
+  "source_data_float64_sha256": "6b202a2072f9a0385f405a8f8605b1b06f6f36ae6d23d9cd6cbbc0974a416bc7",
+  "split": {
+    "train": 341,
+    "validation": 114,
+    "testing": 114
+  },
+  "seeds": {
+    "train_test": 20261109,
+    "train_val": 20261110
+  },
+  "model": "StandardScaler training-only + LogisticRegression",
+  "validation_C_grid": [
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "validation_f1": [
+    0.8860759493670886,
+    0.9523809523809523,
+    0.9534883720930233,
+    0.9534883720930233,
+    0.9425287356321839
+  ],
+  "chosen_C": 1,
+  "heldout_accuracy": 0.9824561403508771,
+  "heldout_f1_malignant": 0.975609756097561,
+  "heldout_roc_auc": 0.9957010582010581,
+  "heldout_confusion_matrix_benign_then_malignant": [
+    [
+      72,
+      0
+    ],
+    [
+      2,
+      40
+    ]
+  ],
+  "correct_test_predictions": 112,
+  "figure_asset": "figure_03_evolution_scientific_ai.svg",
+  "evidence_file": "figure_03_scientific_ai_real_data_evidence.json",
+  "remediation": "Original code simulated PDE field, random-noise measurement points and purported autonomous experimental selection. Replaced all empirical panels with authentic original cellular observations, their measured feature correlations, actual validation scores, held-out probability distributions and held-out ROC.",
+  "limit": "One small dataset with one stratified split; no clinical validation. Manuscript integration and final compiled PDF still pending."
+}
