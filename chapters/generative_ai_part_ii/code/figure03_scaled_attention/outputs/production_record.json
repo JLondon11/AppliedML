@@ -1,0 +1,24 @@
+{
+  "figure_number": 3,
+  "status": "VERIFIED",
+  "evidence_type": "measured_real_dataset",
+  "dataset": "scikit-learn handwritten digits",
+  "dataset_name": "scikit-learn handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "model_or_method": "trained scaled dot-product row attention classifier",
+  "method": "trained scaled dot-product row attention classifier",
+  "experiment_protocol": "45 epochs, fixed seed 19, validation-selected checkpoint; independent test",
+  "generator": "chapters/generative_ai_part_ii/code/figure03_scaled_attention/experiment.py",
+  "generator_sha256": "859a0e8ec15e991de5872d2e31f638e40d171b51519cf2ebfa5af1257a662559",
+  "metrics_path": "chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/metrics.json",
+  "metrics_sha256": "8fc48fd7f7f04b2a97dfce86381e36dd73f5a635fe1c310ea6139091cafcab33",
+  "figure_path": "chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/Figure_003_Scaled_Dot_Product_Attention.png",
+  "figure_sha256": "ee0427cc6e91c860a48f488553a64b8bde9397c41436204b55232ae9e2dff896",
+  "caption": "Real held-out 8\u00d78 handwritten digit and actual scaled query\u2013key scores, softmax attention, and mean attention over 270 independent test digits from a 45-epoch row-attention classifier; not pretrained NLP model output."
+}
