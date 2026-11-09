@@ -1,0 +1,35 @@
+name: Chapter 9 full WMT14 MarianMT benchmark
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-wmt14-full.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pretrained translation dependencies
+        run: |
+          python -m pip install --quiet 'transformers==4.44.2' 'datasets==2.21.0' 'torch>=2.2,<3' 'numpy<3' 'matplotlib>=3.8,<4' 'sacrebleu>=2.4,<3' 'rouge-score>=0.1.2,<1' 'sentencepiece>=0.2,<1' protobuf
+      - name: Full real-data WMT14 German-English pretrained-model inference
+        env:
+          OMP_NUM_THREADS: '3'
+          OPENBLAS_NUM_THREADS: '2'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          python chapters/nlp_part_ii/experiments/seq2seq_evaluation/run.py --task translation --batch-size 8 --num-beams 2 --max-new-tokens 96 --output results/wmt14_full
+      - name: Archive full test predictions metrics and figures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-wmt14-full-translation
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
