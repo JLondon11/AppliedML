@@ -42,6 +42,12 @@ jobs:
           OPENBLAS_NUM_THREADS=1 python chapters/generative_ai_part_i/figure_generation/pass12/quality_benchmark.py \
             --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt \
             --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/quality
+      - name: Independently reconcile per-seed quality data with checkpoint
+        run: |
+          python tools/scientific_qa/verify_quality_evidence.py \
+            --results chapters/generative_ai_part_i/figure_generation/pass12/outputs/quality \
+            --sampling chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddim_comparison \
+            --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt
       - name: Verify evidence structure
         run: |
           python - <<'PY'
