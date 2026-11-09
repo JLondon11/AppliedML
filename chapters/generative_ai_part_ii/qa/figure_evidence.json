@@ -4,6 +4,54 @@
   "policy": "No figure is certified without committed real-data output, measured results, section-specific generator, protocol and SHA256 hashes. This is intentionally incomplete until experiments are verified.",
   "figures": [
     {
+      "figure_number": 1,
+      "status": "VERIFIED",
+      "evidence_type": "measured_real_dataset",
+      "dataset": "scikit-learn handwritten digits",
+      "dataset_name": "scikit-learn real handwritten digits",
+      "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+      "split_counts": {
+        "train": 1257,
+        "validation": 270,
+        "test": 270
+      },
+      "split_disjoint": true,
+      "model_or_method": "five real-data trained MLP widths, three seeds, independent test loss",
+      "method": "five real-data trained MLP widths, three seeds, independent test loss",
+      "experiment_protocol": "Five MLP widths × three seeds (15 actual runs), 35 epochs each, validation-selected checkpoints, independent 270-image test set; CPU runtime recorded",
+      "generator": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/experiment.py",
+      "generator_sha256": "1b694b17409e03cc5989facfc2fe8495926b1ddab25f15b4d2c1845a8d81cfe9",
+      "figure_path": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/Figure_001_Empirical_Scaling_Regimes.png",
+      "figure_sha256": "bda2e20dde9d01a16010159a0119b1431303161a2594b7db77eacd46e60d2968",
+      "metrics_path": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/metrics.json",
+      "metrics_sha256": "f8b3fa13ee04561506e740b64cd1c90bcfe1addf9c327ab5de9a2cee6fd5c37b",
+      "caption": "Actual small-model scaling on real digits: held-out cross-entropy against parameter count for 15 trained MLPs at five widths and three seeds. This is not Kaplan/LLM scaling."
+    },
+    {
+      "figure_number": 2,
+      "status": "VERIFIED",
+      "evidence_type": "measured_real_dataset",
+      "dataset": "scikit-learn handwritten digits",
+      "dataset_name": "scikit-learn real handwritten digits",
+      "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+      "split_counts": {
+        "train": 1257,
+        "validation": 270,
+        "test": 270
+      },
+      "split_disjoint": true,
+      "model_or_method": "five real-data trained MLP widths, three seeds, independent test loss",
+      "method": "five real-data trained MLP widths, three seeds, independent test loss",
+      "experiment_protocol": "Five MLP widths × three seeds (15 actual runs), 35 epochs each, validation-selected checkpoints, independent 270-image test set; CPU runtime recorded",
+      "generator": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/experiment.py",
+      "generator_sha256": "1b694b17409e03cc5989facfc2fe8495926b1ddab25f15b4d2c1845a8d81cfe9",
+      "figure_path": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/Figure_002_Compute_Quality_Pareto_Frontier.png",
+      "figure_sha256": "ffa22a43597707acc5ca003bc22ddc9081a0006a5c1ba3d9dbdedd4be7252e76",
+      "metrics_path": "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/metrics.json",
+      "metrics_sha256": "f8b3fa13ee04561506e740b64cd1c90bcfe1addf9c327ab5de9a2cee6fd5c37b",
+      "caption": "Measured real-digit MLP compute–quality comparison across 15 training runs, with observed test cross-entropy, architecture-derived training FLOPs proxy, and actual CPU wall time. This is not Chinchilla model training."
+    },
+    {
       "figure_number": 3,
       "status": "VERIFIED",
       "evidence_type": "measured_real_dataset",
