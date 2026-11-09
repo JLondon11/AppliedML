@@ -38,7 +38,7 @@ def verify(quality: Path, sampling: Path, checkpoint: Path | None = None) -> dic
         assert key[:2] in METHODS and key[2] in seeds
         assert key not in observed, f'duplicate run {key}'
         observed.add(key)
-        assert int(r['sample_count']) == summary['generated_samples_per_seed']
+        assert int(r.get('sample_count', r.get('samples', -1))) == summary['generated_samples_per_seed']
         for field in FIELDS:
             assert math.isfinite(float(r[field])), f'non-finite {key} {field}'
         for field in ('mean_max_digit_probability', 'unusually_close_fraction', 'raw_out_of_range_fraction'):
@@ -54,7 +54,7 @@ def verify(quality: Path, sampling: Path, checkpoint: Path | None = None) -> dic
             assert math.isclose(mean(values), reported[field]['mean'], rel_tol=1e-9, abs_tol=1e-9), field
             assert math.isclose(stdev(values), reported[field]['sd_across_seeds'], rel_tol=1e-9, abs_tol=1e-9), field
     assert 0.9 <= summary['independent_test_digit_classification_accuracy'] <= 1
-    assert 0 < summary['real_vs_real_feature_frechet_128'] < 100
+    assert 0 < summary.get('real_vs_real_feature_frechet_128', summary.get('reference_real_vs_real_feature_frechet_128', -1)) < 100
     return {'runs_verified': len(rows), 'checkpoint_sha256': summary['checkpoint_sha256'],
             'status': 'evidence-arithmetic-verified; perceptual-quality certification pending'}
 
