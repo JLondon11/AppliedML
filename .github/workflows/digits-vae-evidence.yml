@@ -1,4 +1,4 @@
-name: Scientific evidence — digits VAE and DDPM
+name: Scientific evidence — digits VAE DDPM DDIM
 on:
   workflow_dispatch:
   push:
@@ -32,6 +32,11 @@ jobs:
       - name: Execute real-data VAE
         run: |
           python chapters/generative_ai_part_i/figure_generation/pass12/generate_pass12_figures.py
+      - name: Execute matched DDPM and DDIM comparison
+        run: |
+          python chapters/generative_ai_part_i/figure_generation/pass12/ddim_ddpm_comparison.py \
+            --checkpoint chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddpm/best_ddpm.pt \
+            --out chapters/generative_ai_part_i/figure_generation/pass12/outputs/ddim_comparison
       - name: Verify evidence structure
         run: |
           python - <<'PY'
@@ -48,6 +53,12 @@ jobs:
           assert (d["training_count"], d["validation_count"], d["test_count"]) == (1257, 270, 270)
           assert d["independent_test_mean_epsilon_mse"] < d["independent_test_baseline_mean_epsilon_mse"]
           assert d["checkpoint_epoch_selected_by_validation"] <= d["epochs_run"]
+          comparison = json.loads((p/"ddim_comparison"/"comparison_metrics.json").read_text())
+          assert comparison["train"] == 1257 and comparison["test"] == 270
+          assert comparison["ddim_eta"] == 0.0
+          assert set(comparison["summary"]) == {"DDPM-100","DDIM-100","DDIM-50","DDIM-20"}
+          for name in ("comparison_metrics.csv", "ddpm_ddim_real_digits.png", "ddpm_ddim_diagnostics.png"):
+              assert (p/"ddim_comparison"/name).stat().st_size > 0
           for name in ("history.csv", "validation_embeddings.csv", "vae_validation.png", "vae_interpolation.png", "vae_model.pt", "replacement_metrics.json", "replacement_measurements.csv", "denoiser_model.pt", "figure_03.png", "figure_10.png", "figure_11.png", "figure_14.png", "figure_20.png", "figure_24.png", "ddpm/metrics.json", "ddpm/best_ddpm.pt", "ddpm/ddpm_generated_samples.png", "ddpm/ddpm_test_metrics.png", "ddpm/real_test_digits.png", "ddpm/test_metrics.csv", "ddpm/training_history.csv"):
               assert (p / name).stat().st_size > 0
           print("Evidence structure validated; DDPM independent test metrics verified. Image-quality certification remains pending.")
