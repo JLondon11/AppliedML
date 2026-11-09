@@ -111,7 +111,7 @@ def main(out):
 if __name__=="__main__":
     ap=argparse.ArgumentParser()
     ap.add_argument("--output-dir",type=Path,
-                    default=Path(__file__).resolve().parent/"outputs")
+                    default=Path(__file__).resolve().parents[1]/"figures")
     args=ap.parse_args()
     result=main(args.output_dir)
     print(json.dumps({k:result[k] for k in
