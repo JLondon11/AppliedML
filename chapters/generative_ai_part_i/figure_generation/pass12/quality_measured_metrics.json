@@ -1,0 +1,55 @@
+{
+  "dataset": "sklearn.datasets.load_digits real 8x8 images",
+  "split": {
+    "training": 1257,
+    "validation": 270,
+    "independent_test": 270
+  },
+  "classifier": "Training-only MLPClassifier, 32 ReLU features, solver lbfgs, random_state 23",
+  "classifier_validation_accuracy": 0.9666666666666667,
+  "classifier_independent_test_accuracy": 0.9629629629629629,
+  "real_vs_real_feature_frechet_128": 7.671047020014157,
+  "near_copy_threshold_real_test_to_train_feature_distance_p05": 2.335964642691745,
+  "seed_count": 3,
+  "sampling_seeds": [
+    201,
+    202,
+    203
+  ],
+  "generated_samples_per_seed_per_method": 128,
+  "method_results": {
+    "DDPM-100": {
+      "feature_frechet": 54.36284439607508,
+      "mean_max_digit_probability": 0.9173422121880858,
+      "class_entropy": 2.19457,
+      "classes_present": 10,
+      "near_copy_fraction": 0.0026041666666666665,
+      "out_of_range_fraction": 0.2932535807291667
+    },
+    "DDIM-100": {
+      "feature_frechet": 99.80181110198765,
+      "mean_max_digit_probability": 0.9308274134678967,
+      "class_entropy": 2.20999,
+      "classes_present": 10,
+      "near_copy_fraction": 0,
+      "out_of_range_fraction": 0.4495849609375
+    },
+    "DDIM-50": {
+      "feature_frechet": 98.70180836351541,
+      "mean_max_digit_probability": 0.9317797324016867,
+      "class_entropy": 2.21554,
+      "classes_present": 10,
+      "near_copy_fraction": 0,
+      "out_of_range_fraction": 0.4532063802083333
+    },
+    "DDIM-20": {
+      "feature_frechet": 95.1461304019743,
+      "mean_max_digit_probability": 0.9326917690963556,
+      "class_entropy": 2.21623,
+      "classes_present": 10,
+      "near_copy_fraction": 0,
+      "out_of_range_fraction": 0.465576171875
+    }
+  },
+  "note": "Executed locally on real digit training checkpoint. Feature Fréchet is learned-domain classifier feature diagnostic, not canonical FID. Classifier confidences do not establish perceptual realism. Near-copy threshold is only a heuristic. Three seeds; raw generated values outside normal image range; no full image-quality certification."
+}
