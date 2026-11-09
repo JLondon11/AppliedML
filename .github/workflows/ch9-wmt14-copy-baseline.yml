@@ -1,0 +1,30 @@
+name: Chapter 9 WMT14 copy-source sanity baseline
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-wmt14-copy-baseline.yml
+      - chapters/nlp_part_ii/experiments/wmt14_copy_baseline/run.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install benchmark dependencies
+        run: python -m pip install -q 'datasets==2.21.0' 'sacrebleu>=2.4,<3' matplotlib
+      - name: Run identity sanity baseline on complete official test
+        run: python chapters/nlp_part_ii/experiments/wmt14_copy_baseline/run.py --output results/wmt14_copy
+      - name: Archive genuine prediction and score files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-wmt14-copy-source-control
+          path: results/
+          if-no-files-found: warn
+          retention-days: 7
