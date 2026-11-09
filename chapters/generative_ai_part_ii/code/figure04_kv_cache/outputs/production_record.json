@@ -1,0 +1,24 @@
+{
+  "figure_number": 4,
+  "status": "VERIFIED",
+  "evidence_type": "measured_real_dataset",
+  "dataset": "scikit-learn handwritten digits",
+  "dataset_name": "scikit-learn handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "model_or_method": "single-head causal attention, measured KV caching on real digit row sequences",
+  "method": "single-head causal attention, measured KV caching on real digit row sequences",
+  "experiment_protocol": "30 epochs; 1257 train / 270 validation / 270 independent test; full vs incremental cached inference and 100 CPU runtime repeats",
+  "generator": "chapters/generative_ai_part_ii/code/figure04_kv_cache/experiment.py",
+  "generator_sha256": "ef5bed3916dc8e3315719cfa1b96c49b54f7e49bfbbb2900e3f322f903a0f89d",
+  "figure_path": "chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/Figure_004_KV_Cache_Memory_Hierarchy.png",
+  "figure_sha256": "7992a044b379cac39d54556138483917c64c94789580e0b902c4dbf4696a2cee",
+  "metrics_path": "chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/metrics.json",
+  "metrics_sha256": "a0ae706b280b64c917a38815062e77ac2be5ccefb31dec6dedf1c8706d858ebb",
+  "caption": "Actual 8\u00d78 handwritten test image, measured key/value memory allocation by sequence length, and observed CPU median inference timings for uncached and cached causal attention. The benchmark uses a small trained row-token model and does not represent production LLM latency."
+}

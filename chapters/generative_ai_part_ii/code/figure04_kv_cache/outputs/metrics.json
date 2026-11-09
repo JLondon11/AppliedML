@@ -1,0 +1,31 @@
+{
+  "dataset_name": "scikit-learn real handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "seed": 23,
+  "epochs": 30,
+  "best_epoch": 30,
+  "validation_next_row_mse": 0.06025613471865654,
+  "independent_test_next_row_mse": 0.0592811293900013,
+  "cached_vs_full_max_abs_difference": 2.980232238769531e-07,
+  "cache_bytes_per_sequence_8_tokens": 2048,
+  "batch_size_inference": 64,
+  "cpu_benchmark_repeats": 100,
+  "uncached_timing": {
+    "median_ms": 0.216751,
+    "p10_ms": 0.213539,
+    "p90_ms": 0.232825
+  },
+  "cached_timing": {
+    "median_ms": 0.7623610000000001,
+    "p10_ms": 0.742846,
+    "p90_ms": 0.778569
+  },
+  "method": "single-head causal attention, measured KV caching on real digit row sequences",
+  "limitation": "Tiny 7-token row sequence on CPU; cached Python loop may be slower. Not an LLM long-context or GPU benchmark."
+}
