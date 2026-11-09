@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - .github/workflows/ch9-acquire-datasets.yml
+      - chapters/nlp_part_ii/experiments/dataset_acquisition/acquire.py
   workflow_dispatch:
 
 permissions:
