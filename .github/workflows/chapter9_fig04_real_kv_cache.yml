@@ -1,0 +1,73 @@
+name: Chapter 9 Figure 4 real-data KV cache
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figure04_kv_cache/experiment.py"
+      - "tools/scientific_qa/test_chapter9_kv_cache.py"
+      - ".github/workflows/chapter9_fig04_real_kv_cache.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  real-kv-cache:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install numpy scikit-learn matplotlib torch
+      - name: Test exact cached attention
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_kv_cache.py' -v
+      - name: Run real-dataset causal model
+        run: |
+          python chapters/generative_ai_part_ii/code/figure04_kv_cache/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs --epochs 30
+      - name: Check held-out evidence and commit hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json,math
+          from pathlib import Path
+          root=Path("chapters/generative_ai_part_ii")
+          src=root/"code/figure04_kv_cache/experiment.py"
+          out=root/"code/figure04_kv_cache/outputs"
+          figure=out/"Figure_004_KV_Cache_Memory_Hierarchy.png"
+          metrics=out/"metrics.json"
+          m=json.loads(metrics.read_text())
+          assert m["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert m["split_disjoint"] is True
+          assert m["cached_vs_full_max_abs_difference"]<1e-5
+          assert math.isfinite(m["independent_test_next_row_mse"])
+          assert figure.stat().st_size>1000
+          h=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+          record={
+            "figure_number":4,"status":"VERIFIED","evidence_type":"measured_real_dataset",
+            "dataset":"scikit-learn handwritten digits",
+            "dataset_name":"scikit-learn handwritten digits",
+            "dataset_source_url":m["dataset_source_url"],
+            "split_counts":m["split_counts"],"split_disjoint":m["split_disjoint"],
+            "model_or_method":m["method"],"method":m["method"],
+            "experiment_protocol":"30 epochs; 1257 train / 270 validation / 270 independent test; full vs incremental cached inference and 100 CPU runtime repeats",
+            "generator":str(src),"generator_sha256":h(src),
+            "figure_path":str(figure),"figure_sha256":h(figure),
+            "metrics_path":str(metrics),"metrics_sha256":h(metrics),
+            "caption":"Actual 8×8 handwritten test image, measured key/value memory allocation by sequence length, and observed CPU median inference timings for uncached and cached causal attention. The benchmark uses a small trained row-token model and does not represent production LLM latency."}
+          (out/"production_record.json").write_text(json.dumps(record,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figure04-real-kv-cache
+          path: chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/
+          retention-days: 90
+      - name: Commit measured production evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/Figure_004_KV_Cache_Memory_Hierarchy.png
+          git add -f chapters/generative_ai_part_ii/code/figure04_kv_cache/outputs/production_record.json
+          git diff --cached --quiet || (git commit -m "Archive measured Chapter 9 KV cache experimental figure" && git push)
