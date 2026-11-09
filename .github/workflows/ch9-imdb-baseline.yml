@@ -1,0 +1,45 @@
+name: Chapter 9 official IMDb sentiment baseline
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-imdb-baseline.yml
+      - chapters/nlp_part_ii/experiments/imdb_baseline/run.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  imdb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -q numpy scikit-learn pyarrow matplotlib requests
+      - name: Download and verify official IMDb data
+        run: |
+          mkdir -p data
+          python - <<'PY'
+          import requests,hashlib
+          src={
+            "train":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/train-00000-of-00001.parquet","db47d16b5c297cc0dd625e519c81319c24c9149e70e8496de5475f6fa928342c"),
+            "test":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/test-00000-of-00001.parquet","b52e26e2f872d282ffac460bf9770b25ac6f102cda0e6ca7158df98c94e8b3da")}
+          for name,(url,expected) in src.items():
+              r=requests.get(url,timeout=120);r.raise_for_status()
+              actual=hashlib.sha256(r.content).hexdigest()
+              assert actual==expected,(name,actual)
+              open("data/"+name+".parquet","wb").write(r.content)
+              print(name,"verified",len(r.content),actual)
+          PY
+      - name: Execute official IMDb baseline
+        run: |
+          OPENBLAS_NUM_THREADS=2 python chapters/nlp_part_ii/experiments/imdb_baseline/run.py --train data/train.parquet --test data/test.parquet --output results/imdb
+      - name: Save measured predictions and scientific results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-imdb-measured-baseline
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
