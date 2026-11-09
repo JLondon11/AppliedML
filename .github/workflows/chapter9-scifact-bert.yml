@@ -1,0 +1,41 @@
+name: Chapter 9 SciFact pretrained BERT evidence verification
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-scifact-bert.yml'
+      - 'chapters/nlp_part_ii/experiments/scifact_scientific_assistant/bert_finetune.py'
+
+permissions:
+  contents: read
+
+jobs:
+  scifact_bert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install scientific-model dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "torch>=2.3,<3" "transformers>=4.45,<5" "numpy>=1.26,<3" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - name: Execute SciFact BERT-family training and held-out evaluation
+        run: |
+          cd chapters/nlp_part_ii/experiments/scifact_scientific_assistant
+          python bert_finetune.py --download --data-dir "$RUNNER_TEMP/scifact" --checkpoint prajjwal1/bert-tiny --epochs 3 --batch-size 16 --output bert-results
+          test -s bert-results/metrics.json
+          test -s bert-results/predictions_dev.jsonl
+          test -s bert-results/scifact_bert_confusion.pdf
+          test -s bert-results/scifact_bert_train_curve.pdf
+      - name: Upload measured BERT evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-scifact-bert-measured-results
+          path: chapters/nlp_part_ii/experiments/scifact_scientific_assistant/bert-results/
+          if-no-files-found: error
+          retention-days: 90
