@@ -1,0 +1,30 @@
+name: Book code publication inventory
+on:
+  push:
+    paths:
+      - 'chapters/**'
+      - 'book_code_units.json'
+      - 'qa/discovered_code_units_20261109.json'
+      - 'tools/audit_discovered_book_code.py'
+      - '.github/workflows/book-code-publication.yml'
+  pull_request:
+    paths:
+      - 'chapters/**'
+      - 'book_code_units.json'
+      - 'qa/discovered_code_units_20261109.json'
+      - 'tools/audit_discovered_book_code.py'
+      - '.github/workflows/book-code-publication.yml'
+  workflow_dispatch:
+jobs:
+  inventory:
+    name: Verify committed source paths
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit tracked experiment files and manuscript registry
+        run: python tools/audit_discovered_book_code.py --json qa/book_code_audit_ci_output.json
+      - name: Upload non-certifying inventory report
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-code-publication-inventory
+          path: qa/book_code_audit_ci_output.json
