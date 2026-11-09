@@ -1,0 +1,12 @@
+figure_number,canonical_chapter,section,figure_topic,minimum_required_real_data_evidence,production_status
+"1","9","Empirical Scaling Laws and Compute-Optimal Training","Empirical Scaling Regimes","Measured loss versus parameter count from real training evaluations; published observed points or independent runs","HOLD"
+"2","9","Empirical Scaling Laws and Compute-Optimal Training","Compute–Quality Pareto Frontier","Observed compute, parameter, token and held-out loss measurements; distinguish theoretical fit from points","HOLD"
+"3","9","Transformer Architecture","Scaled Dot-Product Attention","Actual Q/K/V tensors and attention matrices from a trained transformer on real input sequences","HOLD"
+"4","9","Long-Context Models and Memory Architectures","KV-Cache Memory Hierarchy","Measured KV-cache sizes, residency, memory usage and latency from real inference","HOLD"
+"5","9","Mixture-of-Experts Foundation Models","Sparse Expert Routing","Trained MoE routing probabilities, top-k assignments, load distribution on real tokens","HOLD"
+"6","9","Benchmark Landscape and Its Limitations","Three Multi-Agent Architectural Patterns","Executed benchmark traces and measured task completion by actual agent configurations","HOLD"
+"7","9","Benchmark Landscape and Its Limitations","Agent Planning and Verification Loop","Real agent execution events, tool calls, verification outcomes, and failure/recovery traces","HOLD"
+"8","9","Contrastive Alignment as a Training Objective","Multimodal Foundation Model Fusion Architecture","Actual image/text/audio embeddings and retrieval/alignment metrics from real paired datasets","HOLD"
+"9","9","Video Generative Artificial Intelligence","Latent Video Diffusion Architecture","Actual video frames, trained-model latent features, diffusion outputs and measured temporal metrics","HOLD"
+"10","9","Neural Radiance Fields and Differentiable Rendering","Neural Radiance Field Rendering Pipeline","Real camera-calibrated image views, NeRF rendered outputs, PSNR/SSIM and sampled ray evidence","HOLD"
+"11","9","Distributed Transformer Training and Systems Co-Design","Distributed Transformer Parallelism","Measured throughput, memory, scaling efficiency, communication costs and hardware details","HOLD"
