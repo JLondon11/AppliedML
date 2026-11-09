@@ -1,4 +1,4 @@
-name: Scientific evidence — digits VAE
+name: Scientific evidence — digits VAE and DDPM
 on:
   workflow_dispatch:
   push:
@@ -44,12 +44,16 @@ jobs:
           assert m["validation_samples"] == 450
           assert m["test_samples"] == 0
           assert 0 <= m["validation_latent_10nn_purity_mean"] <= 1
-          for name in ("history.csv", "validation_embeddings.csv", "vae_validation.png", "vae_interpolation.png", "vae_model.pt", "replacement_metrics.json", "replacement_measurements.csv", "denoiser_model.pt", "figure_03.png", "figure_10.png", "figure_11.png", "figure_14.png", "figure_20.png", "figure_24.png"):
+          d = json.loads((p / "ddpm" / "metrics.json").read_text())
+          assert (d["training_count"], d["validation_count"], d["test_count"]) == (1257, 270, 270)
+          assert d["independent_test_mean_epsilon_mse"] < d["independent_test_baseline_mean_epsilon_mse"]
+          assert d["checkpoint_epoch_selected_by_validation"] <= d["epochs_run"]
+          for name in ("history.csv", "validation_embeddings.csv", "vae_validation.png", "vae_interpolation.png", "vae_model.pt", "replacement_metrics.json", "replacement_measurements.csv", "denoiser_model.pt", "figure_03.png", "figure_10.png", "figure_11.png", "figure_14.png", "figure_20.png", "figure_24.png", "ddpm/metrics.json", "ddpm/best_ddpm.pt", "ddpm/ddpm_generated_samples.png", "ddpm/ddpm_test_metrics.png", "ddpm/real_test_digits.png", "ddpm/test_metrics.csv", "ddpm/training_history.csv"):
               assert (p / name).stat().st_size > 0
-          print("Evidence structure validated; independent test certification remains pending.")
+          print("Evidence structure validated; DDPM independent test metrics verified. Image-quality certification remains pending.")
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: digits-vae-measured-evidence
+          name: digits-vae-and-ddpm-measured-evidence
           path: chapters/generative_ai_part_i/figure_generation/pass12/outputs/
           retention-days: 30
