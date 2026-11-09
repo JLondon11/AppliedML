@@ -15,6 +15,7 @@ import numpy as np
 from run_vae_evidence import run as run_vae
 from real_data_figures import run as run_replacements
 from ddpm_digits_experiment import run as run_ddpm
+from compose_ddpm_figure24 import render as render_ddpm_figure
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "outputs"
@@ -28,7 +29,7 @@ def render_evidence_outputs():
     ddpm_out=OUT/'ddpm'
     run_ddpm(ddpm_out, epochs=45, seed=17)
     # Override the older conditional-denoiser graphic with authentic DDPM samples.
-    shutil.copyfile(ddpm_out/'ddpm_generated_samples.png', OUT/'figure_24.png')
+    render_ddpm_figure(ddpm_out, OUT/'figure_24.png')
     shutil.copyfile(OUT / "vae_interpolation.png", OUT / "figure_10.png")
 
     with (OUT / "history.csv").open(newline="") as f:
