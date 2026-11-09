@@ -6,6 +6,7 @@ on:
       - 'chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py'
       - 'chapters/scientific_ai/code/test_figure_02_real_data.py'
       - 'chapters/scientific_ai/code/test_figure_03_real_data.py'
+      - 'chapters/scientific_ai/code/render_verified_figures_02_03.py'
       - '.github/workflows/scientific-ai-real-data-figures.yml'
   pull_request:
     paths:
@@ -30,6 +31,9 @@ jobs:
         run: |
           python chapters/scientific_ai/code/figure_02_scientific_discovery.py
           python chapters/scientific_ai/code/figure_03_scientific_ai_evolution.py
+      - name: Render premium figures from verified measurements
+        run: |
+          python chapters/scientific_ai/code/render_verified_figures_02_03.py --evidence chapters/scientific_ai/figures --output chapters/scientific_ai/figures
       - name: Archive generated scientific figures and numerical evidence
         uses: actions/upload-artifact@v4
         with:
@@ -39,4 +43,5 @@ jobs:
             chapters/scientific_ai/figures/figure_02_scientific_discovery_evidence.json
             chapters/scientific_ai/figures/figure_03_evolution_scientific_ai.*
             chapters/scientific_ai/figures/figure_03_scientific_ai_real_data_evidence.json
+            chapters/scientific_ai/figures/quality_verification.json
           if-no-files-found: error
