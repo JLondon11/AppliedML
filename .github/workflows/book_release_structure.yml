@@ -1,0 +1,43 @@
+name: Book release structure audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/scientific_qa/check_book_release_structure.py'
+      - 'tools/scientific_qa/test_book_release_structure.py'
+      - 'chapters/**/RELEASE_MANIFEST.md'
+      - 'chapters/**/manuscript/**'
+      - 'chapters/**/figures/**'
+      - 'chapters/**/code/**'
+      - 'chapters/**/instructor_solutions/**'
+      - 'chapters/**/qa/**'
+      - '.github/workflows/book_release_structure.yml'
+  pull_request:
+    paths:
+      - 'tools/scientific_qa/check_book_release_structure.py'
+      - 'tools/scientific_qa/test_book_release_structure.py'
+      - 'chapters/**'
+      - '.github/workflows/book_release_structure.yml'
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test structural checker
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_book_release_structure.py' -v
+      - name: Generate structural release inventory (advisory)
+        shell: bash
+        run: |
+          python tools/scientific_qa/check_book_release_structure.py --repo-root . --output book_release_structure_report.json > /dev/null || status=$?
+          if [[ ${status:-0} -eq 1 ]]; then
+            echo 'Canonical release structure is incomplete; report produced. No certification granted.'
+          elif [[ ${status:-0} -ne 0 ]]; then
+            exit "${status}"
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: book-release-structure-report
+          path: book_release_structure_report.json
