@@ -1,0 +1,1190 @@
+{
+  "audit_date": "2026-11-09",
+  "repo": "JLondon11/AppliedML",
+  "purpose": "Strict GitHub evidence coverage inventory of recognizable case-study and application code groups; NOT a scientific execution or manuscript inspection certification.",
+  "limitations": [
+    "Only repository directory paths inspected; assets in manuscript packages, release ZIPs, CI artifacts or other directories may exist but were not matched.",
+    "A committed image may be illustrative rather than an authentic experimental result; content must be inspected.",
+    "A code file or README is not proof that the code executed.",
+    "The registry covers recognizable experiment/code paths, not every manuscript application or case study.",
+    "No universal unit can be certified from this repository scan alone."
+  ],
+  "summary": {
+    "identified_units": 54,
+    "with_readme": 35,
+    "with_result_records": 22,
+    "with_result_figure_assets": 6,
+    "with_all_three_visible": 0,
+    "not_fully_certified_from_inventory": 54,
+    "chapter_families": [
+      "computer_vision",
+      "deep_learning",
+      "foundations_machine_learning",
+      "generative_ai_part_i",
+      "nlp_part_ii"
+    ]
+  },
+  "units": [
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/evaluate_fastmri.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/accelerated_mri/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_coco_pretrained.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/evaluate_visdrone_yolo.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/test_evaluator.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/track_visdrone_video.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/README.md",
+      "visible_result_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24/per_class_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24/summary_metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/evaluate_tusimple_onnx.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/highway_lane_detection/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/render_verified_pointpillars.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/run_pointpillars_kitti.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/run_nerfstudio_pair.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/nerf_vs_3dgs/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_crowdhuman_frcnn.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/evaluate_pennfudan_pretrained.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/README.md",
+      "visible_result_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/results/pennfudan_12/metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/results/pennfudan_full170/metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/evaluate_pipeline_trace.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/production_autonomous_driving_stack/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/analyze_sam_42_images.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/compare_maskrcnn_sam.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_maskrcnn_coco_same_scene.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/evaluate_sam_coco.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/prepare_real_coco_subset.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/sam_bootstrap.py",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/test_local.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/README.md",
+      "visible_result_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_maskrcnn_18images/comparison.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/metrics_summary.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/per_object_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_3images/selection_provenance.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_42images/pooled_results.json",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_expanded_18images/bootstrap_uncertainty.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_expanded_18images/metrics_summary.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone",
+      "chapter_family": "computer_vision",
+      "committed_code": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/evaluate_visdrone_coco_pretrained.py"
+      ],
+      "committed_readme": "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/README.md",
+      "visible_result_files": [
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/results/visdrone_coco_transfer_24/per_class_metrics.csv",
+        "chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/yolo_autonomous_drone/results/visdrone_coco_transfer_24/summary_metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/digits_cpu_pilot",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/digits_cpu_pilot/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/digits_cpu_pilot/README.md",
+      "visible_result_files": [
+        "chapters/deep_learning/part_i/experiments/digits_cpu_pilot/metrics_verified.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/digits_threeway_cpu",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/digits_threeway_cpu/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/digits_threeway_cpu/README.md",
+      "visible_result_files": [
+        "chapters/deep_learning/part_i/experiments/digits_threeway_cpu/metrics_verified.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/gradient_flow_digits",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_digits/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/gradient_flow_digits/README.md",
+      "visible_result_files": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_digits/metrics_verified.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/figures/heldout_accuracy_by_seed.svg",
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/figures/initial_weight_gradient_norms.svg",
+        "chapters/deep_learning/part_i/experiments/gradient_flow_multiseed_digits/figures/mean_validation_crossentropy.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [
+        "chapters/deep_learning/part_i/experiments/sunspots_lstm_gru/figures/sunspots_rmse_by_seed.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [
+        "chapters/deep_learning/part_i/experiments/sunspots_recurrent_gradients/figures/sunspot_input_gradient_decay_36.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation",
+      "chapter_family": "deep_learning",
+      "committed_code": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/run.py"
+      ],
+      "committed_readme": "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [
+        "chapters/deep_learning/part_i/experiments/sunspots_sequence_length_ablation/figures/real_sunspots_lookback_rmse.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/foundations_machine_learning/code/case_studies/aerospace_cmapss_fd001.py",
+      "chapter_family": "foundations_machine_learning",
+      "committed_code": [
+        "chapters/foundations_machine_learning/code/case_studies/aerospace_cmapss_fd001.py"
+      ],
+      "committed_readme": "chapters/foundations_machine_learning/code/case_studies/README.md",
+      "visible_result_files": [
+        "chapters/foundations_machine_learning/code/case_studies/results/edge_digits_quantization/metrics.csv",
+        "chapters/foundations_machine_learning/code/case_studies/results/medical_diagnosis_wdbc/metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/foundations_machine_learning/code/case_studies/edge_digits_quantization.py",
+      "chapter_family": "foundations_machine_learning",
+      "committed_code": [
+        "chapters/foundations_machine_learning/code/case_studies/edge_digits_quantization.py"
+      ],
+      "committed_readme": "chapters/foundations_machine_learning/code/case_studies/README.md",
+      "visible_result_files": [
+        "chapters/foundations_machine_learning/code/case_studies/results/edge_digits_quantization/metrics.csv",
+        "chapters/foundations_machine_learning/code/case_studies/results/medical_diagnosis_wdbc/metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/foundations_machine_learning/code/case_studies/medical_diagnosis_wdbc.py",
+      "chapter_family": "foundations_machine_learning",
+      "committed_code": [
+        "chapters/foundations_machine_learning/code/case_studies/medical_diagnosis_wdbc.py"
+      ],
+      "committed_readme": "chapters/foundations_machine_learning/code/case_studies/README.md",
+      "visible_result_files": [
+        "chapters/foundations_machine_learning/code/case_studies/results/edge_digits_quantization/metrics.csv",
+        "chapters/foundations_machine_learning/code/case_studies/results/medical_diagnosis_wdbc/metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/foundations_machine_learning/code/case_studies/weather_seattle.py",
+      "chapter_family": "foundations_machine_learning",
+      "committed_code": [
+        "chapters/foundations_machine_learning/code/case_studies/weather_seattle.py"
+      ],
+      "committed_readme": "chapters/foundations_machine_learning/code/case_studies/README.md",
+      "visible_result_files": [
+        "chapters/foundations_machine_learning/code/case_studies/results/edge_digits_quantization/metrics.csv",
+        "chapters/foundations_machine_learning/code/case_studies/results/medical_diagnosis_wdbc/metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/run.py",
+        "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_12_2_restoration_ablation/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_6_13_1_climate_co2_cvae/observed_metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_publication.py",
+        "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/run.py",
+        "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_6_25_climate_co2_cvae/observed_metrics.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/reproduce_esol.py",
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/run.py",
+        "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/run.py",
+        "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_6_cross_domain_synthetic_evaluation/measured_scores_pass21.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/measured_metrics_pass22.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/run.py",
+        "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_6_precision_medicine_cytology_cvae/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration/run.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_8_12_1_image_restoration/metrics_reference.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/run.py",
+        "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_8_5_3_molecular_vae/metrics_reference.json"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/analyze_multiseed.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/publication_figures.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_multiseed.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_repeat_control.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/test_pipeline.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/verify_evidence.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_metrics_pass13.csv",
+        "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/test_outputs.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_8_8_2_texture_gan/metrics_reference.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation",
+      "chapter_family": "generative_ai_part_i",
+      "committed_code": [
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/run.py",
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/test_outputs.py",
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/texture_gan_reference.py"
+      ],
+      "committed_readme": "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/README.md",
+      "visible_result_files": [
+        "chapters/generative_ai_part_i/code/section_8_8_3_gan_ablation/metrics_reference.csv"
+      ],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_bert_sentiment_architecture.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_bert_sentiment_loss_curves.py",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/shared_experiment/run_figures_08_09.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_model_provenance.json",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_experiment_provenance.json",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_predictions.csv",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_experiment_provenance.json",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/shared_experiment/experiment_provenance.json"
+      ],
+      "visible_result_figure_assets": [
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_bert_sentiment_architecture.png",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_07_architecture/figure_07_bert_sentiment_architecture.svg",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.png",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_08_confusion_matrix/figure_08_bert_sentiment_confusion.svg",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_bert_sentiment_loss_curves.png",
+        "chapters/nlp_part_ii/case_studies/bert_imdb_sentiment/figure_09_loss_curves/figure_09_bert_sentiment_loss_curves.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/case_studies/enterprise_rag",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_retrieval_quality_topk.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.py",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/render_figure_12.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_numerical_provenance.json",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_metrics.csv",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_provenance.json",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_ranked_results_top100.csv",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_claim_level_results.csv",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_metrics.json",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_provenance.json"
+      ],
+      "visible_result_figure_assets": [
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.png",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_10_architecture/figure_10_enterprise_rag_architecture.svg",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_retrieval_quality_topk.png",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_11_retrieval_curve/figure_11_retrieval_quality_topk.svg",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.png",
+        "chapters/nlp_part_ii/case_studies/enterprise_rag/figure_12_hallucination_comparison/figure_12_hallucination_reduction_rag.svg"
+      ],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/chapter9_retrieval",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/chapter9_retrieval/shortcut_evidence_audit.py"
+      ],
+      "committed_readme": "chapters/nlp_part_ii/experiments/chapter9_retrieval/README.md",
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/dataset_acquisition",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire.py",
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_docvqa_public.py",
+        "chapters/nlp_part_ii/experiments/dataset_acquisition/acquire_financial.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/docvqa_layoutlmv3",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/docvqa_layoutlmv3/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/finqa_evidence",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/finqa_evidence/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/imdb_baseline",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/imdb_baseline/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/imdb_bert",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/imdb_bert/pilot.py",
+        "chapters/nlp_part_ii/experiments/imdb_bert/run.py",
+        "chapters/nlp_part_ii/experiments/imdb_bert/run_published_bert_base.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/imdb_bilstm",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/imdb_bilstm/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/imdb_classical",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/imdb_classical/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/imdb_comparison",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/imdb_comparison/paired_model_audit.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/scifact_evidence",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/scifact_evidence/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/scifact_scientific_assistant",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/bert_finetune.py",
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/flan_t5_rag.py",
+        "chapters/nlp_part_ii/experiments/scifact_scientific_assistant/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/seq2seq_evaluation",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/matched_bart_lead3_audit.py",
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/run.py",
+        "chapters/nlp_part_ii/experiments/seq2seq_evaluation/wmt14_full_error_audit.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/summarization_lead3",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/summarization_lead3/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/summarization_matched",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/summarization_matched/compare.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/tatqa_modality",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/tatqa_modality/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/tests",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/tests/test_runner_invariants.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/wmt14_copy_baseline",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/wmt14_copy_baseline/run.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    },
+    {
+      "unit": "chapters/nlp_part_ii/experiments/wmt14_matched",
+      "chapter_family": "nlp_part_ii",
+      "committed_code": [
+        "chapters/nlp_part_ii/experiments/wmt14_matched/compare.py"
+      ],
+      "committed_readme": null,
+      "visible_result_files": [],
+      "visible_result_figure_assets": [],
+      "visible_model_artifacts": [],
+      "repository_evidence_gaps": [
+        "no unit README in this path",
+        "no machine-readable measured-result file visible under unit path",
+        "no result figure asset visible under unit path"
+      ],
+      "real_dataset_provenance": "NOT_INDEPENDENTLY_VERIFIED",
+      "experimental_execution": "NOT_INDEPENDENTLY_VERIFIED",
+      "manuscript_figure_integration": "NOT_INDEPENDENTLY_VERIFIED",
+      "certified": false
+    }
+  ]
+}
