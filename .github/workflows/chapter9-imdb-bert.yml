@@ -1,0 +1,43 @@
+name: Chapter 9 full IMDb BERT-tiny train validate test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-imdb-bert.yml'
+      - 'chapters/nlp_part_ii/experiments/imdb_bert/run.py'
+
+permissions:
+  contents: read
+
+jobs:
+  imdb_training:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install training requirements
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "torch>=2.3,<3" "transformers>=4.45,<5" "datasets>=2.19,<5" "numpy>=1.26,<3" "scipy>=1.12,<2" "scikit-learn>=1.4,<2" "matplotlib>=3.8,<4"
+      - name: Train BERT-tiny on real IMDb train and evaluate complete official test
+        env:
+          OMP_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_bert/run.py --checkpoint prajjwal1/bert-tiny --epochs 2 --batch-size 64 --max-length 128 --output chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb/results.json
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb/predictions_test.jsonl
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb/training_curves.pdf
+          test -s chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb/confusion_matrix.pdf
+      - name: Upload all measured IMDb predictions and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-imdb-bert-real-training-results
+          path: chapters/nlp_part_ii/experiments/imdb_bert/results/full-imdb/
+          if-no-files-found: error
+          retention-days: 90
