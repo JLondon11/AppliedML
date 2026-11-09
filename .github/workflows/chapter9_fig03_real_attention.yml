@@ -1,0 +1,89 @@
+name: Chapter 9 Figure 3 measured attention artifacts
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figure03_scaled_attention/**"
+      - "tools/scientific_qa/test_chapter9_attention.py"
+      - ".github/workflows/chapter9_fig03_real_attention.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  figure03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install implementation dependencies
+        run: python -m pip install numpy scikit-learn matplotlib torch
+      - name: Verify attention math and training gradients
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_attention.py' -v
+      - name: Execute model on real digits and save actual outputs
+        run: |
+          python chapters/generative_ai_part_ii/code/figure03_scaled_attention/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs \
+            --epochs 45
+      - name: Check real-data held-out test and measured attention
+        run: |
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          p=Path("chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs")
+          m=json.loads((p/"metrics.json").read_text())
+          assert m["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert m["split_disjoint"] is True
+          assert math.isfinite(m["independent_test_accuracy"])
+          assert m["attention_row_sum_max_abs_error"]<1e-5
+          assert m["scaled_qk_max_abs_error"]<1e-5
+          for name in ("training_history.csv","test_predictions.csv",
+                       "Figure_003_Scaled_Dot_Product_Attention.png",
+                       "Figure_003_Scaled_Dot_Product_Attention.svg","attention_best.pt"):
+              assert (p/name).stat().st_size>0
+          PY
+      - name: Generate auditable artifact metadata
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("chapters/generative_ai_part_ii")
+          src=root/"code/figure03_scaled_attention/experiment.py"
+          out=root/"code/figure03_scaled_attention/outputs"
+          figure=out/"Figure_003_Scaled_Dot_Product_Attention.png"
+          metrics=out/"metrics.json"
+          h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          record={"figure_number":3,"status":"VERIFIED","evidence_type":"measured_real_dataset",
+                  "dataset":"scikit-learn handwritten digits",
+                  "dataset_name":"scikit-learn handwritten digits",
+                  "dataset_source_url":"https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+                  "split_counts":{"train":1257,"validation":270,"test":270},"split_disjoint":True,
+                  "model_or_method":"trained scaled dot-product row attention classifier",
+                  "method":"trained scaled dot-product row attention classifier",
+                  "experiment_protocol":"45 epochs, fixed seed 19, validation-selected checkpoint; independent test",
+                  "generator":str(src),"generator_sha256":h(src),
+                  "metrics_path":str(metrics),"metrics_sha256":h(metrics),
+                  "figure_path":str(figure),"figure_sha256":h(figure),
+                  "caption":"Real held-out 8×8 handwritten digit and actual scaled query–key scores, softmax attention, and mean attention over 270 independent test digits from a 45-epoch row-attention classifier; not pretrained NLP model output."}
+          (out/"production_record.json").write_text(json.dumps(record,indent=2)+"\n")
+          PY
+      - name: Upload all measured figures and raw evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figure03-real-digits-attention
+          path: chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/
+          retention-days: 90
+      - name: Commit measured outputs to canonical Chapter 9 source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/training_history.csv
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/test_predictions.csv
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/Figure_003_Scaled_Dot_Product_Attention.png
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/Figure_003_Scaled_Dot_Product_Attention.svg
+          git add -f chapters/generative_ai_part_ii/code/figure03_scaled_attention/outputs/production_record.json
+          git diff --cached --quiet || (git commit -m "Archive real-data measured Chapter 9 attention figure and evidence" && git push)
