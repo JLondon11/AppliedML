@@ -1,0 +1,35 @@
+name: Chapter 9 full BERT IMDb experiment
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-bert-imdb-full.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bert_full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install full benchmark dependencies
+        run: |
+          python -m pip install --quiet 'transformers==4.44.2' 'datasets==2.21.0' 'torch>=2.2,<3' 'numpy<3' 'matplotlib>=3.8,<4' 'scikit-learn>=1.4,<2'
+      - name: Fine-tune BERT using all official train records excluding validation
+        env:
+          OMP_NUM_THREADS: '4'
+          OPENBLAS_NUM_THREADS: '2'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_bert/run.py --checkpoint bert-base-uncased --epochs 2 --batch-size 16 --max-length 128 --seed 42 --output results/bert_full
+      - name: Save full held-out predictions, metrics and scientific figures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-bert-imdb-full-trained
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
