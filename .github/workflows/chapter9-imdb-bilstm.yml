@@ -1,0 +1,38 @@
+name: Chapter 9 full IMDb BiLSTM train validate test
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter9-imdb-bilstm.yml'
+      - 'chapters/nlp_part_ii/experiments/imdb_bilstm/run.py'
+permissions:
+  contents: read
+jobs:
+  imdb_bilstm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        run: |
+          python -m pip install "torch>=2.3,<3" "datasets>=2.19,<5" "scikit-learn>=1.4,<2" "numpy>=1.26,<3" "scipy>=1.12,<2" "matplotlib>=3.8,<4"
+      - name: Train BiLSTM, validate, and evaluate all 25000 official IMDb test reviews
+        env:
+          OMP_NUM_THREADS: "2"
+          MKL_NUM_THREADS: "2"
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_bilstm/run.py --epochs 3 --batch-size 128 --max-length 128 --output chapters/nlp_part_ii/experiments/imdb_bilstm/results
+          test -s chapters/nlp_part_ii/experiments/imdb_bilstm/results/results.json
+          test -s chapters/nlp_part_ii/experiments/imdb_bilstm/results/predictions_test.jsonl
+          test -s chapters/nlp_part_ii/experiments/imdb_bilstm/results/training_curves.pdf
+      - name: Save real BiLSTM results and predictions
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-imdb-bilstm-measured-results
+          path: chapters/nlp_part_ii/experiments/imdb_bilstm/results/
+          if-no-files-found: error
+          retention-days: 90
