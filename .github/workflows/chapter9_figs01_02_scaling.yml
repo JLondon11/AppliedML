@@ -1,0 +1,77 @@
+name: Chapter 9 Figures 1 and 2 measured scaling
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figures01_02_real_scaling/experiment.py"
+      - "tools/scientific_qa/test_chapter9_scaling.py"
+      - ".github/workflows/chapter9_figs01_02_scaling.yml"
+permissions:
+  contents: write
+jobs:
+  scale-on-real-digits:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install numpy scikit-learn matplotlib torch
+      - name: Verify experiment guards
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_scaling.py' -v
+      - name: Train 15 models on real digits and render measured figures
+        run: |
+          python chapters/generative_ai_part_ii/code/figures01_02_real_scaling/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs --epochs 35
+      - name: Validate and record measured figure integrity
+        run: |
+          python - <<'PY'
+          import hashlib,json,csv
+          from pathlib import Path
+          root=Path("chapters/generative_ai_part_ii")
+          src=root/"code/figures01_02_real_scaling/experiment.py"
+          out=root/"code/figures01_02_real_scaling/outputs"
+          mpath=out/"metrics.json"
+          m=json.loads(mpath.read_text())
+          with (out/"measured_runs.csv").open(newline="") as f:rows=list(csv.DictReader(f))
+          assert len(rows)==15 and m["trained_runs"]==15
+          assert m["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert m["split_disjoint"] is True and len(m["by_width"])==5
+          h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          for n,title in ((1,"Empirical Scaling Regimes"),(2,"Compute–Quality Pareto Frontier")):
+              filename=("Figure_001_Empirical_Scaling_Regimes.png" if n==1
+                        else "Figure_002_Compute_Quality_Pareto_Frontier.png")
+              figure=out/filename
+              assert figure.stat().st_size>1000
+              record={
+                  "figure_number":n,"status":"VERIFIED","evidence_type":"measured_real_dataset",
+                  "dataset":"scikit-learn handwritten digits","dataset_name":m["dataset_name"],
+                  "dataset_source_url":m["dataset_source_url"],"split_counts":m["split_counts"],
+                  "split_disjoint":True,"model_or_method":m["method"],"method":m["method"],
+                  "experiment_protocol":"Five MLP widths × three seeds (15 actual runs), 35 epochs each, validation-selected checkpoints, independent 270-image test set; CPU runtime recorded",
+                  "generator":str(src),"generator_sha256":h(src),
+                  "figure_path":str(figure),"figure_sha256":h(figure),
+                  "metrics_path":str(mpath),"metrics_sha256":h(mpath),
+                  "caption":("Actual small-model scaling on real digits: held-out cross-entropy against parameter count for 15 trained MLPs at five widths and three seeds. This is not Kaplan/LLM scaling." if n==1 else
+                    "Measured real-digit MLP compute–quality comparison across 15 training runs, with observed test cross-entropy, architecture-derived training FLOPs proxy, and actual CPU wall time. This is not Chinchilla model training.")
+              }
+              (out/f"production_record_{n:03d}.json").write_text(json.dumps(record,indent=2)+"\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figures01-02-real-scaling
+          path: chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/
+          retention-days: 90
+      - name: Commit actual model outputs and per-run records
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/measured_runs.csv
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/Figure_001_Empirical_Scaling_Regimes.png
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/Figure_002_Compute_Quality_Pareto_Frontier.png
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/production_record_001.json
+          git add -f chapters/generative_ai_part_ii/code/figures01_02_real_scaling/outputs/production_record_002.json
+          git diff --cached --quiet || (git commit -m "Archive 15 real-digits model runs and Figures 1-2 evidence" && git pull --rebase origin main && git push origin HEAD:main)
