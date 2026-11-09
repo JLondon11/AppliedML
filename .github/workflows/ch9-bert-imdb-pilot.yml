@@ -1,0 +1,49 @@
+name: Chapter 9 actual BERT IMDb pilot
+on:
+  push:
+    paths:
+      - .github/workflows/ch9-bert-imdb-pilot.yml
+      - chapters/nlp_part_ii/experiments/imdb_bert/pilot.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU pretrained-model dependencies
+        run: |
+          python -m pip install --quiet 'transformers==4.44.2' 'torch>=2.2,<3' 'pyarrow>=16,<24' 'scikit-learn>=1.4,<2' 'numpy<3' 'matplotlib>=3.8,<4' requests
+      - name: Acquire original IMDb Parquet records
+        run: |
+          mkdir -p data
+          python - <<'PY'
+          import requests,hashlib
+          sources={
+            "train":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/train-00000-of-00001.parquet","db47d16b5c297cc0dd625e519c81319c24c9149e70e8496de5475f6fa928342c"),
+            "test":("https://huggingface.co/datasets/stanfordnlp/imdb/resolve/main/plain_text/test-00000-of-00001.parquet","b52e26e2f872d282ffac460bf9770b25ac6f102cda0e6ca7158df98c94e8b3da")}
+          for split,(url,sha) in sources.items():
+              r=requests.get(url,timeout=120);r.raise_for_status()
+              if hashlib.sha256(r.content).hexdigest()!=sha:raise ValueError(split+" hash mismatch")
+              open("data/"+split+".parquet","wb").write(r.content)
+          PY
+      - name: Run genuine pretrained BERT fine-tuning pilot
+        env:
+          OMP_NUM_THREADS: '3'
+          OPENBLAS_NUM_THREADS: '2'
+          TOKENIZERS_PARALLELISM: 'false'
+        run: |
+          python chapters/nlp_part_ii/experiments/imdb_bert/pilot.py --train data/train.parquet --test data/test.parquet --output results/bert_pilot --train-count 600 --valid-count 200 --test-count 500 --epochs 1 --batch-size 8
+      - name: Save actual model predictions and figure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-actual-bert-imdb-pilot
+          path: results/
+          retention-days: 7
+          if-no-files-found: warn
