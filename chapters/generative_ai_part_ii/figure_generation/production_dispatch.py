@@ -5,6 +5,8 @@ This validates experiment provenance; the full manuscript gate is separate.
 """
 from __future__ import annotations
 import argparse
+import base64
+import zlib
 import json
 from pathlib import Path
 import shutil
@@ -15,6 +17,10 @@ CHAPTER=HERE.parent
 REPO=next(parent for parent in HERE.parents if (parent/"chapters").is_dir())
 sys.path.insert(0,str(CHAPTER/"qa"))
 from production_evidence import validate_production
+
+
+def decode_specs(blob):
+    return json.loads(zlib.decompress(base64.b64decode(blob.encode())).decode())
 
 
 def render(specs, figure=None, section=None, output_root=None):
