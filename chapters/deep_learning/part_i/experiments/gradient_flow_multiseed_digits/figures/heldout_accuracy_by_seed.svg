@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="510" viewBox="0 0 900 510" role="img" aria-label="Real test accuracy by seed comparing plain and residual tanh networks trained on scikit-learn Digits"><rect width="900" height="510" fill="#fff"/><text x="100" y="35" font-size="21" font-family="DejaVu Sans,Arial" font-weight="700" fill="#203347">Held-out accuracy across three training seeds</text>
+<line x1="100" y1="410.00" x2="810" y2="410.00" stroke="#e0e7ed"/><text x="87" y="415.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">75%</text>
+<line x1="100" y1="342.00" x2="810" y2="342.00" stroke="#e0e7ed"/><text x="87" y="347.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">80%</text>
+<line x1="100" y1="274.00" x2="810" y2="274.00" stroke="#e0e7ed"/><text x="87" y="279.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">85%</text>
+<line x1="100" y1="206.00" x2="810" y2="206.00" stroke="#e0e7ed"/><text x="87" y="211.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">90%</text>
+<line x1="100" y1="138.00" x2="810" y2="138.00" stroke="#e0e7ed"/><text x="87" y="143.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">95%</text>
+<line x1="100" y1="70.00" x2="810" y2="70.00" stroke="#e0e7ed"/><text x="87" y="75.00" font-family="DejaVu Sans,Arial" font-size="14" text-anchor="end" fill="#465564">100%</text>
+<line x1="100" y1="70" x2="100" y2="410" stroke="#556474" stroke-width="1.5"/><line x1="100" y1="410" x2="810" y2="410" stroke="#556474" stroke-width="1.5"/>
+<polyline points="189.00,311.78 449.00,194.67 709.00,304.22" fill="none" stroke="#356b9b" stroke-width="2.8"/>
+<circle cx="189.00" cy="311.78" r="6" fill="#356b9b" stroke="#fff" stroke-width="1.5"/><text x="189.0" y="299.8" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#356b9b">82.22%</text>
+<circle cx="449.00" cy="194.67" r="6" fill="#356b9b" stroke="#fff" stroke-width="1.5"/><text x="449.0" y="182.7" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#356b9b">90.83%</text>
+<circle cx="709.00" cy="304.22" r="6" fill="#356b9b" stroke="#fff" stroke-width="1.5"/><text x="709.0" y="292.2" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#356b9b">82.78%</text>
+<polyline points="211.00,119.11 471.00,126.67 731.00,122.89" fill="none" stroke="#bd6f42" stroke-width="2.8"/>
+<circle cx="211.00" cy="119.11" r="6" fill="#bd6f42" stroke="#fff" stroke-width="1.5"/><text x="211.0" y="107.1" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#bd6f42">96.39%</text>
+<circle cx="471.00" cy="126.67" r="6" fill="#bd6f42" stroke="#fff" stroke-width="1.5"/><text x="471.0" y="114.7" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#bd6f42">95.83%</text>
+<circle cx="731.00" cy="122.89" r="6" fill="#bd6f42" stroke="#fff" stroke-width="1.5"/><text x="731.0" y="110.9" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="13" fill="#bd6f42">96.11%</text>
+<text x="200" y="440" font-family="DejaVu Sans,Arial" font-size="16" text-anchor="middle" fill="#203347">21</text>
+<text x="460" y="440" font-family="DejaVu Sans,Arial" font-size="16" text-anchor="middle" fill="#203347">42</text>
+<text x="720" y="440" font-family="DejaVu Sans,Arial" font-size="16" text-anchor="middle" fill="#203347">84</text>
+<text x="450" y="478" font-family="DejaVu Sans,Arial" font-size="15" text-anchor="middle" fill="#465564">Random initialization seed (one fixed stratified train / validation / test split)</text>
+<rect x="577" y="45" width="12" height="12" fill="#356b9b"/><text x="594" y="56" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">Plain tanh</text><rect x="699" y="45" width="12" height="12" fill="#bd6f42"/><text x="716" y="56" font-family="DejaVu Sans,Arial" font-size="13" fill="#203347">Residual tanh</text></svg>
