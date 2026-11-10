@@ -1,0 +1,42 @@
+{
+  "world_size": 1,
+  "epochs": 4,
+  "seed": 67,
+  "nominal_global_batch": 64,
+  "per_rank_batch": 64,
+  "model_parameters": 2666,
+  "total_samples_processed_including_padding": 5028,
+  "sampler_padding_duplicates_per_epoch": 0,
+  "wall_seconds_max_rank": 0.22285555799999202,
+  "measured_processed_samples_per_sec": 22561.698909928826,
+  "rank_wall_seconds": [
+    0.22285555799999202
+  ],
+  "rank_peak_rss_kb": [
+    1082600.0
+  ],
+  "validation_history": [
+    {
+      "epoch": 1,
+      "validation_ce": 2.1184215545654297,
+      "validation_acc": 0.3296296298503876
+    },
+    {
+      "epoch": 2,
+      "validation_ce": 1.7654211521148682,
+      "validation_acc": 0.4555555582046509
+    },
+    {
+      "epoch": 3,
+      "validation_ce": 1.5589799880981445,
+      "validation_acc": 0.5111111402511597
+    },
+    {
+      "epoch": 4,
+      "validation_ce": 1.3422297239303589,
+      "validation_acc": 0.614814817905426
+    }
+  ],
+  "test_cross_entropy": 1.3250715732574463,
+  "test_accuracy": 0.6074073910713196
+}
