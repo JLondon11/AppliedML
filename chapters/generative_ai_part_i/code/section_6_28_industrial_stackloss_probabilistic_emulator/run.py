@@ -69,7 +69,7 @@ plt.rcParams.update({"font.family":"DejaVu Sans","font.size":10,"axes.spines.top
 navy="#155E75";rust="#C07851";teal="#398273"
 fig,ax=plt.subplots(figsize=(8.2,4.5),layout="constrained")
 ids=np.arange(1,22)
-ax.fill_between(ids,df.gp_p05,df.gp_p95,color=navy,alpha=.12,label="GP nominal 90% interval")
+ax.fill_between(ids,df.gp_p05.to_numpy(),df.gp_p95.to_numpy(),color=navy,alpha=.12,label="GP nominal 90% interval")
 ax.plot(ids,df.gp_predictive_mean,"-o",lw=1.4,ms=3,color=navy,label="Held-out GP mean")
 ax.scatter(ids,y,marker="D",s=33,color=rust,edgecolors="white",linewidth=.65,label="Measured plant response",zorder=3)
 ax.set(xlabel="Plant observation index (not a time-scale estimate)",ylabel="Stack loss (dataset units)",xticks=[1,4,7,10,13,16,19,21])
