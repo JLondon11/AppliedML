@@ -120,10 +120,19 @@
       "archive_figures": [
         "11_Scientific_AI/Figures/Figure_11_22_Watershed_Nuclear_Segmentation_and_Classification.png"
       ],
-      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "figure_classification": "PARTIAL_REAL_DATA_OUTPUT_AND_UNPAIRED_DIAGNOSIS",
       "result_figure_verified_in_section": false,
-      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
-      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+      "master_qa_status": "PARTIAL_REAL_DATA_DEMONSTRATION_GENERATED_NOT_INTEGRATED; MONUSEG_AND_END_TO_END_CLASSIFICATION_HOLD",
+      "required_remediation": "Replace unsupported phantom/28 nuclei/class labels from legacy Figure 11.22 with real-image proposal, but complete original MoNuSeg annotated instance segmentation and nucleus-level classification using paired labels before unit certification. Integrate only with candid limitations.",
+      "experimental_extension": {
+        "code": "chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/run.py",
+        "original_microscopy": "real skimage immunohistochemistry photograph",
+        "segmentation_candidate_count": 189,
+        "segmentation_ground_truth": false,
+        "measured_independent_classification": "WDBC 341/114/114, heldout AUC 0.9957010582, accuracy 0.9824561404",
+        "paired_data": false,
+        "full_nucleus_classification": false
+      }
     },
     {
       "unit_id": "CH11-U10",
