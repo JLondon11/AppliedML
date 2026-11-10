@@ -1,0 +1,63 @@
+name: Chapter 9 Figure 8 measured image-digit-word candidate
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/experiment.py"
+      - "tools/scientific_qa/test_chapter9_digit_word_alignment.py"
+      - ".github/workflows/chapter9_fig08_real_alignment.yml"
+permissions:
+  contents: write
+jobs:
+  image-word-alignment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numerical and model dependencies
+        run: python -m pip install numpy scikit-learn matplotlib torch
+      - name: Verify two encoders and contrastive mathematics
+        run: python -m unittest discover -s tools/scientific_qa -p test_chapter9_digit_word_alignment.py -v
+      - name: Train on real digits and actual annotated class words
+        run: |
+          python chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs \
+            --epochs 60
+      - name: Verify partitions and held-out predictions
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          path=Path("chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs")
+          metrics=json.loads((path/"metrics.json").read_text())
+          assert metrics["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert metrics["split_disjoint"] is True
+          with (path/"test_predictions.csv").open(newline="") as f:
+              prediction_rows=list(csv.DictReader(f))
+          assert len(prediction_rows)==270
+          correct=sum(int(r["real_digit"])==int(r["predicted_label"]) for r in prediction_rows)
+          assert correct==metrics["correct_test_count"]
+          assert abs(correct/270-metrics["independent_test_top1"])<1e-10
+          for name in ("Figure_008_Multimodal_foundation_model_fusion_architecture.png",
+                       "Figure_008_Multimodal_foundation_model_fusion_architecture.svg",
+                       "training_history.csv","aligner_best.pt"):
+              assert (path/name).stat().st_size>1000
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figure08-real-image-label-alignment-candidate
+          path: chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/
+          retention-days: 90
+      - name: Commit measured candidate outputs, not foundation fusion certification
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/test_predictions.csv
+          git add -f chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/training_history.csv
+          git add -f chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/Figure_008_Multimodal_foundation_model_fusion_architecture.png
+          git add -f chapters/generative_ai_part_ii/code/figure08_digit_word_alignment/outputs/Figure_008_Multimodal_foundation_model_fusion_architecture.svg
+          git diff --cached --quiet || (git commit -m "Archive real-digits label-word alignment candidate for figure 8" && git pull --rebase origin main && git push origin HEAD:main)
