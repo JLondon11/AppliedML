@@ -1,0 +1,37 @@
+% Proposed replacement content for original Chapter 11 nuclear-segmentation application.
+% Do not claim that this authentic microscopy image has MoNuSeg reference annotations.
+\paragraph{Observed microscopy candidate segmentation and independent classification evidence.}
+An authentic immunohistochemistry tissue photograph distributed with scikit-image
+was processed by hematoxylin color deconvolution, Gaussian smoothing, an
+upper-five-percent stain-intensity threshold, marker-controlled watershed,
+and size filtering. This yielded 189 segmented stain-positive candidate regions.
+The candidate areas and eccentricities in Figure~\ref{fig:scientific_ai_19_application_nuclear_segmentation_and_cancer_cell_classificat}
+are computed directly from the original photograph. The image has no instance-level
+ground-truth annotations, and these regions may include artifacts or nonnuclear
+structures. Consequently, neither Dice nor AJI nor nuclear counting accuracy
+can be reported. This observation-grounded illustration is distinct from the
+MoNuSeg challenge, which remains an unexecuted benchmark in this chapter.
+
+As a separate diagnostic experiment, 569 actual Wisconsin Diagnostic Breast
+Cancer samples, each with 30 measured features, were partitioned into 341
+training, 114 validation, and 114 held-out test observations. A standardized
+logistic regression classifier selected by validation F1 reached an actual held-out
+accuracy of 98.25\% and ROC AUC of 0.9957. The microscope photograph and
+WDBC samples are independent and unpaired; the WDBC diagnoses cannot be assigned
+to individual objects in the photograph. No end-to-end nucleus-level
+malignant/benign classifier is claimed.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.97\linewidth]{Figures/Figure_11_22_Watershed_Nuclear_Segmentation_and_Classification.png}
+\caption{Authentic tissue imaging and an independent real-data diagnostic
+experiment. (a) Original immunohistochemistry photograph. (b)
+Hematoxylin-derived stain-intensity map and unsupervised candidate boundaries.
+(c) Watershed-derived candidate regions (189), not validated nuclei.
+(d) Measured region pixel areas and eccentricities. (e) ROC curve calculated
+from 114 genuine held-out Wisconsin Diagnostic Breast Cancer patient records
+(AUC 0.9957). The two datasets are independent and unpaired, and no
+MoNuSeg segmentation accuracy or per-nucleus malignancy classification
+is reported.}
+\label{fig:scientific_ai_19_application_nuclear_segmentation_and_cancer_cell_classificat}
+\end{figure}
