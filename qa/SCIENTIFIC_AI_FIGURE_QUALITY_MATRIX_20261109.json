@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
   "repository": "JLondon11/AppliedML",
-  "scope": "Scientific AI code-based figures 2–12; code inspected for each, new renderings visually inspected only for Figures 2 and 3.",
+  "scope": "Scientific AI code-based figures 2–12; code inspected for each, new renderings visually inspected only for Figures 2 and 3. Figure 8 has additionally undergone independent actual real-dataset execution, numerical recheck and visual review.",
   "scoring": {
     "scientific_validity": "dataset provenance, actual execution, output arithmetic, labeling",
     "informativeness": "clear hypothesis, quantitative signals, comparison utility, no redundant panels",
@@ -56,9 +56,10 @@
     {
       "figure": "Figure 8",
       "kind": "measured",
-      "status": "REQUIRES_NUMERICAL_AND_VISUAL_QA",
-      "problem": "Source loads WDBC dataset and executes model comparisons; output and figure assets not verified in this pass",
-      "action": "Recompute metrics from held-out predictions and inspect axes/uncertainty/sample sizes"
+      "status": "REAL_DATA_LOCAL_EXECUTION_VERIFIED_GITHUB_SOURCE_COMMITTED",
+      "problem": "Previously only CV points; no explicitly documented held-out evaluation or prediction records in the figure script.",
+      "action": "Added actual held-out ROC traces for 114 original WDBC test cases, 20 fold metrics, 456 saved model predictions, multi-panel publication graphic and output verification. Local repeat matched JSON exactly; manuscript PDF and clean-checkout CI still unverified.",
+      "code": "chapters/scientific_ai/code/figure_08_wdbc_baselines.py"
     },
     {
       "figure": "Figure 9",
