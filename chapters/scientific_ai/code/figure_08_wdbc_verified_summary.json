@@ -1,0 +1,86 @@
+{
+  "dataset": "UCI Wisconsin Diagnostic Breast Cancer via sklearn",
+  "records": 569,
+  "features": 30,
+  "training": 455,
+  "heldout_testing": 114,
+  "internal_cv_folds": 5,
+  "split_seed": 42,
+  "cv_seed": 42,
+  "dataset_values_sha256_float64": "6b202a2072f9a0385f405a8f8605b1b06f6f36ae6d23d9cd6cbbc0974a416bc7",
+  "model_comparison": [
+    {
+      "model": "Logistic regression",
+      "mean_cv_roc_auc": 0.9959752321981423,
+      "cv_sample_sd": 0.005621750753339479,
+      "test_accuracy": 0.9824561403508771,
+      "test_roc_auc": 0.9957010582010581,
+      "confusion_matrix_malignant_then_benign": [
+        [
+          41,
+          1
+        ],
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "model": "RBF-SVC",
+      "mean_cv_roc_auc": 0.9955624355005159,
+      "cv_sample_sd": 0.005320015033552969,
+      "test_accuracy": 0.9824561403508771,
+      "test_roc_auc": 0.9950396825396826,
+      "confusion_matrix_malignant_then_benign": [
+        [
+          41,
+          1
+        ],
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "model": "Random forest",
+      "mean_cv_roc_auc": 0.9902476780185758,
+      "cv_sample_sd": 0.0082001144458883,
+      "test_accuracy": 0.9473684210526315,
+      "test_roc_auc": 0.9937169312169313,
+      "confusion_matrix_malignant_then_benign": [
+        [
+          39,
+          3
+        ],
+        [
+          3,
+          69
+        ]
+      ]
+    },
+    {
+      "model": "5-NN",
+      "mean_cv_roc_auc": 0.9882352941176471,
+      "cv_sample_sd": 0.009111747846132837,
+      "test_accuracy": 0.956140350877193,
+      "test_roc_auc": 0.9788359788359788,
+      "confusion_matrix_malignant_then_benign": [
+        [
+          39,
+          3
+        ],
+        [
+          2,
+          70
+        ]
+      ]
+    }
+  ],
+  "n_heldout_prediction_records": 456,
+  "reproduction": "Independent repeat of local executed experiment matched complete measured JSON records exactly; revised GitHub generator has not been independently executed from clean checkout",
+  "figure": "figure_08_wdbc_classical_baselines.svg",
+  "output_zip": "Figure8_Real_WDBC_20261109.zip",
+  "publication_state": "Scientific values measured on authentic data; source committed; final manuscript asset integration not confirmed."
+}
