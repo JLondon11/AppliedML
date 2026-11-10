@@ -1,0 +1,67 @@
+{
+  "experiment": "Observed-temperature interpolation and diffusion-residual regularization",
+  "figure": "Scientific AI Figure 11",
+  "original_experiment_url": "https://github.com/TariqSawaqed1/Heat-Conduction-Aerospace-Lab",
+  "original_record": "Part 1/Aluminum_26V_250mA.txt",
+  "original_git_blob_sha": "968990e38e4fe0a1f1b981d117d8bf92a90f163c",
+  "original_description": "8 thermocouple channels of genuine measured temperatures in electrically heated aluminum rod, 26 V and 250 mA",
+  "rows": 168,
+  "sensor_count": 8,
+  "temperature_measurements": 1344,
+  "recorded_time_seconds": [
+    0,
+    1670
+  ],
+  "time_step_seconds": 10,
+  "temperature_float64_matrix_sha256": "1e8972a871c8b45ef0a2a646611e75b9b151e1bb5fb6d4998deecfa272e0154f",
+  "split": {
+    "train_channels": [
+      "CH1",
+      "CH2",
+      "CH4",
+      "CH5",
+      "CH7",
+      "CH8"
+    ],
+    "validation_channel": "CH3",
+    "heldout_testing_channel": "CH6",
+    "train_measurements": 1008,
+    "validation_measurements": 168,
+    "heldout_testing_measurements": 168
+  },
+  "model": "tanh MLP 2 ->32 ->32 ->1 trained 600 Adam iterations; data-only and two physics-regularization strengths",
+  "physics_residual": "u_t - alpha*u_xx computed at true recorded training sensor-time coordinates, coordinates nondimensional; external heating/loss not fully represented",
+  "seed": 29,
+  "iterations": 600,
+  "physics_weight_grid": [
+    0,
+    0.002,
+    0.02
+  ],
+  "results": [
+    {
+      "physics_weight": 0,
+      "train_rmse_degC": 0.12391699819820987,
+      "validation_rmse_degC": 0.1320883842043047,
+      "heldout_test_rmse_degC": 0.11026218882842082
+    },
+    {
+      "physics_weight": 0.002,
+      "train_rmse_degC": 0.18580489554687804,
+      "validation_rmse_degC": 0.14177403219583212,
+      "heldout_test_rmse_degC": 0.18555533047107894,
+      "learned_nondimensional_alpha": 0.21416935324668884
+    },
+    {
+      "physics_weight": 0.02,
+      "train_rmse_degC": 0.43295652692082126,
+      "validation_rmse_degC": 0.3440415771311002,
+      "heldout_test_rmse_degC": 0.4936633324496003,
+      "learned_nondimensional_alpha": 0.2971454858779907
+    }
+  ],
+  "selected_weight_by_validation": 0,
+  "interpretation": "Physics regularization degraded held-out prediction in this experiment. Unknown heat-source boundary and convective losses preclude interpreting learned nondimensional alpha as measured aluminum thermal diffusivity.",
+  "status": "authentic observed dataset and local 600-epoch model execution verified; complete raw numeric output in local archival package; clean-checkout GitHub Actions and manuscript integration pending",
+  "citation": "Sawaqed, Comer, Colgrove, Dobbie, ASEN3802 Heat Conduction in a Metal Rod laboratory dataset, GitHub repository"
+}
