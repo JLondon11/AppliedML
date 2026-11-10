@@ -7,6 +7,8 @@ on:
       - 'chapters/scientific_ai/code/test_figure_02_real_data.py'
       - 'chapters/scientific_ai/code/test_figure_03_real_data.py'
       - 'chapters/scientific_ai/code/render_verified_figures_02_03.py'
+      - 'chapters/scientific_ai/code/figure_08_wdbc_baselines.py'
+      - 'chapters/scientific_ai/code/test_figure_08_real_data.py'
       - '.github/workflows/scientific-ai-real-data-figures.yml'
   pull_request:
     paths:
@@ -27,6 +29,7 @@ jobs:
         run: |
           python chapters/scientific_ai/code/test_figure_02_real_data.py
           python chapters/scientific_ai/code/test_figure_03_real_data.py
+          python chapters/scientific_ai/code/test_figure_08_real_data.py
       - name: Regenerate publication figures from genuine scientific data
         run: |
           python chapters/scientific_ai/code/figure_02_scientific_discovery.py
@@ -44,4 +47,8 @@ jobs:
             chapters/scientific_ai/figures/figure_03_evolution_scientific_ai.*
             chapters/scientific_ai/figures/figure_03_scientific_ai_real_data_evidence.json
             chapters/scientific_ai/figures/quality_verification.json
+            chapters/scientific_ai/code/outputs/figure_08_wdbc_classical_baselines.*
+            chapters/scientific_ai/code/outputs/results.json
+            chapters/scientific_ai/code/outputs/cv_fold_results.csv
+            chapters/scientific_ai/code/outputs/heldout_predictions.csv
           if-no-files-found: error
