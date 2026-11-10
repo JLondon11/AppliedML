@@ -1,0 +1,96 @@
+{
+  "source_gh_blob_sha": "93f829fc160bac648bc84d034574a18b3685a2ef",
+  "source_url": "https://github.com/Ankit-RV/Concrete-compressive-strength/blob/main/Concrete_Data_Yeh.csv",
+  "source_uci": "https://archive.ics.uci.edu/dataset/165/concrete+compressive+strength",
+  "split_rows": {
+    "train": 645,
+    "validation": 156,
+    "test": 229
+  },
+  "split_groups": {
+    "train": 277,
+    "validation": 64,
+    "test": 86
+  },
+  "unique_mix_groups": 427,
+  "chosen_k": 5,
+  "validation": [
+    {
+      "k": 3,
+      "rmse": 6.817623669086939,
+      "mae": 4.801775076599518,
+      "n": 156
+    },
+    {
+      "k": 5,
+      "rmse": 6.348886303046646,
+      "mae": 4.4412307201485675,
+      "n": 156
+    },
+    {
+      "k": 9,
+      "rmse": 6.688609331923824,
+      "mae": 4.787255378933933,
+      "n": 156
+    },
+    {
+      "k": 15,
+      "rmse": 7.191869061379948,
+      "mae": 5.251871292495705,
+      "n": 156
+    }
+  ],
+  "test_knn": {
+    "rmse": 7.416122281335996,
+    "mae": 5.288476589935078,
+    "n": 229
+  },
+  "test_mean_baseline": {
+    "rmse": 16.70038733582021,
+    "mae": 13.677598253275105
+  },
+  "day28": {
+    "n_heldout_28day": 86,
+    "cement_median_train": 251.8,
+    "n_feasible_measured_test": 29,
+    "top_n": 15,
+    "observed_high_strength_hits_selected": 0,
+    "observed_high_strength_eligible": 0,
+    "expected_random_hits": 0
+  },
+  "designStats": {
+    "high_strength_conditioned": {
+      "n_generated": 300,
+      "n_rule_feasible": 296,
+      "n_rule_feasible_with_predicted_strength_40_or_more": 267,
+      "mean_cement": 333.39069054936425
+    },
+    "unconditioned_training_mixes": {
+      "n_generated": 300,
+      "n_rule_feasible": 280,
+      "n_rule_feasible_with_predicted_strength_40_or_more": 91,
+      "mean_cement": 256.1877051277454
+    }
+  },
+  "constraints": {
+    "age_target": 28,
+    "water_binder": [
+      0.25,
+      0.65
+    ],
+    "binder": [
+      200,
+      650
+    ],
+    "total_materials": [
+      1500,
+      2700
+    ]
+  },
+  "warnings": [
+    "generated candidate strengths are surrogate predictions, never laboratory measured",
+    "retrospective held-out selection uses only measured source recipes",
+    "age and mix group split prevents identical mixes spanning partitions",
+    "physical screen is simplified material bounds, not verified production constructability"
+  ]
+}
