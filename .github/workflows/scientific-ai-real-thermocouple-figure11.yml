@@ -1,0 +1,41 @@
+name: Scientific AI Figure 11 real thermocouple verification
+on:
+  push:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_pinn_residual.py'
+      - 'chapters/scientific_ai/code/test_figure_11_real_data.py'
+      - '.github/workflows/scientific-ai-real-thermocouple-figure11.yml'
+  pull_request:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_pinn_residual.py'
+      - 'chapters/scientific_ai/code/test_figure_11_real_data.py'
+  workflow_dispatch:
+jobs:
+  measured-heat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numerical dependencies
+        run: python -m pip install numpy matplotlib torch --index-url https://pypi.org/simple
+      - name: Retrieve original thermocouple measurements, verify original Git blob identity
+        shell: bash
+        run: |
+          mkdir -p /tmp/book-real-heat
+          curl --retry 3 --fail --location --silent --show-error 'https://raw.githubusercontent.com/TariqSawaqed1/Heat-Conduction-Aerospace-Lab/main/Part%201/Aluminum_26V_250mA.txt' -o /tmp/book-real-heat/aluminum.txt
+          echo "968990e38e4fe0a1f1b981d117d8bf92a90f163c  /tmp/book-real-heat/aluminum.txt" > /tmp/book-real-heat/source-sha.txt
+          actual=$(git hash-object /tmp/book-real-heat/aluminum.txt)
+          test "$actual" = "968990e38e4fe0a1f1b981d117d8bf92a90f163c"
+      - name: Execute and verify genuine data model fits and output figures
+        run: |
+          python chapters/scientific_ai/code/figure_11_pinn_residual.py --data /tmp/book-real-heat/aluminum.txt --epochs 600 --output-dir /tmp/book-real-heat/results
+          python chapters/scientific_ai/code/test_figure_11_real_data.py --results /tmp/book-real-heat/results/results.json
+      - name: Archive verified numeric predictions and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: scientific-ai-figure11-real-aluminum-thermocouples
+          path: /tmp/book-real-heat/results/
+          if-no-files-found: error
