@@ -1,0 +1,28 @@
+name: Scientific AI Figure 11.22 actual microscopy and WDBC evidence
+on:
+  push:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/**'
+      - '.github/workflows/scientific-ai-figure11-22-real-microscopy.yml'
+  pull_request:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/**'
+  workflow_dispatch:
+jobs:
+  authentic-data-evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install analysis dependencies
+        run: python -m pip install numpy scipy scikit-image scikit-learn matplotlib
+      - name: Generate and verify actual outputs
+        run: python chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/test_outputs.py
+      - name: Archive real image analysis and measured diagnostic predictions
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter11-figure11-22-authentic-microscopy-unpaired-wdbc
+          path: chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/outputs/
+          if-no-files-found: error
