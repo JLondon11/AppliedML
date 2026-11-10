@@ -1,0 +1,60 @@
+name: Chapter 9 measured tool-workflow candidate Figures 6 and 7
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/**"
+      - "tools/scientific_qa/test_chapter9_agent_workflows.py"
+      - ".github/workflows/chapter9_figs06_07_real_agent_tools.yml"
+permissions:
+  contents: write
+jobs:
+  real-tool-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install numpy scikit-learn matplotlib
+      - name: Verify tool-workflow accounting
+        run: python -m unittest discover -s tools/scientific_qa -p 'test_chapter9_agent_workflows.py' -v
+      - name: Execute genuine classifier tools and log test events
+        run: |
+          python chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/experiment.py \
+            --out chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs
+      - name: Check all measured events, partitions and PNGs
+        run: |
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          out=Path("chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs")
+          m=json.loads((out/"metrics.json").read_text())
+          assert m["split_counts"]=={"train":1257,"validation":270,"test":270}
+          assert m["split_disjoint"] is True
+          assert len(m["workflow_results"])==3
+          with (out/"observed_tool_events.csv").open(newline="") as f:
+              events=list(csv.DictReader(f))
+          assert len(events)==m["total_test_events"]
+          assert len(events)>3000
+          for name in ("Figure_006_Three_multi_agent_architectural_patterns.png",
+                       "Figure_007_Agent_planning_and_verification_loop.png"):
+              assert (out/name).stat().st_size>1000
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter9-figures06-07-real-tool-executions-candidate
+          path: chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/
+          retention-days: 90
+      - name: Commit experimental candidates, not certified production figures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/metrics.json
+          git add -f chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/observed_tool_events.csv
+          git add -f chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/test_predictions.csv
+          git add -f chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/Figure_006_Three_multi_agent_architectural_patterns.png
+          git add -f chapters/generative_ai_part_ii/code/figures06_07_agent_workflows/outputs/Figure_007_Agent_planning_and_verification_loop.png
+          git diff --cached --quiet || (git commit -m "Archive actual deterministic tool-orchestration experiment candidates" && git pull --rebase origin main && git push origin HEAD:main)
