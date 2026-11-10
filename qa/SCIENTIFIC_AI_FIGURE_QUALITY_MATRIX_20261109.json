@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
   "repository": "JLondon11/AppliedML",
-  "scope": "Scientific AI code-based figures 2–12; code inspected for each, new renderings visually inspected only for Figures 2 and 3. Figure 8 has additionally undergone independent actual real-dataset execution, numerical recheck and visual review.",
+  "scope": "Scientific AI code-based figures 2–12; code inspected for each, new renderings visually inspected only for Figures 2 and 3. Figure 8 has additionally undergone independent actual real-dataset execution, numerical recheck and visual review. Figure 11 subsequently replaced with 8-channel original experimental thermocouple records, trained locally and independently validated.",
   "scoring": {
     "scientific_validity": "dataset provenance, actual execution, output arithmetic, labeling",
     "informativeness": "clear hypothesis, quantitative signals, comparison utility, no redundant panels",
@@ -77,10 +77,11 @@
     },
     {
       "figure": "Figure 11",
-      "kind": "simulation_result",
-      "status": "HOLD_REAL_DATA_REQUIREMENT",
-      "problem": "PINN is trained on an analytical PDE with randomly sampled collocation points and exact synthetic solution, not actual observed scientific measurements",
-      "action": "Replace empirical result with observation-grounded PDE study, or remove from empirical evidence and clearly label analytic validation"
+      "kind": "experiment_using_observed_physical_temperatures",
+      "status": "AUTHENTIC_LAB_DATA_LOCAL_EXECUTION_VERIFIED_FINAL_MANUSCRIPT_AND_CI_HOLD",
+      "problem": "Previous figure simulated heat-equation exact fields with randomly sampled collocation points; replacement uses 168 actual measured thermocouple rows (8 channels) from aluminum rod.",
+      "action": "Replaced code with 600-step real-measurement MLP versus simplified physics-residual ablation. Complete-channel split training 1008, validation 168, held-out 168. Data-only CH6 RMSE 0.1103 °C; regularized 0.1856 and 0.4937 °C. Physics constraint harms test accuracy, so no unsupported PINN superiority or measured diffusivity claims. Local figure and predictions verified; manuscript PDF and independent GitHub CI still pending.",
+      "code": "chapters/scientific_ai/code/figure_11_pinn_residual.py"
     },
     {
       "figure": "Figure 12",
