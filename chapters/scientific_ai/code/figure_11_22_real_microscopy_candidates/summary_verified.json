@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-10",
+  "section": "Chapter 11 Application: Nuclear Segmentation and Cancer-Cell Classification",
+  "figure": "11.22",
+  "source_image": "scikit-image data.immunohistochemistry real microscopy photo",
+  "original_image_dimensions": [
+    512,
+    512,
+    3
+  ],
+  "candidate_regions_count": 189,
+  "interpretation": "Unsupervised stain-positive candidate regions; not validated nuclei",
+  "segmentation_ground_truth_available": false,
+  "segmentation_accuracy_claim": false,
+  "diagnostic_dataset": "Wisconsin Diagnostic Breast Cancer",
+  "diagnostic_rows": 569,
+  "diagnostic_features": 30,
+  "diagnostic_train": 341,
+  "diagnostic_validation": 114,
+  "diagnostic_test": 114,
+  "diagnostic_selected_C": 1,
+  "heldout_roc_auc": 0.9957010582010581,
+  "heldout_accuracy": 0.9824561403508771,
+  "datasets_paired": false,
+  "end_to_end_cancer_cell_classification": false,
+  "MoNuSeg_executed": false,
+  "qa": "PARTIAL_REAL_DATA_DEMONSTRATION; ORIGINAL_NAMED_APPLICATION_HOLD",
+  "source_path": "chapters/scientific_ai/code/figure_11_22_real_microscopy_candidates/run.py"
+}
