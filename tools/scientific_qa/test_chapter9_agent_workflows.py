@@ -26,7 +26,7 @@ class ToolWorkflowTests(unittest.TestCase):
         p["neighbors"][:,2]=.91
         results,events=evaluate(p,.8)
         self.assertFalse(results["planner-executor"]["consulted"].any())
-        self.assertTrue(results["supervisor-worker"]["consulted"].any() is False)
+        self.assertFalse(results["supervisor-worker"]["consulted"].any())
         self.assertEqual(sum(x["event"]=="fallback_tool" for x in events),0)
 
 if __name__=="__main__":
