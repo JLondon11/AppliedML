@@ -1,0 +1,195 @@
+{
+  "schema_version": "1.0",
+  "audit_date": "2026-11-10",
+  "chapter": "11 — Scientific AI",
+  "actual_manuscript_source": "Scientific_AI_Chapter11_RealData_Integrated_20261110_FINAL.zip/11_Scientific_AI/Scientific_AI_InProgress.tex",
+  "method": "Parsed 15 named application/case-study headings, corresponding LaTeX figure environments, figure captions and archived assets. Results-figure classification is caption-grounded and conservative; no experiment inferred from a pipeline schematic.",
+  "figures_in_chapter": 54,
+  "tables": 46,
+  "code_listings": 18,
+  "named_units": 15,
+  "units_with_figures": 15,
+  "units_with_explicit_measured_result_figures": 1,
+  "units_without_explicit_measured_result_figures": 14,
+  "missing_figure_assets_in_archive": 0,
+  "original_three_confirmed_real_data_replacements": [
+    "Figure 11.3 (sunspots; outside named application heading)",
+    "Figure 11.8 (WDBC classification; inside application)",
+    "Figure 11.11 (real heated-rod thermocouples; outside named application heading)"
+  ],
+  "warnings": [
+    "The Sepsis Prediction section and its nested Translational Sepsis case study both reference Figure 11.19; they remain separately named units but are not independent executed results.",
+    "Presence of architecture and workflow diagrams never fulfills the requirement for actual experiment output figures.",
+    "Real photographs are authentic data; genuine model outputs are valid when labeled as such.",
+    "The final revised LaTeX and binary assets reside in the local ZIP and have not been verified committed to the GitHub canonical release.",
+    "Other chapters have not been audited to this same manuscript-to-figure depth."
+  ],
+  "units": [
+    {
+      "unit_id": "CH11-U01",
+      "section_name": "Case Study: AI-Guided Antibiotic Discovery",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_06_AI_Guided_Antibiotic_Discovery.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U02",
+      "section_name": "Application: Breast Cancer and Multimodal Precision Oncology",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_07_Multimodal_Precision_Oncology_for_Breast_Cancer.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U03",
+      "section_name": "Application: Classical Machine Learning Baselines for Tabular Breast-Cancer Diagnosis",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_08_WDBC_Classical_Classifier_Benchmark.png"
+      ],
+      "figure_classification": "MEASURED_RESULT_CANDIDATE",
+      "result_figure_verified_in_section": true,
+      "master_qa_status": "PARTIAL_REAL_DATA_EVIDENCE",
+      "required_remediation": "Verify manuscript asset hashes and full model result chain in final GitHub release."
+    },
+    {
+      "unit_id": "CH11-U04",
+      "section_name": "Application: Data Augmentation and Gradient-Based Explainability for Retinal Classifiers",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_14_Grad_CAM_Retinal_Classifier.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U05",
+      "section_name": "Application: End-to-End 3D Convolutional Classification of CT Volumes for Pneumonia Detection",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_16_Volumetric_3D_Convolutional_Classification.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U06",
+      "section_name": "Sepsis Prediction: A Flagship Clinical AI Case Study",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_18_Sepsis_Multimodal_Patient_State.png",
+        "11_Scientific_AI/Figures/Figure_11_19_Sepsis_Translational_Deployment.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U07",
+      "section_name": "Case Study: Flagship Translational Sepsis Prediction",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_19_Sepsis_Translational_Deployment.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U08",
+      "section_name": "Application: Multi-Label Organelle Classification from Human Protein Atlas Images",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_21_Four_Channel_Multi_Label_Organelle_CNN.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U09",
+      "section_name": "Application: Nuclear Segmentation and Cancer-Cell Classification",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_22_Watershed_Nuclear_Segmentation_and_Classification.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U10",
+      "section_name": "Application: Detection of Focal Cortical Dysplasia",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_24_Focal_Cortical_Dysplasia_Detection.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U11",
+      "section_name": "Application: Autonomous Scientific Experiment Planning",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_48_Autonomous_Scientific_Experiment_Planning.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U12",
+      "section_name": "Application: Autonomous Laboratories",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_50_Autonomous_Laboratory_Deployment.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U13",
+      "section_name": "Application: Autonomous Materials Discovery",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_51_Autonomous_Materials_Discovery.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U14",
+      "section_name": "Application: Precision Oncology",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_52_Multimodal_Precision_Oncology_Integration.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    },
+    {
+      "unit_id": "CH11-U15",
+      "section_name": "Application: Scientific Digital Twins",
+      "archive_figures": [
+        "11_Scientific_AI/Figures/Figure_11_53_Bayesian_Multiscale_Digital_Twin_Assimilation.png"
+      ],
+      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
+      "result_figure_verified_in_section": false,
+      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
+      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+    }
+  ]
+}
