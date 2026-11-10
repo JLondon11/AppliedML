@@ -1,0 +1,442 @@
+{
+  "dataset_name": "scikit-learn real handwritten digits",
+  "dataset_source_url": "https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html",
+  "split_counts": {
+    "train": 1257,
+    "validation": 270,
+    "test": 270
+  },
+  "split_disjoint": true,
+  "split_seed": 41,
+  "threshold_validation_scores": [
+    [
+      0.962962962962963,
+      0.5
+    ],
+    [
+      0.962962962962963,
+      0.6
+    ],
+    [
+      0.961111111111111,
+      0.7
+    ],
+    [
+      0.9648148148148148,
+      0.8
+    ],
+    [
+      0.962962962962963,
+      0.9
+    ]
+  ],
+  "validation_selected_threshold": 0.8,
+  "model_tools": [
+    "linear",
+    "forest",
+    "neighbors"
+  ],
+  "base_test_accuracies": {
+    "linear": 0.9555555555555556,
+    "forest": 0.9592592592592593,
+    "neighbors": 0.9629629629629629
+  },
+  "workflow_results": [
+    {
+      "workflow": "planner-executor",
+      "test_accuracy": 0.9703703703703703,
+      "correct": 262,
+      "extra_tool_consultation_fraction": 0.1037037037037037,
+      "mean_decision_confidence": 0.9471064187121199,
+      "recorded_events": 838,
+      "confusion_matrix": [
+        [
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          28,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          26,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          26,
+          0,
+          1
+        ],
+        [
+          0,
+          3,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          26
+        ]
+      ]
+    },
+    {
+      "workflow": "supervisor-worker",
+      "test_accuracy": 0.9629629629629629,
+      "correct": 260,
+      "extra_tool_consultation_fraction": 0.5148148148148148,
+      "mean_decision_confidence": 0.7418699131229997,
+      "recorded_events": 949,
+      "confusion_matrix": [
+        [
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          25,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          0,
+          26,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          26,
+          0,
+          1
+        ],
+        [
+          0,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          26
+        ]
+      ]
+    },
+    {
+      "workflow": "peer-vote",
+      "test_accuracy": 0.9703703703703703,
+      "correct": 262,
+      "extra_tool_consultation_fraction": 1.0,
+      "mean_decision_confidence": 0.9777777777777777,
+      "recorded_events": 1350,
+      "confusion_matrix": [
+        [
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          28,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          26,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          27,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          26,
+          0,
+          1
+        ],
+        [
+          0,
+          3,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          21,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          26
+        ]
+      ]
+    }
+  ],
+  "actual_trace_test_source_index": 1459,
+  "actual_trace_label": 7,
+  "actual_trace_event_count": 4,
+  "total_test_events": 3137,
+  "method": "deterministic classifier-tool workflows and observed event traces on real digit images",
+  "limitations": "Real executed tool orchestration, not LLM agents, autonomous planning, or multi-agent benchmark performance."
+}
