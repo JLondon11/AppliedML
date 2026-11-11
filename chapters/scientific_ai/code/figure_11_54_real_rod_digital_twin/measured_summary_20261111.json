@@ -1,0 +1,73 @@
+{
+  "audited": "2026-11-11",
+  "chapter": 11,
+  "figure_number_in_final_pdf": "11.54",
+  "figure_filename": "Figure_11_53_Bayesian_Multiscale_Digital_Twin_Assimilation.png",
+  "dataset": "Real original heated-aluminum-rod 26V 250mA lab observations",
+  "original_source": "https://github.com/TariqSawaqed1/Heat-Conduction-Aerospace-Lab",
+  "original_blob_sha": "968990e38e4fe0a1f1b981d117d8bf92a90f163c",
+  "rows": 168,
+  "channels": 8,
+  "training_time_points": 100,
+  "validation_time_points": 30,
+  "heldout_test_time_points": 38,
+  "training_measurements": 800,
+  "test_visible_channels": [
+    "CH1",
+    "CH3",
+    "CH5",
+    "CH7"
+  ],
+  "test_withheld_channels": [
+    "CH2",
+    "CH4",
+    "CH6",
+    "CH8"
+  ],
+  "heldout_target_values": 152,
+  "model": "Ridge linear dynamics + Kalman-style sensor assimilation",
+  "validation_selected_q_scale": 3,
+  "validation_selected_sensor_noise_variance_C2": 0.005,
+  "measured_heldout_rmse_C": {
+    "assimilated": 0.06888794934034266,
+    "static_sensor_ridge": 0.07215205526787877,
+    "dynamics_prior": 0.07804714830189091
+  },
+  "measured_heldout_mae_C": {
+    "assimilated": 0.0540606935073354,
+    "static_sensor_ridge": 0.05725302969574876,
+    "dynamics_prior": 0.06144630956565162
+  },
+  "per_sensor_rmse_C": {
+    "CH2": {
+      "assimilated": 0.015525745975894383,
+      "static": 0.020814798608279554
+    },
+    "CH4": {
+      "assimilated": 0.04052982287984814,
+      "static": 0.03359741381548013
+    },
+    "CH6": {
+      "assimilated": 0.10061728160130586,
+      "static": 0.1001904089747274
+    },
+    "CH8": {
+      "assimilated": 0.08351434349651636,
+      "static": 0.09603913895283077
+    }
+  },
+  "local_repeatability": "byte-identical JSON results from two separate source-data reruns",
+  "manuscript_pdf_pages": 159,
+  "figure_pdf_page": 147,
+  "figure_printed_page": 142,
+  "pdf_sha256": "34571e00d8b1e7df43eeea5631eabda047a227c17009c590dbab91fd79aedb87",
+  "png_sha256": "16cd03b569bcfce6b74ba4069abd9d15f2f3567d27b16bd2de58c558d8151276",
+  "publication_status": "experiment locally executed and visually QA'd; final PDF rebuilt two-pass; full chapter not certified; clean GitHub CI not checked",
+  "limits": [
+    "one physical experimental run",
+    "no uncertainty calibration",
+    "tiny gain vs static regression",
+    "mixed outcomes per channel",
+    "no climate, industrial fleet or clinical performance demonstrated"
+  ]
+}
