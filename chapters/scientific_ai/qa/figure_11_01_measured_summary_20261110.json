@@ -1,0 +1,29 @@
+{
+  "figure": "Chapter 11 Figure 11.1",
+  "status": "local_figure_and_manuscript_compiled; GitHub CI not yet confirmed",
+  "dataset": "NGDC annual sunspots distributed through statsmodels",
+  "observations": 309,
+  "years": [
+    1700,
+    2008
+  ],
+  "lag": 12,
+  "split": {
+    "training": 178,
+    "validation": 60,
+    "testing": 59
+  },
+  "selected_ridge_alpha": 10,
+  "selection": "lowest validation RMSE among 0.1, 1, 10, 100, 1000",
+  "test_rmse": 19.382488684016636,
+  "persistence_rmse": 33.17500590729642,
+  "code": "chapters/scientific_ai/code/figure_11_01_observed_sunspots.py",
+  "manuscript": "Scientific_AI_InProgress.tex in Chapter11_MasterQA_Figure1101_20261110.zip",
+  "figure_png_sha256": "5c8de50628271c23292fbae459287d23b2a3f94710f97bff2f7592593775bb70",
+  "pdf_sha256": "2baa8801316835877fff809700bd139d98201dae9ed902dbc3992ab4ebfa60c4",
+  "pdf_pages": 159,
+  "figure_pdf_page": 7,
+  "original_unverified_plot_removed": true,
+  "whole_chapter_certification": "HOLD",
+  "limits": "One single sunspot series; Figure 11.3 also uses this dataset. Full Chapter 11 application evidence remains incomplete."
+}
