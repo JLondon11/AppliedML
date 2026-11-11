@@ -1,0 +1,37 @@
+name: Chapter 11 real-data scientific digital twin
+on:
+  push:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_54_real_rod_digital_twin/**'
+      - '.github/workflows/scientific-ai-real-digital-twin.yml'
+  pull_request:
+    paths:
+      - 'chapters/scientific_ai/code/figure_11_54_real_rod_digital_twin/**'
+  workflow_dispatch:
+jobs:
+  original-lab-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install required scientific packages
+        run: python -m pip install numpy scipy scikit-learn matplotlib
+      - name: Download and authenticate original experiment data
+        shell: bash
+        run: |
+          mkdir -p original_lab_data
+          curl -L --retry 3 --fail --silent --show-error 'https://raw.githubusercontent.com/TariqSawaqed1/Heat-Conduction-Aerospace-Lab/main/Part%201/Aluminum_26V_250mA.txt' -o original_lab_data/aluminum.txt
+          test "$(git hash-object original_lab_data/aluminum.txt)" = "968990e38e4fe0a1f1b981d117d8bf92a90f163c"
+      - name: Execute authentic-data assimilation and verify metrics
+        run: |
+          python chapters/scientific_ai/code/figure_11_54_real_rod_digital_twin/run.py --data original_lab_data/aluminum.txt --output-dir real_digital_twin_results
+          python chapters/scientific_ai/code/figure_11_54_real_rod_digital_twin/test_outputs.py --evidence real_digital_twin_results/figure_11_53_measured_evidence.json
+      - name: Archive genuine measurements, results and publication figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter11-real-laboratory-digital-twin-figure1154
+          path: real_digital_twin_results/
+          if-no-files-found: error
