@@ -9,8 +9,8 @@
   "code_listings": 18,
   "named_units": 15,
   "units_with_figures": 15,
-  "units_with_explicit_measured_result_figures": 1,
-  "units_without_explicit_measured_result_figures": 14,
+  "units_with_explicit_measured_result_figures": 2,
+  "units_without_explicit_measured_result_figures": 13,
   "missing_figure_assets_in_archive": 0,
   "original_three_confirmed_real_data_replacements": [
     "Figure 11.3 (sunspots; outside named application heading)",
@@ -195,10 +195,30 @@
       "archive_figures": [
         "11_Scientific_AI/Figures/Figure_11_53_Bayesian_Multiscale_Digital_Twin_Assimilation.png"
       ],
-      "figure_classification": "SCHEMATIC_OR_WORKFLOW",
-      "result_figure_verified_in_section": false,
-      "master_qa_status": "HOLD_MISSING_EXPLICIT_MODEL_OUTPUT_FIGURE",
-      "required_remediation": "Run the named application on its authentic dataset and integrate actual prediction/output/result panels plus source code, metrics and figure assets; schematic alone is insufficient."
+      "figure_classification": "MEASURED_REAL_LAB_DIGITAL_TWIN_OUTPUT_INTEGRATED",
+      "result_figure_verified_in_section": true,
+      "master_qa_status": "MEASURED_LAB_DIGITAL_TWIN_FIGURE_INTEGRATED; BROADER_DIGITAL_TWIN_VALIDATION_HOLD",
+      "required_remediation": "For general industrial, clinical or climate digital-twin claims, execute source-specific calibrated and external prospective benchmarks; do not generalize one rod dataset.",
+      "experimental_extension": {
+        "figure_number": "11.54",
+        "asset_name": "Figure_11_53_Bayesian_Multiscale_Digital_Twin_Assimilation.png",
+        "source": "chapters/scientific_ai/code/figure_11_54_real_rod_digital_twin/run.py",
+        "original_lab_records": 168,
+        "original_sensors": 8,
+        "validation_time_steps": 30,
+        "heldout_time_steps": 38,
+        "heldout_sensor_results": 152,
+        "measured_heldout_rmse_C": {
+          "assimilated": 0.06888794934034266,
+          "static": 0.07215205526787877,
+          "prior": 0.07804714830189091
+        },
+        "manuscript_integrated": true,
+        "global_claims_certified": false,
+        "limits": "single run, correlated observations, narrowly scoped laboratory state estimation; general clinical/climate/industrial claims not experimentally evaluated"
+      }
     }
-  ]
+  ],
+  "last_update": "2026-11-11",
+  "caveat": "The named nuclear-segmentation unit has an independently measured unpaired microscopy/WDBC partial figure in a later chapter package; it does not meet paired nuclei-classification benchmark criteria. Digital twin has measured lab results but no cross-domain validation."
 }
