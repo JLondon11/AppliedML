@@ -1,0 +1,31 @@
+name: Chapter 5 strict R1-R10 scientific certification gate
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_r1_r10_certification_gate.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_R1_R10_EVIDENCE_MATRIX_20261112.csv'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_r1_r10_matrix.py'
+  workflow_dispatch:
+
+jobs:
+  audit-register-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate all eleven named units and all ten scientific requirements
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/computer_vision/part_ii/autonomous_vehicles/qa
+          python "$DIR/validate_r1_r10_matrix.py" \
+            --matrix "$DIR/CH5_R1_R10_EVIDENCE_MATRIX_20261112.csv" \
+            --output "$RUNNER_TEMP/ch5_scientific_status.json"
+      - name: Archive evidence status (HOLD is truthful, not a CI failure)
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-r1-r10-certification-register
+          path: ${{ runner.temp }}/ch5_scientific_status.json
+          retention-days: 30
