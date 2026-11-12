@@ -37,3 +37,7 @@ Future PR/release checklist: run the code, regenerate scientific outputs, confir
 - **Exclusion rule:** if dataset origin, real-data status, run provenance, output matches, or GitHub source publication cannot be verified, remove the empirical claim/figure/table from the publication draft and mark the unit **HOLD**. Do not insert placeholder graphics, guess numbers, or count that unit as certified.
 
 This rule overrides older documentation that accepted simulated data, synthetic evaluation sets, representative diagnostics, or illustrative numerical plots as scientific results.
+
+## Proportional scientific experimental certification (2026-11-12)
+
+The book-wide **R1–R10 scientific certification** policy is defined in [SCIENTIFIC_EXPERIMENT_CERTIFICATION_STANDARD.md](SCIENTIFIC_EXPERIMENT_CERTIFICATION_STANDARD.md). It uses Level **B** by default for named applications and case studies, Level **C** for designated research/operational benchmark claims, and Level **A** for explicitly limited scientific demonstrations. Levels determine the **appropriate experimental protocol**, not whether authentic execution, genuine real data, actual results figures, or complete code/evidence are required. `N/A — JUSTIFIED` is allowed only for scientifically inapplicable criteria, with independent justification—not for inaccessible inputs or unfinished code. The present source-code publication and non-fabrication obligations remain fully binding.
