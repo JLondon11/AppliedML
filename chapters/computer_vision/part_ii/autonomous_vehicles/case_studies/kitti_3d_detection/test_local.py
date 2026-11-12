@@ -39,6 +39,17 @@ def run():
         result=validate_inputs(pc,kit,ckpt,cfg)
         assert result['val_frames']==6 and result['validated_original_label_files']==6
         assert len(result['val_split_sha256'])==64
+        # A real zero-object KITTI scene may have an empty label file.
+        empty_gt=kit/'training'/'label_2'/'000006.txt'
+        empty_gt.write_text('')
+        assert validate_inputs(pc,kit,ckpt,cfg)['val_frames']==6
+        # A truncated XYZI file must be rejected before GPU execution.
+        damaged=kit/'training'/'velodyne'/'000006.bin'
+        damaged.write_bytes(b'0'*17)
+        try:validate_inputs(pc,kit,ckpt,cfg)
+        except ValueError as e:assert 'XYZI' in str(e)
+        else:raise AssertionError('Accepted truncated original LiDAR')
+        damaged.write_bytes(b'0'*16)
         missing=kit/'training'/'velodyne'/'000006.bin'
         missing.unlink()
         try:validate_inputs(pc,kit,ckpt,cfg)
