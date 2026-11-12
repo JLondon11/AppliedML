@@ -6,8 +6,10 @@
 pip install numpy opencv-python onnxruntime
 python evaluate_tusimple_onnx.py --image-root /data/tusimple \
  --annotation-jsonl /data/tusimple/label_data_0313.json \
- --checkpoint-onnx /models/lane_segmentation.onnx --output results/
+ --checkpoint-onnx /models/lane_segmentation.onnx --output-semantics logits --output results/
 ```
+
+The required `--output-semantics` flag must match the checkpoint's training/export contract (`logits` or `probability`). Do not infer this from the current output tensor's numeric range: a logits tensor may temporarily lie within [0,1], causing an erroneous threshold if treated as probabilities.
 
 Input model contract: one 1x3xHxW RGB float tensor, normalized to [0,1], and one 1x1xHxW lane-mask logits or probabilities output. Verify preprocessing and exact checkpoint identity manually. Architectures with row-anchor/class logits (e.g. UFLD) require an appropriate separate adapter; do not pass those tensors as binary mask probabilities.
 
