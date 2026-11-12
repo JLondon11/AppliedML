@@ -1,0 +1,21 @@
+{
+  "source": "sklearn.datasets.load_digits; 8x8 scans of real handwritten digits",
+  "source_samples": 1797,
+  "train_samples": 1257,
+  "validation_samples": 270,
+  "test_samples": 270,
+  "random_seed": 19,
+  "epochs_max": 35,
+  "selected_epoch": 35,
+  "model": "64-48-(2 mu,2 logvar)-48-64 VAE",
+  "baseline": "2-component PCA fit on training data only",
+  "selection": "lowest validation reconstruction MSE for VAE; test not used for selection",
+  "vae_test_reconstruction_mse_mean": 0.05387162044644356,
+  "pca_test_reconstruction_mse_mean": 0.05312391743063927,
+  "paired_pca_minus_vae_mse_mean": -0.0007477067993022501,
+  "paired_difference_bootstrap_ci95": [-0.0015158850699663162, 4.024946656500377e-06],
+  "bootstrap_draws": 3000,
+  "test_index_sha256": "bfe1805d067fe13271534f968cdf891b227872c039fbc2151f7772fedd394b93",
+  "software": {"python": "3.13.5", "numpy": "2.3.5", "sklearn": "1.8.0", "torch": "2.10.0+cpu"},
+  "limitations": "Single seed; bootstrap quantifies test-sample variability conditional on fitted models; VAE decoder at latent mean; reconstruction comparison only; PCA and VAE share latent dimension but differ in capacity and objective."
+}
