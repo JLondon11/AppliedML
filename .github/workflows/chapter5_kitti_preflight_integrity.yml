@@ -1,0 +1,23 @@
+name: Chapter 5 KITTI PointPillars preflight validation
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_kitti_preflight_integrity.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection/**'
+  workflow_dispatch:
+
+jobs:
+  preflight-unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check numpy matplotlib
+      - name: Validate geometry and complete KITTI source preflight
+        working-directory: chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/kitti_3d_detection
+        run: |
+          python -m py_compile run_pointpillars_kitti.py render_verified_pointpillars.py test_local.py
+          python test_local.py
