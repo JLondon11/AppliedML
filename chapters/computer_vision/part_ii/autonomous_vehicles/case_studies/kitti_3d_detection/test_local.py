@@ -27,7 +27,7 @@ def run():
         ckpt=root/'placeholder_not_a_model.pth'
         ckpt.write_bytes(b'0'*(1024*1024+1))
         split=kit/'ImageSets'/'val.txt';split.parent.mkdir(parents=True,exist_ok=True)
-        split.write_text('000001\\n000002\\n000003\\n000004\\n000005\\n000006\\n')
+        split.write_text('000001\n000002\n000003\n000004\n000005\n000006\n')
         for frame in range(1,7):
             id=f'{frame:06d}'
             for folder,suffix,body in [('velodyne','.bin',b'0'*16),
@@ -45,11 +45,11 @@ def run():
         except FileNotFoundError as e:assert '000006' in str(e)
         else:raise AssertionError('Failed to check late split item')
         missing.write_bytes(b'0'*16)
-        split.write_text('000001\\n000001\\n')
+        split.write_text('000001\n000001\n')
         try:validate_inputs(pc,kit,ckpt,cfg)
         except ValueError as e:assert 'Duplicate' in str(e)
         else:raise AssertionError('Failed to reject duplicated split')
-        split.write_text('../001\\n')
+        split.write_text('../001\n')
         try:validate_inputs(pc,kit,ckpt,cfg)
         except ValueError as e:assert 'six-digit' in str(e)
         else:raise AssertionError('Failed to reject malformed split ID')
