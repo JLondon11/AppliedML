@@ -14,6 +14,15 @@ def run():
     except ValueError:pass
     else:raise AssertionError('Must fail closed if missing model geometry')
 
+    bad_cases=[
+        {'frame_id':'8','boxes_lidar':np.array([[0,0,0,-2,2,2,0]]),'name':['Car'],'score':[.8]},
+        {'frame_id':'8','boxes_lidar':np.array([[0,0,0,2,2,2,0]]),'name':['Car'],'score':[float('nan')]},
+        {'frame_id':'8','boxes_lidar':np.array([[0,0,0,2,2,2,0]]),'name':['Car'],'score':[1.1]},
+    ]
+    for invalid in bad_cases:
+        try:parse_pred(invalid)
+        except ValueError:pass
+        else:raise AssertionError('Accepted scientifically invalid 3D model prediction')
     # Preflight-only fixture checks: no trained-model inference or scientific results.
     import tempfile
     from pathlib import Path
