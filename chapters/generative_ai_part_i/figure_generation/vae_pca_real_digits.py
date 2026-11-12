@@ -8,6 +8,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 import numpy as np
 import sklearn
 from sklearn.datasets import load_digits
@@ -140,7 +141,7 @@ def run(out: Path, seed: int = 19, epochs: int = 35):
                 boxprops={"color": "#176B87"}, whiskerprops={"color": "#176B87"},
                 capprops={"color": "#176B87"})
     ax2.set(xticks=[0, 1], xticklabels=["VAE", "PCA"], title="Independent test errors", ylabel="Per-image MSE")
-    scatter = ax3.scatter(latent[:, 0], latent[:, 1], c=y[test], cmap="tab10", s=13, alpha=.7, linewidths=0)
+    scatter = ax3.scatter(latent[:, 0], latent[:, 1], c=y[test], cmap=ListedColormap(["#204C68", "#B06A45", "#4E8067", "#8E6B9E", "#C19D45", "#477F8E", "#A35E69", "#758C52", "#6B708E", "#92755E"]), s=13, alpha=.7, linewidths=0)
     ax3.set(title="Held-out VAE latent means", xlabel="Latent 1", ylabel="Latent 2")
     fig.colorbar(scatter, ax=ax3, label="Digit", ticks=range(10), fraction=.05)
     chosen = [int(np.flatnonzero(y[test] == digit)[0]) for digit in [0, 1, 2, 3, 4, 5, 6, 7]]
