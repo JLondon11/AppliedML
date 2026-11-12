@@ -1,0 +1,33 @@
+name: Chapter 5 measured SAM figure integrity
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_sam_figure_science.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_sam_uncertainty/**'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/coco_vitb_42images/pooled_results.json'
+  workflow_dispatch:
+jobs:
+  plot-measured-original-coco:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check numpy matplotlib
+      - name: Replot genuine original SAM COCO metrics with numerical source assertions
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=chapters/computer_vision/part_ii/autonomous_vehicles
+          python "$ROOT/figure_generation/real_sam_uncertainty/plot_sam_measured_uncertainty.py" \
+            --source "$ROOT/case_studies/segment_anything/results/coco_vitb_42images/pooled_results.json" \
+            --output "$RUNNER_TEMP/ch5_measured_sam"
+          test -s "$RUNNER_TEMP/ch5_measured_sam/sam_coco_measured_uncertainty.pdf"
+          test -s "$RUNNER_TEMP/ch5_measured_sam/figure_evidence.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-sam-original-coco-measured-scientific-figure
+          path: ${{ runner.temp }}/ch5_measured_sam
+          retention-days: 30
