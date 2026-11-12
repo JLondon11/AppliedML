@@ -41,8 +41,12 @@ def validate_inputs(pcdet,kitti,checkpoint,config):
     for frame in ids:
         for directory,suffix in (('velodyne','.bin'),('calib','.txt'),('label_2','.txt')):
             asset=kitti/'training'/directory/(frame+suffix)
-            if not asset.is_file() or asset.stat().st_size==0:
-                raise FileNotFoundError(f'Missing or empty original KITTI {directory}: {asset}')
+            if not asset.is_file():
+                raise FileNotFoundError(f'Missing original KITTI {directory}: {asset}')
+            # A valid labeled scene can contain zero objects, so its
+            # annotation text file is permitted to be empty.
+            if directory!='label_2' and asset.stat().st_size==0:
+                raise ValueError(f'Empty original KITTI {directory}: {asset}')
         lidar=kitti/'training'/'velodyne'/(frame+'.bin')
         if lidar.stat().st_size%16:
             raise ValueError(f'KITTI LiDAR must contain complete float32 XYZI records: {lidar}')
