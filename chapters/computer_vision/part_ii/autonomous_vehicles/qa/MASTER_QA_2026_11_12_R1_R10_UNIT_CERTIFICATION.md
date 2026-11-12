@@ -58,3 +58,12 @@ No unit is certified by scripts, CI fixtures, status labels, or replotting previ
 5. Representative SAM prompt robustness and fair comparator evaluation, plus full final-manuscript figure audit. Keep non-bar, premium-palette figures scientifically matched to data.
 
 **Certification conclusion: 0/11 FULL PASS. HOLD until all ten are supported for each unit.**
+
+
+## Independently verified source-access constraints (2026-11-12)
+
+- Official KITTI access: https://www.cvlibs.net/datasets/kitti/user_register.php requires individual registration for downloads; the official 3D benchmark lists a 29-GB Velodyne point-cloud download and separately provided calibration/labels (https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d). The official leaderboard's submission policy additionally limits eligible submissions, although a local training-subset benchmark remains possible.
+- Official fastMRI access: https://fastmri.org/ requires an accepted Dataset Sharing Agreement and application, and restricts redistribution. This is a genuine third-party permission requirement, **not** a scientifically justified reason to fabricate a scan.
+- Official TuSimple lane guideline: https://github.com/TuSimple/tusimple-benchmark/blob/master/doc/lane_detection/guideline.md lists its genuine lane-detection dataset as approximately 9 GB with 2,858 labeled frames, with lane x-coordinates indexed at explicit height samples. Acquisition requires space/network and an independently compatible checkpoint, and the code's local raster IoU is not the official lane-level score.
+
+These restrictions are specific actionable acquisition requirements, **not claims of unavailability everywhere or permanent scientific impossibility**. Authorized access and compatible infrastructure can resolve them in a subsequent *actual* execution environment. An inaccessible local dataset cannot be silently replaced with mock fixtures or unrelated images while preserving the title-level R1–R10 criteria.
