@@ -1,0 +1,18 @@
+# Chapter 6 — Pass 46 independent scientific certification audit
+
+**Decision: 0 of 14 units fully certified; overall Master QA HOLD.** The current compiled scientific manuscript remains Pass 45 (109 pages); no manuscript numerical claims changed.
+
+## Independently verified genuine-data numerical evidence
+- **NEU-DET:** The user's real Kaggle ZIP contains 1,800 photographs and 1,800 matching XML files, 300 photos in each of 6 defect classes. SHA-256: 2ccaff85d88567c52708c2f9dc4dec10cff8650749df2984f03b38716998460f. It contains one exact duplicate image pair, patches_101 and patches_105 (within the original train partition). The executed Pass 13 benchmark correctly excluded one, yielding **1,080 train / 359 validation / 360 held-out test** unique images. The Pass 45 manuscript already describes this correctly. The Pass 13 verifier passed for all 4,320 genuine held-out test predictions, 12 classifier-arm/seed metrics, split hashes, trained checkpoints and figures. Three-seed mean macro F1: matched genuine-repeat 0.7875, real-only 0.7066, flip 0.6910, GAN augmentation 0.5004. **No claim of industrial-defect GAN label fidelity or external-site generalization is certified.**
+- **Cross-domain:** Recomputed six reported scores from 2,592 real-photograph held-out probabilities. Three target-domain parent texture photos limit independent generalization. This does not establish full synthetic domain transfer.
+- **Middlebury:** Re-executed saved-evidence validator for source-image hashes, spatial 855/180/225 real-patch split, 225 held-out test metrics, checkpoint and figures. Only one genuine stereo scene.
+- **Concrete:** Recomputed plotted aggregates from 229 genuine measured held-out tests and 200 saved generated-design summary records; did not independently rerun the full 600-candidate generator. No generated mixture underwent physical casting or 28-day strength testing.
+- **Industrial Brownlee:** Independently refitted 21 GP/ridge/mean leave-one-out folds on genuine plant observations: GP RMSE 4.118932, ridge RMSE 3.647665, training-mean RMSE 10.422812, 90% GP interval coverage 19/21. Static process emulator, not a closed-loop digital twin.
+- **BDD100K and concrete laboratory:** software integrity fixture checks and fail-closed missing-evidence gate tests passed. **Zero genuine BDD100K generative/perception results and zero independent lab measurements of generated concrete**.
+
+## Strict certification
+All 14 current case studies and applications have listed figure assets, but **figure presence and arithmetic verification do not constitute complete scientific task-level certification**. Five units have independently checked metric evidence in Pass 46 (two reuse the same NEU benchmark), concrete figure inputs have partial recomputation; the rest retain prior unrerun experiment evidence. Individual source scope limits remain.
+
+For each unit require: genuine task-matched data provenance, nonleaking training/validation/test split, actual named model implementation and checkpoints, saved unrounded test outputs, task-specific baselines and metrics, figure regenerability, failure analysis and independent evidence review. Driving requires real multi-scene downstream full-scene detector mAP; generated concrete requires signed independent physical cylinder tests and laboratory records. Cannot fabricate measurements to close these gates.
+
+Detailed downloadable Pass 46 independent audit report, per-unit matrix, reproducibility script, source checksums and verified figure accompany the conversation deliverable. The entire revised chapter was **not** recommitted by this QA status update.
