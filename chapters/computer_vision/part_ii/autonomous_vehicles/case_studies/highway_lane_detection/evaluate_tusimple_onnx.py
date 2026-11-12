@@ -8,12 +8,34 @@ import numpy as np
 import cv2
 
 def truth_mask(record,shape,thickness=4):
-    h,w=shape;mask=np.zeros((h,w),np.uint8)
+    """Rasterize observed lane samples without bridging missing/out-of-frame labels.
+
+    TuSimple uses -2 for missing x samples. Connecting points on opposite
+    sides of a missing sample would invent unannotated line pixels.
+    This remains a LOCAL rasterized polyline protocol, not official scoring.
+    """
+    h,w=shape
+    if h<=0 or w<=0 or thickness<1:
+        raise ValueError('Positive image dimensions and line thickness required')
+    mask=np.zeros((h,w),np.uint8)
     ys=record['h_samples']
     for lane in record['lanes']:
-        if len(lane)!=len(ys):raise ValueError('Mismatched lane and h_samples')
-        pts=[(int(x),int(y)) for x,y in zip(lane,ys) if int(x)>=0 and 0<=int(y)<h]
-        if len(pts)>1:cv2.polylines(mask,[np.array(pts,np.int32)],False,1,thickness)
+        if len(lane)!=len(ys):
+            raise ValueError('Mismatched lane and h_samples')
+        segment=[]
+        def flush():
+            if len(segment)>1:
+                cv2.polylines(mask,[np.asarray(segment,np.int32)],False,1,thickness)
+            elif len(segment)==1:
+                cv2.circle(mask,segment[0],max(0,thickness//2),1,-1)
+        for x,y in zip(lane,ys):
+            x,y=int(x),int(y)
+            if 0<=x<w and 0<=y<h:
+                segment.append((x,y))
+            else:
+                flush()
+                segment=[]
+        flush()
     return mask
 
 def extract_binary_mask(outputs,shape,threshold=.5,output_semantics='probability'):
