@@ -14,3 +14,9 @@ The required `--output-semantics` flag must match the checkpoint's training/expo
 Input model contract: one 1x3xHxW RGB float tensor, normalized to [0,1], and one 1x1xHxW lane-mask logits or probabilities output. Verify preprocessing and exact checkpoint identity manually. Architectures with row-anchor/class logits (e.g. UFLD) require an appropriate separate adapter; do not pass those tensors as binary mask probabilities.
 
 The script writes actual predicted-mask overlays, per-image CSV and aggregate pixel metrics. These are **local rasterized-polyline scores**, not TuSimple's official lane-accuracy benchmark. Each dataset and trained checkpoint must be cited with checksum, implementation commit, split, metrics, and representative outputs. Do not claim any execution took place in this GitHub commit; algorithm-only unit tests do not meet model-inference QA.
+
+## Missing-label handling
+
+Original TuSimple lane coordinates may contain `-2` (missing horizontal sample). The local rasterized polyline scorer now draws **separate contiguous valid runs**: it does not connect valid points across missing or out-of-frame coordinates. Isolated valid points are shown only at their observed coordinates. The earlier logic joined endpoints across a missing annotation, inventing ground-truth pixels and potentially biasing local IoU. This correction is exercised by geometry-only regression tests; it has **not** yet been validated against original TuSimple images or a trained lane model.
+
+The raster proxy is deliberately distinct from official TuSimple lane-level scoring. Compare checkpoint experiments only after pinning this corrected label-rasterization code version, annotator mask thickness, interpolation rules, exact original split and input preprocessing.
