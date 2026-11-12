@@ -20,4 +20,18 @@ else:raise AssertionError('Out-of-range probability accepted')
 try:extract_binary_mask([zero_logits],(3,3),output_semantics='auto')
 except ValueError:pass
 else:raise AssertionError('Ambiguous output semantics accepted')
+
+# Discontinuous real-label semantics: -2 denotes an absent sample.
+# Tests use small geometry fixtures; they are NOT dataset measurements.
+missing={'h_samples':[2,10,18],'lanes':[[3,-2,17]]}
+gap=truth_mask(missing,(24,24),1)
+assert gap[10,10]==0, 'Unobserved middle lane segment was fabricated'
+assert gap[2,3]==1 and gap[18,17]==1, 'Valid isolated sample lost'
+out_of_frame={'h_samples':[2,10,18],'lanes':[[3,30,17]]}
+assert truth_mask(out_of_frame,(24,24),1)[10,10]==0
+continuous={'h_samples':[2,10,18],'lanes':[[3,5,7]]}
+assert truth_mask(continuous,(24,24),1)[10,5]==1
+try:truth_mask({'h_samples':[2,10,18],'lanes':[[3,4]]},(24,24))
+except ValueError:pass
+else:raise AssertionError('Mismatched original lane samples accepted')
 print('PASS: TuSimple label rasterization, scores, output shapes and explicit checkpoint semantics')
