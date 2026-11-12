@@ -1,0 +1,12 @@
+unit_id,assigned_level,unit,allowed_scientific_scope,unresolved_empirical_gate
+CV5-CS01,B,KITTI 3D PointPillars,Offline original KITTI 3D detection and measured inference latency; no deployed autonomous-driving safety claim,Original KITTI scans/labels/checkpoint; actual prediction and accuracy/latency
+CV5-CS02,B,Precision agriculture UAV,Offline obstacle detection on real agricultural field imagery; flight claims excluded until flight experiment exists,Agricultural-field annotated samples and actual trained task-specific detector
+CV5-CS03,B,YOLO autonomous drone,Aerial single-frame object detection is a sub-experiment; the unchanged autonomous-drone title requires real tracking and control outcomes,Real sequential tracking and navigation/control measurements
+CV5-CS04,C,Cross-dataset driving,Explicit cross-domain generalization protocol requires independent datasets and measured shift,"Two authentic domain-separated driving datasets, matched model/baselines and held-out evaluation"
+CV5-CS05,C,Production driving stack,Production-system title requires genuine integrated telemetry and operational validation,Actual synchronous measured stack traces and domain/operational tests
+CV5-CS06,B,Multimodal camera-LiDAR,Offline fused camera–LiDAR perception and ablations on synchronized real data,Calibrated original camera-LiDAR scenes and actual fused model outputs
+CV5-CS07,B,Accelerated MRI,Offline retrospective real-scan reconstruction quality; do not claim clinical benefit,"Access-controlled original fastMRI k-space, compatible trained model and measured reconstruction"
+CV5-CS08,B,NeRF vs 3DGS,Matched real multi-view reconstruction/rendering experiment; speed claims require measured throughput,"Real posed views, trained two-model comparison, held-out views and real throughput"
+CV5-CS09,B,SAM zero-shot segmentation,"Real original-image prompt-conditional instance segmentation; prompt regime explicit, not prompt-free","Representative test/generalization, fair reference conditions and prompt/size/crowding analysis"
+CV5-CS10,B,TuSimple highway lanes,Offline highway lane detection on genuine TuSimple images; no deployed autonomy claim,"Original TuSimple frames, lane-model weights, real lane predictions and appropriate metrics"
+CV5-CS11,B,Occluded pedestrians,Offline detection on genuinely annotated crowded/occluded photographs,"Original CrowdHuman or CityPersons occlusion labels, trained-model outputs, occlusion-stratified comparison"
