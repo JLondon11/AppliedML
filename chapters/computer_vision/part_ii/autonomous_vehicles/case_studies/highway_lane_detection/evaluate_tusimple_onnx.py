@@ -16,13 +16,18 @@ def truth_mask(record,shape,thickness=4):
         if len(pts)>1:cv2.polylines(mask,[np.array(pts,np.int32)],False,1,thickness)
     return mask
 
-def extract_binary_mask(outputs,shape,threshold=.5):
+def extract_binary_mask(outputs,shape,threshold=.5,output_semantics='probability'):
     if len(outputs)!=1:raise ValueError('One output required')
     a=np.asarray(outputs[0])
     if a.ndim!=4 or a.shape[:2]!=(1,1):raise ValueError('Expected 1x1xHxW')
     a=a[0,0].astype(np.float32)
     if not np.isfinite(a).all():raise ValueError('Nonfinite output')
-    if a.min()<0 or a.max()>1:a=1/(1+np.exp(-np.clip(a,-50,50)))
+    if not (0 <= threshold <= 1):raise ValueError('Threshold must be in [0,1]')
+    if output_semantics=='logits':
+        a=1/(1+np.exp(-np.clip(a,-50,50)))
+    elif output_semantics=='probability':
+        if a.min()<0 or a.max()>1:raise ValueError('Expected probability output in [0,1]')
+    else:raise ValueError('Explicit output semantics must be probability or logits')
     return (cv2.resize(a,shape[::-1])>=threshold).astype(np.uint8)
 
 def score(mask,gt):
@@ -37,6 +42,8 @@ def main():
         p.add_argument('--'+key,required=True,type=Path)
     p.add_argument('--max-images',type=int,default=0)
     p.add_argument('--mask-threshold',type=float,default=.5)
+    p.add_argument('--output-semantics',choices=['probability','logits'],required=True,
+                   help='Checkpoint output meaning; never infer it from observed range')
     a=p.parse_args()
     if not a.image_root.is_dir():raise FileNotFoundError(a.image_root)
     for file in (a.annotation_jsonl,a.checkpoint_onnx):
@@ -62,7 +69,7 @@ def main():
         input_array=cv2.cvtColor(cv2.resize(image,(iw,ih)),cv2.COLOR_BGR2RGB).astype(np.float32)/255
         input_array=np.transpose(input_array,(2,0,1))[None]
         mask=extract_binary_mask(sess.run(None,{inp[0].name:input_array}),
-                                 image.shape[:2],a.mask_threshold)
+                                 image.shape[:2],a.mask_threshold,a.output_semantics)
         stats=score(mask,gt);tot+=stats[:3]
         rows.append([sample['raw_file'],*stats])
         if len(rows)<=8:
@@ -79,7 +86,8 @@ def main():
        'micro_pixel_recall':tp/max(1,tp+fn),'micro_pixel_iou':tp/max(1,tp+fp+fn),
        'checkpoint_sha256':hashlib.sha256(a.checkpoint_onnx.read_bytes()).hexdigest(),
        'evaluation':'LOCAL 4-pixel polyline raster metric, NOT TuSimple leaderboard score',
-       'input_preprocessing':'RGB /255; validate compatibility with model training'}
+       'input_preprocessing':'RGB /255; validate compatibility with model training',
+       'output_semantics':a.output_semantics}
     (a.output/'metrics.json').write_text(json.dumps(report,indent=2))
     print(json.dumps(report,indent=2))
 if __name__=='__main__':main()
