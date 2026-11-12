@@ -29,8 +29,13 @@ def parse_pred(obj):
     if boxes.size==0:boxes=np.empty((0,7),dtype=float)
     if boxes.ndim!=2 or boxes.shape[1]<7:raise ValueError('Invalid LiDAR boxes shape')
     if not np.isfinite(boxes).all():raise ValueError('Nonfinite prediction geometry')
+    if np.any(boxes[:,3:6]<=0):
+        raise ValueError('LiDAR bounding boxes must have positive dimensions')
     scores=np.asarray(obj.get('score',[]),dtype=float)
-    if len(scores)!=len(boxes):raise ValueError('Mismatched predictions and scores')
+    if scores.ndim!=1 or len(scores)!=len(boxes):
+        raise ValueError('Mismatched predictions and scores')
+    if not np.isfinite(scores).all() or np.any((scores<0)|(scores>1)):
+        raise ValueError('Invalid model confidence scores outside [0,1]')
     names=list(obj.get('name',[]))
     if len(names)!=len(boxes):raise ValueError('Mismatched predictions and names')
     frame=str(obj.get('frame_id',''))
@@ -54,8 +59,11 @@ def main():
         raise ValueError('OpenPCDet results must be a nonempty list; no figure generated')
     a.output.mkdir(parents=True,exist_ok=True)
     rows=[]
+    seen_frames=set()
     for item in predictions[:a.max_frames]:
         frame,boxes,scores,names=parse_pred(item)
+        if frame in seen_frames:raise ValueError(f'Duplicate KITTI prediction frame: {frame}')
+        seen_frames.add(frame)
         cloud=a.kitti/'training'/'velodyne'/f'{frame}.bin'
         if not cloud.is_file():raise FileNotFoundError(f'Missing original KITTI frame {cloud}')
         points=np.fromfile(cloud,dtype=np.float32)
