@@ -29,15 +29,30 @@ def validate_inputs(pcdet,kitti,checkpoint,config):
               kitti/'training'/'label_2']:
         if not f.exists():missing.append(str(f))
     if missing:raise FileNotFoundError('Missing required official inputs:\n'+'\n'.join(missing))
-    ids=[x.strip() for x in (kitti/'ImageSets'/'val.txt').read_text().splitlines() if x.strip()]
+    split_path=kitti/'ImageSets'/'val.txt'
+    ids=[x.strip() for x in split_path.read_text().splitlines() if x.strip()]
     if not ids:raise ValueError('Empty KITTI validation split')
-    for id in ids[:min(5,len(ids))]:
-        if not (kitti/'training'/'velodyne'/f'{id}.bin').is_file():
-            raise FileNotFoundError(f'KITTI validation LiDAR frame missing: {id}')
+    if any(len(frame)!=6 or not frame.isascii() or not frame.isdigit() for frame in ids):
+        raise ValueError('KITTI split must contain only original six-digit numeric frame IDs')
+    if len(ids)!=len(set(ids)):
+        raise ValueError('Duplicate original KITTI validation frame ID')
+    # Verify the *entire* named evaluation split, not an arbitrary first-five sample.
+    # Each prediction must be traceable to an original scan, calibration and label.
+    for frame in ids:
+        for directory,suffix in (('velodyne','.bin'),('calib','.txt'),('label_2','.txt')):
+            asset=kitti/'training'/directory/(frame+suffix)
+            if not asset.is_file() or asset.stat().st_size==0:
+                raise FileNotFoundError(f'Missing or empty original KITTI {directory}: {asset}')
+        lidar=kitti/'training'/'velodyne'/(frame+'.bin')
+        if lidar.stat().st_size%16:
+            raise ValueError(f'KITTI LiDAR must contain complete float32 XYZI records: {lidar}')
     if checkpoint.stat().st_size<1024*1024:
         raise ValueError('Checkpoint suspiciously small; verify the actual model weight file')
-    return {'val_frames':len(ids),'checkpoint_sha256':sha256(checkpoint),
-            'config_sha256':sha256(config)}
+    return {'val_frames':len(ids),'val_split_sha256':sha256(split_path),
+            'validated_original_lidar_frames':len(ids),
+            'validated_original_calibration_files':len(ids),
+            'validated_original_label_files':len(ids),
+            'checkpoint_sha256':sha256(checkpoint),'config_sha256':sha256(config)}
 
 
 def main():
