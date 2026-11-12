@@ -1,0 +1,39 @@
+name: Chapter 5 real VisDrone evidence integrity
+on:
+  push:
+    paths:
+      - '.github/workflows/chapter5_visdrone_real_result_quality.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_visdrone_transfer/**'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24/**'
+  workflow_dispatch:
+
+jobs:
+  validate-recorded-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check numpy matplotlib
+      - name: Recompute original measurements and reject corrupted summaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=chapters/computer_vision/part_ii/autonomous_vehicles
+          FIG="$ROOT/figure_generation/real_visdrone_transfer"
+          CSV="$ROOT/case_studies/agricultural_uav_obstacle_detection/results/visdrone_coco_transfer_24"
+          python "$FIG/test_real_visdrone_transfer.py" \
+            --script "$FIG/plot_real_visdrone_transfer.py" \
+            --per-class "$CSV/per_class_metrics.csv" \
+            --summary "$CSV/summary_metrics.csv"
+          python "$FIG/plot_real_visdrone_transfer.py" \
+            --per-class "$CSV/per_class_metrics.csv" \
+            --summary "$CSV/summary_metrics.csv" \
+            --output "$RUNNER_TEMP/ch5_real_visdrone"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-real-visdrone-measured-result
+          path: ${{ runner.temp }}/ch5_real_visdrone
+          retention-days: 30
