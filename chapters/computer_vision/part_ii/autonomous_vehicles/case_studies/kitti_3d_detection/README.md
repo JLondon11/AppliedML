@@ -41,3 +41,9 @@ Only the named-model's actual prediction boxes and actual KITTI `.bin` point-clo
 - Publication-ready model-result figures and AP tables: **NOT AVAILABLE**. Master QA remains **BLOCKED**.
 
 Before approval supply the actual KITTI split, model/checkpoint hash, upstream framework commit, complete evaluation log, original predictions, real-model figures, official metrics, real comparison baseline and scientific analysis. Do not cite approximate AP or inferred metrics as results.
+
+## Full-source integrity gate
+
+The preflight now validates **every** six-digit unique ID in the original KITTI validation split, rather than just its first five frames. It requires matching nonempty XYZ-intensity LiDAR scans (complete 16-byte float32 point records), original calibration files, and the existence of corresponding annotation files. Empty annotation files are allowed for valid negative (zero-object) scenes. The run manifest records the validation split SHA-256, the number of source scans/calibration/annotation files checked, and checkpoint/configuration hashes.
+
+The results renderer now refuses nonpositive predicted 3D extents, invalid confidence scores and duplicated displayed frames. Automated regression fixtures are run by `.github/workflows/chapter5_kitti_preflight_integrity.yml`. These checks improve data provenance and figure correctness but do not replace actual trained PointPillars inference or original KITTI benchmark evaluation; do not count an isolated CI test as scientific certification.
