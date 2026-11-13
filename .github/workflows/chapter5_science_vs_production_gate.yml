@@ -1,0 +1,29 @@
+name: Chapter 5 separate scientific and production gates
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_science_vs_production_gate.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_SCIENTIFIC_VS_PRODUCTION_CERTIFICATION_20261112.csv'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_scientific_production_register.py'
+jobs:
+  scientific-register-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate independent science and production decisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/computer_vision/part_ii/autonomous_vehicles/qa
+          python "$D/validate_scientific_production_register.py" \
+            --matrix "$D/CH5_SCIENTIFIC_VS_PRODUCTION_CERTIFICATION_20261112.csv" \
+            --report "$RUNNER_TEMP/chapter5_science_production.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-scientific-vs-production-certification
+          path: ${{ runner.temp }}/chapter5_science_production.json
+          retention-days: 90
