@@ -1,0 +1,16 @@
+{
+  "images": 18,
+  "objects": 59,
+  "matched": 56,
+  "mean_object_iou": 0.7453008745762045,
+  "object_match_fraction": 0.9491525423728814,
+  "predicted_candidates_at_score_cutoff": 656,
+  "checkpoint_sha256": "bf2d0c1efbc936eeee2bc95a48e80ebc86b891f61b0106485937fc29f9315fc0",
+  "annotations_sha256": "1624b89760615112d8eac95eb43fa5d736eb1ec0e393b10ec9036b86b95f4487",
+  "model": "Official torchvision COCO pretrained Mask R-CNN ResNet50 FPN",
+  "checkpoint_url": "https://download.pytorch.org/models/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth",
+  "torch_version": "2.15.0+cpu",
+  "torchvision_version": "0.29.2+cpu",
+  "protocol": "Class/box IoU50 matched automatic instance masks; unmatched GT IoU=0; no oracle prompt",
+  "limitations": "Not COCO AP; selected nonrandom sample; baseline is not prompt-matched to SAM"
+}

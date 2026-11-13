@@ -1,0 +1,13 @@
+{
+  "sam_18/per_object_metrics.csv": "5cb162a41a540803d047c8d2b0cb673f2c87eab1db67ffc5342655da8b22a36b",
+  "sam_18/selection_provenance.json": "860d8a05e94a132b968211f26132486229018974ff2b4c804249193470b58825",
+  "sam_18/metrics_summary.json": "f8c9b31dc2daec1f072b3ed8ae6d9dad3e27cab6fd4925f8800f1f39c5e47775",
+  "sam_18/per_class_summary.csv": "a63ef0f9af792786a9ee8ded1c451c297e72574db975a9184357b7aff24b9a01",
+  "sam_24/per_object_metrics.csv": "02812012eb23f74163a04284ef94bbe40f10b4ba4086376681bd66ac4cf4e7df",
+  "sam_24/selection_provenance.json": "e47ae2774dec4019c21b5387ecea5d71fe4afa12a4c3f83c8033a947b0c29b50",
+  "sam_24/metrics_summary.json": "a761e78e2f692caf0903200dfec85a4e807789a8b07f00ce4757b1ca5a61b68a",
+  "sam_24/per_class_summary.csv": "09dc4f3074574791d61ef70323a402628a109cf7ea3cc8d58b56b9e64a4d1f91",
+  "maskrcnn_18/per_object_metrics.csv": "4041e7b6836e2f1ffb04ecc1c122c02a4f4e5ef8a0b6e03aaac1240a688b21c5",
+  "maskrcnn_18/selection_provenance.json": "860d8a05e94a132b968211f26132486229018974ff2b4c804249193470b58825",
+  "maskrcnn_18/metrics_summary.json": "a5e7cf00900f054a41599a156902147254412ca76058fdcbd216b963f02a5874"
+}
