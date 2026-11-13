@@ -1,0 +1,82 @@
+name: Chapter 5 preserve original SAM measured records
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_sam_preserve_original_numeric_evidence.yml'
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preserve-executed-original-measurements:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download original 2026-11-05 inference artifacts (not substitutes)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run download 41980537230 -R "${{ github.repository }}" -n chapter5-expanded-SAM-ViTB-COCO-real-inference -D "$RUNNER_TEMP/sam_18"
+          gh run download 41981250063 -R "${{ github.repository }}" -n chapter5-original-SAM-ViTB-real-COCO-inference -D "$RUNNER_TEMP/sam_24"
+          gh run download 41981859101 -R "${{ github.repository }}" -n chapter5-maskrcnn-COCO-matched-18-images -D "$RUNNER_TEMP/maskrcnn_18"
+      - name: Check original SHA256 and preserve source-aligned numeric records
+        shell: bash
+        env:
+          SOURCE_DIR: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, hashlib, io, json, os
+          from pathlib import Path
+          src=Path(os.environ['SOURCE_DIR'])
+          target=Path('chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/original_actions_preserved')
+          expected={
+            'sam_18/per_object_metrics.csv':'5cb162a41a540803d047c8d2b0cb673f2c87eab1db67ffc5342655da8b22a36b',
+            'sam_18/selection_provenance.json':'860d8a05e94a132b968211f26132486229018974ff2b4c804249193470b58825',
+            'sam_18/metrics_summary.json':'f8c9b31dc2daec1f072b3ed8ae6d9dad3e27cab6fd4925f8800f1f39c5e47775',
+            'sam_18/per_class_summary.csv':'a63ef0f9af792786a9ee8ded1c451c297e72574db975a9184357b7aff24b9a01',
+            'sam_24/per_object_metrics.csv':'02812012eb23f74163a04284ef94bbe40f10b4ba4086376681bd66ac4cf4e7df',
+            'sam_24/selection_provenance.json':'e47ae2774dec4019c21b5387ecea5d71fe4afa12a4c3f83c8033a947b0c29b50',
+            'sam_24/metrics_summary.json':'a761e78e2f692caf0903200dfec85a4e807789a8b07f00ce4757b1ca5a61b68a',
+            'sam_24/per_class_summary.csv':'09dc4f3074574791d61ef70323a402628a109cf7ea3cc8d58b56b9e64a4d1f91',
+            'maskrcnn_18/per_object_metrics.csv':'4041e7b6836e2f1ffb04ecc1c122c02a4f4e5ef8a0b6e03aaac1240a688b21c5',
+            'maskrcnn_18/selection_provenance.json':'860d8a05e94a132b968211f26132486229018974ff2b4c804249193470b58825',
+            'maskrcnn_18/metrics_summary.json':'a5e7cf00900f054a41599a156902147254412ca76058fdcbd216b963f02a5874'}
+          for rel,digest in expected.items():
+              source=src/rel
+              if not source.is_file():raise FileNotFoundError(source)
+              data=source.read_bytes()
+              if hashlib.sha256(data).hexdigest()!=digest:raise ValueError('ORIGINAL SOURCE HASH FAILED: '+rel)
+              dest=target/rel;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(data)
+          def load(folder):
+              return list(csv.DictReader((target/folder/'per_object_metrics.csv').open(newline='',encoding='utf-8')))
+          a,b,c=load('sam_18'),load('sam_24'),load('maskrcnn_18')
+          pairs=lambda rows:{(r['image_id'],r['annotation_id']) for r in rows}
+          if len(a)!=59 or len(b)!=88 or len(c)!=59 or pairs(a)!=pairs(c) or pairs(a)&pairs(b):
+              raise ValueError('ORIGINAL SAMPLE/ANNOTATION RECONCILIATION FAILED')
+          if abs(sum(float(r['sam_iou']) for r in a+b)/147-.7786187121390236)>1e-12:
+              raise ValueError('ORIGINAL SAM IOU RECONCILIATION FAILED')
+          paired=[r for r in a+b if r['grabcut_valid']=='True']
+          if len(paired)!=99 or abs(sum(float(r['sam_iou'])-float(r['grabcut_iou']) for r in paired)/99-.3197954719125727)>1e-12:
+              raise ValueError('ORIGINAL MATCHED COMPARISON FAILED')
+          if abs(sum(float(r['mask_iou']) for r in c)/59-.7453008745762045)>1e-12:
+              raise ValueError('ORIGINAL MASK R-CNN IOU FAILED')
+          (target/'SHA256_ORIGINAL_RECORDS.json').write_text(json.dumps(expected,indent=2)+'\n',encoding='utf-8')
+          print('PASS: preserved 11 exact original source-measurement files (no source photographs/checkpoints)')
+          PY
+      - name: Commit exact original numerical evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/original_actions_preserved/
+          if ! git diff --cached --quiet; then
+            git commit -m "evidence(ch5): preserve checksum-verified original SAM and Mask R-CNN measurements"
+            git push
+          fi
