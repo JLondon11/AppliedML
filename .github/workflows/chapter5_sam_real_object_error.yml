@@ -1,0 +1,35 @@
+name: Chapter 5 real COCO SAM original-object scientific figure
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_sam_real_object_error.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_sam_uncertainty/plot_original_instance_failure.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/segment_anything/results/original_actions_preserved/**'
+jobs:
+  scientific-original-object-figure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check numpy matplotlib
+      - name: Plot actual original COCO object-level SAM/GrabCut errors
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=chapters/computer_vision/part_ii/autonomous_vehicles
+          EVIDENCE="$ROOT/case_studies/segment_anything/results/original_actions_preserved"
+          python "$ROOT/figure_generation/real_sam_uncertainty/plot_original_instance_failure.py" \
+            --sam-18 "$EVIDENCE/sam_18/per_object_metrics.csv" \
+            --sam-24 "$EVIDENCE/sam_24/per_object_metrics.csv" \
+            --output "$RUNNER_TEMP/ch5_original_sam_errors"
+          test -s "$RUNNER_TEMP/ch5_original_sam_errors/sam_original_object_level_error.pdf"
+          test -s "$RUNNER_TEMP/ch5_original_sam_errors/observed_failure_metrics.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-real-original-coco-sam-object-error-figure
+          path: ${{ runner.temp }}/ch5_original_sam_errors
+          retention-days: 90
