@@ -1,0 +1,31 @@
+name: Chapter 5 complete proportional R1-R10 science register
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_complete_proportional_science_audit.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_PROPORTIONAL_R1_R10_FULL_REASSESSMENT_20261112.csv'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_full_proportional_matrix.py'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate complete proportionally scoped evidence registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=chapters/computer_vision/part_ii/autonomous_vehicles/qa
+          python "$ROOT/validate_full_proportional_matrix.py" \
+            --matrix "$ROOT/CH5_PROPORTIONAL_R1_R10_FULL_REASSESSMENT_20261112.csv" \
+            --report "$RUNNER_TEMP/chapter5_proportional_science_status.json"
+      - name: Store truthful certification status (HOLD is a valid audit result)
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-all-11-proportional-r1-r10-status
+          path: ${{ runner.temp }}/chapter5_proportional_science_status.json
+          retention-days: 90
