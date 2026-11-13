@@ -7,12 +7,12 @@ import csv,math,json
 from pathlib import Path
 from collections import Counter
 ROOT=Path(__file__).resolve().parent
-expected={'CH6-D01','CH6-D02','CH6-D03'}
+expected={'CH6-D01','CH6-D02','CH6-D03','CH6-D04'}
 with (ROOT/'CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv').open(newline='') as f:
     rows=list(csv.DictReader(f))
 if {r['unit_id'] for r in rows}!=expected or len(rows)!=3:raise ValueError('Incorrect experimental-unit set')
 for r in rows:
-    if r['level']!='A' or r['scientific_status']!='SCIENTIFIC_CERTIFIED' or r['production_status']!='PRODUCTION_HOLD':
+    if r['level']!=('B' if r['unit_id']=='CH6-D04' else 'A') or r['scientific_status']!='SCIENTIFIC_CERTIFIED' or r['production_status']!='PRODUCTION_HOLD':
         raise ValueError(r['unit_id']+': incorrect scope or scientific/production gate')
     if any(r[f'R{i}']!='PASS' for i in range(1,11)):raise ValueError(r['unit_id']+': missing scientific requirement')
     if not r['evidence_limits']:raise ValueError('Missing claim limits')
@@ -29,6 +29,6 @@ for col,expected_value in [('gp_predictive_mean',4.118931861605197),
     if abs(rmse(col)-expected_value)>1e-8:raise ValueError(col+' recorded RMSE mismatch')
 coverage=sum(float(r['gp_p05'])<=float(r['observed_stack_loss'])<=float(r['gp_p95']) for r in plant)
 if coverage!=19:raise ValueError('Brownlee interval coverage not 19/21')
-print(json.dumps({'scoped_scientific_certificates':3,'level':'A','original_plant_heldouts':21,
+print(json.dumps({'scoped_scientific_certificates':4,'levels':{'A':3,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
