@@ -1,0 +1,64 @@
+name: Chapter 5 real Middlebury stereo Level A scientific evidence
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_real_middlebury_stereo_level_a.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/**'
+permissions:
+  contents: read
+jobs:
+  measured-stereo-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install true image processing implementations
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'opencv-python-headless==4.13.0.92' 'scikit-image==0.26.0' matplotlib
+      - name: Execute true Middlebury stereo disparity algorithms and figure
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo
+          python "$DIR/real_middlebury_stereo_certification.py"
+          test -s "$DIR/real_middlebury_stereo_comparison.pdf"
+          test -s "$DIR/real_middlebury_stereo_comparison.png"
+          test -s "$DIR/real_middlebury_stereo_comparison.svg"
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          base=Path('chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo')
+          evidence=json.loads((base/'evidence_provenance.json').read_text())
+          pinned=json.loads((base/'recorded_provenance_20261112.json').read_text())
+          for source,sha in pinned['original_pixel_bytes_sha256'].items():
+              lookup={'left':'left','right':'right','reference':'reference'}[source]
+              assert evidence['source_pixel_hashes_sha256'][lookup]==sha, source
+          rows=list(csv.DictReader((base/'original_measurements.csv').open()))
+          assert len(rows)==2
+          assert [r['method'] for r in rows]==['StereoBM','StereoSGBM']
+          for r in rows:
+              assert int(r['reference_valid_pixels'])==343274
+          for row,count,coverage,mae,bad3 in zip(rows,[254330,284723],
+              [0.7408950284612292,0.8294336302778539],
+              [1.2671688795089722,1.2226076126098633],
+              [0.30400787708943877,0.21876401941306362]):
+              assert int(row['evaluated_predicted_valid_pixels'])==count
+              for key,expected in [('coverage',coverage),('mae_valid_px',mae),
+                    ('bad3_all_reference_including_missing',bad3)]:
+                  assert abs(float(row[key])-expected)<0.000001,(row['method'],key)
+          print('PASS: original source hashes, real algorithms, numeric results and 3 figure assets')
+          PY
+      - name: Archive actual scientific evidence (CI success must be confirmed independently)
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-middlebury-stereo-actual-level-a-results
+          path: |
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/original_measurements.csv
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/evidence_provenance.json
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.pdf
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.png
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.svg
+          retention-days: 90
