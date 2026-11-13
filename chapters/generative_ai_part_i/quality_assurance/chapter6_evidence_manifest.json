@@ -1,17 +1,19 @@
 {
   "chapter": "6 — Generative AI Part I",
+  "note": "Provisional candidate only. A matching figure number between a script and chapter is NOT proof of source-to-manuscript mapping.",
   "figures": [
     {
       "figure_id": "6.20",
       "manuscript_domain": "industrial-defect-images",
       "evidence_domain": "sklearn-handwritten-digits",
-      "dataset": "scikit-learn load_digits; 1797 real 8x8 handwritten-digit images",
+      "dataset": "scikit-learn load_digits; 1797 actual handwritten-digit images (candidate script, NOT verified manuscript source)",
       "source_code": "chapters/generative_ai_part_i/figure_generation/pass12/real_data_figures.py",
       "output": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/figure_20.png",
       "output_sha256": "UNVERIFIED",
+      "manuscript_mapping_verified": false,
       "experiment_executed": false,
       "dataset_provenance_verified": false,
-      "notes": "Known mismatch between Pass-12 figure number and industrial-defect manuscript claim. Do not certify as industrial data."
+      "notes": "Manuscript figure 6.20 is reported as an industrial-defect study; candidate script produces a digits robustness figure named figure_20.png. No evidence currently links them. Do not treat candidate as the manuscript figure."
     }
   ]
 }
