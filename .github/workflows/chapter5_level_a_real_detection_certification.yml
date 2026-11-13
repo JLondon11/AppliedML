@@ -1,0 +1,42 @@
+name: Chapter 5 Level A original real-data detection certification
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter5_level_a_real_detection_certification.yml'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/verify_level_a_original_demonstrations.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_LEVEL_A_EMBEDDED_DEMONSTRATION_CERTIFICATIONS_20261112.csv'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  original-observation-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original executed pretrained detector archives
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/original_yolo" "$RUNNER_TEMP/original_penn"
+          gh run download 41942041254 -R "${{ github.repository }}" -n chapter5-visdrone-actual-yolo11n-inference -D "$RUNNER_TEMP/original_yolo"
+          gh run download 41980566831 -R "${{ github.repository }}" -n chapter5-pennfudan-full170-FRCNN-inference -D "$RUNNER_TEMP/original_penn"
+          (cd "$RUNNER_TEMP/original_yolo" && zip -q -r "$RUNNER_TEMP/yolo_payload.zip" .)
+          (cd "$RUNNER_TEMP/original_penn" && zip -q -r "$RUNNER_TEMP/penn_payload.zip" .)
+      - name: Verify original record consistency, distinct photo contents and figures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python chapters/computer_vision/part_ii/autonomous_vehicles/qa/verify_level_a_original_demonstrations.py \
+            --yolo "$RUNNER_TEMP/yolo_payload.zip" \
+            --penn "$RUNNER_TEMP/penn_payload.zip" \
+            --output "$RUNNER_TEMP/level_a_original_detection_audit.json"
+      - name: Archive only verified numerical audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-level-a-original-detection-audit
+          path: ${{ runner.temp }}/level_a_original_detection_audit.json
+          retention-days: 90
