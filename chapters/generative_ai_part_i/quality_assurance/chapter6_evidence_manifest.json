@@ -1,0 +1,17 @@
+{
+  "chapter": "6 — Generative AI Part I",
+  "figures": [
+    {
+      "figure_id": "6.20",
+      "manuscript_domain": "industrial-defect-images",
+      "evidence_domain": "sklearn-handwritten-digits",
+      "dataset": "scikit-learn load_digits; 1797 real 8x8 handwritten-digit images",
+      "source_code": "chapters/generative_ai_part_i/figure_generation/pass12/real_data_figures.py",
+      "output": "chapters/generative_ai_part_i/figure_generation/pass12/outputs/figure_20.png",
+      "output_sha256": "UNVERIFIED",
+      "experiment_executed": false,
+      "dataset_provenance_verified": false,
+      "notes": "Known mismatch between Pass-12 figure number and industrial-defect manuscript claim. Do not certify as industrial data."
+    }
+  ]
+}
