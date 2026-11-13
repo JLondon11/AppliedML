@@ -18,7 +18,7 @@ The archived metrics describe 1,797 real handwritten-digit samples, with 1,257 t
 
 ## Important provenance qualification
 
-The archived source and figure predate a later GitHub revision that changed the latent-scatter categorical palette. Therefore the byte-identical replay validates the **archived source and its archived figure**, but **does not** establish that the current head revision of `figure_generation/vae_pca_real_digits.py` generates the same PNG. The head source must be separately rerun and the new figure checked before a head-source/exact-figure hash is recorded.
+The archived source already contains a muted categorical palette. The replay validates the **archived source and archived figure**; this audit did not perform a bytewise comparison of the archive's source with the current GitHub head revision of `figure_generation/vae_pca_real_digits.py`. Consequently, head-revision identity and the current head's output hash remain unverified until a source comparison and head-revision replay are completed.
 
 ## Certification boundary
 
