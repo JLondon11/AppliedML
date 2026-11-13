@@ -1,0 +1,22 @@
+{
+  "source": "Original real Middlebury motorcycle rectified stereo photographs and supplied reference disparity via scikit-image data.stereo_motorcycle()",
+  "execution_date": "2026-11-12",
+  "python": "3.13.5",
+  "skimage": "0.26.0",
+  "opencv": "4.13.0",
+  "numpy": "2.3.5",
+  "pixels": {
+    "width": 741,
+    "height": 500,
+    "reference_valid": 343274
+  },
+  "original_pixel_bytes_sha256": {
+    "left": "ca829467c1d4f427da9c4862ba43829da6ac90afe1f75735e95dba9e3fd9620b",
+    "right": "ae44d83f55e66623c7985499fd2f1685a56023e442e66eca89b3457dd46b17af",
+    "reference": "f2c0a477374eb7465e98bca1674c0adb6c536c1c3e05999fb16c68472dc798aa"
+  },
+  "validity": "reference finite >0 and <96 disparity pixels; predictions >0 and <96; missing estimates count as failures for full reference bad3",
+  "scope": "One actual stereo pair; executed classic StereoBM vs SGBM, no camera-LiDAR fusion, no multiscene benchmark",
+  "recorded_metrics_csv": "original_measurements.csv",
+  "figure_generator": "real_middlebury_stereo_certification.py"
+}
