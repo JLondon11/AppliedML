@@ -78,7 +78,7 @@ for name,idx in (("StereoBM",2),("StereoSGBM",3)):
     ax[idx].set_title(("C  " if idx==2 else "D  ")+name+" prediction",
        loc="left",weight="bold",color=navy)
 disparity,valid=preds["StereoSGBM"]
-ax[4].imshow(np.ma.masked_where(~valid,np.abs(disparity-gt)),cmap="magma",vmin=0,vmax=12)
+ax[4].imshow(np.ma.masked_where(~(valid&ref),np.abs(disparity-gt)),cmap="magma",vmin=0,vmax=12)
 ax[4].set_title("E  SGBM absolute disparity error",loc="left",weight="bold",color=navy)
 for a in ax[:5]:a.set_axis_off()
 x=np.linspace(0,20,300)
