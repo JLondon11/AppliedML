@@ -34,6 +34,27 @@ from audit_concrete_retrospective import audit as audit_concrete
 concrete = audit_concrete()
 if concrete["heldout_observations"] != 229 or concrete["independent_physical_mix_tests"] != 0:
     raise ValueError("Concrete scoped certificate evidence boundary invalid")
+
+# CH6-D07: additionally verify genuine held-out per-seed metrics committed with source.
+CYTOLOGY = ROOT.parent / 'code' / 'section_6_precision_medicine_cytology_cvae' / 'pass54_original_test_metrics.csv'
+with CYTOLOGY.open(newline='') as f:
+    cytology = list(csv.DictReader(f))
+if len(cytology) != 9:
+    raise ValueError('WDBC original-data metric inventory must have 9 source rows')
+cytology_expected = {
+    'real_only': (0.9993386243386243, 0.9930555555555557),
+    'real_bootstrap': (0.9986772486772487, 0.9755291005291006),
+    'real_plus_cvae': (0.98070987654321, 0.9470899470899471),
+}
+for arm, (auc, balanced_accuracy) in cytology_expected.items():
+    values = [r for r in cytology if r['arm'] == arm]
+    if sorted(int(r['seed']) for r in values) != [11, 23, 37]:
+        raise ValueError('WDBC original seed/arm record mismatch')
+    if abs(sum(float(r['ROC_AUC']) for r in values)/3 - auc) > 1e-10:
+        raise ValueError('WDBC original held-out ROC AUC mismatch')
+    if abs(sum(float(r['balanced_accuracy']) for r in values)/3 - balanced_accuracy) > 1e-10:
+        raise ValueError('WDBC original held-out balanced accuracy mismatch')
+
 print(json.dumps({'scoped_scientific_certificates':7,'levels':{'A':6,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
