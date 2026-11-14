@@ -28,7 +28,7 @@ class ReleaseGateTests(unittest.TestCase):
         with self.reg.open("w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
-            for n in range(1, 7):
+            for n in range(1, 9):
                 writer.writerow({
                     "unit_id": f"CH6-D{n:02d}", "level": "B" if n == 4 else "A",
                     "scientific_status": "SCIENTIFIC_CERTIFIED",
