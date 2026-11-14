@@ -1,0 +1,14 @@
+{
+  "source_git_blob_sha1": "666cac09a9ec5b127f2ba7d89f109c6b10065df4",
+  "source_identity": "exact GitHub main blob",
+  "results_bytes_equal_to_prior_archive": false,
+  "files_sha256": {
+    "vae_pca_real_digits.py": "fd4f367b98640ada4280e00069d0ad4d0dd2ba4ad326695fad1cf2b4c5ad997a",
+    "output/metrics.json": "0b6260e3d580880f418c96423296a8509d771695de4518ad48122104259c2561",
+    "output/real_digits_vae_pca_evaluation.png": "6ed381d9551133b20cb73eeb568791f89751899de70afff48bc7bc4ce289543f",
+    "output/test_predictions.csv": "90a71a029dba6baf4599f1c2dede8e437adaa297215441a0c65386e0bbe8cb45",
+    "output/training_history.csv": "5fe460d04079d3b7ace20427b35001ef4c7abbcbf5d0bad4fdbd780c17ae8120",
+    "output/vae_checkpoint.pt": "d36a39bbbaebbc164f318ecceb58e6b008d7511dad2671305925e67f8b741b2d"
+  },
+  "certification": "source identity PASS; numerical replay PASS; binary identity FAIL; manuscript integration PENDING"
+}
