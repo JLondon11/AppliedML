@@ -7,7 +7,7 @@ import csv,math,json
 from pathlib import Path
 from collections import Counter
 ROOT=Path(__file__).resolve().parent
-expected={'CH6-D01','CH6-D02','CH6-D03','CH6-D04'}
+expected={'CH6-D01','CH6-D02','CH6-D03','CH6-D04','CH6-D05'}
 with (ROOT/'CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv').open(newline='') as f:
     rows=list(csv.DictReader(f))
 if {r['unit_id'] for r in rows}!=expected or len(rows)!=len(expected):raise ValueError('Incorrect experimental-unit set')
@@ -29,6 +29,11 @@ for col,expected_value in [('gp_predictive_mean',4.118931861605197),
     if abs(rmse(col)-expected_value)>1e-8:raise ValueError(col+' recorded RMSE mismatch')
 coverage=sum(float(r['gp_p05'])<=float(r['observed_stack_loss'])<=float(r['gp_p95']) for r in plant)
 if coverage!=19:raise ValueError('Brownlee interval coverage not 19/21')
-print(json.dumps({'scoped_scientific_certificates':4,'levels':{'A':3,'B':1},'original_plant_heldouts':21,
+# Independent original Yeh row, group separation and metric verification.
+from audit_concrete_retrospective import audit as audit_concrete
+concrete = audit_concrete()
+if concrete["heldout_observations"] != 229 or concrete["independent_physical_mix_tests"] != 0:
+    raise ValueError("Concrete scoped certificate evidence boundary invalid")
+print(json.dumps({'scoped_scientific_certificates':5,'levels':{'A':4,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
