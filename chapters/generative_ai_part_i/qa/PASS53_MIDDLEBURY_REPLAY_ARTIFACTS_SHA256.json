@@ -1,0 +1,31 @@
+{
+  "chapter": 6,
+  "pass": 53,
+  "experiment": "Middlebury original motorcycle one-scene real-data CVAE 220-step replay",
+  "original_images_sha256": {
+    "left": "ca829467c1d4f427da9c4862ba43829da6ac90afe1f75735e95dba9e3fd9620b",
+    "right": "ae44d83f55e66623c7985499fd2f1685a56023e442e66eca89b3457dd46b17af"
+  },
+  "local_execution_artifact_sha256": {
+    "independent_middlebury.py": "2e39451a79d8a501e278870100f78615c9c131b0e3f0c97eeef499639f2e6685",
+    "conditional_stereo_vae.pt": "9a6ae271123174503165ab115a621a3d1961a4cf185fa439e703d4356eae678f",
+    "manifest.json": "1172162f70069c13c8b8ac0041326a13cc12b3eb5029a353f0cc09dcea647a34",
+    "paired_metrics.png": "f79e25ceded21a45880695724953741ab8b505b54a334822a00a84ca29259f5f",
+    "paired_metrics.svg": "4e7bc3e1fd65b1ca2473c0d8650d83bb6de0c17e71210c0e22ed5f5adc91efb2",
+    "real_stereo_gallery.png": "649df662cbc0a86919004bcba81e3e1a6a22a2655d9c0a8d4f3a1d792e0d93c8",
+    "test_metrics.csv": "144b24b807178e5afbad5b6b785925657d365277b92c7291fdf6188ec8ea71f6",
+    "training.csv": "d9fd897810a6c8f97ae5ad38e49263297ceee2ac573ad552d9c306f982223ec5"
+  },
+  "results": {
+    "training": 855,
+    "validation": 180,
+    "test": 225,
+    "selected_step": 220,
+    "real_parent_scenes": 1,
+    "mean_test_psnr_copy": 23.157011094530336,
+    "mean_test_psnr_cvae": 14.408218237789152,
+    "mean_test_ssim_copy": 0.5400137761007581,
+    "mean_test_ssim_cvae": 0.6198464148243268
+  },
+  "caveat": "Hashes identify actual original-source execution artifacts retained in the linked chat ZIP. The ZIP itself and binary checkpoint are not asserted to be stored in GitHub; the repo holds full model source and replay code. No synthetic driving benchmark or second real stereo scene evaluated."
+}
