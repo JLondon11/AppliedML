@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 CHAPTER = Path("chapters/generative_ai_part_i")
-EXPECTED = {f"CH6-D{i:02d}" for i in range(1, 7)}
+EXPECTED = {f"CH6-D{i:02d}" for i in range(1, 9)}
 FUNDAMENTAL = ("R1", "R3", "R4", "R8", "R9", "R10")
 
 
@@ -38,7 +38,7 @@ def check(root: Path) -> dict:
         with register.open(newline="", encoding="utf-8") as stream:
             rows = list(csv.DictReader(stream))
         ids = [r.get("unit_id", "") for r in rows]
-        record("six_distinct_scoped_ids", len(rows) == 6 and set(ids) == EXPECTED,
+        record("eight_distinct_scoped_ids", len(rows) == 8 and set(ids) == EXPECTED,
                "IDs: " + ", ".join(ids))
         valid = all(r.get("level") == ("B" if r.get("unit_id") == "CH6-D04" else "A")
                     and r.get("scientific_status") == "SCIENTIFIC_CERTIFIED"
@@ -48,7 +48,7 @@ def check(root: Path) -> dict:
                     and bool(r.get("evidence_limits", "").strip())
                     for r in rows)
         record("scoped_certification_claims", valid,
-               "Six scoped decisions must retain evidence limits and production HOLD")
+               "Eight scoped decisions must retain evidence limits and production HOLD")
 
     manifest_path = chapter / "quality_assurance/chapter6_evidence_manifest.json"
     if not manifest_path.is_file():
