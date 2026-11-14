@@ -1,4 +1,4 @@
-"""Regression check: Chapter 6 scoped certification verifier accepts six scoped records.
+"""Regression check: Chapter 6 scoped certification verifier accepts eight scoped records.
 
 Run from anywhere:
     python -m unittest chapters/generative_ai_part_i/qa/test_scoped_certification_validator.py
@@ -16,7 +16,7 @@ HERE = Path(__file__).resolve().parent
 
 
 class ScopedCertificationRegisterTests(unittest.TestCase):
-    def test_six_scoped_certificates_and_production_hold(self):
+    def test_eight_scoped_certificates_and_production_hold(self):
         completed = subprocess.run(
             [sys.executable, str(HERE / "validate_scoped_ch6_certifications.py")],
             cwd=HERE,
@@ -29,8 +29,8 @@ class ScopedCertificationRegisterTests(unittest.TestCase):
             f"Verifier failed:\nSTDOUT:\n{completed.stdout}\nSTDERR:\n{completed.stderr}",
         )
         result = json.loads(completed.stdout)
-        self.assertEqual(result["scoped_scientific_certificates"], 6)
-        self.assertEqual(result["levels"], {"A": 5, "B": 1})
+        self.assertEqual(result["scoped_scientific_certificates"], 8)
+        self.assertEqual(result["levels"], {"A": 7, "B": 1})
         self.assertEqual(result["original_plant_heldouts"], 21)
         self.assertEqual(result["brownlee_90pct_coverage"], 19)
         self.assertEqual(result["chapter6_parent_applications_certified_by_this_register"], 0)
