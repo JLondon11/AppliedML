@@ -44,7 +44,7 @@ export function render(csv) {
 }
 if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1]))) {
   const source = process.argv[2] || new URL('./heldout_test_predictions.csv',import.meta.url);
-  const dest = process.argv[3] || new URL('./figures/concrete_verified_heldout.svg',import.meta.url);
+  const dest = process.argv[3] || path.join(path.dirname(new URL(import.meta.url).pathname),'figures','concrete_verified_heldout.svg');
   const svg=render(fs.readFileSync(source,'utf8'));
   fs.mkdirSync(path.dirname(String(dest)),{recursive:true});
   fs.writeFileSync(dest,svg);
