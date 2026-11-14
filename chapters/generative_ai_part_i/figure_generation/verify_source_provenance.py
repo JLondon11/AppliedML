@@ -3,7 +3,7 @@
 Example:
   python verify_source_provenance.py --source vae_pca_real_digits.py \
     --expected-git-blob 666cac09a9ec5b127f2ba7d89f109c6b10065df4 \
-    --outputs outputs/vae_pca --manifest evidence_manifest.json
+    --outputs EVIDENCE_PACKAGE_ROOT --manifest artifact_manifest.json
 
 Exits nonzero on any missing/mismatching file. Source-identity checks are NOT
 scientific certification or evidence of manuscript figure integration.
@@ -38,21 +38,42 @@ def inspect(source: Path, expected_blob: str, outputs: Path, manifest: dict) -> 
         actual = git_blob_sha(source)
         add("git_blob_source_identity", actual.lower() == expected_blob.lower(),
             f"expected {expected_blob}; actual {actual}")
-    files = manifest.get("files", {})
-    if not isinstance(files, dict) or not files:
-        add("manifest", False, "Expected nonempty files dict of relative paths to SHA-256 hashes")
+    # Accept the original generic format and the exact-head Chapter 6 package.
+    # The latter includes the source script under its package-relative filename.
+    has_legacy = "files" in manifest
+    has_package = "files_sha256" in manifest
+    if has_legacy and has_package:
+        add("manifest_schema", False, "Ambiguous manifest: both files and files_sha256")
+        files = {}
+    elif has_package:
+        files = manifest["files_sha256"]
+        declared_blob = manifest.get("source_git_blob_sha1")
+        add("manifest_source_blob", isinstance(declared_blob, str)
+            and declared_blob.lower() == expected_blob.lower(),
+            f"expected {expected_blob}; manifest {declared_blob}")
     else:
+        files = manifest.get("files", {})
+    if not isinstance(files, dict) or not files:
+        add("manifest", False, "Expected nonempty files or files_sha256 dictionary")
+    else:
+        source_name = source.name
+        if has_package and source_name not in files:
+            add("manifest_source_sha256", False, f"Missing source entry {source_name}")
         for relative, expected in sorted(files.items()):
-            relative_path = Path(relative)
-            if relative_path.is_absolute() or ".." in relative_path.parts:
+            rel = Path(relative)
+            if rel.is_absolute() or ".." in rel.parts or not rel.parts:
                 add(relative, False, "Unsafe relative path")
                 continue
-            candidate = outputs / relative_path
+            # In the exact-head package the root-level source and output/ files
+            # are peers; --outputs must point at their common package directory.
+            candidate = source if has_package and relative == source_name else outputs / rel
             if not candidate.is_file():
-                add(relative, False, "File missing")
+                add(relative, False, f"File missing: {candidate}")
                 continue
             actual = digest(candidate)
-            add(relative, actual.lower() == str(expected).lower(),
+            valid = isinstance(expected, str) and len(expected) == 64 and all(
+                ch in "0123456789abcdef" for ch in expected)
+            add(relative, valid and actual == expected,
                 f"expected {expected}; actual {actual}")
     return {"passed": sum(int(c["pass"]) for c in checks),
             "failed": sum(int(not c["pass"]) for c in checks),
