@@ -67,13 +67,19 @@ def check(root: Path) -> dict:
                 file = root / str(fig.get("output", ""))
                 valid_digest = (isinstance(digest, str) and len(digest) == 64
                                 and all(ch in "0123456789abcdef" for ch in digest))
-                output_ok = (file.is_file() and valid_digest and sha256(file) == digest)
+                source_rel = Path(str(fig.get("source_code", "")))
+                output_rel = Path(str(fig.get("output", "")))
+                safe = (not source_rel.is_absolute() and ".." not in source_rel.parts
+                        and not output_rel.is_absolute() and ".." not in output_rel.parts)
+                source_ok = safe and (root / source_rel).is_file()
+                output_ok = safe and file.is_file() and valid_digest and sha256(file) == digest
+                caption_ok = bool(str(fig.get("manuscript_caption", "")).strip())
                 record("figure_620_mapping",
                        fig.get("manuscript_mapping_verified") is True
                        and fig.get("experiment_executed") is True
                        and fig.get("dataset_provenance_verified") is True
-                       and same_domain and output_ok,
-                       "Require actual industrial-defect source, output hash and inspected manuscript mapping")
+                       and same_domain and source_ok and output_ok and caption_ok,
+                       "Require domain-matched executable source, exact output hash, caption, and inspected manuscript mapping")
         except (ValueError, OSError, TypeError) as exc:
             record("figure_620_mapping", False, "Cannot inspect manifest: " + str(exc))
 
