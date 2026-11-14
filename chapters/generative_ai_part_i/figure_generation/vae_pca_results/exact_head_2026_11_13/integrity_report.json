@@ -1,0 +1,20 @@
+{
+  "source_zip": "Chapter6_Exact_GitHub_Source_Executed_Evidence.zip",
+  "file_integrity_and_numerical_checks": {
+    "hash:vae_pca_real_digits.py": true,
+    "hash:output/metrics.json": true,
+    "hash:output/real_digits_vae_pca_evaluation.png": true,
+    "hash:output/test_predictions.csv": true,
+    "hash:output/training_history.csv": true,
+    "hash:output/vae_checkpoint.pt": true,
+    "git_blob_identity": true,
+    "270_unique_test_rows": true,
+    "partition_counts": true,
+    "mean_vae": true,
+    "mean_pca": true,
+    "mean_delta": true
+  },
+  "passed": 12,
+  "failed": 0,
+  "scope": "static archive integrity and arithmetic only; no new model execution"
+}
