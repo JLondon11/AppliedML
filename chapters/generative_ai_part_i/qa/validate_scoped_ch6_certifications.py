@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parent
 expected={'CH6-D01','CH6-D02','CH6-D03','CH6-D04'}
 with (ROOT/'CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv').open(newline='') as f:
     rows=list(csv.DictReader(f))
-if {r['unit_id'] for r in rows}!=expected or len(rows)!=3:raise ValueError('Incorrect experimental-unit set')
+if {r['unit_id'] for r in rows}!=expected or len(rows)!=len(expected):raise ValueError('Incorrect experimental-unit set')
 for r in rows:
     if r['level']!=('B' if r['unit_id']=='CH6-D04' else 'A') or r['scientific_status']!='SCIENTIFIC_CERTIFIED' or r['production_status']!='PRODUCTION_HOLD':
         raise ValueError(r['unit_id']+': incorrect scope or scientific/production gate')
