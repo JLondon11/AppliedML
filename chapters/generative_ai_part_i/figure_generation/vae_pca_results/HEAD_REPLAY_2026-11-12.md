@@ -3,6 +3,13 @@
 ## Result
 The local archived experiment was reconstructed with the **same muted ListedColormap ten-color configuration found in the current GitHub source**. The resulting Python implementation was executed using seed 19 and 35 epochs, and the five resulting evidence files each had SHA-256 hashes identical to the retained replay. This validates the current plotting configuration and recorded calculation in the tested environment. The literal current GitHub source file was not independently downloaded into the execution environment; therefore this is a **configuration-equivalent head replay**, not a byte-for-byte source-checkout attestation.
 
+
+## Source-identity discrepancy identified 2026-11-13
+
+The local ZIP `Chapter6_VAE_PCA_Current_Palette_Replay.zip` contains `github_head_vae_pca_real_digits.py` with Git blob SHA-1 `a8ac3d72f9c452ceed6e9442ac9066c229d25faf`. The GitHub API reports current `main` file blob SHA-1 `666cac09a9ec5b127f2ba7d89f109c6b10065df4`. **These are not the same source file byte-for-byte.** The previous output-equality finding remains evidence about the ZIP's source, but exact current-GitHub-head replay is NOT VERIFIED. Do not certify source identity from similar code structure or matching output hashes. The audit is blocked pending execution of the exact fetched head source (or reconciliation of the source difference) and asset publication.
+
+The repository has `figure_generation/verify_source_provenance.py` to require exact source blob identity together with evidence-file hashes.
+
 ## Evidence comparison
 | Artifact | Archived SHA-256 | Configuration-equivalent replay |
 |---|---|---|
