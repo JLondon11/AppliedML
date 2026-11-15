@@ -1,0 +1,62 @@
+name: Chapter 5 — CPU SAM COCO genuine inference
+on:
+  workflow_dispatch:
+    inputs:
+      images:
+        description: "Number of seeded COCO validation images"
+        required: false
+        default: "40"
+      max_objects:
+        description: "Maximum scored object instances"
+        required: false
+        default: "120"
+  push:
+    branches:
+      - chapter5-cpu-sam-validation-20261105
+    paths:
+      - ".github/workflows/chapter5-sam-coco-cpu.yml"
+      - "chapters/computer_vision/part_ii/autonomous_vehicles/experiments/sam_coco_cpu/**"
+
+permissions:
+  contents: read
+
+jobs:
+  sam-coco-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: "4"
+      OPENBLAS_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU inference dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy opencv-python-headless pycocotools matplotlib
+          python -m pip install 'git+https://github.com/facebookresearch/segment-anything.git'
+      - name: Run real SAM ViT-B inference on COCO 2017
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/sam_coco_cpu/evaluate.py \
+            --work "${{ runner.temp }}/ch5_sam_data" \
+            --out "ch5_sam_results" \
+            --images "${{ inputs.images || '40' }}" \
+            --max-objects "${{ inputs.max_objects || '120' }}" \
+            --seed 20261105
+      - name: Generate publication figures from actual predictions
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/sam_coco_cpu/plot_results.py \
+            --csv ch5_sam_results/per_object.csv \
+            --output ch5_sam_results
+      - name: Upload full per-instance measurements and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-sam-vitb-coco-cpu-evidence
+          path: ch5_sam_results/
+          if-no-files-found: warn
+          retention-days: 30

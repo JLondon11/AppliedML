@@ -1,0 +1,44 @@
+name: Chapter 5 paired real CrowdHuman occlusion architecture comparison
+on:
+  workflow_dispatch:
+  push:
+    branches: [chapter5-cpu-sam-validation-20261105]
+    paths:
+      - .github/workflows/chapter5_crowdhuman_paired_occlusion.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_paired_occlusion/**
+permissions:
+  contents: read
+jobs:
+  paired-original-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 95
+    env:
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU inference and scientific output dependencies
+        run: |
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install huggingface_hub hf_xet opencv-python-headless numpy matplotlib
+      - name: Obtain 48 original CrowdHuman frames, original ground truth, and fixed seed
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_cpu/prepare.py \
+            --out "${{ runner.temp }}/crowdhuman" --images 48 --seed 20261108
+      - name: Execute both actual pretrained detectors on same 48 images and all original people
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/crowdhuman_paired_occlusion/compare.py \
+            --images "${{ runner.temp }}/crowdhuman/images" \
+            --annotations "${{ runner.temp }}/crowdhuman/subset.odgt" \
+            --out crowdhuman_paired_results --num-images 48 --score 0.30
+      - name: Archive only actual derived measurements; never redistribute images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-crowdhuman-paired-original-real-occlusion-results
+          path: crowdhuman_paired_results/
+          if-no-files-found: warn
+          retention-days: 90

@@ -1,0 +1,47 @@
+name: Chapter 5 TuSimple original-test paired U-Net versus classical baseline
+on:
+  workflow_dispatch:
+  push:
+    branches: [chapter5-cpu-sam-validation-20261105]
+    paths:
+      - .github/workflows/chapter5_tusimple_exact_paired_original_test.yml
+      - chapters/computer_vision/part_ii/autonomous_vehicles/experiments/tusimple_unet_cpu/evaluate_original_test_classical_baseline.py
+permissions:
+  actions: read
+  contents: read
+jobs:
+  real-original-test-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      HF_HUB_DISABLE_PROGRESS_BARS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install scientific image evaluation dependencies
+        run: |
+          python -m pip install numpy opencv-python-headless huggingface_hub hf_xet matplotlib
+      - name: Restore exact original U-Net experiment output (no fabricated score table)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p previous_original_run
+          gh run download 42432540622 --repo "${{ github.repository }}" --name chapter5-tusimple-original-test-pretrained-unet-measured --dir previous_original_run
+          test -s previous_original_run/per_frame.csv
+          test -s previous_original_run/metrics.json
+      - name: Evaluate 32 matching original TuSimple test photographs using predeclared classical baseline
+        run: |
+          python chapters/computer_vision/part_ii/autonomous_vehicles/experiments/tusimple_unet_cpu/evaluate_original_test_classical_baseline.py \
+            --reference-csv previous_original_run/per_frame.csv --out tusimple_paired_results
+          test -s tusimple_paired_results/metrics.json
+          test -s tusimple_paired_results/per_image_comparison.csv
+      - name: Archive calculated real-data scores and scientific plots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter5-tusimple-original-test-paired-real-data-baseline
+          path: tusimple_paired_results/
+          if-no-files-found: warn
+          retention-days: 90
