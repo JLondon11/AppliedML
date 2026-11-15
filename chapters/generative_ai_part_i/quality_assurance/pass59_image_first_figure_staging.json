@@ -93,6 +93,22 @@
       "conceptual_not_measured_figure": true,
       "visual_reviewed": true,
       "manuscript_placement_verified": false
+    },
+    {
+      "internal_id": "PASS61-ARCH-TISSUE",
+      "kind": "scientific-convolutional-model-architecture-schematic",
+      "experiment_scope": "CH6-D11 original one-source-photograph convolutional VAE topology",
+      "publication_figure_number": null,
+      "manuscript_placement_verified": false,
+      "visual_reviewed": true,
+      "original_implementation": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/run.py",
+      "generating_code": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/plot_tissue_vae_code_architecture.py",
+      "layer_dimensions": "32x32 RGB -> Conv 3 to 16 to 32 to 64, feature 64x4x4 -> 24-dimensional Gaussian latent -> fc 64x4x4 -> transposed Conv 64 to 32 to 16 to 3",
+      "loss": "Pixel mean squared error plus 0.0001 times sample-mean KL summed over 24 latent features",
+      "source_is_model_output": false,
+      "conceptual_not_measured_figure": true,
+      "staged_pdf_name": "tissue_convolutional_vae_code_architecture.pdf",
+      "staged_pdf_sha256": "7861347ccd0c5a7a2b758e93d2ee581b51ca9a7f8b2f0761d2a8649138b2abaa"
     }
   ],
   "figure_620": {
