@@ -28,7 +28,7 @@ class ReleaseGateTests(unittest.TestCase):
         with self.reg.open("w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
-            for n in range(1, 9):
+            for n in range(1, 11):
                 writer.writerow({
                     "unit_id": f"CH6-D{n:02d}", "level": "B" if n == 4 else "A",
                     "scientific_status": "SCIENTIFIC_CERTIFIED",
@@ -60,6 +60,38 @@ class ReleaseGateTests(unittest.TestCase):
         d.mkdir()
         (d / "chapter6.tex").write_text("\\documentclass{book}\n\\begin{document}\nFixture\\end{document}\n")
         (d / "chapter6.pdf").write_bytes(b"%PDF-1.7 fixture only")
+
+    def test_missing_scoped_certificate_blocks_release(self):
+        # Removing a real scoped certificate must never silently reduce the gate.
+        with self.reg.open(newline="") as handle:
+            rows = list(csv.DictReader(handle))
+            fields = list(rows[0])
+        with self.reg.open("w", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fields)
+            writer.writeheader()
+            writer.writerows(rows[:-1])
+        self._manifest()
+        self._manuscript()
+        report = check(self.root)
+        self.assertEqual(report["release"], "BLOCKED")
+        self.assertIn("scoped_id_continuity",
+                      {r["gate"] for r in report["checks"] if not r["pass"]})
+
+    def test_noncontiguous_scoped_id_blocks_release(self):
+        with self.reg.open(newline="") as handle:
+            rows = list(csv.DictReader(handle))
+            fields = list(rows[0])
+        rows[-1]["unit_id"] = "CH6-D12"
+        with self.reg.open("w", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fields)
+            writer.writeheader()
+            writer.writerows(rows)
+        self._manifest()
+        self._manuscript()
+        report = check(self.root)
+        self.assertEqual(report["release"], "BLOCKED")
+        self.assertIn("scoped_id_continuity",
+                      {r["gate"] for r in report["checks"] if not r["pass"]})
 
     def test_missing_artifacts_fail_closed(self):
         result = check(self.root)
