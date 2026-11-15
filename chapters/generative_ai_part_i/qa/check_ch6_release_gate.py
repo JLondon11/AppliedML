@@ -85,6 +85,15 @@ def check(root: Path) -> dict:
         except (ValueError, OSError, TypeError) as exc:
             record("figure_620_mapping", False, "Cannot inspect manifest: " + str(exc))
 
+    # Figure 6.20 alone is not full production provenance: require every
+    # current figure, parent study, substantive table and listing to be audited.
+    from verify_ch6_production_inventory import verify as verify_inventory
+    inventory = verify_inventory(root)
+    record("full_production_inventory",
+           inventory["status"] == "STRUCTURAL_PASS_MANUAL_REVIEW_REQUIRED",
+           "; ".join(inventory["issues"][:8]) if inventory["issues"] else
+           f"Source-linked inventory contains {inventory['checks']} audited items")
+
     manuscript_dir = chapter / "manuscript"
     tex = list(manuscript_dir.rglob("*.tex")) if manuscript_dir.is_dir() else []
     pdf = list(manuscript_dir.rglob("*.pdf")) if manuscript_dir.is_dir() else []
