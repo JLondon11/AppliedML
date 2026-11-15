@@ -6,11 +6,11 @@
   "warning": "This uploaded Pass 2 source has five titled units, unlike older eleven-unit Deep Learning Part I source, and does not include UCI HAR or LSTM/GRU classification case-study sections.",
   "unit_count": 5,
   "scientific_scoped_level_b_certificates": 3,
-  "scientific_holds": 1,
-  "full_chapter_science_approval": "HOLD",
-  "full_chapter_production": "HOLD",
+  "scientific_holds": 0,
+  "full_chapter_science_approval": "5/5 named scoped units scientifically certified; other sections, cross-unit scientific figure audit incomplete",
+  "full_chapter_production": "HOLD; canonical GitHub release and complete figure-level production QA not complete",
   "local_pdf_pages": 118,
-  "local_pdf_sha256": "df451ea4abf0cdaecd2e9b3b11e021d92f0009d1aedbd644765c741313389d2e",
+  "local_pdf_sha256": "57b0d91fd0bef95de969edd9c8fa362378c1e3a5d2b7e030b8e087fe63f1cc89",
   "figure_pages_pdf": [
     88,
     89,
@@ -22,22 +22,24 @@
   "units": [
     {
       "unit": "CH2-P2-01",
-      "title": "Application: Nonlinear Classification on Two Moons",
-      "level": "A (pedagogical proposed)",
-      "decision": "HOLD_SYNTHETIC_DATA",
-      "basis": "make_moons 1400 computer-generated points; not original observed empirical data; retain as explicitly labeled simulated numerical illustration or replace data before empirical certification",
+      "title": "Application: Nonlinear Classification of Observed Handwritten Digits",
+      "level": "A",
+      "decision": "SCIENTIFIC_CERTIFIED_SCOPED_LEVEL_A",
+      "basis": "Real Digits data n=357, disjoint stratified 249 training/108 holdout; StandardScaler and PCA(2) fitted on training alone; actual executed MLP(32,32) test accuracy 0.8888889, logistic test accuracy 0.8703704, actual ROC AUC 0.9722127; true source images, predicted probabilities and original labels retained; actual 3-panel Figure 2.5 in locally compiled PDF. Does not certify all-digit classification or general MLP superiority.",
       "checks": {
-        "R1": "FAIL",
+        "R1": "PASS",
         "R2": "PASS",
         "R3": "PASS",
-        "R4": "PARTIAL",
-        "R5": "NOT VERIFIED",
-        "R6": "PARTIAL",
-        "R7": "N/A — deterministic pedagogical geometry only",
-        "R8": "FAIL",
-        "R9": "PARTIAL",
-        "R10": "PARTIAL"
-      }
+        "R4": "PASS",
+        "R5": "PASS",
+        "R6": "PASS",
+        "R7": "PASS",
+        "R8": "PASS",
+        "R9": "PASS",
+        "R10": "PASS"
+      },
+      "scope": "Preselected two original Digits classes (3 versus 8), original 8x8 observed images, training-fit two-feature PCA, MLP nonlinear decision geometry, genuine independent held-out 108 predictions",
+      "production_qa": "Figure/PDF verified in local 118-page compiled book, clean canonical GitHub source+binary publication pending."
     },
     {
       "unit": "CH2-P2-02",
@@ -121,8 +123,9 @@
     }
   ],
   "last_update": "2026-11-14",
-  "scientific_scoped_level_a_certificates": 1,
-  "source_package_pass4": "Chapter2_Pass4_Real_Digits_Figures_20261114.zip",
+  "scientific_scoped_level_a_certificates": 2,
+  "source_package_pass4": "Chapter2_Pass4_All5_RealData_20261114.zip",
   "actual_convolution_and_seed_code": "chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/run.py",
-  "note": "The old two-moons initial application remains a synthetic pedagogical illustration, not a real-data application certificate. Four of the five named empirical scopes are scientifically certified under proportional R1–R10; final chapter remains HOLD."
+  "note": "Pass4: all five named application/case-study units have proportionally scoped authentic-data experiments and result figures. Scientific A/B certificates are scope-limited; no general model superiority, ten-class claim, or full chapter production approval. Original two-moons synthetic application was retitled and replaced with real 3-versus-8 digit data, its former source remains historical only, and the current submitted manuscript contains no such synthetic-data application.",
+  "actual_nonlinear_code": "chapters/deep_learning/part_i/experiments/pass4_real_digits_nonlinear/run.py"
 }
