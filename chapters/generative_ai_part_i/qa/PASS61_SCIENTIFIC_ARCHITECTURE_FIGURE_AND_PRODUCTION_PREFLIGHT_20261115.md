@@ -48,3 +48,18 @@ The exact candidate figure names, source paths, claim restrictions, original sta
 - Unverified genuinely required experiments still include multi-scene real-data downstream driving perception for broad synthetic-driving claims and independently measured strength of novel generated concrete recipes if physical performance is asserted.
 
 **Pass61 verdict:** five useful non-plot scientific assets staged and verified locally; actual model evidence and published figure diversity improved; manuscript-wide scientific-parent and final production approvals remain **HOLD**. GitHub workflow for architecture regeneration has been committed, but CI execution is unconfirmed.
+
+## Pass 61 follow-on: second architecture diagram and six-figure final preflight
+
+An additional code-faithful **convolutional histology VAE architecture diagram** was generated from the authentic `code/section_6_medical_imaging_histology_vae/run.py` implementation. It shows true 32×32 RGB inputs; stride-2 convolutions **3→16→32→64**, 64×4×4 flattened features, learned **24-dimensional Gaussian μ/logvar** heads and stochastic reparameterization; a decoder with learned linear reshape to 64×4×4 followed by transposed convolutions **64→32→16→3 and sigmoid**; the actual loss `MSE + 0.0001 × KL`; and the original **589/93/217** within-photo split. It is explicitly a source-code architecture *schematic*, not a model-generated tissue image.
+
+- Complete code: `code/section_6_medical_imaging_histology_vae/plot_tissue_vae_code_architecture.py`.
+- Exact inspected staged vector PDF SHA-256: `7861347ccd0c5a7a2b758e93d2ee581b51ca9a7f8b2f0761d2a8649138b2abaa`.
+- `quality_assurance/pass59_image_first_figure_staging.json` now contains **six** staged figures with their accurate types, asset hashes and **manuscript_placement_verified=false**.
+- The exact paper-size generated PDF was rendered and inspected; no off-page text, clipping or under-6-point text was found.
+- A local independent PyMuPDF pass was executed on the **six actually generated staged figure PDFs**; result: **6/6 passed**, zero original-source SHA256 mismatches, zero missing source/model images, zero off-page text spans and both model-architecture figure texts present. The committed `qa/audit_pass61_scientific_figure_portfolio.py` is updated to test both architecture figures.
+- `.github/workflows/chapter6_image_first_authentic_figures.yml` includes both code-based architecture regeneration jobs and their text sanity checks. Their **remote execution is not yet confirmed**.
+
+**New suggested caption:** *Code-faithful architecture of the tissue-patch convolutional variational autoencoder used for the original single-photograph immunohistochemistry experiment. Three stride-2 encoder convolutions map an original 32×32 RGB patch into 64×4×4 features, from which a 24-dimensional latent Gaussian is parameterized and sampled. A linear reshape and three transposed convolutions reconstruct RGB patches; training minimizes pixel MSE plus weighted KL divergence. The actual observed image reconstructions and errors are displayed separately. The model was not validated across independent patients or tissue images.*
+
+**Final status unchanged:** original narrowly scoped scientific certification register = 12 experiments; actual broad parent application scientific QA and all-manuscript production QA remain HOLD.
