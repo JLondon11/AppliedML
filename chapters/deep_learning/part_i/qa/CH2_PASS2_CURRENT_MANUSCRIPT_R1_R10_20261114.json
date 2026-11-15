@@ -5,12 +5,12 @@
   "source_latex": "Chapter_2_Deep_Learning_Part_I_REVISED_QA_PASS2.tex",
   "warning": "This uploaded Pass 2 source has five titled units, unlike older eleven-unit Deep Learning Part I source, and does not include UCI HAR or LSTM/GRU classification case-study sections.",
   "unit_count": 5,
-  "scientific_scoped_level_b_certificates": 2,
-  "scientific_holds": 3,
+  "scientific_scoped_level_b_certificates": 3,
+  "scientific_holds": 1,
   "full_chapter_science_approval": "HOLD",
   "full_chapter_production": "HOLD",
-  "local_pdf_pages": 117,
-  "local_pdf_sha256": "d0916a64c46ad02b944c102ad78aae68226fcce29a19aae8c76f6d22f82d002b",
+  "local_pdf_pages": 118,
+  "local_pdf_sha256": "df451ea4abf0cdaecd2e9b3b11e021d92f0009d1aedbd644765c741313389d2e",
   "figure_pages_pdf": [
     88,
     89,
@@ -43,20 +43,22 @@
       "unit": "CH2-P2-02",
       "title": "Application: Convolutional Feature Extraction from Digit Images",
       "level": "A",
-      "decision": "HOLD_FILTER_OUTPUT_VERIFICATION",
-      "basis": "Real Digits image with fixed convolution claimed, but exact current three filter arrays and actual Figure 2.19 generation not independently rerun in this pass",
+      "decision": "SCIENTIFIC_CERTIFIED_SCOPED_LEVEL_A",
+      "basis": "Executed original scikit-learn Digits image index 0 with 3 actual deterministic 3x3 spatial correlations using reflect boundary handling; 8x8 response arrays, source hash and kernel arithmetic verified; Figure 2.19 integrated and PDF inspected. No trained CNN classification claimed.",
       "checks": {
         "R1": "PASS",
         "R2": "PASS",
-        "R3": "NOT VERIFIED",
-        "R4": "NOT VERIFIED",
-        "R5": "N/A — explicitly fixed-kernel operation, no comparator superiority claim",
-        "R6": "NOT VERIFIED",
+        "R3": "PASS",
+        "R4": "PASS",
+        "R5": "PASS",
+        "R6": "PASS",
         "R7": "PASS",
-        "R8": "NOT VERIFIED",
-        "R9": "NOT VERIFIED",
-        "R10": "PARTIAL"
-      }
+        "R8": "PASS",
+        "R9": "PASS",
+        "R10": "PASS"
+      },
+      "scope": "Fixed-kernel spatial response calculation on authentic observed 8x8 Digits pixels",
+      "production_qa": "PDF and placement passed in local 118-page edition; canonical GitHub binary release pending."
     },
     {
       "unit": "CH2-P2-03",
@@ -100,20 +102,27 @@
       "unit": "CH2-P2-05",
       "title": "Case Study: Reproducibility across Random Seeds",
       "level": "B",
-      "decision": "HOLD_SYNTHETIC_DATA",
-      "basis": "Manuscript reports multiple make_moons simulations, not a demonstrated multi-seed real-observation case study; independent Digits multiseed study elsewhere may be adapted but is not currently integrated",
+      "decision": "SCIENTIFIC_CERTIFIED_SCOPED_LEVEL_B",
+      "basis": "12 executed 24x24 MLP runs on the original 1797-image Digits dataset with identical 1347 train /450 untouched test split; 5400 held-out class predictions and 12 training histories saved, accuracy mean 0.96907407 sample SD 0.00458939; actual Figure 2.35 and revised table/listing integrated. No test seed selection or cross-dataset claims.",
       "checks": {
-        "R1": "FAIL",
-        "R2": "NOT VERIFIED",
-        "R3": "PARTIAL",
-        "R4": "PARTIAL",
-        "R5": "NOT VERIFIED",
-        "R6": "PARTIAL",
-        "R7": "N/A — synthetic numerical illustration only",
-        "R8": "FAIL",
-        "R9": "PARTIAL",
-        "R10": "PARTIAL"
-      }
+        "R1": "PASS",
+        "R2": "PASS",
+        "R3": "PASS",
+        "R4": "PASS",
+        "R5": "PASS",
+        "R6": "PASS",
+        "R7": "PASS",
+        "R8": "PASS",
+        "R9": "PASS",
+        "R10": "PASS"
+      },
+      "scope": "Multi-seed MLP prediction variability on the fixed original Digits test split",
+      "production_qa": "PDF and placement passed in local 118-page edition; canonical GitHub binary release pending."
     }
-  ]
+  ],
+  "last_update": "2026-11-14",
+  "scientific_scoped_level_a_certificates": 1,
+  "source_package_pass4": "Chapter2_Pass4_Real_Digits_Figures_20261114.zip",
+  "actual_convolution_and_seed_code": "chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/run.py",
+  "note": "The old two-moons initial application remains a synthetic pedagogical illustration, not a real-data application certificate. Four of the five named empirical scopes are scientifically certified under proportional R1–R10; final chapter remains HOLD."
 }
