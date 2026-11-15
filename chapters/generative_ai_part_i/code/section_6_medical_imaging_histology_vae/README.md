@@ -20,3 +20,9 @@ Requires Python, PyTorch, NumPy, scikit-image and Matplotlib. Seed: 20261109, 12
 | Prior generated samples | 128 |
 
 **Negative result:** Posterior-mean reconstructions blur fine tissue structures and unconditional samples are largely featureless. Reconstruction PSNR does not assess unconditional generation. This single-tissue experiment cannot establish clinical plausibility, privacy protection, patient-level generalization, pathological label fidelity, or downstream utility. It adds **partial executed evidence** to Medical Imaging Synthesis, but full Master QA remains HOLD.
+
+## Scoped scientific certification — 2026-11-14
+
+The **single-parent-photograph tissue-patch CVAE reconstruction and sampling diagnostic** is registered as **CH6-D11, Level A SCIENTIFIC_CERTIFIED**. This uses genuine source microscopy, original spatially disjoint row regions (589 train/93 validation/217 test patches), an executed trained convolutional VAE, actual original 217 test patch reconstruction scores, 128 generated prior sample records and actual source-image reconstruction galleries. Original source SHA256, model checkpoint, figures and per-sample results were independently checked in Pass47. The prior-generated image samples are not clinically validated tissue. This narrow scientific certificate **does not certify medical image synthesis across tissues, patients or modalities, clinical pathologist acceptance or any independent hospital cohort**.
+
+The added `plot_original_tissue_patch_errors.py` recreates two publication-ready charts from the actual original 217 held-out test patch metrics, including spatial reconstruction error and the observed VAE-versus-nearest-original-training-patch error ECDF; it refuses missing or altered source counts. It is a figure-code improvement, **not** a new independent patient experiment. The latest Chapter 6 print figure placement remains **PRODUCTION_HOLD**.
