@@ -1,0 +1,96 @@
+name: Chapter 6 original molecular-data inference and evidence checks
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter6_real_molecular_evidence.yml'
+      - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/**'
+      - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/**'
+      - 'chapters/generative_ai_part_i/qa/CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv'
+permissions:
+  contents: read
+jobs:
+  original-measured-esol-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'matplotlib>=3.8,<4'
+      - name: Download publicly available original measured ESOL source from exact data commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            'https://raw.githubusercontent.com/deepchem/deepchem/108af2176a5f876c2df1df922baadb02d647c826/datasets/delaney-processed.csv' \
+            -o "$RUNNER_TEMP/delaney-processed.csv"
+          test -s "$RUNNER_TEMP/delaney-processed.csv"
+      - name: Independent 902/226 original measured assay ranking replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol
+          python "$D/reproduce_esol.py" --csv "$RUNNER_TEMP/delaney-processed.csv" --output "$RUNNER_TEMP/esol_original"
+          python - <<'PY'
+          from pathlib import Path
+          import csv,json,math,os
+          d=Path('chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol')
+          expected=list(csv.DictReader((d/'verified_original_ESOL_226_test_predictions.csv').open()))
+          actual=list(csv.DictReader((Path(os.environ['RUNNER_TEMP'])/'esol_original/test_predictions.csv').open()))
+          assert len(expected)==len(actual)==226
+          for x,y in zip(expected,actual):
+              assert x['smiles']==y['smiles'] and x['name']==y['name']
+              for k in ('measured_logS','ridge','published_ESOL'):
+                  assert abs(float(x[k])-float(y[k]))<1e-8,(k,x['name'])
+              assert x['hit']==y['hit']
+          report=json.loads((Path(os.environ['RUNNER_TEMP'])/'esol_original/summary.json').read_text())
+          assert report['strategies']['ridge']['top20_hits']==14
+          assert report['strategies']['p']['top20_hits']==17
+          print('PASS: every original observed ESOL label and 226 retained forecast/rank values')
+          PY
+      - name: Generate actual measured assay scatter figures
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol
+          python "$D/plot_verified_original_assays.py" --output "$RUNNER_TEMP/esol_figure"
+          test -s "$RUNNER_TEMP/esol_figure/esol_original_assay_retrospective.pdf"
+          test -s "$RUNNER_TEMP/esol_figure/esol_original_assay_retrospective.svg"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-original-ESOL-226-measured-assay-replay-figures
+          path: |
+            ${{ runner.temp }}/esol_original
+            ${{ runner.temp }}/esol_figure
+          retention-days: 90
+  original-nci-smiles-vae:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original generative algorithm and genuine NCI dataset
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'rdkit>=2024.3,<2027' 'torch>=2.3,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+      - name: Execute actual character-level SMILES VAE on original NCI molecules
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae
+          python "$D/run.py" --epochs 6 --limit 600 --output "$RUNNER_TEMP/nci_real"
+          mkdir -p "$D/results"
+          cp -a "$RUNNER_TEMP/nci_real/." "$D/results/"
+          python "$D/test_outputs.py"
+          python "$D/plot_original_smiles_diagnostic.py" \
+            --results "$RUNNER_TEMP/nci_real" --output "$RUNNER_TEMP/nci_figures"
+          test -s "$RUNNER_TEMP/nci_figures/nci_smiles_original_failure_analysis.pdf"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-original-NCI-molecular-string-VAE-replay
+          path: |
+            ${{ runner.temp }}/nci_real
+            ${{ runner.temp }}/nci_figures
+          retention-days: 90
