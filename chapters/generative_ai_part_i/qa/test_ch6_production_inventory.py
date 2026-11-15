@@ -41,10 +41,11 @@ class ProductionInventoryTests(unittest.TestCase):
                 "sha256": hashlib.sha256(image.read_bytes()).hexdigest(),
                 "caption": f"Test fixture {n}",
                 "scientific_reviewed": True,
-                "kind": "experimental" if n == 20 else "conceptual",
-                **({"generator": str(generator.relative_to(self.root)),
+                "kind": "experimental" if n <= 14 or n == 20 else "conceptual",
+                **({"dataset_provenance_verified": True,
+                    "generator": str(generator.relative_to(self.root)),
                     "observed_data_or_results": str(results.relative_to(self.root))}
-                   if n == 20 else {}),
+                   if n <= 14 or n == 20 else {}),
             })
         self.inventory = {
             "chapter": 6,
@@ -93,6 +94,16 @@ class ProductionInventoryTests(unittest.TestCase):
     def test_untraced_experiment_fails(self):
         data = copy.deepcopy(self.inventory)
         del data["figures"][19]["generator"]
+        self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
+
+    def test_parent_without_empirical_figure_fails(self):
+        data = copy.deepcopy(self.inventory)
+        data["parent_applications"][0]["figure_ids"] = ["6.48"]
+        self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
+
+    def test_unverified_dataset_source_fails(self):
+        data = copy.deepcopy(self.inventory)
+        data["figures"][19]["dataset_provenance_verified"] = False
         self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
 
     def test_unsupported_experiment_promotion_fails(self):
