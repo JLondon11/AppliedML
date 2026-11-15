@@ -14,6 +14,8 @@ from pathlib import Path
 CHAPTER = Path("chapters/generative_ai_part_i")
 BASELINE_FIGURES = 48  # archived 109-page Pass 44; update only after new compiled audit
 BASELINE_PARENTS = 14
+BASELINE_TABLES = 17
+BASELINE_LISTINGS = 11
 
 
 def _safe(root: Path, relative: object) -> Path | None:
@@ -56,6 +58,10 @@ def verify(root: Path, inventory: Path | None = None) -> dict:
         issues.append(f"Figure coverage {len(figures)}/{BASELINE_FIGURES} audited baseline")
     if len(parents) != BASELINE_PARENTS:
         issues.append(f"Parent applications {len(parents)}/{BASELINE_PARENTS} audited baseline")
+    if len(tables) != BASELINE_TABLES:
+        issues.append(f"Table coverage {len(tables)}/{BASELINE_TABLES} audited baseline")
+    if len(listings) != BASELINE_LISTINGS:
+        issues.append(f"Code listing coverage {len(listings)}/{BASELINE_LISTINGS} audited baseline")
     if not isinstance(obj.get("manuscript_sha256"), str) or len(obj["manuscript_sha256"]) != 64:
         issues.append("No current compiled manuscript SHA-256")
     elif (pdf := _safe(root, obj.get("manuscript_pdf"))) is None or hashlib.sha256(pdf.read_bytes()).hexdigest() != obj["manuscript_sha256"]:
