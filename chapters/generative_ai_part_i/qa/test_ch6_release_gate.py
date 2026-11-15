@@ -118,12 +118,13 @@ class ReleaseGateTests(unittest.TestCase):
         self._manuscript()
         self.assertEqual(check(self.root)["release"], "BLOCKED")
 
-    def test_structural_fixture_never_claims_scientific_certification(self):
+    def test_single_figure_is_not_full_production_coverage(self):
         self._manifest()
         self._manuscript()
         result = check(self.root)
-        self.assertEqual(result["failed"], 0)
-        self.assertEqual(result["release"], "STRUCTURAL_GATE_PASS_REVIEW_REQUIRED")
+        self.assertEqual(result["release"], "BLOCKED")
+        self.assertIn("full_production_inventory",
+                      {r["gate"] for r in result["checks"] if not r["pass"]})
 
 
 if __name__ == "__main__":
