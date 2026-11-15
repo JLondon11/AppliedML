@@ -11,7 +11,8 @@ from sklearn.datasets import load_digits
 PDF_SHA256={
  'original_tissue_source_and_patches.pdf':'3211bfab2579ed7b246677f93b88130f8ffbb8e71eb26adc74c3379eb530f416',
  'original_scanned_digits_gallery.pdf':'e74cfde0be705c00fda8c1c48fa441cd2e07abb112fedff4335c36ff05785264',
- 'actual_tissue_cvae_reconstruction_gallery.pdf':'e1845abf02988cb5d2dbc4c9a52d764ab3d740bb2457c9e56e2466b1c38b6c36'
+ 'actual_tissue_cvae_reconstruction_gallery.pdf':'e1845abf02988cb5d2dbc4c9a52d764ab3d740bb2457c9e56e2466b1c38b6c36',
+ 'original_nci_chemical_structures.pdf':'99c51fef486ec4f2dd91caa25017863bd9ca1e92c24c9d1ef30e191f9c39ad04'
 }
 def audit(stage):
     stage=Path(stage)
@@ -24,7 +25,8 @@ def audit(stage):
     actual={
        'original_tissue_source_and_patches.pdf':stage/'original_tissue_source_and_patches.pdf',
        'original_scanned_digits_gallery.pdf':stage/'original_scanned_digits_gallery.pdf',
-       'actual_tissue_cvae_reconstruction_gallery.pdf':stage/'model_verified_gallery'/'actual_tissue_cvae_reconstruction_gallery.pdf'
+       'actual_tissue_cvae_reconstruction_gallery.pdf':stage/'model_verified_gallery'/'actual_tissue_cvae_reconstruction_gallery.pdf',
+       'original_nci_chemical_structures.pdf':stage/'original_nci_chemical_structures.pdf'
     }
     files={}
     for name,path in actual.items():
@@ -36,6 +38,11 @@ def audit(stage):
         files[name]={'bytes':path.stat().st_size,'sha256':digest}
     source=json.loads((stage/'source_image_plate_provenance.json').read_text())
     model=json.loads((stage/'model_verified_gallery'/'actual_tissue_gallery_measured_metrics.json').read_text())
+    chemistry=json.loads((stage/'original_nci_molecules_provenance.json').read_text())
+    if chemistry['genuine_first_filtered_unique_molecules']!=600 or chemistry['observed_source_structures_not_generations'] is not True:
+        raise ValueError('Original NCI structures cannot be claimed as generated molecules')
+    if chemistry['original_file_sha256']!='91e71c015f14939837f2943dcc904f7c87e5a3a0124d82b05c28ad2f23004def':
+        raise ValueError('Original NCI source file SHA256 does not reconcile')
     if not source['actual_source_not_model_generated'] or source['digit_source_sample_count']!=1797:
         raise ValueError('False original-image/model-output identity')
     if model['source_images']!=1 or model['spatially_heldout_patches']!=217:
