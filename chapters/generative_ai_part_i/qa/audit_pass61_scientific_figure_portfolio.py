@@ -23,6 +23,8 @@ SOURCE={
    ("actual-executed-model-output-gallery","e1845abf02988cb5d2dbc4c9a52d764ab3d740bb2457c9e56e2466b1c38b6c36",32),
  "nci_molecular_vae_code_architecture.pdf":
    ("source-code-faithful-conceptual-model-architecture",None,0),
+ "tissue_convolutional_vae_code_architecture.pdf":
+   ("source-code-faithful-conceptual-model-architecture",None,0),
 }
 def check(stage):
  stage=Path(stage)
@@ -51,18 +53,22 @@ def check(stage):
     issues.append("No selectable/editable text in vector PDF: "+rel)
    if sizes and min(sizes)<6:
     issues.append("Very small text (<6 pt): "+rel)
-   if rel.endswith("code_architecture.pdf"):
+   if rel=="nci_molecular_vae_code_architecture.pdf":
     text=p.get_text()
     for fragment in ("BiGRU encoder","Autoregressive GRU decoder","32 features","120 original","RDKit chemistry"):
      if fragment not in text:issues.append("Architecture label missing: "+fragment)
+   if rel=="tissue_convolutional_vae_code_architecture.pdf":
+    text=p.get_text()
+    for fragment in ("Conv encoder","Transposed-convolution decoder","24 components","589 source-region"):
+     if fragment not in text:issues.append("Tissue architecture label missing: "+fragment)
    records.append({"path":rel,"scientific_figure_type":kind,"sha256":actual,
      "images":images,"min_text_pt":round(min(sizes),2) if sizes else None,
      "max_text_pt":round(max(sizes),2) if sizes else None,
      "page_size_pt":[round(bbox.width,1),round(bbox.height,1)]})
  categories={r["scientific_figure_type"] for r in records}
- if not any("architecture" in x for x in categories):
+ if sum("architecture" in r["scientific_figure_type"] for r in records)<2:
   issues.append("No architecture or pedagogical scientific diagram")
- if len(records)!=5:issues.append("Expected five complete non-plot scientific figures")
+ if len(records)!=6:issues.append("Expected six complete non-plot scientific figures")
  result={"status":"PASS_STAGED_FIGURE_PREFLIGHT_NOT_MANUSCRIPT_APPROVAL" if not issues else "HOLD",
      "figures_inspected":len(records),"source_or_model_figure_count":len(records),
      "standalone_numerical_plot_count":0,"figure_records":records,
