@@ -57,6 +57,26 @@
       "measured_MSE": 0.010481160134077072,
       "visual_reviewed": true,
       "manuscript_placement_verified": false
+    },
+    {
+      "internal_id": "PASS59-SOURCE-NCI",
+      "kind": "original-molecular-structure-gallery",
+      "experiment_scope": "CH6-D09 true input NCI SMILES and three split partitions (not VAE generated molecules)",
+      "publication_figure_number": null,
+      "source_dataset": "RDKit Data/NCI/first_5K.smi original source 600 filtered canonical compounds",
+      "source_file_sha256": "91e71c015f14939837f2943dcc904f7c87e5a3a0124d82b05c28ad2f23004def",
+      "split_counts": {
+        "training": 360,
+        "validation": 120,
+        "test": 120
+      },
+      "generating_code": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py",
+      "staged_pdf_sha256": "99c51fef486ec4f2dd91caa25017863bd9ca1e92c24c9d1ef30e191f9c39ad04",
+      "staged_pdf_name": "original_nci_chemical_structures.pdf",
+      "source_is_model_output": false,
+      "source_is_original_measured_activity": false,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false
     }
   ],
   "figure_620": {
