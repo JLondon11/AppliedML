@@ -7,6 +7,7 @@ on:
       - 'chapters/generative_ai_part_i/figure_generation/original_source_image_plates/**'
       - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py'
+      - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/plot_nci_smiles_vae_code_architecture.py'
 permissions:
   contents: read
 jobs:
@@ -19,7 +20,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install source data and image-publishing libraries
-        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'scikit-image>=0.22,<0.27' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'scikit-image>=0.22,<0.27' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
       - name: Produce original, nonsimulated photographed/source-image plates
         shell: bash
         run: |
@@ -98,6 +99,25 @@ jobs:
           python-version: '3.11'
       - name: Install chemistry depiction and original dataset
         run: python -m pip install --disable-pip-version-check 'rdkit>=2024.3,<2027' 'numpy>=1.26,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+      - name: Generate vector figure showing the actual NCI GRU-VAE architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae
+          python "$D/plot_nci_smiles_vae_code_architecture.py" --output "$RUNNER_TEMP/nci_vae_architecture"
+          test -s "$RUNNER_TEMP/nci_vae_architecture/nci_molecular_vae_code_architecture.pdf"
+          test -s "$RUNNER_TEMP/nci_vae_architecture/nci_molecular_vae_code_architecture.svg"
+          python - <<'PY'
+          from pathlib import Path
+          import fitz,os
+          p=Path(os.environ['RUNNER_TEMP'])/'nci_vae_architecture/nci_molecular_vae_code_architecture.pdf'
+          doc=fitz.open(p)
+          assert len(doc)==1
+          content=doc[0].get_text()
+          for label in ('BiGRU encoder','Autoregressive GRU decoder','RDKit chemistry checks'):
+              assert label in content,label
+          print('PASS original implemented architecture labels and vector publication output')
+          PY
       - name: Render original real NCI molecules without generative claims
         shell: bash
         run: |
@@ -123,4 +143,5 @@ jobs:
           path: |
             chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_chemical_structures.*
             chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_molecules_provenance.json
+            ${{ runner.temp }}/nci_vae_architecture
           retention-days: 90
