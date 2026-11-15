@@ -1,0 +1,89 @@
+name: Chapter 6 authentic image-first figures and executed tissue VAE
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter6_image_first_authentic_figures.yml'
+      - 'chapters/generative_ai_part_i/figure_generation/original_source_image_plates/**'
+      - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
+permissions:
+  contents: read
+jobs:
+  original-image-plates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source data and image-publishing libraries
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'scikit-image>=0.22,<0.27' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+      - name: Produce original, nonsimulated photographed/source-image plates
+        shell: bash
+        run: |
+          set -euo pipefail
+          S=chapters/generative_ai_part_i/figure_generation/original_source_image_plates
+          python "$S/make_authentic_source_image_plates.py"
+          for n in original_tissue_source_and_patches original_scanned_digits_gallery; do
+            test -s "$S/$n.pdf"
+            test -s "$S/$n.png"
+            test -s "$S/$n.svg"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('chapters/generative_ai_part_i/figure_generation/original_source_image_plates/source_image_plate_provenance.json')
+          d=json.loads(p.read_text())
+          assert d['tissue_source_pixel_sha256']=='c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b'
+          assert d['digit_source_sample_count']==1797
+          assert d['actual_source_not_model_generated'] is True
+          print('PASS original image sources, image-first figures and non-generated labeling')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-authentic-microscopy-and-scanned-digit-source-image-plates
+          path: |
+            chapters/generative_ai_part_i/figure_generation/original_source_image_plates/*.pdf
+            chapters/generative_ai_part_i/figure_generation/original_source_image_plates/*.png
+            chapters/generative_ai_part_i/figure_generation/original_source_image_plates/*.svg
+            chapters/generative_ai_part_i/figure_generation/original_source_image_plates/*.json
+          retention-days: 90
+  actual-tissue-model-output-gallery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install native tensor network and measured image data
+        run: python -m pip install --disable-pip-version-check 'torch>=2.3,<3' 'numpy>=1.26,<3' 'scikit-image>=0.22,<0.27' 'matplotlib>=3.8,<4'
+      - name: Execute 12-epoch VAE on original immunohistochemistry photo
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae
+          python "$D/run.py" --epochs 12 --output "$RUNNER_TEMP/original_tissue"
+          python "$D/plot_tissue_original_model_outputs.py" \
+            --checkpoint "$RUNNER_TEMP/original_tissue/tissue_vae.pt" \
+            --output "$RUNNER_TEMP/original_tissue_qualitative"
+          test -s "$RUNNER_TEMP/original_tissue_qualitative/actual_tissue_cvae_reconstruction_gallery.pdf"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ['RUNNER_TEMP'])/'original_tissue_qualitative/actual_tissue_gallery_measured_metrics.json'
+          d=json.loads(p.read_text())
+          assert d['source_images']==1 and d['spatially_heldout_patches']==217
+          assert d['original_source_sha256']=='c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b'
+          assert 0<d['actual_model_test_PSNR_dB']<100
+          assert 0<=d['actual_model_test_SSIM']<=1
+          print('PASS original training, checkpoint-driven predictions, source hash, 217 output records and qualitative gallery')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-executed-real-tissue-original-model-output-gallery
+          path: |
+            ${{ runner.temp }}/original_tissue
+            ${{ runner.temp }}/original_tissue_qualitative
+          retention-days: 90
