@@ -77,6 +77,22 @@
       "source_is_original_measured_activity": false,
       "visual_reviewed": true,
       "manuscript_placement_verified": false
+    },
+    {
+      "internal_id": "PASS61-ARCH-NCI",
+      "kind": "scientific-model-architecture-schematic",
+      "experiment_scope": "CH6-D09 executed molecular SMILES VAE model topology; no new data or output claimed",
+      "publication_figure_number": null,
+      "real_source": "RDKit bundled NCI first_5K.smi, 600 original unique sanitized SMILES; 360/120/120 split",
+      "original_implementation": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/run.py",
+      "generating_code": "chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/plot_nci_smiles_vae_code_architecture.py",
+      "stated_model": "32 feature character embedding, bidirectional GRU hidden 128 per direction, 32 dimensional μ/logvar latent, autoregressive GRU hidden 128 conditioned on z each decoder step",
+      "staged_pdf_sha256": "c81550c20fda626fce8848523b8946c9852dd164bbbd0f50d81b49bec1975662",
+      "staged_pdf_name": "nci_molecular_vae_code_architecture.pdf",
+      "source_is_model_output": false,
+      "conceptual_not_measured_figure": true,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false
     }
   ],
   "figure_620": {
