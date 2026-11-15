@@ -18,6 +18,9 @@ on:
       - 'chapters/generative_ai_part_i/qa/test_ch6_release_gate.py'
       - 'chapters/generative_ai_part_i/qa/verify_ch6_production_inventory.py'
       - 'chapters/generative_ai_part_i/qa/test_ch6_production_inventory.py'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/plot_verified_conditioning_pipeline.js'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_class_counts_pass27.csv'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figures/verified_digit_conditioning_science.svg'
       - 'chapters/generative_ai_part_i/quality_assurance/production_inventory.json'
 permissions:
   contents: read
@@ -84,6 +87,13 @@ jobs:
           DIR=chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark
           node "$DIR/plot_neu_paired_accuracy.js"
           git diff --exit-code -- "$DIR/figures/neu_seed_paired_accuracy.svg"
+      - name: Regenerate original-digit latent conditioning figure and prevent evidence drift
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
+          node "$DIR/plot_verified_conditioning_pipeline.js"
+          git diff --exit-code -- "$DIR/figures/verified_digit_conditioning_science.svg"
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
         run: |
