@@ -24,7 +24,7 @@ class ReleaseGateTests(unittest.TestCase):
         (self.chapter / "quality_assurance").mkdir()
         self.reg = self.chapter / "qa/CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv"
         fields = ["unit_id", "level", "scientific_status", "production_status", "evidence_limits"]
-        fields += [f"R{i}" for i in range(1, 11)]
+        fields += [f"R{i}" for i in range(1, 13)]
         with self.reg.open("w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
