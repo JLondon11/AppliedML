@@ -1,0 +1,119 @@
+{
+  "date": "2026-11-14",
+  "canonical_topic": "Chapter 2 Deep Learning Part I",
+  "source_package": "Chapter_2_Deep_Learning_Part_I_Pass2_Revised_Package.zip",
+  "source_latex": "Chapter_2_Deep_Learning_Part_I_REVISED_QA_PASS2.tex",
+  "warning": "This uploaded Pass 2 source has five titled units, unlike older eleven-unit Deep Learning Part I source, and does not include UCI HAR or LSTM/GRU classification case-study sections.",
+  "unit_count": 5,
+  "scientific_scoped_level_b_certificates": 2,
+  "scientific_holds": 3,
+  "full_chapter_science_approval": "HOLD",
+  "full_chapter_production": "HOLD",
+  "local_pdf_pages": 117,
+  "local_pdf_sha256": "d0916a64c46ad02b944c102ad78aae68226fcce29a19aae8c76f6d22f82d002b",
+  "figure_pages_pdf": [
+    88,
+    89,
+    92
+  ],
+  "actual_generating_code": "chapters/deep_learning/part_i/experiments/pass2_real_digits_diabetes/run.py",
+  "actual_output_validator": "chapters/deep_learning/part_i/experiments/pass2_real_digits_diabetes/test_outputs.py",
+  "scientific_scope_caveat": "Two independent single-split real-data experiments; no strong statistical MLP superiority claim. Fixed iteration budget was a disclosed protocol change relative to the uploaded Pass 2 early-stopping scripts.",
+  "units": [
+    {
+      "unit": "CH2-P2-01",
+      "title": "Application: Nonlinear Classification on Two Moons",
+      "level": "A (pedagogical proposed)",
+      "decision": "HOLD_SYNTHETIC_DATA",
+      "basis": "make_moons 1400 computer-generated points; not original observed empirical data; retain as explicitly labeled simulated numerical illustration or replace data before empirical certification",
+      "checks": {
+        "R1": "FAIL",
+        "R2": "PASS",
+        "R3": "PASS",
+        "R4": "PARTIAL",
+        "R5": "NOT VERIFIED",
+        "R6": "PARTIAL",
+        "R7": "N/A — deterministic pedagogical geometry only",
+        "R8": "FAIL",
+        "R9": "PARTIAL",
+        "R10": "PARTIAL"
+      }
+    },
+    {
+      "unit": "CH2-P2-02",
+      "title": "Application: Convolutional Feature Extraction from Digit Images",
+      "level": "A",
+      "decision": "HOLD_FILTER_OUTPUT_VERIFICATION",
+      "basis": "Real Digits image with fixed convolution claimed, but exact current three filter arrays and actual Figure 2.19 generation not independently rerun in this pass",
+      "checks": {
+        "R1": "PASS",
+        "R2": "PASS",
+        "R3": "NOT VERIFIED",
+        "R4": "NOT VERIFIED",
+        "R5": "N/A — explicitly fixed-kernel operation, no comparator superiority claim",
+        "R6": "NOT VERIFIED",
+        "R7": "PASS",
+        "R8": "NOT VERIFIED",
+        "R9": "NOT VERIFIED",
+        "R10": "PARTIAL"
+      }
+    },
+    {
+      "unit": "CH2-P2-03",
+      "title": "Case Study: Handwritten Digit Recognition with a Multilayer Perceptron",
+      "level": "B",
+      "decision": "SCIENTIFIC_CERTIFIED_SCOPED",
+      "basis": "1797 authentic 8x8 Digits; 1347/450 held-out split; actual train-only standardized MLP (250 max, converged at 110) and matched logistic reference; accuracy 0.98 versus baseline 0.97555556; 450 saved original predictions; observed confusion/class recall/confidence/misclassified crops; Figure 2.31-2.33 integrated",
+      "checks": {
+        "R1": "PASS",
+        "R2": "PASS",
+        "R3": "PASS",
+        "R4": "PASS",
+        "R5": "PASS",
+        "R6": "PASS",
+        "R7": "PASS",
+        "R8": "PASS",
+        "R9": "PASS",
+        "R10": "PASS"
+      }
+    },
+    {
+      "unit": "CH2-P2-04",
+      "title": "Case Study: Neural Regression on the Diabetes Dataset",
+      "level": "B",
+      "decision": "SCIENTIFIC_CERTIFIED_SCOPED",
+      "basis": "442 genuine Diabetes observations; 331/111 held-out split; actual MLP fixed 700 iteration cap and train-only standardized Ridge; test RMSE 58.2165 MLP vs 57.1244 Ridge; model nonconvergence clearly disclosed; 111 saved actual predictions and empirical error CDF; Figure 2.34 integrated",
+      "checks": {
+        "R1": "PASS",
+        "R2": "PASS",
+        "R3": "PASS",
+        "R4": "PASS",
+        "R5": "PASS",
+        "R6": "PASS",
+        "R7": "PASS",
+        "R8": "PASS",
+        "R9": "PASS",
+        "R10": "PASS"
+      }
+    },
+    {
+      "unit": "CH2-P2-05",
+      "title": "Case Study: Reproducibility across Random Seeds",
+      "level": "B",
+      "decision": "HOLD_SYNTHETIC_DATA",
+      "basis": "Manuscript reports multiple make_moons simulations, not a demonstrated multi-seed real-observation case study; independent Digits multiseed study elsewhere may be adapted but is not currently integrated",
+      "checks": {
+        "R1": "FAIL",
+        "R2": "NOT VERIFIED",
+        "R3": "PARTIAL",
+        "R4": "PARTIAL",
+        "R5": "NOT VERIFIED",
+        "R6": "PARTIAL",
+        "R7": "N/A — synthetic numerical illustration only",
+        "R8": "FAIL",
+        "R9": "PARTIAL",
+        "R10": "PARTIAL"
+      }
+    }
+  ]
+}
