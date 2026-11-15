@@ -61,6 +61,15 @@ class ReleaseGateTests(unittest.TestCase):
         (d / "chapter6.tex").write_text("\\documentclass{book}\n\\begin{document}\nFixture\\end{document}\n")
         (d / "chapter6.pdf").write_bytes(b"%PDF-1.7 fixture only")
 
+    def test_baseline_twelve_scopes_are_valid_before_missing_manuscript_check(self):
+        self._manifest()
+        self._manuscript()
+        report = check(self.root)
+        by_name = {item["gate"]: item["pass"] for item in report["checks"]}
+        self.assertTrue(by_name["scoped_id_continuity"], report)
+        self.assertTrue(by_name["scoped_certification_claims"], report)
+        self.assertFalse(by_name["full_production_inventory"], report)
+
     def test_missing_scoped_certificate_blocks_release(self):
         # Removing a real scoped certificate must never silently reduce the gate.
         with self.reg.open(newline="") as handle:
