@@ -1,0 +1,37 @@
+name: Chapter 2 Pass 4 real-data five-unit evidence
+on:
+  push:
+    paths:
+      - 'chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/**'
+      - 'chapters/deep_learning/part_i/experiments/pass4_real_digits_nonlinear/**'
+      - '.github/workflows/chapter2_pass4_real_data_experiments.yml'
+  pull_request:
+    paths:
+      - 'chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/**'
+      - 'chapters/deep_learning/part_i/experiments/pass4_real_digits_nonlinear/**'
+  workflow_dispatch:
+jobs:
+  actual-original-data-runs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific dependencies
+        run: python -m pip install numpy scipy scikit-learn matplotlib
+      - name: Execute 12 authentic Digits seeded runs and exact fixed kernels
+        run: |
+          OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/run.py --out ch2_pass4_outputs/convolution_and_seeds
+          python chapters/deep_learning/part_i/experiments/pass4_real_digits_convolution_seeds/test_outputs.py --out ch2_pass4_outputs/convolution_and_seeds
+      - name: Execute authentic digit-3-versus-8 nonlinear classification
+        run: |
+          OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python chapters/deep_learning/part_i/experiments/pass4_real_digits_nonlinear/run.py --out ch2_pass4_outputs/nonlinear_digits
+          python chapters/deep_learning/part_i/experiments/pass4_real_digits_nonlinear/test_outputs.py --out ch2_pass4_outputs/nonlinear_digits
+      - name: Archive actual measured predictions and PNG/PDF/SVG figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter2-pass4-authentic-digits-nonlinear-convolution-seed-study
+          path: ch2_pass4_outputs/
+          if-no-files-found: error
