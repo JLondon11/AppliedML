@@ -98,7 +98,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install chemistry depiction and original dataset
-        run: python -m pip install --disable-pip-version-check 'rdkit>=2024.3,<2027' 'numpy>=1.26,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+        run: python -m pip install --disable-pip-version-check 'rdkit>=2024.3,<2027' 'numpy>=1.26,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
       - name: Generate vector figure showing the actual NCI GRU-VAE architecture
         shell: bash
         run: |
