@@ -6,6 +6,7 @@ on:
       - '.github/workflows/chapter6_image_first_authentic_figures.yml'
       - 'chapters/generative_ai_part_i/figure_generation/original_source_image_plates/**'
       - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
+      - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py'
 permissions:
   contents: read
 jobs:
@@ -86,4 +87,40 @@ jobs:
           path: |
             ${{ runner.temp }}/original_tissue
             ${{ runner.temp }}/original_tissue_qualitative
+          retention-days: 90
+  original-real-nci-molecule-gallery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install chemistry depiction and original dataset
+        run: python -m pip install --disable-pip-version-check 'rdkit>=2024.3,<2027' 'numpy>=1.26,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4'
+      - name: Render original real NCI molecules without generative claims
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae
+          python "$D/make_original_nci_structure_plate.py"
+          test -s "$D/original_nci_chemical_structures.pdf"
+          test -s "$D/original_nci_chemical_structures.png"
+          test -s "$D/original_nci_chemical_structures.svg"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_molecules_provenance.json')
+          m=json.loads(p.read_text())
+          assert m['original_file_sha256']=='91e71c015f14939837f2943dcc904f7c87e5a3a0124d82b05c28ad2f23004def'
+          assert m['splits']=={'training':360,'validation':120,'test':120}
+          assert m['observed_source_structures_not_generations'] is True
+          print('PASS authentic original NCI structures; not generated drug candidates')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-source-verified-original-nci-chemical-structure-plate
+          path: |
+            chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_chemical_structures.*
+            chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_molecules_provenance.json
           retention-days: 90
