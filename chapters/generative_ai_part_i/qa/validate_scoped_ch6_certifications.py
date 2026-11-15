@@ -7,7 +7,7 @@ import csv,math,json
 from pathlib import Path
 from collections import Counter
 ROOT=Path(__file__).resolve().parent
-expected={f'CH6-D{i:02d}' for i in range(1,11)}
+expected={f'CH6-D{i:02d}' for i in range(1,13)}
 with (ROOT/'CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv').open(newline='') as f:
     rows=list(csv.DictReader(f))
 if {r['unit_id'] for r in rows}!=expected or len(rows)!=len(expected):raise ValueError('Incorrect experimental-unit set')
@@ -71,6 +71,22 @@ for key,target,hits in [('ridge',1.1795769332543176,14),
 if not all(int(r['hit'])==int(float(r['measured_logS'])>=-1.6) for r in esol):
     raise ValueError('ESOL original assay threshold labels mismatch')
 
-print(json.dumps({'scoped_scientific_certificates':10,'levels':{'A':9,'B':1},'original_plant_heldouts':21,
+# CH6-D12: independently reconcile original per-class digit generator classifier outcomes.
+DIGITS=ROOT.parent/'code'/'section_6_20_1_latent_diffusion_digits'/'figure_6_44_class_counts_pass27.csv'
+with DIGITS.open(newline='') as fh:
+    digit_rows=list(csv.DictReader(fh))
+if len(digit_rows)!=22 or {(r['arm'],r['label']) for r in digit_rows}!={(arm,label) for arm in ('conditional','unconditional') for label in ('overall',*map(str,range(10)))}:
+    raise ValueError('Missing original 22 digit-generator classifier summary records')
+for arm,expected_hits in (('conditional',778),('unconditional',94)):
+    classes=[r for r in digit_rows if r['arm']==arm and r['label']!='overall']
+    overall=[r for r in digit_rows if r['arm']==arm and r['label']=='overall']
+    if len(classes)!=10 or len(overall)!=1:raise ValueError('Missing digit labels')
+    if any(int(r['n'])!=100 for r in classes):raise ValueError('Incorrect original per-digit count')
+    if sum(int(r['correct']) for r in classes)!=expected_hits:
+        raise ValueError('Original diffusion predicted-class results do not reconcile')
+    if int(overall[0]['correct'])!=expected_hits or int(overall[0]['n'])!=1000:
+        raise ValueError('Original diffusion overall total differs from per-digit counts')
+
+print(json.dumps({'scoped_scientific_certificates':12,'levels':{'A':11,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
