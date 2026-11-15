@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 CHAPTER = Path("chapters/generative_ai_part_i")
-EXPECTED = {f"CH6-D{i:02d}" for i in range(1, 9)}
+MIN_CERTIFICATES = 10  # recorded minimum; allow future contiguous scoped IDs
 FUNDAMENTAL = ("R1", "R3", "R4", "R8", "R9", "R10")
 
 
@@ -38,8 +38,10 @@ def check(root: Path) -> dict:
         with register.open(newline="", encoding="utf-8") as stream:
             rows = list(csv.DictReader(stream))
         ids = [r.get("unit_id", "") for r in rows]
-        record("eight_distinct_scoped_ids", len(rows) == 8 and set(ids) == EXPECTED,
-               "IDs: " + ", ".join(ids))
+        expected = {f"CH6-D{i:02d}" for i in range(1, len(rows) + 1)}
+        ids_valid = len(rows) >= MIN_CERTIFICATES and len(set(ids)) == len(rows) and set(ids) == expected
+        record("scoped_id_continuity", ids_valid,
+               f"Recorded {len(rows)} scoped IDs; minimum {MIN_CERTIFICATES}; IDs: " + ", ".join(ids))
         valid = all(r.get("level") == ("B" if r.get("unit_id") == "CH6-D04" else "A")
                     and r.get("scientific_status") == "SCIENTIFIC_CERTIFIED"
                     and r.get("production_status") == "PRODUCTION_HOLD"
@@ -48,7 +50,7 @@ def check(root: Path) -> dict:
                     and bool(r.get("evidence_limits", "").strip())
                     for r in rows)
         record("scoped_certification_claims", valid,
-               "Eight scoped decisions must retain evidence limits and production HOLD")
+               "Scoped decisions must retain evidence limits and production HOLD")
 
     manifest_path = chapter / "quality_assurance/chapter6_evidence_manifest.json"
     if not manifest_path.is_file():
