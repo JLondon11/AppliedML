@@ -1,0 +1,70 @@
+{
+  "chapter": 6,
+  "review_date": "2026-11-14",
+  "status": "STAGED_NOT_MANUSCRIPT_INTEGRATED",
+  "not_production_approved": true,
+  "baseline_archived_figures": 48,
+  "actual_current_manuscript_pdf_available": false,
+  "actual_current_latex_available": false,
+  "figures": [
+    {
+      "internal_id": "PASS59-SOURCE-TISSUE",
+      "kind": "original-image-gallery",
+      "experiment_scope": "CH6-D11 input authenticity and row partitioning only",
+      "publication_figure_number": null,
+      "source_dataset": "scikit-image data.immunohistochemistry() genuine photo",
+      "source_image_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+      "generating_code": "chapters/generative_ai_part_i/figure_generation/original_source_image_plates/make_authentic_source_image_plates.py",
+      "staged_pdf_sha256": "3211bfab2579ed7b246677f93b88130f8ffbb8e71eb26adc74c3379eb530f416",
+      "staged_pdf_name": "original_tissue_source_and_patches.pdf",
+      "source_is_model_output": false,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false
+    },
+    {
+      "internal_id": "PASS59-SOURCE-DIGITS",
+      "kind": "original-source-image-gallery",
+      "experiment_scope": "CH6-D12 authentic original scanned-digit source observations only",
+      "publication_figure_number": null,
+      "source_dataset": "scikit-learn load_digits() original scanned digits",
+      "source_dataset_pixel_sha256": "20def7f70a702f0af9732fbba4375e147a7d54fe70d8c45569b8e7c1c7010c10",
+      "generating_code": "chapters/generative_ai_part_i/figure_generation/original_source_image_plates/make_authentic_source_image_plates.py",
+      "staged_pdf_sha256": "e74cfde0be705c00fda8c1c48fa441cd2e07abb112fedff4335c36ff05785264",
+      "staged_pdf_name": "original_scanned_digits_gallery.pdf",
+      "source_is_model_output": false,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false
+    },
+    {
+      "internal_id": "PASS59-PREDICTION-TISSUE",
+      "kind": "genuine-model-output-gallery",
+      "experiment_scope": "CH6-D11 one-source-photograph within-image CVAE patch reconstruction",
+      "publication_figure_number": null,
+      "source_dataset": "scikit-image data.immunohistochemistry() original photo",
+      "source_image_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+      "original_training_code": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/run.py",
+      "generating_code": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/plot_tissue_original_model_outputs.py",
+      "staged_pdf_sha256": "e1845abf02988cb5d2dbc4c9a52d764ab3d740bb2457c9e56e2466b1c38b6c36",
+      "staged_pdf_name": "actual_tissue_cvae_reconstruction_gallery.pdf",
+      "source_is_model_output": true,
+      "actual_local_training_executed": true,
+      "training_seed": 20261109,
+      "epochs": 12,
+      "n_original_parent_photographs": 1,
+      "n_spatial_test_patches": 217,
+      "measured_PSNR_dB": 20.15526594713861,
+      "measured_SSIM": 0.2926715016365051,
+      "measured_MSE": 0.010481160134077072,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false
+    }
+  ],
+  "figure_620": {
+    "status": "BLOCKED_UNVERIFIED",
+    "evidence_manifest": "quality_assurance/chapter6_evidence_manifest.json",
+    "candidate_script_domain": "scikit-learn digits",
+    "manuscript_domain": "industrial-defect-images",
+    "source_mapping_verified": false
+  },
+  "note": "File hashes describe PDF assets locally generated in the contemporaneous evidence delivery; code is committed, but staged binary PDFs are NOT claimed committed to GitHub. Final figure numbers and actual manuscript integration remain unverified."
+}
