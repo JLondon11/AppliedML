@@ -10,7 +10,7 @@ Every application/case study with image outputs should preferably contain **a mo
 
 ## Completed real-image figure deliverables (local evidence, not yet manuscript insertion)
 
-Three genuine source/model-output assets were actually rendered as PDF/PNG/SVG and inspected:
+Four genuine source/model-output assets were actually rendered as PDF/PNG/SVG and inspected:
 
 ### Staged figure A — original histology input and spatial partition
 
@@ -60,3 +60,13 @@ In the manuscript, introduce each visual with several sentences explaining the s
 The connected GitHub tree contains no current Chapter 6 `.tex` or `.pdf` manuscript, and the accessible local workspace has only a user-provided earlier *text handoff* reporting the historical Figure 6.20 placement fix on printed page 67 of a 109-page PDF; the actual exact current PDF/TeX files are **not** available. The current Figure 6.20 evidence manifest still assigns **industrial-defect manuscript domain** but has a handwritten-digit `figure_20.png` candidate with `manuscript_mapping_verified=false` and no verifiable hash. This does not prove the manuscript has the wrong figure, but absolutely prevents scientific mapping and full production approval. The full `quality_assurance/production_inventory.json` is also absent, so 48 archived figure assets, 17 tables, 11 listings, 14 parents, figure placement and all actual captions have **not** undergone a current full print audit.
 
 **Decision:** genuine experiment and image-first figure production **improved and verified as staged assets**. Scoped scientific register remains at **12 certificates**; no new parent unit silently promoted. Chapter 6 full scientific and production release is **HOLD** until the actual manuscript, Figure 6.20 source, and full item-by-item production inventory are provided and independently inspected. The two new original-data image galleries and one actual trained-model output figure are ready for integration but have no invented manuscript figure numbers.
+
+## Additional image-first source study — original NCI chemical structure plate
+
+A fourth original-source plate was actually generated, rendered as PDF/PNG/SVG and visually inspected. It shows **twelve actual RDKit NCI source molecular graphs**, four selected from each of the source-identical **360 training / 120 validation / 120 test** molecule subsets used by the documented molecular sequence VAE. The source file `Data/NCI/first_5K.smi` is the **authentic original file** with SHA-256 `91e71c015f14939837f2943dcc904f7c87e5a3a0124d82b05c28ad2f23004def`. Atomic labels, bond geometry and empirical molecular formula are computed by RDKit from original chemical structures; these are *not new laboratory measurements*. **No structure in this plate is a VAE-generated molecule**, and no biological/pharmacological activity, synthesis, validity or potency claim is made.
+
+Executable complete image-first generator committed to `code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py`. Exact locally reviewed PDF SHA256 `99c51fef486ec4f2dd91caa25017863bd9ca1e92c24c9d1ef30e191f9c39ad04`. Distinct original-file and input-vs-generated assertions are in the updated `quality_assurance/pass59_image_first_figure_staging.json` and `qa/audit_pass59_image_first_delivery.py`; the exact local **four-PDF** staged artifact audit was re-executed, returning **PASS_STAGED_SCIENTIFIC_FIGURE_ASSET_INTEGRITY**. Source and separate model-output checks are not an actual *manuscript* audit. The added GitHub Actions job can regenerate the NCI source gallery, but its successful remote run is not independently verified.
+
+**Suggested textbook caption:** *Examples of genuine NCI molecular structures drawn from the original RDKit chemical source file. Four original molecules are shown for each model-data partition (training 360, validation 120, testing 120), with RDKit-computed molecular formulas. These are documented input chemical structures, not molecules newly generated or biologically tested by the variational autoencoder.*
+
+**Scope remains 12 genuine-science certificates recorded for specific Chapter 6 experimental questions, and final broad parent-application/manuscript production remains HOLD.**
