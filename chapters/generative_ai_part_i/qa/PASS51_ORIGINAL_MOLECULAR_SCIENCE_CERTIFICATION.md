@@ -41,3 +41,5 @@ The current production manuscript remains the previously reported Pass45 109-pag
 - **14 broader named parent applications:** original Master QA HOLD status remains unless individually reassessed and promoted based on truly matching evidence.
 - **Production approval:** HOLD for all current experiments pending final chapter source/PDF figure integration.
 - **New GitHub Actions workflow:** `.github/workflows/chapter6_real_molecular_evidence.yml` committed; remote execution has not yet been independently confirmed.
+
+**Baseline independence qualification:** The published ESOL prediction column is included in the source dataset and was not retrained or independently leakage-audited in this chapter. Its test-row RMSE and top-20 counts are valid descriptive comparisons with measured labels, but must **not** be described as an independently held-out, information-matched architecture benchmark or evidence that the published predictor generalizes better than the locally fitted ridge model. The ridge model's own 902/226 split and training-only coefficient selection are verified independently.
