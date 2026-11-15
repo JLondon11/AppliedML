@@ -81,7 +81,7 @@ class ReleaseGateTests(unittest.TestCase):
         with self.reg.open(newline="") as handle:
             rows = list(csv.DictReader(handle))
             fields = list(rows[0])
-        rows[-1]["unit_id"] = "CH6-D12"
+        rows[-1]["unit_id"] = "CH6-D99"
         with self.reg.open("w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
