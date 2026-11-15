@@ -24,11 +24,11 @@ class ReleaseGateTests(unittest.TestCase):
         (self.chapter / "quality_assurance").mkdir()
         self.reg = self.chapter / "qa/CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv"
         fields = ["unit_id", "level", "scientific_status", "production_status", "evidence_limits"]
-        fields += [f"R{i}" for i in range(1, 13)]
+        fields += [f"R{i}" for i in range(1, 11)]
         with self.reg.open("w", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
-            for n in range(1, 11):
+            for n in range(1, 13):
                 writer.writerow({
                     "unit_id": f"CH6-D{n:02d}", "level": "B" if n == 4 else "A",
                     "scientific_status": "SCIENTIFIC_CERTIFIED",
