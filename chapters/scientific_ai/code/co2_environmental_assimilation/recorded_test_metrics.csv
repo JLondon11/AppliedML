@@ -1,0 +1,4 @@
+model,test_observed_n,test_RMSE_ppm,test_MAE_ppm,test_bias_ppm,nominal_90pct_PI_coverage,nominal_90pct_PI_mean_width_ppm
+Training-fitted trend + harmonics,209,4.58452,4.55561,-4.55561,,
+"Seasonal naive, year lag",209,2.00994,1.78612,-1.77656,,
+Sequential Kalman residual assimilation,209,0.39408,0.29613,-0.01714,1.0,4.9405
