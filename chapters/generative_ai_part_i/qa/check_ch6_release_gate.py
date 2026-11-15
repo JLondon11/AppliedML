@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 CHAPTER = Path("chapters/generative_ai_part_i")
-MIN_CERTIFICATES = 10  # recorded minimum; allow future contiguous scoped IDs
+MIN_CERTIFICATES = 12  # recorded minimum; allow future contiguous scoped IDs
 FUNDAMENTAL = ("R1", "R3", "R4", "R8", "R9", "R10")
 
 
