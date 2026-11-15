@@ -66,6 +66,7 @@ def verify(root: Path, inventory: Path | None = None) -> dict:
             issues.append(f"{category}: missing/duplicate {field}")
         return {v for v in ids if isinstance(v, str)}
     figids = unique(figures, "figure_id", "figures")
+    experimental_ids = {r.get("figure_id") for r in figures if isinstance(r, dict) and r.get("kind") == "experimental" and isinstance(r.get("figure_id"), str)}
     unique(parents, "unit_id", "parent applications")
     unique(tables, "table_id", "tables")
     unique(listings, "listing_id", "code listings")
@@ -80,6 +81,8 @@ def verify(root: Path, inventory: Path | None = None) -> dict:
         if not r.get("caption") or r.get("scientific_reviewed") is not True:
             issues.append(f"{fid}: missing caption or scientific figure review")
         if r.get("kind") == "experimental":
+            if r.get("dataset_provenance_verified") is not True:
+                issues.append(f"{fid}: source-dataset provenance not verified")
             if _safe(root, r.get("generator")) is None or _safe(root, r.get("observed_data_or_results")) is None:
                 issues.append(f"{fid}: missing experimental generator or source-derived results")
         elif r.get("kind") != "conceptual":
@@ -90,8 +93,13 @@ def verify(root: Path, inventory: Path | None = None) -> dict:
         pid = r.get("unit_id", "?")
         if not r.get("exact_manuscript_title") or r.get("scope_reviewed") is not True:
             issues.append(f"{pid}: title/claims not reviewed")
-        if not isinstance(r.get("figure_ids"), list) or not r["figure_ids"] or not set(r["figure_ids"]).issubset(figids):
+        references = r.get("figure_ids")
+        if (not isinstance(references, list) or not references
+                or not all(isinstance(fid, str) for fid in references)
+                or not set(references).issubset(figids)):
             issues.append(f"{pid}: missing actual mapped manuscript figure")
+        elif not set(references).intersection(experimental_ids):
+            issues.append(f"{pid}: no traced experiment/result figure for empirical parent application")
         if r.get("scientific_status") not in ("SCIENTIFIC_CERTIFIED", "SCIENTIFIC_HOLD"):
             issues.append(f"{pid}: scientific status required")
         if r.get("scientific_status") == "SCIENTIFIC_CERTIFIED" and not r.get("source_evidence"):
