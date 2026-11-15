@@ -1,0 +1,18 @@
+{
+  "source_url": "https://raw.githubusercontent.com/deepchem/deepchem/108af2176a5f876c2df1df922baadb02d647c826/datasets/delaney-processed.csv",
+  "source_commit": "108af2176a5f876c2df1df922baadb02d647c826",
+  "source_observed_count": 1128,
+  "train_count": 902,
+  "test_count": 226,
+  "training_75pct_threshold": -1.6,
+  "top20_expected_random": 5.221238938053097,
+  "ridge": {
+    "hits": 14,
+    "rmse": 1.1795769332543176
+  },
+  "published_esol": {
+    "hits": 17,
+    "rmse": 0.8755685030537721
+  },
+  "limitations": "Retrospective ranking of existing molecules with previously measured aqueous solubility; no generative molecular synthesis or new lab assay."
+}
