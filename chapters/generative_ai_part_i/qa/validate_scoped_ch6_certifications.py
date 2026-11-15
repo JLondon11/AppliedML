@@ -7,7 +7,7 @@ import csv,math,json
 from pathlib import Path
 from collections import Counter
 ROOT=Path(__file__).resolve().parent
-expected={'CH6-D01','CH6-D02','CH6-D03','CH6-D04','CH6-D05','CH6-D06','CH6-D07','CH6-D08'}
+expected={f'CH6-D{i:02d}' for i in range(1,11)}
 with (ROOT/'CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv').open(newline='') as f:
     rows=list(csv.DictReader(f))
 if {r['unit_id'] for r in rows}!=expected or len(rows)!=len(expected):raise ValueError('Incorrect experimental-unit set')
@@ -55,6 +55,22 @@ for arm, (auc, balanced_accuracy) in cytology_expected.items():
     if abs(sum(float(r['balanced_accuracy']) for r in values)/3 - balanced_accuracy) > 1e-10:
         raise ValueError('WDBC original held-out balanced accuracy mismatch')
 
-print(json.dumps({'scoped_scientific_certificates':8,'levels':{'A':7,'B':1},'original_plant_heldouts':21,
+# CH6-D10: source-pinned retrospective ESOL on 226 actual assay labels.
+E=ROOT.parent/'code'/'section_6_autonomous_scientific_discovery_nci'/'retrospective_esol'
+with (E/'verified_original_ESOL_226_test_predictions.csv').open(newline='',encoding='utf-8') as f:
+    esol=list(csv.DictReader(f))
+if len(esol)!=226 or len({r['smiles'] for r in esol})!=226:
+    raise ValueError('Expected exactly 226 unique original ESOL held-out compounds')
+for key,target,hits in [('ridge',1.1795769332543176,14),
+                         ('published_ESOL',.8755685030537721,17)]:
+    val=math.sqrt(sum((float(r[key])-float(r['measured_logS']))**2 for r in esol)/226)
+    if abs(val-target)>1e-9:raise ValueError('Original ESOL RMSE mismatch '+key)
+    top=sorted(esol,key=lambda r:float(r[key]),reverse=True)[:20]
+    if sum(float(r['measured_logS'])>=-1.6 for r in top)!=hits:
+        raise ValueError('Original ESOL top-20 measured hit mismatch '+key)
+if not all(int(r['hit'])==int(float(r['measured_logS'])>=-1.6) for r in esol):
+    raise ValueError('ESOL original assay threshold labels mismatch')
+
+print(json.dumps({'scoped_scientific_certificates':10,'levels':{'A':9,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
