@@ -58,8 +58,16 @@ class ProductionInventoryTests(unittest.TestCase):
                  "scope_reviewed": True, "figure_ids": [f"6.{n:02d}"],
                  "scientific_status": "SCIENTIFIC_HOLD"} for n in range(1, 15)
             ],
-            "tables": [],
-            "code_listings": [],
+            "tables": [
+                {"table_id": f"6.T{n:02d}", "substantive_reviewed": True,
+                 "source_or_derivation": "test-only fixture, not experimental evidence"}
+                for n in range(1, 18)
+            ],
+            "code_listings": [
+                {"listing_id": f"6.L{n:02d}", "code_reviewed": True,
+                 "complete_code": str(generator.relative_to(self.root))}
+                for n in range(1, 12)
+            ],
         }
         self.path = base / "quality_assurance/production_inventory.json"
 
@@ -111,9 +119,24 @@ class ProductionInventoryTests(unittest.TestCase):
         data["parent_applications"][0]["scientific_status"] = "SCIENTIFIC_CERTIFIED"
         self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
 
+    def test_missing_code_listing_fails(self):
+        data = copy.deepcopy(self.inventory)
+        data["code_listings"].pop()
+        self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
+
+    def test_missing_table_fails(self):
+        data = copy.deepcopy(self.inventory)
+        data["tables"].pop()
+        self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
+
+    def test_missing_listing_source_fails(self):
+        data = copy.deepcopy(self.inventory)
+        data["code_listings"][0]["complete_code"] = "missing.py"
+        self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
+
     def test_unjustified_table_fails(self):
         data = copy.deepcopy(self.inventory)
-        data["tables"] = [{"table_id": "6.1", "substantive_reviewed": False}]
+        data["tables"][0]["substantive_reviewed"] = False
         self.assertEqual(self.run_inventory(data)["status"], "BLOCKED")
 
 
