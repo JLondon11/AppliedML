@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 690" width="1280" height="690" role="img" aria-label="Measured held-out NEU defect classification accuracy by three random seeds with paired GAN accuracy deficits against real-image baselines">
+<rect width="1280" height="690" fill="#fff"/>
+<text x="58" y="55" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" text-anchor="start" fill="#172c3b">NEU steel-defect classification • real held-out evidence</text>
+<text x="58" y="84" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#526778">1,800 original photographs (1 duplicate excluded)  |  1,080 train · 359 validation · 360 held-out test</text>
+<text x="58" y="110" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400" text-anchor="start" fill="#526778">Three training seeds; same 360 held-out photographs scored in each arm. Generated GAN images used only for training.</text>
+<text x="58" y="154" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#243b4b">A   Original held-out classification accuracy</text>
+<line x1="95" y1="492.92452830188677" x2="565" y2="492.92452830188677" stroke="#d9e2e7" stroke-width="1"/>
+<text x="84" y="497.92452830188677" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="end" fill="#687986">40%</text>
+<line x1="95" y1="428.77358490566036" x2="565" y2="428.77358490566036" stroke="#d9e2e7" stroke-width="1"/>
+<text x="84" y="433.77358490566036" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="end" fill="#687986">50%</text>
+<line x1="95" y1="364.62264150943395" x2="565" y2="364.62264150943395" stroke="#d9e2e7" stroke-width="1"/>
+<text x="84" y="369.62264150943395" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="end" fill="#687986">60%</text>
+<line x1="95" y1="300.4716981132076" x2="565" y2="300.4716981132076" stroke="#d9e2e7" stroke-width="1"/>
+<text x="84" y="305.4716981132076" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="end" fill="#687986">70%</text>
+<line x1="95" y1="236.32075471698118" x2="565" y2="236.32075471698118" stroke="#d9e2e7" stroke-width="1"/>
+<text x="84" y="241.32075471698118" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="end" fill="#687986">80%</text>
+<line x1="95" y1="525" x2="565" y2="525" stroke="#83919c" stroke-width="1"/>
+<text x="330" y="578" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400" text-anchor="middle" fill="#536777">Independent training seed</text>
+<text x="115" y="549" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="middle" fill="#526778">Seed 1</text>
+<text x="315" y="549" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="middle" fill="#526778">Seed 2</text>
+<text x="515" y="549" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="middle" fill="#526778">Seed 3</text>
+<polyline points="115,264.83228508679247 315,254.1404612301887 515,345.02096433207544" fill="none" stroke="#26718a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="115" cy="264.83228508679247" r="6" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<circle cx="315" cy="254.1404612301887" r="6" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<circle cx="515" cy="345.02096433207544" r="6" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<polyline points="115,334.32914047547166 315,266.6142557509434 515,300.4716981132076" fill="none" stroke="#8a8d99" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="115" cy="334.32914047547166" r="6" fill="#8a8d99" stroke="#fff" stroke-width="1.6"/>
+<circle cx="315" cy="266.6142557509434" r="6" fill="#8a8d99" stroke="#fff" stroke-width="1.6"/>
+<circle cx="515" cy="300.4716981132076" r="6" fill="#8a8d99" stroke="#fff" stroke-width="1.6"/>
+<polyline points="115,384.22431868679246 315,378.8784066943397 515,471.5408805245283" fill="none" stroke="#b65a41" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="115" cy="384.22431868679246" r="6" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<circle cx="315" cy="378.8784066943397" r="6" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<circle cx="515" cy="471.5408805245283" r="6" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<polyline points="115,225.62893079622643 315,234.53878405283018 515,255.92243189433958" fill="none" stroke="#23856f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="115" cy="225.62893079622643" r="6" fill="#23856f" stroke="#fff" stroke-width="1.6"/>
+<circle cx="315" cy="234.53878405283018" r="6" fill="#23856f" stroke="#fff" stroke-width="1.6"/>
+<circle cx="515" cy="255.92243189433958" r="6" fill="#23856f" stroke="#fff" stroke-width="1.6"/>
+<text x="650" y="154" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" text-anchor="start" fill="#243b4b">B   Paired accuracy effect of GAN augmentation</text>
+<line x1="725" y1="200" x2="725" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="725" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-30</text>
+<line x1="800" y1="200" x2="800" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="800" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-25</text>
+<line x1="875" y1="200" x2="875" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="875" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-20</text>
+<line x1="950" y1="200" x2="950" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="950" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-15</text>
+<line x1="1025" y1="200" x2="1025" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="1025" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-10</text>
+<line x1="1100" y1="200" x2="1100" y2="525" stroke="#e2e8eb" stroke-width="1"/>
+<text x="1100" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">-5</text>
+<line x1="1175" y1="200" x2="1175" y2="525" stroke="#8496a4" stroke-width="2"/>
+<text x="1175" y="543" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#637889">0</text>
+<text x="934" y="579" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400" text-anchor="middle" fill="#536777">GAN minus reference accuracy (percentage points)</text>
+<text x="664" y="246" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#536777">Seed 1</text>
+<line x1="804.16666655" y1="240" x2="895.8333332" y2="240" stroke="#adb9c1" stroke-width="2"/>
+<circle cx="895.8333332" cy="240" r="7" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<circle cx="804.16666655" cy="240" r="7" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<text x="664" y="339" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#536777">Seed 2</text>
+<line x1="837.4999999999999" y1="333" x2="883.3333333999999" y2="333" stroke="#adb9c1" stroke-width="2"/>
+<circle cx="883.3333333999999" cy="333" r="7" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<circle cx="837.4999999999999" cy="333" r="7" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<text x="664" y="432" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#536777">Seed 3</text>
+<line x1="670.83333335" y1="426" x2="879.1666665500001" y2="426" stroke="#adb9c1" stroke-width="2"/>
+<circle cx="879.1666665500001" cy="426" r="7" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<circle cx="670.83333335" cy="426" r="7" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<text x="650" y="633" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" text-anchor="start" fill="#8c4533">Mean GAN − real-only: -19.26 pp    |    GAN − matched real repeats: -26.94 pp</text>
+<line x1="72" y1="615" x2="100" y2="615" stroke="#26718a" stroke-width="4"/>
+<circle cx="86" cy="615" r="4" fill="#26718a" stroke="#fff" stroke-width="1.6"/>
+<text x="109" y="620" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#4a6070">Real only</text>
+<line x1="257" y1="615" x2="285" y2="615" stroke="#8a8d99" stroke-width="4"/>
+<circle cx="271" cy="615" r="4" fill="#8a8d99" stroke="#fff" stroke-width="1.6"/>
+<text x="294" y="620" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#4a6070">Horizontal flip</text>
+<line x1="467" y1="615" x2="495" y2="615" stroke="#b65a41" stroke-width="4"/>
+<circle cx="481" cy="615" r="4" fill="#b65a41" stroke="#fff" stroke-width="1.6"/>
+<text x="504" y="620" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#4a6070">Conditional GAN</text>
+<line x1="672" y1="615" x2="700" y2="615" stroke="#23856f" stroke-width="4"/>
+<circle cx="686" cy="615" r="4" fill="#23856f" stroke="#fff" stroke-width="1.6"/>
+<text x="709" y="620" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400" text-anchor="start" fill="#4a6070">Real repeats + flips</text>
+<text x="58" y="669" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400" text-anchor="start" fill="#748390">Source: replicated_seed_metrics_pass13.csv (12 recorded source-model evaluations). No independent factory/generalization claim.</text>
+</svg>
