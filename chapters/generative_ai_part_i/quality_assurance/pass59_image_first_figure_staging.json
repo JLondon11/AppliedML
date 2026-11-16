@@ -109,6 +109,28 @@
       "conceptual_not_measured_figure": true,
       "staged_pdf_name": "tissue_convolutional_vae_code_architecture.pdf",
       "staged_pdf_sha256": "7861347ccd0c5a7a2b758e93d2ee581b51ca9a7f8b2f0761d2a8649138b2abaa"
+    },
+    {
+      "internal_id": "PASS62-PAIRED-TISSUE",
+      "kind": "original-image-paired-model-error-gallery",
+      "experiment_scope": "CH6-D11 original 217 held-out tissue-patch CVAE source images, actual reconstructed predictions and target-aware oracle nearest real training image",
+      "publication_figure_number": null,
+      "manuscript_placement_verified": false,
+      "visual_reviewed": true,
+      "original_source_pixel_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+      "original_checkpoint_sha256": "204d5bd26a3361584285f108c7e74b9bdad2e5ee9d52310c7a5204f12d08bbbe",
+      "input_original_photograph_count": 1,
+      "original_heldout_patch_count": 217,
+      "selected_visual_examples": 8,
+      "actual_observed_vae_lower_error_count": 92,
+      "actual_observed_oracle_lower_error_count": 125,
+      "source_is_model_output": true,
+      "architecture_only": false,
+      "baseline_limitation": "Target-aware oracle nearest training image has access to test pixels, so cannot be interpreted as a deployable comparator",
+      "original_figure_generator": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/audit_true_tissue_vae_vs_nearest.py",
+      "original_source_numeric_measurements": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/qa/pass62_original_paired_tissue_measurements.json",
+      "staged_pdf_name": "actual_tissue_paired_failure_success_atlas.pdf",
+      "staged_pdf_sha256": "a01e0f2a0f3273c3b1415d5ea6961150bfb41b8c6df74788db1769d49970cdfd"
     }
   ],
   "figure_620": {
