@@ -7,6 +7,7 @@ on:
       - 'chapters/generative_ai_part_i/figure_generation/original_source_image_plates/**'
       - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
       - 'chapters/generative_ai_part_i/qa/verify_pass62_paired_measured_records.py'
+      - 'chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/plot_nci_smiles_vae_code_architecture.py'
 permissions:
@@ -95,6 +96,23 @@ jobs:
             --checkpoint "$RUNNER_TEMP/original_tissue/tissue_vae.pt" \
             --output "$RUNNER_TEMP/real_tissue_paired_diagnostic"
           test -s "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_tissue_paired_failure_success_atlas.pdf"
+          python "$D/make_print_ready_tissue_paired_atlas.py" \
+            --checkpoint "$RUNNER_TEMP/original_tissue/tissue_vae.pt" \
+            --records "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_217_patch_paired_errors.csv" \
+            --output "$RUNNER_TEMP/real_tissue_print_plates"
+          python chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py \
+            "$RUNNER_TEMP/real_tissue_print_plates/actual_tissue_oracle_paired_print_page_1.pdf" \
+            "$RUNNER_TEMP/real_tissue_print_plates/actual_tissue_oracle_paired_print_page_2.pdf" \
+            --report "$RUNNER_TEMP/real_tissue_print_plates/print_width_preflight.json"
+          python - <<'PY'
+          import os,json
+          from pathlib import Path
+          d=Path(os.environ['RUNNER_TEMP'])/'real_tissue_print_plates'
+          r=json.loads((d/'print_width_preflight.json').read_text())
+          assert r['pass_count']==2 and r['hold_count']==0
+          assert all(x['minimum_printed_font_pt']>=7.5 for x in r['results'])
+          print('PASS two actual-source page-width original-histology scientific figure plates')
+          PY
           python chapters/generative_ai_part_i/qa/verify_pass62_paired_measured_records.py \
             --records "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_217_patch_paired_errors.csv" \
             --summary "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_paired_error_summary.json" --independent-rerun
@@ -132,6 +150,7 @@ jobs:
             ${{ runner.temp }}/original_tissue_qualitative
             ${{ runner.temp }}/tissue_vae_architecture
             ${{ runner.temp }}/real_tissue_paired_diagnostic
+            ${{ runner.temp }}/real_tissue_print_plates
           retention-days: 90
   original-real-nci-molecule-gallery:
     runs-on: ubuntu-latest
