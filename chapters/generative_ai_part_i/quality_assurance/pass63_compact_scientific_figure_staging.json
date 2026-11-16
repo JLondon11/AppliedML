@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-15",
+  "gate": "STAGED_FIGURE_PREFLIGHT_PASS_ONLY",
+  "science_scope": "12 originally certified narrow experimental units, no newly certified broad parent case studies",
+  "assumed_text_width_inches": 6.5,
+  "minimum_font_allowed_pt": 7.5,
+  "actual_minimum_font_pt": 8.2,
+  "figures": [
+    {
+      "filename": "tissue_source_compact.pdf",
+      "sha256": "c8aaacc72db7210cc5a59c4ba70435e9360db334fa354bcc2220c12381e3d3ae",
+      "embedded_image_count": 7,
+      "kind": "actual-original-tissue-photo-and-source-region-diagram",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "digits_source_compact.pdf",
+      "sha256": "54ce439aa07bee69b14c45d8000a3dcb036ee3e7953960b20087c44692db7cea",
+      "embedded_image_count": 20,
+      "kind": "genuine-original-handwritten-digit-observations",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "nci_source_compact.pdf",
+      "sha256": "04868ab6aaec5b896b194876c0bb22d8333538775a2b0b9d3974a7c60150aaab",
+      "embedded_image_count": 6,
+      "kind": "genuine-original-NCI-source-molecular-structure-diagrams",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "tissue_vae_output_compact_1.pdf",
+      "sha256": "c26dd9251db69771baaf71337344643130e7d2e8d7e399207a08fdda57230218",
+      "embedded_image_count": 16,
+      "kind": "actual-checkpoint-derived-original-versus-reconstructed-and-generated-tissue",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "tissue_vae_output_compact_2.pdf",
+      "sha256": "21fbbe74c49bd1a7be755858af8c7b4b47a048c4f9b609b7cd2fc5e42b4fcee8",
+      "embedded_image_count": 16,
+      "kind": "second-actual-checkpoint-derived-original-versus-reconstructed-and-generated-tissue",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "smiles_vae_architecture_compact.pdf",
+      "sha256": "801a9384130c438aa37d1346fc0746e3af979225041d3c2f2aa163216643685c",
+      "embedded_image_count": 0,
+      "kind": "conceptual-source-code-faithful-molecular-model-diagram",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    },
+    {
+      "filename": "tissue_vae_architecture_compact.pdf",
+      "sha256": "9fdb5573acd4a1cc76c909ae96e52472536f925467c8d381b35444a9ab6fe514",
+      "embedded_image_count": 0,
+      "kind": "conceptual-source-code-faithful-tissue-model-diagram",
+      "staged_print_width_pass": true,
+      "offpage_text_spans": 0,
+      "manuscript_placement_verified": false,
+      "original_binary_asset_in_github": false
+    }
+  ],
+  "model_original_source_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+  "model_checkpoint_original_sha256": "204d5bd26a3361584285f108c7e74b9bdad2e5ee9d52310c7a5204f12d08bbbe",
+  "nci_original_source_sha256": "91e71c015f14939837f2943dcc904f7c87e5a3a0124d82b05c28ad2f23004def",
+  "original_digits_count": 1797,
+  "code": [
+    "chapters/generative_ai_part_i/figure_generation/print_width_original_image_portfolio.py",
+    "chapters/generative_ai_part_i/figure_generation/print_width_architecture_plates.py",
+    "chapters/generative_ai_part_i/qa/validate_pass63_print_figures.py"
+  ],
+  "manuscript_pdf_available": false,
+  "manuscript_tex_available": false,
+  "figure_6_20_provenance_verified": false,
+  "full_chapter_production_approved": false
+}
