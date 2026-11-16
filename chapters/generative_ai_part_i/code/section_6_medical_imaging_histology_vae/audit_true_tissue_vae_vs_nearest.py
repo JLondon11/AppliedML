@@ -94,10 +94,10 @@ def execute(checkpoint,out):
                      interpolation="nearest")
             a.set_xticks([]);a.set_yticks([])
         axes[0,j].set_title(
-            f'{"VAE better" if j<4 else "Oracle better"}\\npatch {i}; Δ={delta[i]:+.4f}',
+            f'{"VAE better" if j<4 else "Oracle better"}\npatch {i}; Δ={delta[i]:+.4f}',
             fontsize=8.2,color=("#157b82" if j<4 else "#aa6447"))
-    labels=["Original measured\\ntissue patch","Real trained VAE\\nreconstruction",
-            "Oracle-nearest real\\ntraining patch","VAE absolute RGB\\nreconstruction error"]
+    labels=["Original measured\ntissue patch","Real trained VAE\nreconstruction",
+            "Oracle-nearest real\ntraining patch","VAE absolute RGB\nreconstruction error"]
     for row,label in enumerate(labels):
         axes[row,0].set_ylabel(label,fontsize=10,labelpad=18)
     fig.suptitle("Real histology · actual VAE reconstructions vs oracle real-image reference",
@@ -128,7 +128,7 @@ def execute(checkpoint,out):
       illustrated_indices={"vae_better":positive,"oracle_better":negative},
       baseline_warning="Oracle nearest training patch uses held-out test target pixels; it is a nondeployable descriptor, not a fair operational baseline.",
       scope_warning="217 correlated patches from one source photograph; no patient- or slide-level generalization.")
-    (out/"actual_paired_error_summary.json").write_text(json.dumps(result,indent=2)+"\\n")
+    (out/"actual_paired_error_summary.json").write_text(json.dumps(result,indent=2)+"\n")
     print(json.dumps(result,indent=2))
 
 if __name__=="__main__":
