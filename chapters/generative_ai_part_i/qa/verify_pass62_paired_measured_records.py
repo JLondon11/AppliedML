@@ -5,7 +5,7 @@ This is a source-integrity and numerical check, not publication approval.
 """
 import argparse,csv,json,math
 from pathlib import Path
-def verify(records,summary):
+def verify(records,summary,independent_rerun=False):
     with Path(records).open(newline="",encoding="utf8") as f:
         rows=list(csv.DictReader(f))
     report=json.loads(Path(summary).read_text())
@@ -20,7 +20,7 @@ def verify(records,summary):
     vae=mean("vae_mse")
     oracle=mean("nearest_real_train_patch_mse")
     delta=mean("nearest_minus_vae_mse")
-    if not math.isclose(vae,.010481160134077072,abs_tol=1e-8):
+    if not independent_rerun and not math.isclose(vae,.010481160134077072,abs_tol=1e-8):
         raise ValueError("Source original model error differs")
     if not math.isclose(oracle,.010597637985416684,abs_tol=1e-8):
         raise ValueError("True real-image oracle baseline error differs")
@@ -28,8 +28,13 @@ def verify(records,summary):
         raise ValueError("Original paired delta does not reconcile")
     vwins=sum(float(r["nearest_minus_vae_mse"])>0 for r in rows)
     owins=sum(float(r["nearest_minus_vae_mse"])<0 for r in rows)
-    if (vwins,owins)!=(92,125):
+    if not independent_rerun and (vwins,owins)!=(92,125):
         raise ValueError("Original 217 held-out patch counts changed")
+    if vwins+owins!=217:raise ValueError("Expected strictly paired results for all original patches")
+    if not math.isclose(vae,report["vae_mean_test_mse"],abs_tol=1e-8):
+        raise ValueError("Model record mean inconsistent with source report")
+    if not math.isclose(oracle,report["nearest_training_patch_mean_test_mse"],abs_tol=1e-8):
+        raise ValueError("Oracle original record mean inconsistent with source report")
     if report["n_original_source_images"]!=1 or report["test_patches"]!=217:
         raise ValueError("Correlated single-photo study must not claim patients")
     if "oracle" not in report["baseline_selection"].lower():
@@ -43,5 +48,6 @@ if __name__=="__main__":
     parser=argparse.ArgumentParser()
     parser.add_argument("--records",required=True,type=Path)
     parser.add_argument("--summary",required=True,type=Path)
+    parser.add_argument("--independent-rerun",action="store_true",help="Verify a genuine rerun without demanding bit-identical trained VAE metrics")
     args=parser.parse_args()
-    print(json.dumps(verify(args.records,args.summary),indent=2))
+    print(json.dumps(verify(args.records,args.summary,args.independent_rerun),indent=2))
