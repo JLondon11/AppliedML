@@ -1,0 +1,27 @@
+{
+  "original_dataset": "sklearn.datasets.load_digits original 1797 handwritten digit scans",
+  "original_source_n": 1797,
+  "seed": 20261109,
+  "train_n": 1257,
+  "validation_n": 270,
+  "test_n": 270,
+  "original_test_index_sha256": "d945a001641ccbaecf31384feb1d1ba6e54c4d0dc33a3f6c9a40effe505514bb",
+  "generated_class_counts_sha256": "1b3499a3fa7f93e0cd044ade2b827858393d6ad54c2bedf9cb99a9c7916b2fb0",
+  "evaluator": "LogisticRegression(max_iter=2000,random_state=20261109), original training images only",
+  "real_evaluator_correct": 257,
+  "real_evaluator_test_n": 270,
+  "real_evaluator_accuracy": 0.9518518518518518,
+  "recorded_conditional_agreement": 0.778,
+  "recorded_unconditional_comparison_agreement": 0.094,
+  "n_original_independent_real_test_scans": 270,
+  "n_recorded_generated_samples_per_arm": 1000,
+  "sklearn_version": "1.8.0",
+  "numpy_version": "2.3.5",
+  "limitations": [
+    "Generated class values are previously saved model output; diffusion model not retrained",
+    "Real test and generated images are distinct distributions; descriptive, not paired",
+    "Generated images may be correlated; no valid generator-seed uncertainty estimated",
+    "Classifier agreement is not a human-rated image realism metric",
+    "Unconditional comparison class labels were assigned, not prompted"
+  ]
+}
