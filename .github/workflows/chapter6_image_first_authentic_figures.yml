@@ -97,7 +97,7 @@ jobs:
           test -s "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_tissue_paired_failure_success_atlas.pdf"
           python chapters/generative_ai_part_i/qa/verify_pass62_paired_measured_records.py \
             --records "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_217_patch_paired_errors.csv" \
-            --summary "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_paired_error_summary.json"
+            --summary "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_paired_error_summary.json" --independent-rerun
           python - <<'PY'
           import csv,json,os
           from pathlib import Path
