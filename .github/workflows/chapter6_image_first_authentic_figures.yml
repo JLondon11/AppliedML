@@ -90,6 +90,25 @@ jobs:
             --checkpoint "$RUNNER_TEMP/original_tissue/tissue_vae.pt" \
             --output "$RUNNER_TEMP/original_tissue_qualitative"
           test -s "$RUNNER_TEMP/original_tissue_qualitative/actual_tissue_cvae_reconstruction_gallery.pdf"
+          python "$D/audit_true_tissue_vae_vs_nearest.py" \
+            --checkpoint "$RUNNER_TEMP/original_tissue/tissue_vae.pt" \
+            --output "$RUNNER_TEMP/real_tissue_paired_diagnostic"
+          test -s "$RUNNER_TEMP/real_tissue_paired_diagnostic/actual_tissue_paired_failure_success_atlas.pdf"
+          python - <<'PY'
+          import csv,json,os
+          from pathlib import Path
+          stage=Path(os.environ['RUNNER_TEMP'])/'real_tissue_paired_diagnostic'
+          rows=list(csv.DictReader((stage/'actual_217_patch_paired_errors.csv').open()))
+          stats=json.loads((stage/'actual_paired_error_summary.json').read_text())
+          assert len(rows)==217 and len({(r['source_row'],r['source_col']) for r in rows})==217
+          assert stats['source_images']==1
+          assert stats['original_test_patches']==217
+          assert abs(stats['oracle_nearest_mean_test_mse']-.010597637985416684)<2e-6
+          assert stats['vae_lower_mse_count']+stats['oracle_lower_mse_count']==217
+          assert 'Oracle' in stats['baseline_warning']
+          print('PASS original VAE vs target-aware oracle reference; no claimed independent patients')
+          PY
+
           python - <<'PY'
           import json,os
           from pathlib import Path
@@ -108,6 +127,7 @@ jobs:
             ${{ runner.temp }}/original_tissue
             ${{ runner.temp }}/original_tissue_qualitative
             ${{ runner.temp }}/tissue_vae_architecture
+            ${{ runner.temp }}/real_tissue_paired_diagnostic
           retention-days: 90
   original-real-nci-molecule-gallery:
     runs-on: ubuntu-latest
