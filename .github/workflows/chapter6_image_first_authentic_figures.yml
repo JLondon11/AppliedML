@@ -8,6 +8,7 @@ on:
       - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
       - 'chapters/generative_ai_part_i/qa/verify_pass62_paired_measured_records.py'
       - 'chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py'
+      - 'chapters/generative_ai_part_i/qa/validate_pass63_print_figures.py'
       - 'chapters/generative_ai_part_i/figure_generation/print_width_original_image_portfolio.py'
       - 'chapters/generative_ai_part_i/figure_generation/print_width_architecture_plates.py'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py'
@@ -237,6 +238,9 @@ jobs:
             --checkpoint "$RUNNER_TEMP/real_tissue_checkpoint/tissue_vae.pt" \
             --output "$RUNNER_TEMP/print_width_portfolio"
           python "$G/print_width_architecture_plates.py" --output "$RUNNER_TEMP/print_width_portfolio"
+          python chapters/generative_ai_part_i/qa/validate_pass63_print_figures.py \
+            --directory "$RUNNER_TEMP/print_width_portfolio" \
+            --report "$RUNNER_TEMP/print_width_portfolio/pass63_text_image_bounds.json"
           for n in tissue_source_compact digits_source_compact nci_source_compact tissue_vae_output_compact_1 tissue_vae_output_compact_2 smiles_vae_architecture_compact tissue_vae_architecture_compact; do
             test -s "$RUNNER_TEMP/print_width_portfolio/$n.pdf"
             test -s "$RUNNER_TEMP/print_width_portfolio/$n.png"
