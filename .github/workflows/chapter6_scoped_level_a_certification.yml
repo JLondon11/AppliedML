@@ -8,6 +8,9 @@ on:
       - 'chapters/generative_ai_part_i/qa/brownlee_original_loo_replay_20261113.csv'
       - 'chapters/generative_ai_part_i/qa/verify_brownlee_independent_loo.py'
       - 'chapters/generative_ai_part_i/qa/validate_scoped_ch6_certifications.py'
+      - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/exact_random_selection_reference.py'
+      - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/verified_original_ESOL_random_null.json'
+      - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/verified_original_ESOL_226_test_predictions.csv'
       - 'chapters/generative_ai_part_i/qa/validate_scoped_csv_schema.py'
       - 'chapters/generative_ai_part_i/qa/test_scoped_csv_schema.py'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/plot_original_augmentation_seed_results.py'
@@ -143,6 +146,29 @@ jobs:
           assert s["conditional_generated"]["classifier_agree"] == 778
           assert len(s["per_digit"]) == 10 and len(s["limitations"]) >= 4
           print("PASS: computed conditional-sample intervals; generator-seed uncertainty not claimed")
+          PY
+      - name: Re-evaluate exact random-ranking reference from original measured ESOL assays
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol
+          python "$DIR/exact_random_selection_reference.py" --csv "$DIR/verified_original_ESOL_226_test_predictions.csv" --out "$RUNNER_TEMP/esol_exact_null.json"
+          python - <<'PY'
+          import json,math,os
+          from pathlib import Path
+          dir=Path("chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol")
+          a=json.loads((Path(os.environ["RUNNER_TEMP"])/"esol_exact_null.json").read_text())
+          b=json.loads((dir/"verified_original_ESOL_random_null.json").read_text())
+          for key in ("n_original_heldout_assays","observed_high_solubility_assays",
+                      "random_selection_n","random_selection_central_95pct_hits"):
+              assert a[key]==b[key], (key,a[key],b[key])
+          for method in ("ridge","published_ESOL"):
+              for key in ("measured_hits_top20","precision_top20",
+                          "fold_enrichment_over_random","exact_uniform_random_upper_tail_probability",
+                          "measured_test_rmse_log_mol_L"):
+                  assert math.isclose(a["model_arms"][method][key],
+                       b["model_arms"][method][key],rel_tol=1e-9,abs_tol=1e-12),(method,key)
+          print("PASS: original ESOL exact finite-population random null; no prospective discovery claim")
           PY
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
