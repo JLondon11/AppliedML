@@ -19,7 +19,9 @@
       "staged_pdf_name": "original_tissue_source_and_patches.pdf",
       "source_is_model_output": false,
       "visual_reviewed": true,
-      "manuscript_placement_verified": false
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS59-SOURCE-DIGITS",
@@ -33,7 +35,9 @@
       "staged_pdf_name": "original_scanned_digits_gallery.pdf",
       "source_is_model_output": false,
       "visual_reviewed": true,
-      "manuscript_placement_verified": false
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS59-PREDICTION-TISSUE",
@@ -56,7 +60,9 @@
       "measured_SSIM": 0.2926715016365051,
       "measured_MSE": 0.010481160134077072,
       "visual_reviewed": true,
-      "manuscript_placement_verified": false
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS59-SOURCE-NCI",
@@ -76,7 +82,9 @@
       "source_is_model_output": false,
       "source_is_original_measured_activity": false,
       "visual_reviewed": true,
-      "manuscript_placement_verified": false
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS61-ARCH-NCI",
@@ -92,7 +100,9 @@
       "source_is_model_output": false,
       "conceptual_not_measured_figure": true,
       "visual_reviewed": true,
-      "manuscript_placement_verified": false
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS61-ARCH-TISSUE",
@@ -108,7 +118,9 @@
       "source_is_model_output": false,
       "conceptual_not_measured_figure": true,
       "staged_pdf_name": "tissue_convolutional_vae_code_architecture.pdf",
-      "staged_pdf_sha256": "7861347ccd0c5a7a2b758e93d2ee581b51ca9a7f8b2f0761d2a8649138b2abaa"
+      "staged_pdf_sha256": "7861347ccd0c5a7a2b758e93d2ee581b51ca9a7f8b2f0761d2a8649138b2abaa",
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
     },
     {
       "internal_id": "PASS62-PAIRED-TISSUE",
@@ -130,7 +142,51 @@
       "original_figure_generator": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/audit_true_tissue_vae_vs_nearest.py",
       "original_source_numeric_measurements": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/qa/pass62_original_paired_tissue_measurements.json",
       "staged_pdf_name": "actual_tissue_paired_failure_success_atlas.pdf",
-      "staged_pdf_sha256": "a01e0f2a0f3273c3b1415d5ea6961150bfb41b8c6df74788db1769d49970cdfd"
+      "staged_pdf_sha256": "a01e0f2a0f3273c3b1415d5ea6961150bfb41b8c6df74788db1769d49970cdfd",
+      "normal_width_production_approved": false,
+      "normal_width_decision": "HOLD_REQUIRES_PRINT_SCALE_REMEDIATION"
+    },
+    {
+      "internal_id": "PASS62-TISSUE-PRINT-01",
+      "kind": "actual-original-data-model-output-print-width-gallery",
+      "original_experiment_scope": "CH6-D11 one actual microscopy photograph, 217 correlated spatially held-out patches",
+      "exact_original_source_photo_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+      "checkpoint_sha256": "204d5bd26a3361584285f108c7e74b9bdad2e5ee9d52310c7a5204f12d08bbbe",
+      "figure_contents": "Observed VAE-favorable real held-out tissue source patches and actual model outputs",
+      "generator": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/make_print_ready_tissue_paired_atlas.py",
+      "observed_source_records": "actual_217_patch_paired_errors.csv (delivered in Pass62 downloadable evidence package)",
+      "staged_pdf_name": "actual_tissue_oracle_paired_print_page_1.pdf",
+      "staged_pdf_sha256": "8c79bc2a036f9e2af2a84832290492e21721f037ea1c661974d850a5f6ca472d",
+      "physical_page_width_inches": 6.5,
+      "measured_minimum_printed_font_pt": 8.1,
+      "print_width_preflight_pass": true,
+      "source_is_model_output": true,
+      "target_aware_oracle_disclosed": true,
+      "publication_figure_number": null,
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "final_manuscript_approval": "HOLD"
+    },
+    {
+      "internal_id": "PASS62-TISSUE-PRINT-02",
+      "kind": "actual-original-data-model-output-print-width-gallery",
+      "original_experiment_scope": "CH6-D11 one actual microscopy photograph, 217 correlated spatially held-out patches",
+      "exact_original_source_photo_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+      "checkpoint_sha256": "204d5bd26a3361584285f108c7e74b9bdad2e5ee9d52310c7a5204f12d08bbbe",
+      "figure_contents": "Observed oracle-favorable real held-out tissue source patches and actual model outputs",
+      "generator": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/make_print_ready_tissue_paired_atlas.py",
+      "observed_source_records": "actual_217_patch_paired_errors.csv (delivered in Pass62 downloadable evidence package)",
+      "staged_pdf_name": "actual_tissue_oracle_paired_print_page_2.pdf",
+      "staged_pdf_sha256": "77ccb79a87ed9e0a675239f01d6807d1c866258812112fc4118a6a3bc4ca7699",
+      "physical_page_width_inches": 6.5,
+      "measured_minimum_printed_font_pt": 8.1,
+      "print_width_preflight_pass": true,
+      "source_is_model_output": true,
+      "target_aware_oracle_disclosed": true,
+      "publication_figure_number": null,
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "final_manuscript_approval": "HOLD"
     }
   ],
   "figure_620": {
@@ -140,5 +196,15 @@
     "manuscript_domain": "industrial-defect-images",
     "source_mapping_verified": false
   },
-  "note": "File hashes describe PDF assets locally generated in the contemporaneous evidence delivery; code is committed, but staged binary PDFs are NOT claimed committed to GitHub. Final figure numbers and actual manuscript integration remain unverified."
+  "note": "File hashes describe PDF assets locally generated in the contemporaneous evidence delivery; code is committed, but staged binary PDFs are NOT claimed committed to GitHub. Final figure numbers and actual manuscript integration remain unverified.",
+  "print_width_review": {
+    "review_date": "2026-11-15",
+    "assumed_single_text_width_inches": 6.5,
+    "minimum_acceptable_printed_font_pt": 7.5,
+    "original_wide_figure_candidates": 7,
+    "original_wide_figures_passing_at_assumed_width": 0,
+    "reason": "At 6.5 inch scaled insertion the original seven wide figures have minimum label fonts around 3.35–4.62 pt, despite passing native-PDF text-bound tests. This provisional layout measure is not independently confirmed by missing latest manuscript TeX.",
+    "two_new_original_data_compact_pages_passing": 2,
+    "final_manuscript_reviewed": false
+  }
 }
