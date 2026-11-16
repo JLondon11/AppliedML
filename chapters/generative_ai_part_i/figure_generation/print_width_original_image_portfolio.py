@@ -42,7 +42,7 @@ def source_figures(out):
     for i,(row,col) in enumerate([(32,32),(144,224),(256,384),(336,48),(400,224),(464,416)]):
         a=fig.add_subplot(gs[1+i//3,i%3]);a.imshow(photo[row:row+32,col:col+32],interpolation="nearest")
         a.axis("off");a.set_title(f"Row {row}, col {col}",fontsize=8.5,color=INK)
-    fig.text(.065,.969,"Actual tissue data and spatial splits",fontsize=15,weight="bold",color=INK)
+    fig.text(.065,.949,"Actual tissue data and spatial splits",fontsize=15,weight="bold",color=INK)
     fig.text(.065,.930,"One 512 × 512 original micrograph; real 32 × 32 input crops",fontsize=9,color=MUTED)
     fig.text(.065,.075,"Original pixels, NOT VAE predictions. Train 0–319; validation 320–383; test 384–511.",fontsize=8.2,color=MUTED)
     fig.text(.065,.044,"Spatial patches overlap within regions; the specimen photograph is not a patient cohort.",fontsize=8.2,color=MUTED)
@@ -56,7 +56,7 @@ def source_figures(out):
             a=axes[row,col];a.imshow(digits.images[idx],cmap="gray",vmin=0,vmax=16,interpolation="nearest")
             a.set_xticks([]);a.set_yticks([])
             if variant==0:a.set_title(f"Class {digit}",fontsize=9.2,weight="bold",color=INK)
-    fig.text(.055,.966,"Authentic scanned handwriting",fontsize=15,weight="bold",color=INK)
+    fig.text(.055,.946,"Authentic scanned handwriting",fontsize=15,weight="bold",color=INK)
     fig.text(.055,.928,"Two original 8 × 8 scans per digit class — not generated images",fontsize=9,color=MUTED)
     fig.text(.055,.047,"Original sklearn digit scans shown at nearest-neighbor pixel scale; intensities 0–16.",fontsize=8.2,color=MUTED)
     fig.subplots_adjust(left=.055,right=.98,bottom=.105,top=.85,wspace=.13,hspace=.22)
@@ -85,7 +85,7 @@ def source_figures(out):
         mol,nci=original[i];a.imshow(Draw.MolToImage(mol,size=(400,265)));a.axis("off")
         a.set_title(f"{label} · original NCI {nci}  |  {rdMolDescriptors.CalcMolFormula(mol)}",
                     color=INK,fontsize=8.5,loc="left")
-    fig.text(.055,.973,"Original NCI molecular structures",color=INK,fontsize=14.5,weight="bold")
+    fig.text(.055,.953,"Original NCI molecular structures",color=INK,fontsize=14.5,weight="bold")
     fig.text(.055,.940,"Six authentic source compounds, not VAE-generated molecules",color=MUTED,fontsize=9)
     fig.text(.055,.047,"Train/validation/test: 360/120/120 distinct original source structures.",color=MUTED,fontsize=8.2)
     fig.text(.055,.021,"Bond diagrams and formulas are computed from NCI SMILES; no new chemical assays.",color=MUTED,fontsize=8.2)
