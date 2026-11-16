@@ -1,0 +1,35 @@
+{
+  "source": "verified_original_ESOL_226_test_predictions.csv",
+  "n_original_heldout_assays": 226,
+  "observed_high_solubility_assays": 59,
+  "train_derived_high_solubility_threshold_logS": -1.6,
+  "random_selection_n": 20,
+  "random_selection_expected_hits": 5.221238938053097,
+  "random_selection_central_95pct_hits": [
+    2,
+    9
+  ],
+  "model_arms": {
+    "ridge": {
+      "measured_hits_top20": 14,
+      "precision_top20": 0.7,
+      "fold_enrichment_over_random": 2.6813559322033895,
+      "exact_uniform_random_upper_tail_probability": 0.00001963426607839825,
+      "measured_test_rmse_log_mol_L": 1.1795769332543176
+    },
+    "published_ESOL": {
+      "measured_hits_top20": 17,
+      "precision_top20": 0.85,
+      "fold_enrichment_over_random": 3.2559322033898304,
+      "exact_uniform_random_upper_tail_probability": 1.056799847994021e-8,
+      "measured_test_rmse_log_mol_L": 0.8755685030537721
+    }
+  },
+  "limitations": [
+    "Exact tail probabilities refer to a uniform random top-20 selection without replacement from these fixed 226 observed assays",
+    "An enrichment p-value does not certify prospective screening of unassayed generated molecules",
+    "Only one preselected train/test split and one fitted local ridge model are evaluated",
+    "The published ESOL score is a precomputed input column with unverified original training independence, not a fair independently trained baseline",
+    "No physical synthesis, prospective solubility assay or autonomous discovery occurred"
+  ]
+}
