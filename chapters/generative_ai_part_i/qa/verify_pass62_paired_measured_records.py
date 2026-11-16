@@ -33,11 +33,11 @@ def verify(records,summary,independent_rerun=False):
     if vwins+owins!=217:raise ValueError("Expected strictly paired results for all original patches")
     if not math.isclose(vae,report["vae_mean_test_mse"],abs_tol=1e-8):
         raise ValueError("Model record mean inconsistent with source report")
-    if not math.isclose(oracle,report["nearest_training_patch_mean_test_mse"],abs_tol=1e-8):
+    if not math.isclose(oracle,report["oracle_nearest_mean_test_mse"],abs_tol=1e-8):
         raise ValueError("Oracle original record mean inconsistent with source report")
-    if report["n_original_source_images"]!=1 or report["test_patches"]!=217:
+    if report["source_images"]!=1 or report["original_test_patches"]!=217:
         raise ValueError("Correlated single-photo study must not claim patients")
-    if "oracle" not in report["baseline_selection"].lower():
+    if "oracle" not in report["baseline_warning"].lower():
         raise ValueError("Target-aware reference limitation must be disclosed")
     return {"status":"PASS_REAL_SINGLE_TISSUE_MEASURED_RECORD_CONSISTENCY",
       "rows":len(rows),"source_photographs":1,"vae_lower_error":vwins,
