@@ -59,7 +59,7 @@ def render(checkpoint,records,out):
                     vmax=.4 if row==3 else 1,interpolation="nearest")
                 ax.set_xticks([]);ax.set_yticks([])
             delta=float(item["nearest_minus_vae_mse"])
-            axes[0,column].set_title(f"Patch {index}\\nΔ {delta:+.4f}",fontsize=8.6)
+            axes[0,column].set_title(f"Patch {index}\nΔ {delta:+.4f}",fontsize=8.6)
         for row,label in enumerate(
             ("Real test image","Executed VAE output","Oracle-nearest real patch","Absolute RGB error")):
             axes[row,0].set_ylabel(label,fontsize=8.5,labelpad=8)
