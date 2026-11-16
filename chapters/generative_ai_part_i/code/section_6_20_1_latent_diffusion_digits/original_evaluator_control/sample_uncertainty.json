@@ -1,0 +1,137 @@
+{
+  "source": "real_evaluator_vs_generated_class.csv",
+  "real_test": {
+    "correct": 257,
+    "n": 270,
+    "wilson95": [
+      0.9193774282654325,
+      0.9716490841216722
+    ]
+  },
+  "conditional_generated": {
+    "classifier_agree": 778,
+    "n": 1000,
+    "wilson95_conditional_on_fitted_generator": [
+      0.7512053591381822,
+      0.8026669631438492
+    ]
+  },
+  "per_digit": [
+    {
+      "digit": 0,
+      "real_holdout_wilson95": [
+        0.7663040731697686,
+        0.9794453459390113
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.8625048526092651,
+        0.9656807389327273
+      ]
+    },
+    {
+      "digit": 1,
+      "real_holdout_wilson95": [
+        0.7663040731697686,
+        0.9794453459390113
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.3001687400639441,
+        0.4879698295415926
+      ]
+    },
+    {
+      "digit": 2,
+      "real_holdout_wilson95": [
+        0.8171653406642414,
+        0.9934318540192149
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.45244602997442135,
+        0.6438546202048803
+      ]
+    },
+    {
+      "digit": 3,
+      "real_holdout_wilson95": [
+        0.7194219918172017,
+        0.9614796517169016
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.8500189229905127,
+        0.9589065385156194
+      ]
+    },
+    {
+      "digit": 4,
+      "real_holdout_wilson95": [
+        0.7194219918172017,
+        0.9614796517169016
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.9455138038212946,
+        0.9982325679358593
+      ]
+    },
+    {
+      "digit": 5,
+      "real_holdout_wilson95": [
+        0.8793566952341543,
+        0.9999999999999998
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.5730534379509052,
+        0.7543687726587197
+      ]
+    },
+    {
+      "digit": 6,
+      "real_holdout_wilson95": [
+        0.8171653406642414,
+        0.9934318540192149
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.8500189229905127,
+        0.9589065385156194
+      ]
+    },
+    {
+      "digit": 7,
+      "real_holdout_wilson95": [
+        0.8754449702581328,
+        0.9999999999999998
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.837737871472837,
+        0.9519274599974348
+      ]
+    },
+    {
+      "digit": 8,
+      "real_holdout_wilson95": [
+        0.8110722109696524,
+        0.9931780150064564
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.5627772885472462,
+        0.7453847920265184
+      ]
+    },
+    {
+      "digit": 9,
+      "real_holdout_wilson95": [
+        0.8754449702581328,
+        0.9999999999999998
+      ],
+      "saved_generated_agreement_wilson95_conditional_on_fitted_model": [
+        0.7557973061072976,
+        0.8990471151119521
+      ]
+    }
+  ],
+  "limitations": [
+    "Real observed and generated image groups are distinct and are not paired",
+    "Sample Wilson intervals do not quantify generator-training-seed uncertainty or image dependence",
+    "Automated classifier agreement is not perceptual image fidelity",
+    "No hypothesis test of a common population was performed"
+  ]
+}
