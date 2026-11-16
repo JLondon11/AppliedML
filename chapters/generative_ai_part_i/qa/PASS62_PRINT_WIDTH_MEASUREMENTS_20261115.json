@@ -1,0 +1,68 @@
+{
+  "run_date": "2026-11-15",
+  "basis": "Actual seven staged original Pass61/62 vector PDFs, independently measured with PyMuPDF and hypothetical 468pt (6.5 inch) manuscript text width",
+  "required_min_print_type_pt": 7.5,
+  "manuscript_text_width_confirmed": false,
+  "original_wide_figures": [
+    {
+      "figure": "original_tissue_source_and_patches.pdf",
+      "min_print_pt": 3.38,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "original_scanned_digits_gallery.pdf",
+      "min_print_pt": 4.54,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "original_nci_chemical_structures.pdf",
+      "min_print_pt": 4.62,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "nci_molecular_vae_code_architecture.pdf",
+      "min_print_pt": 3.46,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "tissue_convolutional_vae_code_architecture.pdf",
+      "min_print_pt": 3.77,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "actual_tissue_cvae_reconstruction_gallery.pdf",
+      "min_print_pt": 3.35,
+      "decision": "HOLD"
+    },
+    {
+      "figure": "actual_tissue_paired_failure_success_atlas.pdf",
+      "min_print_pt": 3.51,
+      "decision": "HOLD"
+    }
+  ],
+  "remediated_heldout_model_output_figures": [
+    {
+      "file": "actual_tissue_oracle_paired_print_page_1.pdf",
+      "page_width_pt": 468,
+      "min_print_font_pt": 8.1,
+      "offpage_text_spans": 0,
+      "sha256": "8c79bc2a036f9e2af2a84832290492e21721f037ea1c661974d850a5f6ca472d",
+      "decision": "STAGED_PRINT_WIDTH_PREFLIGHT_PASS_MANUSCRIPT_PENDING"
+    },
+    {
+      "file": "actual_tissue_oracle_paired_print_page_2.pdf",
+      "page_width_pt": 468,
+      "min_print_font_pt": 8.1,
+      "offpage_text_spans": 0,
+      "sha256": "77ccb79a87ed9e0a675239f01d6807d1c866258812112fc4118a6a3bc4ca7699",
+      "decision": "STAGED_PRINT_WIDTH_PREFLIGHT_PASS_MANUSCRIPT_PENDING"
+    }
+  ],
+  "source_scientific_scope": "single observed microscope photo, 217 correlated spatially held-out patches, actual trained VAE checkpoint; oracle nearest real training photo receives true held-out target pixels",
+  "original_script": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/audit_true_tissue_vae_vs_nearest.py",
+  "print_script": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/make_print_ready_tissue_paired_atlas.py",
+  "audit_script": "chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py",
+  "normal_figure_status": "HOLD pending print adaptation of remaining six original wide plates and latest TeX/PDF geometry",
+  "full_chapter_production_status": "HOLD",
+  "original_figure_620_provenance_status": "UNVERIFIED"
+}
