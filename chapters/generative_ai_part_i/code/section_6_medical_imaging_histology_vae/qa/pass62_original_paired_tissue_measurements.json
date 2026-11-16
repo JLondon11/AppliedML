@@ -1,0 +1,40 @@
+{
+  "review_date": "2026-11-15",
+  "origin": "Actual executed Pass60 trained tissue VAE checkpoint re-evaluated with original 512x512 immunohistochemistry source photo and all original test rows",
+  "scientific_status": "EVIDENCE_EXPANSION_WITHIN_ALREADY_CERTIFIED_CH6_D11_LEVEL_A",
+  "original_source_sha256": "c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b",
+  "original_checkpoint_sha256": "204d5bd26a3361584285f108c7e74b9bdad2e5ee9d52310c7a5204f12d08bbbe",
+  "n_source_photographs": 1,
+  "n_genuine_training_patches": 589,
+  "n_spatially_heldout_patches": 217,
+  "vae_mean_squared_reconstruction_error": 0.010481160134077072,
+  "target_aware_oracle_nearest_training_patch_mean_squared_error": 0.010597637985416684,
+  "mean_oracle_minus_vae_mse": 0.00011647771936648178,
+  "median_oracle_minus_vae_mse": -0.0004502781666815281,
+  "per_patch_vae_lower_error": 92,
+  "per_patch_oracle_lower_error": 125,
+  "ties": 0,
+  "source_pair_selection": "Nearest real training patch chosen by direct minimization of pixel MSE to the held-out target, so target-aware oracle only and NOT a deployable model comparator",
+  "atlas_extreme_vae_better_patch_ids": [
+    125,
+    9,
+    156,
+    40
+  ],
+  "atlas_extreme_oracle_better_patch_ids": [
+    50,
+    96,
+    159,
+    35
+  ],
+  "atlas_vector_pdf_sha256": "a01e0f2a0f3273c3b1415d5ea6961150bfb41b8c6df74788db1769d49970cdfd",
+  "atlas_output": "actual_tissue_paired_failure_success_atlas.pdf",
+  "figure_source": "chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/audit_true_tissue_vae_vs_nearest.py",
+  "notes": [
+    "VAE mean is marginally smaller yet loses on 125 of the 217 correlated original image patches",
+    "One source photograph; not 217 independent tissue or patient specimens",
+    "This is not a fair test-target-hidden method comparison; the oracle has the true test-patch pixel content",
+    "The displayed eight examples are selected extreme improvements/degradations, not random or representative samples",
+    "Generated source script and GitHub Actions reexecution path committed; binary artwork delivered as downloadable evidence, not claimed embedded in latest book"
+  ]
+}
