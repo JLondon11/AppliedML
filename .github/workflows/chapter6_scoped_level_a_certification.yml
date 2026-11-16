@@ -21,6 +21,10 @@ on:
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/plot_verified_conditioning_pipeline.js'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_class_counts_pass27.csv'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figures/verified_digit_conditioning_science.svg'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/audit_real_evaluator_control.py'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/verify_original_evaluator_control.py'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/plot_real_evaluator_control.js'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/original_evaluator_control/**'
       - 'chapters/generative_ai_part_i/quality_assurance/production_inventory.json'
 permissions:
   contents: read
@@ -94,6 +98,35 @@ jobs:
           DIR=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
           node "$DIR/plot_verified_conditioning_pipeline.js"
           git diff --exit-code -- "$DIR/figures/verified_digit_conditioning_science.svg"
+      - name: Independently execute original real-image evaluator and verify saved class results
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
+          python "$DIR/audit_real_evaluator_control.py" --counts "$DIR/figure_6_44_class_counts_pass27.csv" --out "$RUNNER_TEMP/ch6_digit_evaluator"
+          python "$DIR/verify_original_evaluator_control.py"
+          python - <<'PY'
+          import csv,json,os
+          from pathlib import Path
+          d=Path(os.environ['RUNNER_TEMP'])/'ch6_digit_evaluator'
+          base=Path('chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/original_evaluator_control')
+          actual=json.loads((d/'metrics.json').read_text())
+          saved=json.loads((base/'metrics.json').read_text())
+          for key in ('original_test_index_sha256','real_evaluator_correct','real_evaluator_test_n','recorded_conditional_agreement','recorded_unconditional_comparison_agreement'):
+              assert actual[key]==saved[key],(key,actual[key],saved[key])
+          for f in ('real_evaluator_vs_generated_class.csv','real_evaluator_confusion.csv'):
+              a=list(csv.DictReader((d/f).open(newline='')))
+              b=list(csv.DictReader((base/f).open(newline='')))
+              assert len(a)==len(b),(f,len(a),len(b))
+              for i,(x,y) in enumerate(zip(a,b)):
+                  assert x.keys()==y.keys()
+                  for k in x:
+                      if x[k]==y[k]:continue
+                      assert abs(float(x[k])-float(y[k]))<1e-12,(f,i,k,x[k],y[k])
+          print('PASS: independently trained real-digit evaluator and committed numeric records agree')
+          PY
+          node "$DIR/plot_real_evaluator_control.js"
+          git diff --exit-code -- "$DIR/original_evaluator_control/real_classifier_control_summary.svg"
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
         run: |
