@@ -22,6 +22,7 @@ on:
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_class_counts_pass27.csv'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figures/verified_digit_conditioning_science.svg'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/audit_real_evaluator_control.py'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/compute_sample_uncertainty.py'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/verify_original_evaluator_control.py'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/plot_real_evaluator_control.js'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/original_evaluator_control/**'
@@ -127,6 +128,22 @@ jobs:
           PY
           node "$DIR/plot_real_evaluator_control.js"
           git diff --exit-code -- "$DIR/original_evaluator_control/real_classifier_control_summary.svg"
+      - name: Verify original-data evaluator sample uncertainty and limited claim scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
+          python "$DIR/compute_sample_uncertainty.py"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=Path("chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/original_evaluator_control/sample_uncertainty.json")
+          s=json.loads(f.read_text(encoding="utf-8"))
+          assert s["real_test"]["correct"] == 257 and s["real_test"]["n"] == 270
+          assert s["conditional_generated"]["classifier_agree"] == 778
+          assert len(s["per_digit"]) == 10 and len(s["limitations"]) >= 4
+          print("PASS: computed conditional-sample intervals; generator-seed uncertainty not claimed")
+          PY
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
         run: |
