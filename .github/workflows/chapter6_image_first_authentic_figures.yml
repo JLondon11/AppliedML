@@ -8,6 +8,8 @@ on:
       - 'chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae/**'
       - 'chapters/generative_ai_part_i/qa/verify_pass62_paired_measured_records.py'
       - 'chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py'
+      - 'chapters/generative_ai_part_i/figure_generation/print_width_original_image_portfolio.py'
+      - 'chapters/generative_ai_part_i/figure_generation/print_width_architecture_plates.py'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/make_original_nci_structure_plate.py'
       - 'chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/plot_nci_smiles_vae_code_architecture.py'
 permissions:
@@ -207,4 +209,62 @@ jobs:
             chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_chemical_structures.*
             chapters/generative_ai_part_i/code/section_6_molecular_smiles_vae/original_nci_molecules_provenance.json
             ${{ runner.temp }}/nci_vae_architecture
+          retention-days: 90
+
+  print-width-original-photo-and-architecture-portfolios:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install authentic dataset, scientific-model and vector-print dependencies
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'torch>=2.3,<3' 'scikit-image>=0.22,<0.27' 'scikit-learn>=1.4,<2' 'rdkit>=2024.3,<2027' 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
+      - name: Execute actual tissue VAE model on original micrograph
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_medical_imaging_histology_vae
+          python "$D/run.py" --epochs 12 --output "$RUNNER_TEMP/real_tissue_checkpoint"
+          test -s "$RUNNER_TEMP/real_tissue_checkpoint/tissue_vae.pt"
+      - name: Regenerate seven genuine-image and code-faithful architecture PDFs
+        shell: bash
+        run: |
+          set -euo pipefail
+          G=chapters/generative_ai_part_i/figure_generation
+          python "$G/print_width_original_image_portfolio.py" \
+            --checkpoint "$RUNNER_TEMP/real_tissue_checkpoint/tissue_vae.pt" \
+            --output "$RUNNER_TEMP/print_width_portfolio"
+          python "$G/print_width_architecture_plates.py" --output "$RUNNER_TEMP/print_width_portfolio"
+          for n in tissue_source_compact digits_source_compact nci_source_compact tissue_vae_output_compact_1 tissue_vae_output_compact_2 smiles_vae_architecture_compact tissue_vae_architecture_compact; do
+            test -s "$RUNNER_TEMP/print_width_portfolio/$n.pdf"
+            test -s "$RUNNER_TEMP/print_width_portfolio/$n.png"
+            test -s "$RUNNER_TEMP/print_width_portfolio/$n.svg"
+          done
+      - name: Reject unreadable and unverified printed scientific plates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python chapters/generative_ai_part_i/qa/audit_print_scaled_figures.py \
+            "$RUNNER_TEMP/print_width_portfolio/"*.pdf \
+            --width-pt 468 --min-font-pt 7.5 \
+            --report "$RUNNER_TEMP/print_width_portfolio/print_width_validation.json"
+          python - <<'PY'
+          from pathlib import Path
+          import json,os
+          d=Path(os.environ['RUNNER_TEMP'])/'print_width_portfolio'
+          report=json.loads((d/'print_width_validation.json').read_text())
+          assert report['pass_count']==7 and report['hold_count']==0,report
+          assert all(x['minimum_printed_font_pt']>=7.5 for x in report['results'])
+          p=json.loads((d/'print_compact_provenance.json').read_text())
+          assert p['tissue_original_source_sha256']=='c5b3ef509a92f16d4c29be8cf0300fe75d53e13a3ce650159db932caea8dcc1b'
+          assert p['not_full_manuscript_production_approval'] is True
+          print('PASS seven genuine-data and source-code architecture print-width plates')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-pass63-actual-seven-original-data-print-width-figures
+          path: |
+            ${{ runner.temp }}/print_width_portfolio
           retention-days: 90
