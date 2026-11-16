@@ -42,3 +42,9 @@ Compare this **original real-image classifier control** with earlier **saved gen
 - The GitHub workflow now independently refits the original-real evaluator on CI, verifies numeric agreement, and checks SVG regeneration drift.
 
 **Scope:** This evaluates the classifier as a control, not generator diversity, perceptual fidelity, test-set independence between generated outputs, deployment, Stable Diffusion, or cross-generator-seed uncertainty. The original source counts and real classifier results have different denominators and are not paired. Figures are source-linked publication candidates; their actual placement in the current compiled Chapter 6 cannot yet be verified.
+
+## Pass 62 independent replay and scoped uncertainty
+
+The archived Pass 61 real-original-digit evaluator was independently re-executed in Pass 62 on the actual `sklearn.datasets.load_digits` source and original split. All ten measured per-class rows, the original real held-out 10×10 confusion counts, original 257/270 test accuracy and source/test-index hashes numerically matched the previously saved records. The generator itself was **not** retrained. Details: `../../qa/PASS62_INDEPENDENT_REAL_DIGIT_REPLAY_AND_UNCERTAINTY_20261115.md`.
+
+`compute_sample_uncertainty.py` calculates transparent, descriptive sample Wilson intervals from the observed evaluator and saved class-count records; its numerical results are at `original_evaluator_control/sample_uncertainty.json`. The 95% interval for genuine held-out real-classifier accuracy is **[91.94%, 97.16%]**, and for saved conditional-generator classifier agreement is **[75.12%, 80.27%]**. **These are not paired groups**, and the generated-sample interval is conditional on a single trained generator; it does not establish between-generator-seed repeatability or subjective image quality. The continued Level A certification covers the narrow actual original-digit task only.
