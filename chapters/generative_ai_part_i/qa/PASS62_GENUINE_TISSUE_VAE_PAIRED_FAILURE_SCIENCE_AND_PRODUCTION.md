@@ -52,3 +52,24 @@ A staging ledger entry (`quality_assurance/pass59_image_first_figure_staging.jso
 4. No trained-model or figure step should be described as run on an independent hospital cohort, and no target-aware oracle should be compared as though deployed with identical information.
 
 **Pass 62 decision: actual new original-data scientific analysis and original-image figure complete; numerical integrity locally verified; source and continuous-check code committed; six prior vector figures rechecked; seven staged non-plot figures verified. Full Chapter 6 scientific-parent/production approval remains HOLD.**
+
+## Follow-on production discovery: native readability is not printed readability
+
+A genuine source-derived physical print-scale audit was executed against all seven original Pass61/62 wide scientific PDF figures. The original gallery and architecture PDFs had no off-page text at their **native canvas width** and all had scientific content, but **all seven were too wide to insert at an assumed ordinary 6.5-inch (468 pt) textbook text width** without shrinking small labels: smallest predicted physically printed type sizes ranged from approximately **3.35–4.62 pt**, far below the explicit **7.5 pt** candidate legibility floor.
+
+**This is an actual production defect**, not a scientific-dataset failure and not evidence that the book must have a known exact 6.5-inch measure. The measurement is an explicit preliminary layout assumption because the latest TeX geometry is missing. All seven original wide figures remain **STAGED_NOT_NORMAL_WIDTH_APPROVED**. Appropriate remedies include reducing the number of columns per figure, increasing native label type sizes, dividing conceptual diagrams, or arranging larger true-text-width/landscape pages if the final manuscript permits. Passing native-PDF visual inspection alone does not authorize the original wide assets for normal-width textbook publication.
+
+New executable committed QA: `qa/audit_print_scaled_figures.py`, based on PyMuPDF original vector text span sizes, actual PDF page width and the intended physical insertion width. It separately records no off-page text and whether the minimum font stays at least 7.5 pt after scaling. The independent local original-seven-PDF audit reported **0 PASS / 7 HOLD at 6.5-inch insertion width**; this corrects the earlier overly optimistic assertion that native one-page figure review implied readable print insertion.
+
+### Corrected, actual model-output image atlas in TWO print-width pages
+
+The original selected eight real held-out image comparisons were **re-rendered from the genuine checkpoint, exact original source pixels, and retained per-patch oracle index/measurement CSV** as **two original 6.5-inch-wide pages** of four observed examples each. The source scientific data and actual neural model outputs have **not been changed**; only physical figure layout is revised.
+
+- `actual_tissue_oracle_paired_print_page_1.pdf`: four observed VAE-favorable measured test patches; SHA256 `8c79bc2a036f9e2af2a84832290492e21721f037ea1c661974d850a5f6ca472d`.
+- `actual_tissue_oracle_paired_print_page_2.pdf`: four observed oracle-favorable measured test patches; SHA256 `77ccb79a87ed9e0a675239f01d6807d1c866258812112fc4118a6a3bc4ca7699`.
+
+Both output pages are genuine **6.5 inches wide**, vector-captioned PDFs with four original tissue images, four actual trained VAE predictions, four target-aware original photo patch references and four actual residual images. Final PyMuPDF checks found **no text clipping and minimum physical/native vector type 8.1 pt**. Local scale-aware QA of the two finished candidate pages returned **2 PASS / 0 HOLD** with the stated 6.5-inch/7.5-point assumptions. Both pages were visually inspected as images; the first draft had a title clipping problem, which was corrected before accepting the final two PDFs.
+
+The complete true-checkpoint-based print-layout generator is `code/section_6_medical_imaging_histology_vae/make_print_ready_tissue_paired_atlas.py`, committed in GitHub. `.github/workflows/chapter6_image_first_authentic_figures.yml` is updated to regenerate both pages and assert passing scale-aware type size on actual original data. The remote workflow remains unconfirmed.
+
+**Production approval remains HOLD** until the actual current Chapter 6 PDF/TeX and full figure manifest are retrieved. The two compact pages qualify only as **print-width-ready candidates under the explicitly assumed page measure**, not inserted, numbered, or finally approved manuscript figures.
