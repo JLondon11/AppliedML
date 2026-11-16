@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="650" viewBox="0 0 1140 650" role="img" aria-label="Exact random-rank null for measured ESOL held-out compounds: hypergeometric survival probabilities for top-20 measured hits and observed ridge 14 and published-source score 17"><rect width="1140" height="650" fill="#fff"/>
+<text x="56" y="50" text-anchor="start" fill="#193d4c" font-family="Arial,Helvetica,sans-serif" font-size="25" font-weight="700">ESOL • measured hit enrichment against exact random selection</text>
+<text x="56" y="77" text-anchor="start" fill="#5e7481" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400">226 existing measured test compounds • 59 above the training-derived solubility threshold • select 20 without replacement</text>
+<line x1="125" y1="507" x2="1020" y2="507" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="511" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">1</text>
+<line x1="125" y1="451" x2="1020" y2="451" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="455" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻2</text>
+<line x1="125" y1="395" x2="1020" y2="395" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="399" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻4</text>
+<line x1="125" y1="339" x2="1020" y2="339" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="343" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻6</text>
+<line x1="125" y1="283" x2="1020" y2="283" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="287" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻8</text>
+<line x1="125" y1="227" x2="1020" y2="227" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="231" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻10</text>
+<line x1="125" y1="171" x2="1020" y2="171" stroke="#e2e9ed" stroke-width="1"/>
+<text x="105" y="175" text-anchor="end" fill="#627988" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10⁻12</text>
+<text x="56" y="129" text-anchor="start" fill="#244b5c" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400">P(random top-20 includes at least k observed high-solubility assays)</text>
+<polyline points="125,507 169.75,506.97915402642997 214.5,506.81165884031475 259.25,506.1714158563304 304,504.57180577200137 348.75,501.52564762865074 393.5,496.66268887386747 438.25,489.7449938798203 483,480.6297311729951 527.75,469.2268982754739 572.5,455.4678443176252 617.25,439.28419342799674 662,420.5929444922443 706.75,399.2837028011506 751.5,375.20441081999786 796.25,348.1412761446938 841,317.785635564775 885.75,283.6717967798989 930.5,245.04253245966248 975.25,200.49015876493326 1020,146.53817091434183" fill="none" stroke="#287b8a" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="125" cy="507" r="3.2" fill="#287b8a"/>
+<circle cx="169.75" cy="506.97915402642997" r="3.2" fill="#287b8a"/>
+<circle cx="214.5" cy="506.81165884031475" r="3.2" fill="#287b8a"/>
+<circle cx="259.25" cy="506.1714158563304" r="3.2" fill="#287b8a"/>
+<circle cx="304" cy="504.57180577200137" r="3.2" fill="#287b8a"/>
+<circle cx="348.75" cy="501.52564762865074" r="3.2" fill="#287b8a"/>
+<circle cx="393.5" cy="496.66268887386747" r="3.2" fill="#287b8a"/>
+<circle cx="438.25" cy="489.7449938798203" r="3.2" fill="#287b8a"/>
+<circle cx="483" cy="480.6297311729951" r="3.2" fill="#287b8a"/>
+<circle cx="527.75" cy="469.2268982754739" r="3.2" fill="#287b8a"/>
+<circle cx="572.5" cy="455.4678443176252" r="3.2" fill="#287b8a"/>
+<circle cx="617.25" cy="439.28419342799674" r="3.2" fill="#287b8a"/>
+<circle cx="662" cy="420.5929444922443" r="3.2" fill="#287b8a"/>
+<circle cx="706.75" cy="399.2837028011506" r="3.2" fill="#287b8a"/>
+<circle cx="751.5" cy="375.20441081999786" r="3.2" fill="#287b8a"/>
+<circle cx="796.25" cy="348.1412761446938" r="3.2" fill="#287b8a"/>
+<circle cx="841" cy="317.785635564775" r="3.2" fill="#287b8a"/>
+<circle cx="885.75" cy="283.6717967798989" r="3.2" fill="#287b8a"/>
+<circle cx="930.5" cy="245.04253245966248" r="3.2" fill="#287b8a"/>
+<circle cx="975.25" cy="200.49015876493326" r="3.2" fill="#287b8a"/>
+<circle cx="1020" cy="146.53817091434183" r="3.2" fill="#287b8a"/>
+<line x1="751.5" y1="375.20441081999786" x2="751.5" y2="507" stroke="#b45e49" stroke-width="2"/>
+<circle cx="751.5" cy="375.20441081999786" r="6.8" fill="#b45e49" stroke="white" stroke-width="2"/>
+<line x1="885.75" y1="283.6717967798989" x2="885.75" y2="507" stroke="#725b9b" stroke-width="2"/>
+<circle cx="885.75" cy="283.6717967798989" r="6.8" fill="#725b9b" stroke="white" stroke-width="2"/>
+<text x="125" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">0</text>
+<text x="214.5" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">2</text>
+<text x="304" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">4</text>
+<text x="393.5" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">6</text>
+<text x="483" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">8</text>
+<text x="572.5" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">10</text>
+<text x="662" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">12</text>
+<text x="751.5" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">14</text>
+<text x="841" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">16</text>
+<text x="930.5" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">18</text>
+<text x="1020" y="531" text-anchor="middle" fill="#5e7686" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">20</text>
+<text x="572.5" y="553" text-anchor="middle" fill="#3e5c6b" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="400">Number of observed high-solubility assays in 20 selected compounds</text>
+<text x="126" y="588" text-anchor="start" fill="#24506c" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="700">Random expected: 5.22 hits; central 95% random range: 2–9 hits.</text>
+<text x="680" y="191" text-anchor="start" fill="#b45e49" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700">Ridge: 14 / 20 hits</text>
+<text x="680" y="214" text-anchor="start" fill="#7d514c" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="400">Exact tail: 1.96 × 10⁻⁵</text>
+<text x="790" y="311" text-anchor="start" fill="#725b9b" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700">Published source score: 17 / 20</text>
+<text x="790" y="333" text-anchor="start" fill="#675c83" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="400">Exact tail: 1.06 × 10⁻⁸</text>
+<text x="56" y="622" text-anchor="start" fill="#657d8a" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="400">Observed source labels only. Published ESOL predictor training independence unknown; neither arm tested newly generated molecules.</text>
+</svg>
