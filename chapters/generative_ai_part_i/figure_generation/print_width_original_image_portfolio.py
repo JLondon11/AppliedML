@@ -94,6 +94,11 @@ def source_figures(out):
     return photo
 def actual_model_figures(out,photo,checkpoint):
     # Reuse the exact model class already committed under the same study.
+    import sys
+    original_model_dir=Path(__file__).resolve().parents[0].parent/"code"/"section_6_medical_imaging_histology_vae"
+    if not (original_model_dir/"audit_true_tissue_vae_vs_nearest.py").is_file():
+        raise FileNotFoundError("The committed original tissue VAE model analysis is missing")
+    sys.path.insert(0,str(original_model_dir))
     from audit_true_tissue_vae_vs_nearest import VAE
     x=crops(photo,384,512)
     if len(x)!=217:raise ValueError("Original test patch count differs")
