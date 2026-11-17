@@ -127,6 +127,15 @@ class ReleaseGateTests(unittest.TestCase):
         self._manuscript()
         self.assertEqual(check(self.root)["release"], "BLOCKED")
 
+    def test_release_requires_exact_latex_caption_asset_bindings(self):
+        self._manifest()
+        self._manuscript()
+        result = check(self.root)
+        by_name = {item["gate"]: item["pass"] for item in result["checks"]}
+        self.assertIn("latex_figure_bindings", by_name)
+        self.assertFalse(by_name["latex_figure_bindings"])
+        self.assertEqual(result["release"], "BLOCKED")
+
     def test_single_figure_is_not_full_production_coverage(self):
         self._manifest()
         self._manuscript()
