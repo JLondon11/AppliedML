@@ -50,7 +50,13 @@ def tex_files(main, root):
 
 def audit(root, inventory):
     root=Path(root).resolve()
-    inv=json.loads(Path(inventory).read_text(encoding='utf-8'))
+    inventory=Path(inventory)
+    if not inventory.is_file():
+        return {'status':'BLOCKED','issues':['Missing current manuscript figure inventory'],'source_environments':0}
+    try:
+        inv=json.loads(inventory.read_text(encoding='utf-8'))
+    except (OSError, ValueError) as exc:
+        return {'status':'BLOCKED','issues':[f'Unreadable figure inventory: {exc}'],'source_environments':0}
     issues=[]
     path=inv.get('manuscript_tex')
     if not isinstance(path,str) or not path.endswith('.tex'):
