@@ -23,6 +23,8 @@ on:
       - 'chapters/generative_ai_part_i/qa/test_ch6_release_gate.py'
       - 'chapters/generative_ai_part_i/qa/verify_ch6_production_inventory.py'
       - 'chapters/generative_ai_part_i/qa/test_ch6_production_inventory.py'
+      - 'chapters/generative_ai_part_i/qa/verify_tex_figure_bindings.py'
+      - 'chapters/generative_ai_part_i/qa/test_verify_tex_figure_bindings.py'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/plot_verified_conditioning_pipeline.js'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figure_6_44_class_counts_pass27.csv'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/figures/verified_digit_conditioning_science.svg'
@@ -90,6 +92,7 @@ jobs:
           python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_scoped_certification_validator.py' -v
           python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_ch6_release_gate.py' -v
           python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_ch6_production_inventory.py' -v
+          python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_verify_tex_figure_bindings.py' -v
       - name: Regenerate source-linked NEU paired accuracy SVG and reject figure drift
         shell: bash
         run: |
