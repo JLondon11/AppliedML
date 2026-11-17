@@ -96,6 +96,18 @@ def audit(root, inventory):
             issues.append(f"{label}: manuscript caption differs from inventory")
         if row.get('tex_file')!=b['tex_file']:
             issues.append(f"{label}: source TeX file differs from inventory")
+        # Confirm the LaTeX graphic resolves to the identical inventory asset.
+        # Search the figure-source directory, main-TeX directory and root.
+        asset=row.get('asset')
+        if not isinstance(asset,str) or not asset.strip():
+            issues.append(f"{label}: missing actual source-linked inventory asset")
+        else:
+            expected=(root/asset).resolve()
+            image=Path(b['image'])
+            image_paths=[(root/b['tex_file']).parent/image, main.parent/image, root/image]
+            matched=any(candidate.resolve()==expected for candidate in image_paths)
+            if not expected.is_relative_to(root) or not expected.is_file() or not matched:
+                issues.append(f"{label}: LaTeX image does not resolve to inventory asset")
     if len(blocks)!=len(listed):
         issues.append(f"Unreconciled figure environments: TeX {len(blocks)} vs inventory {len(listed)}")
     if len(invlabels)!=len(set(invlabels)):
