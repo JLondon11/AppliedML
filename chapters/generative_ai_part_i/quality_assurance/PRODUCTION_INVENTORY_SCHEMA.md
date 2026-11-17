@@ -14,12 +14,16 @@ At `quality_assurance/production_inventory.json`:
 {
   "chapter": 6,
   "compiled_source_reviewed": false,
+  "manuscript_tex": "chapters/generative_ai_part_i/manuscript/<actual-main-file>.tex",
   "manuscript_pdf": "chapters/generative_ai_part_i/manuscript/<actual-current-file>.pdf",
   "manuscript_sha256": "<actual-64-character-SHA256>",
   "figures": [
     {
       "figure_id": "6.20",
       "asset": "<actual-repository-relative-image-path>",
+      "tex_file": "<actual-repository-relative-TeX-file-containing-figure>",
+      "tex_label": "<exact-label-from-LaTeX-figure-environment>",
+      "tex_includegraphics": "<exact-image-path-inside-includegraphics>",
       "sha256": "<actual-image-SHA256>",
       "caption": "<caption-copied-from-current-LaTeX>",
       "scientific_reviewed": false,
@@ -68,3 +72,11 @@ python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_ch6*.py
 ```
 
 A passing *structural* inventory still requires manual review of manuscript content, visual layout, scientific conclusions and code correctness. It does not grant whole-book Master QA approval by itself.
+
+## Direct LaTeX figure binding gate (Pass 64)
+
+The new `qa/verify_tex_figure_bindings.py` is run by the Chapter 6 release gate **in addition to** the inventory/PDF hash checks. Starting from `manuscript_tex`, it follows local `\\input`/`\\include` source links, strips commented-out figure code, requires exactly one `\\label`, one `\\caption` and one `\\includegraphics` per supported figure environment, and compares these with **every** indexed figure. It also requires each actual graphic path to resolve to the **same on-disk asset** supplied in the inventory. Missing TeX, unsafe includes, duplicate labels, omitted inventory figures, caption differences, and unrelated images block release.
+
+The checker intentionally fails closed on complicated/custom LaTeX it cannot statically disambiguate; resolve those cases by an independent, documented source-build audit rather than claiming a false PASS. A complete source-binding result remains `STRUCTURAL_TEX_BINDINGS_PASS_REVIEW_REQUIRED`: it does not prove scientific figure correctness, PDF pagination, float placement, complete production or any empirical R1–R10 requirement. Actual PDF visual inspection remains necessary.
+
+Unit test: `python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_verify_tex_figure_bindings.py' -v`.
