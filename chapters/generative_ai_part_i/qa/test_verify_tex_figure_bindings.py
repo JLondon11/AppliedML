@@ -11,6 +11,8 @@ class FigureBindings(unittest.TestCase):
         self.root=Path(self.tmp.name)
         (self.root/'chapter').mkdir()
         (self.root/'chapter'/'main.tex').write_text('\\input{figs}\n')
+        (self.root/'chapter'/'images').mkdir()
+        (self.root/'chapter'/'images'/'observed.png').write_bytes(b'test fixture image, not real data')
         (self.root/'chapter'/'figs.tex').write_text(r'''\begin{figure}[ht]
 \includegraphics[width=.8\linewidth]{images/observed.png}
 \caption{Original measured results of {model A}.}
@@ -18,6 +20,7 @@ class FigureBindings(unittest.TestCase):
 \end{figure}''')
         self.inv={'manuscript_tex':'chapter/main.tex','figures':[{'figure_id':'6.1',
                 'tex_label':'fig:original','tex_includegraphics':'images/observed.png',
+                'asset':'chapter/images/observed.png',
                 'caption':'Original measured results of {model A}.','tex_file':'chapter/figs.tex'}]}
         self.path=self.root/'inventory.json'
     def check(self,inv=None):
@@ -42,6 +45,12 @@ class FigureBindings(unittest.TestCase):
         self.assertEqual(self.check(data)['status'],'BLOCKED')
     def test_missing_inventory_fails_closed(self):
         self.assertEqual(audit(self.root,self.path)['status'],'BLOCKED')
+    def test_unrelated_inventory_asset_fails(self):
+        data=copy.deepcopy(self.inv);data['figures'][0]['asset']='chapter/main.tex'
+        self.assertEqual(self.check(data)['status'],'BLOCKED')
+    def test_missing_actual_figure_asset_fails(self):
+        (self.root/'chapter'/'images'/'observed.png').unlink()
+        self.assertEqual(self.check()['status'],'BLOCKED')
     def test_missing_latex_fails(self):
         (self.root/'chapter'/'main.tex').unlink()
         self.assertEqual(self.check()['status'],'BLOCKED')
