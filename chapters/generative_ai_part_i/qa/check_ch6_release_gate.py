@@ -94,6 +94,16 @@ def check(root: Path) -> dict:
            "; ".join(inventory["issues"][:8]) if inventory["issues"] else
            f"Source-linked inventory contains {inventory['checks']} audited items")
 
+    # A figure inventory and PDF hash cannot establish that the actual
+    # LaTeX has those figures. Require exact caption/label/image references.
+    from verify_tex_figure_bindings import audit as verify_tex_bindings
+    tex_binding = verify_tex_bindings(
+        root, chapter / "quality_assurance/production_inventory.json")
+    record("latex_figure_bindings",
+           tex_binding["status"] == "STRUCTURAL_TEX_BINDINGS_PASS_REVIEW_REQUIRED",
+           "; ".join(tex_binding["issues"][:8]) if tex_binding["issues"] else
+           f"{tex_binding['source_environments']} source figures mapped 1:1 to inventory")
+
     manuscript_dir = chapter / "manuscript"
     tex = list(manuscript_dir.rglob("*.tex")) if manuscript_dir.is_dir() else []
     pdf = list(manuscript_dir.rglob("*.pdf")) if manuscript_dir.is_dir() else []
