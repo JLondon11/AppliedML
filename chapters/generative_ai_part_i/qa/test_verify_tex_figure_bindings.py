@@ -40,6 +40,8 @@ class FigureBindings(unittest.TestCase):
     def test_duplicate_inventory_label_fails(self):
         data=copy.deepcopy(self.inv);data['figures'].append(copy.deepcopy(data['figures'][0]))
         self.assertEqual(self.check(data)['status'],'BLOCKED')
+    def test_missing_inventory_fails_closed(self):
+        self.assertEqual(audit(self.root,self.path)['status'],'BLOCKED')
     def test_missing_latex_fails(self):
         (self.root/'chapter'/'main.tex').unlink()
         self.assertEqual(self.check()['status'],'BLOCKED')
