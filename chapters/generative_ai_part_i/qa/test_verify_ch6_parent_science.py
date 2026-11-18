@@ -89,6 +89,18 @@ class ParentCertificationTests(unittest.TestCase):
         doc=copy.deepcopy(self.inv);doc['parent_applications'][0]['code_commit']='not-a-hash'
         self.assertEqual(self.run_audit(doc)['status'],'BLOCKED')
 
+    def test_malformed_unhashable_parent_id_blocks_not_crashes(self):
+        doc=copy.deepcopy(self.inv);doc['parent_applications'][0]['unit_id']=['not-an-id']
+        self.assertEqual(self.run_audit(doc)['status'],'BLOCKED')
+
+    def test_malformed_figure_id_blocks_not_crashes(self):
+        doc=copy.deepcopy(self.inv);doc['figures'][0]['figure_id']=['not-an-id']
+        self.assertEqual(self.run_audit(doc)['status'],'BLOCKED')
+
+    def test_nonstring_verdict_blocks_not_crashes(self):
+        doc=copy.deepcopy(self.inv);doc['parent_applications'][0]['r1_r10']['R5']=['PASS']
+        self.assertEqual(self.run_audit(doc)['status'],'BLOCKED')
+
     def test_duplicate_parent_ids_block(self):
         doc=copy.deepcopy(self.inv);doc['parent_applications'][0]['unit_id']='p02'
         self.assertEqual(self.run_audit(doc)['status'],'BLOCKED')
