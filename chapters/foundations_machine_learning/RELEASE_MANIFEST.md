@@ -36,3 +36,12 @@ Synthetic, simulated, illustrative, or manually fabricated numerical results do 
 
 ## Completion gate
 This chapter must remain **NOT COMPLETE** until all required release areas are present, every manuscript case study/application maps to a real-data implementation and generated result figure, all figures/tables/listings are referenced and discussed, and the repository reproducibility workflow passes.
+
+
+## Instructor-solutions closure — 2026-11-18
+- `instructor_solutions/`: PRESENT.
+- End-of-chapter coverage: 50/50 items complete (12 review questions, 15 mathematical problems, 8 computational exercises, 4 engineering design projects, 10 research problems, 1 capstone).
+- Solution code: PRESENT under `instructor_solutions/code/`.
+- Executable solution scripts: 13/13 referenced scripts present; `verify_solutions_code.py` provides syntax verification.
+- Numerical smoke tests completed for proximal LASSO, consensus ADMM ridge, and learning-rate schedule implementations.
+- Repository verification: PASS.
