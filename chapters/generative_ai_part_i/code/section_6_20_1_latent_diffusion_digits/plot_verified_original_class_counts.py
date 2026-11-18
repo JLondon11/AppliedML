@@ -1,7 +1,8 @@
-"""Plot original observed 2000 generated-digit classifier results without invented points.
+"""Plot actual observed 2,000-sample digit model classifier results.
 
-Reads the original executed-model per-label counts stored in
-figure_6_44_class_counts_pass27.csv. Not independently rerun inference.
+Default source is the archived Pass27 original class table (778/94). When a
+different per-execution count table is provided, plot and report those actual
+observations, without forcing the archived model's counts.
 """
 import csv,argparse
 from pathlib import Path
@@ -10,18 +11,29 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-def main(source,out):
+def main(source,out,expected_conditional=None,expected_unconditional=None):
     with Path(source).open(newline='',encoding='utf-8') as f:
         rows=list(csv.DictReader(f))
     observed={(r['arm'],r['label']):(int(r['correct']),int(r['n'])) for r in rows}
     if len(rows)!=22 or len(observed)!=22:raise ValueError('Missing original model-count rows')
-    arms={'conditional':778,'unconditional':94}
-    for arm,expected in arms.items():
-        if observed[(arm,'overall')]!=(expected,1000):raise ValueError('Original overall count invalid')
+    arms=('conditional','unconditional')
+    if set(observed)!={(arm,label) for arm in arms for label in ['overall',*map(str,range(10))]}:
+        raise ValueError('Incorrect actual model arm or requested-digit inventory')
+    totals={}
+    for arm in arms:
+        expected,n=observed[(arm,'overall')]
+        if n!=1000 or not 0<=expected<=1000:
+            raise ValueError('Current-run total 1000 generated samples not verified')
         if sum(observed[(arm,str(j))][0] for j in range(10))!=expected:
-            raise ValueError('Original per-class count inconsistency')
-        if any(observed[(arm,str(j))][1]!=100 for j in range(10)):
-            raise ValueError('Original class sample count not 100')
+            raise ValueError('Current-run overall does not match measured class counts')
+        if any(observed[(arm,str(j))][1]!=100 or not 0<=observed[(arm,str(j))][0]<=100
+               for j in range(10)):
+            raise ValueError('Expected 100 scored samples per actual digit class')
+        totals[arm]=expected
+    if expected_conditional is not None and totals['conditional']!=expected_conditional:
+        raise ValueError('Archived conditional count mismatches its original source')
+    if expected_unconditional is not None and totals['unconditional']!=expected_unconditional:
+        raise ValueError('Archived unconditional count mismatches its original source')
     categories=np.arange(10)
     cond=np.array([observed[('conditional',str(j))][0] for j in categories])
     uncond=np.array([observed[('unconditional',str(j))][0] for j in categories])
@@ -44,7 +56,7 @@ def main(source,out):
        color='#193f5a',fontweight='bold',fontsize=15)
     fig.text(.065,.88,'2,000 actually generated samples scored by a classifier trained on real digit scans; 100 generated samples per arm and digit.',
        color='#4f6678',fontsize=9.2)
-    fig.text(.065,.073,'Observed totals: class-conditioned 778/1,000 (77.8%); unconditional 94/1,000 (9.4%). Single trained generator seed.',
+    fig.text(.065,.073,f"Observed totals: conditional {totals['conditional']}/1,000 ({totals['conditional']/10:.1f}%); unconditional {totals['unconditional']}/1,000 ({totals['unconditional']/10:.1f}%). One trained seed.",
        color='#193f5a',fontsize=9)
     fig.text(.065,.046,'Not Stable Diffusion, text-to-image, or an independent population-quality study. Dots are counts, not repeated training runs.',
        color='#516777',fontsize=8.4)
@@ -53,11 +65,13 @@ def main(source,out):
     for ext in ('png','svg'):
         fig.savefig(out/f'original_digit_classwise_scientific.{ext}',dpi=230,facecolor='white')
     plt.close(fig)
-    print('PASS: original conditional 778/1000, unconditional 94/1000; no fabricated observations')
+    print(f"PASS: current-model conditional {totals['conditional']}/1000, unconditional {totals['unconditional']}/1000; no archived count substitution")
 
 if __name__=='__main__':
     p=argparse.ArgumentParser()
     p.add_argument('--source',type=Path,
        default=Path(__file__).with_name('figure_6_44_class_counts_pass27.csv'))
     p.add_argument('--output',type=Path,default=Path(__file__).with_name('observed_figures'))
-    a=p.parse_args();main(a.source,a.output)
+    p.add_argument('--expected-conditional',type=int,default=None,help='Optional original count for strict archive replay')
+    p.add_argument('--expected-unconditional',type=int,default=None,help='Optional original count for strict archive replay')
+    a=p.parse_args();main(a.source,a.output,a.expected_conditional,a.expected_unconditional)
