@@ -1,0 +1,58 @@
+name: Chapter 6 NEU original measured defect benchmark explanatory figure
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter6_neu_real_science_protocol.yml'
+      - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/make_neu_original_study_diagram.py'
+      - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv'
+permissions:
+  contents: read
+jobs:
+  authentic-neu-figure-and-source-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original scientific vector diagram dependencies
+        run: python -m pip install --disable-pip-version-check 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
+      - name: Rebuild real-source NEU-DET scientific diagram without manufactured samples
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark
+          python "$D/make_neu_original_study_diagram.py" \
+            --source "$D/replicated_seed_metrics_pass13.csv" \
+            --output "$RUNNER_TEMP/real_neu_results"
+          python - <<'PY'
+          import json,os,hashlib
+          from pathlib import Path
+          import fitz
+          src=Path('chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv')
+          directory=Path(os.environ['RUNNER_TEMP'])/'real_neu_results'
+          m=json.loads((directory/'neu_scientific_diagram_provenance.json').read_text())
+          assert m['source_csv_sha256']==hashlib.sha256(src.read_bytes()).hexdigest()
+          assert m['original_images']==1800 and m['true_test']==360
+          assert m['manuscript_figure_620_identified'] is False
+          assert m['production_approval'] is False
+          for ext in ('pdf','svg','png'):
+              assert (directory/f'neu_real_experiment_protocol.{ext}').stat().st_size>10000
+          with fitz.open(directory/'neu_real_experiment_protocol.pdf') as pdf:
+              assert len(pdf)==1
+              page=pdf[0]
+              assert abs(page.rect.width-468)<.1
+              spans=[s for b in page.get_text('dict')['blocks'] for l in b.get('lines',[]) for s in l.get('spans',[]) if s['text'].strip()]
+              assert min(x['size'] for x in spans)>=7.5
+              for item in spans:
+                  b=item['bbox']
+                  assert b[0]>=-.1 and b[1]>=-.1 and b[2]<=page.rect.width+.1 and b[3]<=page.rect.height+.1
+          print('PASS original NEU seed evidence, four genuine measured arms and legible nonplot PDF')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-neu-original-defect-real-study-diagram
+          path: ${{ runner.temp }}/real_neu_results
+          retention-days: 90
