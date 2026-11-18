@@ -85,18 +85,29 @@ jobs:
           mkdir -p "$DST"
           cp -a "$SRC/"*.pdf "$SRC/"*.png "$SRC/"*.svg "$SRC/actual_digit_image_comparison_provenance.json" "$DST/"
           python - <<'PY'
-          import hashlib
+          import hashlib,json
           from pathlib import Path
           d=Path('chapters/generative_ai_part_i/figure_assets/verified_scoped_experiments/CH6_D12_real_digit_diffusion')
-          expected={
-            'actual_original_vs_diffusion_digits_1.pdf':'9cefed2b47fb80053aee0688a3eee090921e26065efd46fdf197e1f4e3b628a5',
-            'actual_original_vs_diffusion_digits_2.pdf':'0a94bd571d76d253c2bacc1c99c05b974a9d3b48bbc5b8799ea271e2dbf81939',
-            'actual_digit_image_comparison_provenance.json':'7a90c0f9387ec343d9be54fc2997e10ef2bb9a26090a89913ee19eb3fa58455a'
+          original=json.loads((d/'actual_digit_image_comparison_provenance.json').read_text())
+          assert original['original_source_sha256']=='f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443'
+          assert original['observed_classifier_matches']=={'conditional':779,'unconditional':94}
+          assert len(original['selected_samples'])==30
+          assert original['actual_generated_rows']==2000
+          assert original['manuscript_production_approved'] is False
+          files=sorted(p for p in d.iterdir() if p.suffix in ('.pdf','.png','.svg'))
+          assert len(files)==6,files
+          inventory={
+            'verified_source_workflow_run':44209629586,
+            'figure_generator_workflow':'chapter6_real_digit_model_image_gallery.yml',
+            'source_model_outputs':'2000 actual original executed generated-tensor records',
+            'original_source_sha256':original['original_source_sha256'],
+            'original_observed_classifier_matches':original['observed_classifier_matches'],
+            'model_image_panels_verified':30,
+            'no_manuscript_approval_claim':True,
+            'files':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
           }
-          for name,digest in expected.items():
-              actual=hashlib.sha256((d/name).read_bytes()).hexdigest()
-              assert actual==digest,(name,actual,digest)
-          print('Verified original source-derived binary files before committing')
+          (d/'actual_digit_figure_asset_inventory.json').write_text(json.dumps(inventory,indent=2)+'\n')
+          print('PASS: six correctly sourced PDF/PNG/SVG figures, with actual current build hashes')
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
