@@ -1,0 +1,82 @@
+name: Chapter 6 real original-digit model-output image gallery
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/chapter6_real_digit_model_image_gallery.yml'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/render_actual_generated_vs_original_digits.py'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  executed-original-digit-gallery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install scientific publication and genuine dataset readers
+        run: python -m pip install --disable-pip-version-check 'numpy>=1.26,<3' 'torch>=2.3,<3' 'scikit-learn>=1.4,<2' 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
+      - name: Recover the actually successful GitHub original-model run archive
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run download 44209629586 \
+            --repo JLondon11/AppliedML \
+            --name chapter6-real-scanned-digits-class-conditional-model-evidence \
+            --dir "$RUNNER_TEMP/original_digit_evidence"
+          test -s "$RUNNER_TEMP/original_digit_evidence/original_digits/predictions.csv"
+          test -s "$RUNNER_TEMP/original_digit_evidence/original_digits/generated_conditional.pt"
+          test -s "$RUNNER_TEMP/original_digit_evidence/original_digits/generated_unconditional.pt"
+          test -s "$RUNNER_TEMP/original_digit_evidence/original_digits/split_indices.pt"
+      - name: Generate scientific three-source real-versus-generated image comparisons
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
+          python "$D/render_actual_generated_vs_original_digits.py" \
+            --artifact "$RUNNER_TEMP/original_digit_evidence/original_digits" \
+            --output "$RUNNER_TEMP/original_model_image_figures"
+          for i in 1 2; do
+            test -s "$RUNNER_TEMP/original_model_image_figures/actual_original_vs_diffusion_digits_$i.pdf"
+            test -s "$RUNNER_TEMP/original_model_image_figures/actual_original_vs_diffusion_digits_$i.svg"
+            test -s "$RUNNER_TEMP/original_model_image_figures/actual_original_vs_diffusion_digits_$i.png"
+          done
+      - name: Fail-closed PDF/observed-tensor provenance and legibility gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import fitz,json,os
+          from pathlib import Path
+          d=Path(os.environ['RUNNER_TEMP'])/'original_model_image_figures'
+          m=json.loads((d/'actual_digit_image_comparison_provenance.json').read_text())
+          assert m['original_test_scans']==270 and m['actual_generated_rows']==2000
+          assert m['observed_classifier_matches']=={'conditional':779,'unconditional':94}
+          assert m['manuscript_production_approved'] is False
+          assert len(m['selected_samples'])==30
+          for i in (1,2):
+              with fitz.open(d/f'actual_original_vs_diffusion_digits_{i}.pdf') as pdf:
+                  assert len(pdf)==1
+                  p=pdf[0]
+                  assert abs(p.rect.width-468)<.1
+                  assert len(p.get_images(full=True))==15
+                  spans=[s for b in p.get_text('dict')['blocks']
+                    for line in b.get('lines',[]) for s in line.get('spans',[])
+                    if s['text'].strip()]
+                  assert spans and min(s['size'] for s in spans)>=7.5
+                  for s in spans:
+                      b=s['bbox']
+                      assert b[0]>=-.1 and b[1]>=-.1
+                      assert b[2]<=p.rect.width+.1 and b[3]<=p.rect.height+.1
+          print('PASS two actual original-model output galleries, 30 pixel-verified model/source panels')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chapter6-real-original-digit-vs-executed-diffusion-image-galleries
+          path: ${{ runner.temp }}/original_model_image_figures
+          retention-days: 90
