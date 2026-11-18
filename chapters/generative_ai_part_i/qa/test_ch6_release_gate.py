@@ -136,6 +136,15 @@ class ReleaseGateTests(unittest.TestCase):
         self.assertFalse(by_name["latex_figure_bindings"])
         self.assertEqual(result["release"], "BLOCKED")
 
+    def test_all_parent_science_requires_14_task_matched_certificates(self):
+        self._manifest()
+        self._manuscript()
+        report=check(self.root)
+        by_name={item["gate"]: item["pass"] for item in report["checks"]}
+        self.assertIn("all_parent_scientific_scopes",by_name)
+        self.assertFalse(by_name["all_parent_scientific_scopes"])
+        self.assertEqual(report["release"],"BLOCKED")
+
     def test_single_figure_is_not_full_production_coverage(self):
         self._manifest()
         self._manuscript()
