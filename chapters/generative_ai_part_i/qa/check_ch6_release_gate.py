@@ -104,6 +104,15 @@ def check(root: Path) -> dict:
            "; ".join(tex_binding["issues"][:8]) if tex_binding["issues"] else
            f"{tex_binding['source_environments']} source figures mapped 1:1 to inventory")
 
+    # A separate Level A scope is not certification of its broader named
+    # parent case study. Require task-matched B/C parent evidence for release.
+    from verify_ch6_parent_science import audit as verify_parent_science
+    parent_science = verify_parent_science(root)
+    record("all_parent_scientific_scopes",
+           parent_science["status"] == "PARENT_SCOPE_RECORDS_COMPLETE_INDEPENDENT_REVIEW_REQUIRED",
+           "; ".join(parent_science["issues"][:8]) if parent_science["issues"] else
+           f"{parent_science['certified_parent_applications']}/14 parent scope records complete; independent review still required")
+
     manuscript_dir = chapter / "manuscript"
     tex = list(manuscript_dir.rglob("*.tex")) if manuscript_dir.is_dir() else []
     pdf = list(manuscript_dir.rglob("*.pdf")) if manuscript_dir.is_dir() else []
