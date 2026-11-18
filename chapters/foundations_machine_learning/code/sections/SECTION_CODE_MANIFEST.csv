@@ -1,0 +1,22 @@
+section,title,dataset,figure_label,code,execution_status
+1_8_1,Application 1: Credit-Card Expenditure Risk Screening Using Logistic Regression,statsmodels Credit Card Expenditure,fig:app_credit_risk_results,1_8_1/run.py,PASS
+1_8_2,Application 2: CNN Optimization for Image Classification,scikit-learn Digits,fig:app_cnn_optimization_results,1_8_2/run.py,PASS
+1_8_3,Application 3: Transformer Sequence Modeling for Atmospheric CO2 Forecasting,statsmodels Mauna Loa CO2,fig:app_transformer_pretraining_results,1_8_3/run.py,PASS
+1_8_4,Application 4: Structure-Regularized Regression for Hydrologic Time Series,statsmodels Nile,fig:app_pinn_results,1_8_4/run.py,PASS
+1_8_5,Application 5: Logged-Decision Policy Learning on Transportation Choice Data,statsmodels ModeChoice,fig:app_rl_policy_results,1_8_5/run.py,PASS
+1_9_1,Case Study: Convex Regularization Baseline,scikit-learn Diabetes,fig:case_convex_optimizer_results,1_9_1/run.py,PASS
+1_9_2,Case Study: Convolutional Learning-Rate Sensitivity,scikit-learn Digits,fig:case_deep_conv_optimizer_results,1_9_2/run.py,PASS
+1_9_3,Case Study: Transformer Optimizer Comparison on Atmospheric Time Series,statsmodels Mauna Loa CO2,fig:case_transformer_optimizer_results,1_9_3/run.py,PASS
+1_9_4,Case Study: Regularization Trade-offs in Hydrologic Regression,statsmodels Nile,fig:case_hybrid_pinn_optimizer_results,1_9_4/run.py,PASS
+1_9_5,Case Study: Online Decision-Model Learning from Logged Transportation Choices,statsmodels ModeChoice,fig:case_rl_optimizer_results,1_9_5/run.py,PASS
+1_9_6,Case Study: Cross-Domain Optimization Diagnostics,Digits; CO2; ModeChoice; Nile,fig:case_cross_domain_optimizer_results,1_9_6/run.py,PASS
+1_21_1,Application: Industrial Process Condition Monitoring and Predictive-Maintenance Context,statsmodels Stack Loss,fig:app_predictive_maintenance_results,1_21_1/run.py,PASS
+1_21_2,Application: Medical Diagnostic Classification and Imaging Context,Wisconsin Diagnostic Breast Cancer,fig:app_medical_classification_results,1_21_2/run.py,PASS
+1_21_3,Application: Rare Financial-Event Screening and Fraud-Detection Context,statsmodels Credit Card Expenditure,fig:app_financial_fraud_results,1_21_3/run.py,PASS
+1_21_4,Application: Intelligent Transportation and Autonomous Driving,statsmodels ModeChoice,fig:app_transportation_results,1_21_4/run.py,PASS
+1_21_5,Application: Climate Time-Series Forecasting and Weather-Model Context,statsmodels Mauna Loa CO2,fig:app_weather_results,1_21_5/run.py,PASS
+1_21_6,Application: Edge Artificial Intelligence for Industrial Internet of Things,scikit-learn Digits,fig:app_edge_ai_results,1_21_6/run.py,PASS
+1_21_7,Application: Consumption Time-Series Forecasting and Smart-Grid Context,statsmodels macrodata realcons,fig:app_smart_grid_results,1_21_7/run.py,PASS
+1_21_8,Application: Industrial Condition Monitoring and Aerospace-Prognostics Context,statsmodels Copper,fig:app_aerospace_prognostics_results,1_21_8/run.py,PASS
+1_21_9,Application: Precision Agriculture and Autonomous Farming,scikit-learn Wine,fig:app_precision_agriculture_results,1_21_9/run.py,PASS
+1_22_5,Industrial Case Study: Reproducible Hyperparameter Optimization for Medical Diagnostic Classification,Wisconsin Diagnostic Breast Cancer,fig:industrial_medical_hpo_results,1_22_5/run.py,PASS
