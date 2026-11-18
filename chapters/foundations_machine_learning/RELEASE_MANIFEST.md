@@ -45,3 +45,13 @@ This chapter must remain **NOT COMPLETE** until all required release areas are p
 - Executable solution scripts: 13/13 referenced scripts present; `verify_solutions_code.py` provides syntax verification.
 - Numerical smoke tests completed for proximal LASSO, consensus ADMM ridge, and learning-rate schedule implementations.
 - Repository verification: PASS.
+
+
+## Section-organized application/case-study code closure — 2026-11-18
+- Canonical code path: `code/sections/`.
+- Section directories present: 21/21 certified application/case-study units.
+- Runnable `run.py` present: 21/21.
+- Local end-to-end execution: 21/21 PASS.
+- Dataset/model/metric alignment against the manuscript provenance matrix: PASS after remediation.
+- Section-to-dataset-to-figure index: `code/sections/SECTION_CODE_MANIFEST.csv`.
+- Closure audit: `qa/SECTION_CODE_CLOSURE_2026-11-18.md`.
