@@ -19,9 +19,9 @@ FILES={
  "manifest.json":"1a6ef2de4fbc56245aea3a919f59160b362d5b5d52d5021860ee30c10a381ba4",
 }
 ORIGINAL="f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443"
-PDFS={
- "actual_original_vs_diffusion_digits_1.pdf":"9cefed2b47fb80053aee0688a3eee090921e26065efd46fdf197e1f4e3b628a5",
- "actual_original_vs_diffusion_digits_2.pdf":"0a94bd571d76d253c2bacc1c99c05b974a9d3b48bbc5b8799ea271e2dbf81939",
+RENDERED_PDFS={
+ "actual_original_vs_diffusion_digits_1.pdf":"e8041857f9e8f1542ba3044c1a5c5db8b00c4a77a4de9c9aa0f75b9f71ee3c6e",
+ "actual_original_vs_diffusion_digits_2.pdf":"5105e0862c65c9c4bc1f1a527a24a14dde3e592b8793221ba39b66bef2f4c9de",
 }
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def verify(source,figures):
@@ -87,12 +87,14 @@ def verify(source,figures):
         if hashlib.sha256(pixels.tobytes()).hexdigest()!=record["pixel_sha256"]:
             raise ValueError("Actual figure source/model pixel identity mismatch")
     pdf_rows=[]
-    for name,expected in PDFS.items():
+    for name,expected_render_sha in RENDERED_PDFS.items():
         file=figures/name
-        if sha(file)!=expected:raise ValueError("Exactly rendered scientific source PDF changed")
         with fitz.open(file) as doc:
             if len(doc)!=1:raise ValueError("Expected one-page textbook graphic")
             p=doc[0]
+            rendered_sha=hashlib.sha256(p.get_pixmap(alpha=False).samples).hexdigest()
+            if rendered_sha!=expected_render_sha:
+                raise ValueError("True original model figure rendered pixels do not match successful source build: "+name)
             spans=[s for b in p.get_text("dict")["blocks"]
                    for line in b.get("lines",[]) for s in line.get("spans",[])
                    if s["text"].strip()]
@@ -103,7 +105,7 @@ def verify(source,figures):
                 raise ValueError("Original figures do not match scientific source image counts")
             if not spans or min(s["size"] for s in spans)<7.5 or clipped:
                 raise ValueError("Text unreadable or outside the original PDF page")
-            pdf_rows.append({"name":name,"sha256":expected,"original_or_model_panels":15,
+            pdf_rows.append({"name":name,"current_file_sha256":sha(file),"rendered_pixel_sha256":rendered_sha,"original_or_model_panels":15,
                              "minimum_printed_type_pt":round(min(s["size"] for s in spans),2)})
     return {
       "result":"PASS_SOURCE_ORIGINAL_EXECUTED_DIGIT_IMAGE_CERTIFICATION",
