@@ -64,8 +64,12 @@ jobs:
             --predictions "$RUNNER_TEMP/original_digits/predictions.csv" \
             --output "$RUNNER_TEMP/original_digit_figures"
           test -s "$RUNNER_TEMP/original_digit_figures/Figure6_44_Classwise_Consistency.pdf"
+          python "$D/derive_original_run_class_counts.py" \
+            --predictions "$RUNNER_TEMP/original_digits/predictions.csv" \
+            --manifest "$RUNNER_TEMP/original_digits/manifest.json" \
+            --output "$RUNNER_TEMP/original_digit_figures/actual_current_run_class_counts.csv"
           python "$D/plot_verified_original_class_counts.py" \
-            --source "$D/figure_6_44_class_counts_pass27.csv" \
+            --source "$RUNNER_TEMP/original_digit_figures/actual_current_run_class_counts.csv" \
             --output "$RUNNER_TEMP/original_digit_figures"
           test -s "$RUNNER_TEMP/original_digit_figures/original_digit_classwise_scientific.png"
       - uses: actions/upload-artifact@v4
