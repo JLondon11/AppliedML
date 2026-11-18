@@ -50,10 +50,11 @@ def audit(root: Path, inventory: Path | None = None) -> dict:
     if len(parents) != 14:
         issues.append(f'Expected exactly 14 audited parent studies; found {len(parents)}')
     ids = [p.get('unit_id') for p in parents if isinstance(p, dict)]
-    if len(ids) != len(parents) or len(set(ids)) != len(ids) or any(not isinstance(x, str) or not x.strip() for x in ids):
+    if len(ids) != len(parents) or any(not isinstance(x, str) or not x.strip() for x in ids) or len(set(ids)) != len(ids):
         issues.append('Parent application identities are missing or duplicated')
-    experimental = {f.get('figure_id') for f in figs if isinstance(f, dict) and f.get('kind') == 'experimental'
-                    and f.get('scientific_reviewed') is True and f.get('dataset_provenance_verified') is True}
+    experimental = {f.get('figure_id') for f in figs if isinstance(f, dict) and isinstance(f.get('figure_id'), str)
+                    and f.get('kind') == 'experimental' and f.get('scientific_reviewed') is True
+                    and f.get('dataset_provenance_verified') is True}
     certified = 0
     for i, unit in enumerate(parents):
         if not isinstance(unit, dict):
