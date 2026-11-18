@@ -1,25 +1,56 @@
-# Section 8.8.2 — NEU surface defect benchmark (Pass 10)
+# NEU-DET real steel-surface defect classification and GAN augmentation experiment
 
-**Status: dataset-ready local implementation; full NEU experiment NOT executed or approved.**
+## Scientific status and claims
 
-## Actual dataset
-Northeastern University NEU Surface Defect Database, Song and Yan (2013), *Applied Surface Science*, DOI 10.1016/j.apsusc.2013.05.009. Six labeled classes: crazing, inclusion, patches, pitted surface, rolled-in scale, scratches. The expected raw dataset contains 1,800 distinct grayscale photographs (200 × 200), 300/class. No normal/clean class is supplied, so the task is **six-class defect classification**, not binary anomaly detection.
+**Executed original real-data benchmark:** Three-seed genuine NEU-DET classification experiment completed and documented in `REPLICATED_BENCHMARK_PASS13.md` (2026-11-07). The earlier Pass 10 planning/smoke-test status has been **superseded** by these real-data measurements. The original Pass 10 fixture was software-only and MUST NOT be cited as empirical NEU data.
 
-## Planned evaluation — implemented and smoke-tested locally
-- Reject incorrect image dimensions, missing classes, unexpected class counts, and exact duplicates.
-- Class-wise numbered blocks of 30 adjacent images: six training blocks, two validation blocks, two test blocks per class, yielding 1080 / 360 / 360 real images.
-- Train a class-conditional DCGAN on training data only. Save the generated samples and checkpoint.
-- Compare identical CNN initialization trained on real images only versus real images plus GAN generated examples, selecting checkpoints using *validation* balanced accuracy.
-- Evaluate only once on the held-out original test images; save per-image probabilities, macro-F1, balanced accuracy, confusion matrices, training traces, and figures.
-- Maintain SHA-256 input manifest, code-version metadata, and restrictions on using test labels.
+**Scoped scientific verdict:** `CH6-D04`, **Level B SCIENTIFIC_CERTIFIED** solely for an *offline six-class real-steel-photograph classification experiment comparing four augmentation training arms under a fixed short conditional-GAN training budget*. This does not certify generator fidelity for new defect photographs, downstream production deployment, anomaly localization, cross-factory robustness or defect-free-versus-defect binary screening. It is also not evidence that GAN augmentation universally fails. **Final manuscript production status: HOLD**; the exact current industrial-defect Figure 6.20 asset/page mapping is unverified.
 
-The complete `run.py`, `test_pipeline.py`, and `requirements.txt` have now been committed within this folder. The local execution and QA files are additionally packaged in **Chapter6_NEU_Benchmark_Pass10_Code_And_QA.zip**. A real-data benchmark run and independent CI verification are still required.
+## Original source and leakage control
 
-## QA
-A deterministic **fabricated-noise fixture** was used solely for software testing; end-to-end smoke test PASSED. Its classifier accuracy is not evidence about NEU and MUST NOT appear in the chapter as benchmark data. Actual NEU images could not be fetched by the execution runtime. No real NEU model checkpoints, predictions, or scientific result figures have been produced.
+Original NEU surface-defect dataset: 1,800 grayscale 200×200 photographed defects, six original classes (crazing, inclusion, patches, pitted surface, rolled-in scale, scratches), 300 nominal per class. User-supplied original dataset archive SHA256:
+`2ccaff85d88567c52708c2f9dc4dec10cff8650749df2984f03b38716998460f`.
+One duplicate image (`patches_105.jpg`, matching `patches_101.jpg`) was excluded from the development partition. Original source split **1,080 training / 359 validation / 360 distinct held-out real test files**. Models and any generated training supplements are fitted on original training data only. The same real test photographs are evaluated across three seeds; **4,320 prediction rows across twelve model configurations does not equal 4,320 independent test images**.
 
-## Dataset access
-https://huggingface.co/datasets/dronefreak/NEU-DET/blob/main/README.md
+## Actual executed experiment
 
-## Publication gate
-**HOLD** until the entire experiment is committed and rerun from GitHub using the genuine NEU images, its image and label provenance is verified, and the measured results are integrated into the case study. Also audit sampling quality with repeated seeds and independent fidelity/inspection metrics. The prior unlabeled brick/gravel/grass GAN experiment cannot be substituted for this real defect benchmark.
+Three seeds: `20261106`, `20261107`, `20261108`. Same architecture and 12 classifier-training epochs, selected by original validation balanced accuracy. Conditional DCGAN: 300 optimizer steps per seed; 120 generated training images per each of six source classes. Compared these actual training arms:
+
+- Real original photographs only
+- Real original photographs with horizontal-flip augmentation
+- Real originals plus short-trained GAN-generated images
+- Real originals plus *sample-count-matched* resampled original training photographs and flips
+
+| Actually measured arm (360 original held-out photographs) | Test accuracy mean (3 seeds) | Macro-F1 mean (3 seeds) |
+|---|---:|---:|
+| Real only | **0.7194** | **0.7066** |
+| Horizontal flips | **0.7000** | **0.6910** |
+| GAN augmentation | **0.5269** | **0.5004** |
+| Matched-count real-photo repetition + flips | **0.7963** | **0.7875** |
+
+The GAN-minus-real-only paired seed difference in held-out accuracy is **−0.1926** (−19.26 percentage points) in this limited protocol, negative for all three executed seeds. The matched-size real-image control outperformed the GAN arm by approximately 26.94 percentage points. The same finite test data across seeds and the 300-step GAN budget limit external or population interpretations. GAN outputs were generated model images, **not newly observed photographed defects**. The negative result is scientifically valid and must not be presented as GAN augmentation improving inspection.
+
+## Full executable source and original evidence
+
+- `run.py`: model classes, genuine data loading and original source partition checks.
+- `run_multiseed.py`: actual conditional-GAN fitting and three-seed held-out classification evaluation, original generated-image galleries, checkpoints, per-photo probabilities and training traces.
+- `run_repeat_control.py`: the genuine sample-count-matched original image repetition control.
+- `analyze_multiseed.py` and `verify_evidence.py`: analysis and output audit.
+- `replicated_seed_metrics_pass13.csv` and `replicated_metrics_pass13.csv`: recorded genuine source-derived measured results, **not simulation**.
+- `plot_original_augmentation_seed_results.py`, `publication_figures.py`: source-driven scientific result plots. Sample photographic/generated output galleries are part of the original Pass 13 evidence archive; they must be inspected before any new exact manuscript figure identification.
+- `REPLICATED_BENCHMARK_PASS13.md`: initial full original experiment and scientific limitations.
+
+Regeneration from authentic real data, with the expected original source-directory layout:
+
+```bash
+python chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_multiseed.py \
+  --data-root /path/to/authentic/NEU-DET
+```
+
+**Archived original execution and binary completeness:** the original Pass 13 deliverable contained the true benchmark predictions, GAN/classifier checkpoints, original source-manifest and actual prediction photos. Those binaries are not all available in the default-branch tree. The persisted aggregate metrics alone are insufficient for independent confusion-matrix recomputation; future true GitHub Actions release artifacts must preserve test-row predictions and image-output panels. Do not infer original figures from a similarly numbered handwritten-digit file.
+
+## Honest Figure 6.20 production gate
+
+The user-supplied *Pass 37 handoff* states that the manuscript's Figure 6.20 is an **industrial-defect figure placed within the corresponding case study, on printed page 67** of the previously built 109-page PDF. It confirms historical placement only. The current full Chapter 6 manuscript binary is not accessible here; a provisional script called `figure_20.png` under a different handwritten-digit study is **not** proof of manuscript identity. Do not replace Figure 6.20 with that digits figure or claim this README proves its exact caption/source or that its latest typesetting has passed.
+
+**Full parent-application and printed-production QA remain HOLD** wherever broader stated application claims require actual independent original results or full compiled manuscript inspection.
