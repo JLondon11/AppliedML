@@ -74,7 +74,7 @@ def audit(root: Path, inventory: Path | None = None) -> dict:
         else:
             explanations = unit.get('na_justifications') or {}
             for code, value in requirements.items():
-                if value not in VALID or (code in FUNDAMENTAL and value != 'PASS'):
+                if not isinstance(value, str) or value not in VALID or (code in FUNDAMENTAL and value != 'PASS'):
                     local.append(f'{code} does not support this parent scope')
                 if value == 'N/A — JUSTIFIED' and (not isinstance(explanations, dict) or
                         not isinstance(explanations.get(code), str) or len(explanations[code].strip()) < 20):
