@@ -38,8 +38,23 @@ At `quality_assurance/production_inventory.json`:
       "unit_id": "<actual-application-section-ID>",
       "exact_manuscript_title": "<exact-current-section-title>",
       "scope_reviewed": false,
-      "figure_ids": ["<real-figure-ID>"],
-      "scientific_status": "SCIENTIFIC_HOLD"
+      "title_claim_match_verified": false,
+      "level": "B",
+      "scientific_status": "SCIENTIFIC_HOLD",
+      "r1_r10": {
+        "R1": "NOT VERIFIED", "R2": "NOT VERIFIED", "R3": "NOT VERIFIED",
+        "R4": "NOT VERIFIED", "R5": "NOT VERIFIED", "R6": "NOT VERIFIED",
+        "R7": "NOT VERIFIED", "R8": "NOT VERIFIED", "R9": "NOT VERIFIED",
+        "R10": "NOT VERIFIED"
+      },
+      "na_justifications": {},
+      "dataset_provenance": "<actual-reviewed-repository-source-path>",
+      "executed_model_source": "<actual-task-model-implementation-path>",
+      "original_model_outputs": "<actual-per-observation-results-path>",
+      "quantitative_evaluation": "<actual-quantitative-validation-path>",
+      "scientific_review_record": "<actual-parent-scope-reviewed-R1-R10-report-path>",
+      "code_commit": "<exact-real-40-char-Git-commit-SHA>",
+      "figure_ids": ["<real-figure-ID>"]
     }
   ],
   "tables": [
@@ -80,3 +95,13 @@ The new `qa/verify_tex_figure_bindings.py` is run by the Chapter 6 release gate 
 The checker intentionally fails closed on complicated/custom LaTeX it cannot statically disambiguate; resolve those cases by an independent, documented source-build audit rather than claiming a false PASS. A complete source-binding result remains `STRUCTURAL_TEX_BINDINGS_PASS_REVIEW_REQUIRED`: it does not prove scientific figure correctness, PDF pagination, float placement, complete production or any empirical R1–R10 requirement. Actual PDF visual inspection remains necessary.
 
 Unit test: `python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_verify_tex_figure_bindings.py' -v`.
+
+## Full parent application scientific release gate (Pass 65)
+
+The addition `qa/verify_ch6_parent_science.py` enforces **all 14 exact titled parent applications** independently of the narrower `CH6-D01…D12` scoped demonstration register. Each manuscript-derived parent record must establish its actual Level B task-evaluation (or Level C for inherently broad claims), source-linked original observed data, executed relevant code, retained per-observation results, quantitative evidence, review documentation, authentic experiment figure and exact committed-code SHA. Record a verdict for each R1–R10. Fundamentally empirical R1/R3/R4/R8/R9/R10 require `PASS`; genuinely inapplicable R2/R5/R6/R7 may use `N/A — JUSTIFIED` only with a substantive independent rationale, not because the work was expensive or unavailable.
+
+An embedded A-level experiment cannot be silently promoted to a B/C parent application by referring to its scope-limited scientific certificate. A completed software test suite is not authentic model evidence. When all required source files exist and structural records are complete, the gate returns `PARENT_SCOPE_RECORDS_COMPLETE_INDEPENDENT_REVIEW_REQUIRED`; this never substitutes for actual independent validation of the scientific claims.
+
+The root `CERTIFICATION_REGISTER.csv` is a legacy **five-row provisional** review, not a completed 14-parent register. The current authoritative narrow demonstration decisions are recorded separately in `qa/CH6_SCOPED_SCIENTIFIC_VS_PRODUCTION_REGISTER_20261113.csv`. See `qa/SCIENTIFIC_VS_PARENT_CERTIFICATION_CROSSWALK.md`. The missing full actual 14-title inventory remains **production and scientific HOLD**, not presumed full certification.
+
+Run `python -m unittest discover -s chapters/generative_ai_part_i/qa -p 'test_verify_ch6_parent_science.py' -v` and `python chapters/generative_ai_part_i/qa/verify_ch6_parent_science.py --repo-root .`.
