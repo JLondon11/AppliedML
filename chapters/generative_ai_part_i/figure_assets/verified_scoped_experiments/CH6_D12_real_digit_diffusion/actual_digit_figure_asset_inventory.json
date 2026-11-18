@@ -1,0 +1,20 @@
+{
+  "verified_source_workflow_run": 44209629586,
+  "figure_generator_workflow": "chapter6_real_digit_model_image_gallery.yml",
+  "source_model_outputs": "2000 actual original executed generated-tensor records",
+  "original_source_sha256": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
+  "original_observed_classifier_matches": {
+    "conditional": 779,
+    "unconditional": 94
+  },
+  "model_image_panels_verified": 30,
+  "no_manuscript_approval_claim": true,
+  "files": {
+    "actual_original_vs_diffusion_digits_1.pdf": "0b0ce9b63426ce4356d80ef300d27a3804b4b16eaa7e419c082da8ad78c382bd",
+    "actual_original_vs_diffusion_digits_1.png": "0cdd3076a6507526bed23a3535823e0f0cb72e11e19ec8e7cb15a08e0d6ab9d0",
+    "actual_original_vs_diffusion_digits_1.svg": "2963b2182aa7b79871935cd461353a1fc5d4999f6d0006ce322187c734ad6441",
+    "actual_original_vs_diffusion_digits_2.pdf": "b199f2612b64420b06906957100d66e8114a4df219b2ed34f3258441a675b1f5",
+    "actual_original_vs_diffusion_digits_2.png": "9ffdafa832824e2814fea8a480b80ce3c8fd9154bd3c726b1d74fc7d483d7a30",
+    "actual_original_vs_diffusion_digits_2.svg": "979ac7c9fe1469a76d4b1021e738a456908992391ce48ef446ef5b74214d9cc3"
+  }
+}

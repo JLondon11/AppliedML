@@ -1,0 +1,338 @@
+{
+  "original_source_sha256": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
+  "original_train_scans": 1257,
+  "original_val_scans": 270,
+  "original_test_scans": 270,
+  "actual_generated_rows": 2000,
+  "actual_generated_tensors": {
+    "conditional": 1000,
+    "unconditional": 1000
+  },
+  "observed_classifier_matches": {
+    "conditional": 779,
+    "unconditional": 94
+  },
+  "selected_samples": [
+    {
+      "page": 1,
+      "source_class": 0,
+      "kind": "original",
+      "source_position": 416,
+      "pixel_sha256": "80d50e656cb854848a6dc3b629e13d021ec7205e1c80330a450cc132ba12d5e1"
+    },
+    {
+      "page": 1,
+      "source_class": 0,
+      "kind": "conditional",
+      "source_position": 0,
+      "pixel_sha256": "b2a025b9e61cdc9dfb96a0322b07e38e842502cc2f54401cb5bd8e88bb9f1806",
+      "actual_prediction": 0,
+      "requested_digit": 0,
+      "source_probability": 0.9648960828781128,
+      "requested_digit_probability": 0.9648960828781128
+    },
+    {
+      "page": 1,
+      "source_class": 0,
+      "kind": "unconditional",
+      "source_position": 0,
+      "pixel_sha256": "3a6bc98389b6522c3beb00a3a1169b21f0d153271827ec526602ca6d1a433a9b",
+      "actual_prediction": 6,
+      "requested_digit": 0,
+      "source_probability": 0.37957000732421875,
+      "requested_digit_probability": 0.00951368734240532
+    },
+    {
+      "page": 1,
+      "source_class": 1,
+      "kind": "original",
+      "source_position": 1394,
+      "pixel_sha256": "ed08a1b8762c2388edb592b85d8a684af6d64373113113212c91debabc6cdf23"
+    },
+    {
+      "page": 1,
+      "source_class": 1,
+      "kind": "conditional",
+      "source_position": 100,
+      "pixel_sha256": "32df94982c050936623b98630ddf940a3cc2c4e60e0d4ec618e3f3eb8a2d4a25",
+      "actual_prediction": 8,
+      "requested_digit": 1,
+      "source_probability": 0.6455790996551514,
+      "requested_digit_probability": 0.1870085895061493
+    },
+    {
+      "page": 1,
+      "source_class": 1,
+      "kind": "unconditional",
+      "source_position": 100,
+      "pixel_sha256": "26d57129927d1cf4cc091d80d7bdc95893a34a874ac0310d8cd5d49833064246",
+      "actual_prediction": 8,
+      "requested_digit": 1,
+      "source_probability": 0.6971055865287781,
+      "requested_digit_probability": 0.03632599860429764
+    },
+    {
+      "page": 1,
+      "source_class": 2,
+      "kind": "original",
+      "source_position": 310,
+      "pixel_sha256": "e5cc264c42c296622244801ee9310a243f66b720d476dfc00c6b5fbffa036814"
+    },
+    {
+      "page": 1,
+      "source_class": 2,
+      "kind": "conditional",
+      "source_position": 200,
+      "pixel_sha256": "dc079b01113085a9987ff347c23d3f79228de32cf9658c83fdd4befa2a74dd56",
+      "actual_prediction": 8,
+      "requested_digit": 2,
+      "source_probability": 0.46761634945869446,
+      "requested_digit_probability": 0.0183054581284523
+    },
+    {
+      "page": 1,
+      "source_class": 2,
+      "kind": "unconditional",
+      "source_position": 200,
+      "pixel_sha256": "391befab4cd299f86777d33478f2f4f1b4b0d9a1f9689cfd8eb6f8d8fc276ca7",
+      "actual_prediction": 4,
+      "requested_digit": 2,
+      "source_probability": 0.841007649898529,
+      "requested_digit_probability": 8.598518616054207e-05
+    },
+    {
+      "page": 1,
+      "source_class": 3,
+      "kind": "original",
+      "source_position": 1726,
+      "pixel_sha256": "47ac68c9782cc2869f93d13f72ebebd23c6e29bed2a015fbac3770cfe8bbf2a9"
+    },
+    {
+      "page": 1,
+      "source_class": 3,
+      "kind": "conditional",
+      "source_position": 300,
+      "pixel_sha256": "b9117877b11a2b2d3a7c2663eddf1435315441916c40a085b8c32c9a39e7b54e",
+      "actual_prediction": 3,
+      "requested_digit": 3,
+      "source_probability": 0.9890055060386658,
+      "requested_digit_probability": 0.9890055060386658
+    },
+    {
+      "page": 1,
+      "source_class": 3,
+      "kind": "unconditional",
+      "source_position": 300,
+      "pixel_sha256": "6ce734b8f1a701e82139d2d12c7655d3c52958776771e831ca5ba60cf18548cd",
+      "actual_prediction": 7,
+      "requested_digit": 3,
+      "source_probability": 0.855434238910675,
+      "requested_digit_probability": 0.04271630942821503
+    },
+    {
+      "page": 1,
+      "source_class": 4,
+      "kind": "original",
+      "source_position": 1137,
+      "pixel_sha256": "9c787a25a5a85e4da8eb788593dd948298acb4895d2e29e7d7dd8e3485dccec6"
+    },
+    {
+      "page": 1,
+      "source_class": 4,
+      "kind": "conditional",
+      "source_position": 400,
+      "pixel_sha256": "4b578e879872696e49d0893ec62985db19a02ba63098a30205a2bfce1031d0c8",
+      "actual_prediction": 4,
+      "requested_digit": 4,
+      "source_probability": 0.9861723780632019,
+      "requested_digit_probability": 0.9861723780632019
+    },
+    {
+      "page": 1,
+      "source_class": 4,
+      "kind": "unconditional",
+      "source_position": 400,
+      "pixel_sha256": "93c66ab37b86008daa2411af2021d6100a5f6c4f6a7a65bc1ea3dc6e10d29230",
+      "actual_prediction": 4,
+      "requested_digit": 4,
+      "source_probability": 0.6545870900154114,
+      "requested_digit_probability": 0.6545870900154114
+    },
+    {
+      "page": 2,
+      "source_class": 5,
+      "kind": "original",
+      "source_position": 25,
+      "pixel_sha256": "70c17fe859c791e90bc1070bab0b899e7c0ad636fe6143ed2efd18672b0de9d6"
+    },
+    {
+      "page": 2,
+      "source_class": 5,
+      "kind": "conditional",
+      "source_position": 500,
+      "pixel_sha256": "cb7486b71ef23083faa351705c3b131d06a1883812b8e1ace0dfd58cad00c2f2",
+      "actual_prediction": 5,
+      "requested_digit": 5,
+      "source_probability": 0.8457244634628296,
+      "requested_digit_probability": 0.8457244634628296
+    },
+    {
+      "page": 2,
+      "source_class": 5,
+      "kind": "unconditional",
+      "source_position": 500,
+      "pixel_sha256": "dc40ef8a4d77ca3fb719e7dee39710c72fd9508231d73eced90930af9abf8c8e",
+      "actual_prediction": 8,
+      "requested_digit": 5,
+      "source_probability": 0.461081862449646,
+      "requested_digit_probability": 0.021183641627430916
+    },
+    {
+      "page": 2,
+      "source_class": 6,
+      "kind": "original",
+      "source_position": 841,
+      "pixel_sha256": "17c2d1374bb565e5c8d4ebd29df47e24c300acd2ff605eb3808e9540fbb5e602"
+    },
+    {
+      "page": 2,
+      "source_class": 6,
+      "kind": "conditional",
+      "source_position": 600,
+      "pixel_sha256": "2a2a912fff6f32f9554a18b6847989c3427fe07227a2ff2201346877ca464de1",
+      "actual_prediction": 6,
+      "requested_digit": 6,
+      "source_probability": 0.8465440273284912,
+      "requested_digit_probability": 0.8465440273284912
+    },
+    {
+      "page": 2,
+      "source_class": 6,
+      "kind": "unconditional",
+      "source_position": 600,
+      "pixel_sha256": "f2c0be6c8c45af1d5a72321f00d0d9115348f1fa2cc2fdb5b632652adaa66fa7",
+      "actual_prediction": 9,
+      "requested_digit": 6,
+      "source_probability": 0.6540732383728027,
+      "requested_digit_probability": 0.0009776022052392364
+    },
+    {
+      "page": 2,
+      "source_class": 7,
+      "kind": "original",
+      "source_position": 732,
+      "pixel_sha256": "3a59f92b0e9cd325fa2f21664ded252e234423d4309a201b49b5fee245d8e6df"
+    },
+    {
+      "page": 2,
+      "source_class": 7,
+      "kind": "conditional",
+      "source_position": 700,
+      "pixel_sha256": "baf4108203f6a3534eb267b892e6768d08b92e1b230fde69dbe9491420fbc935",
+      "actual_prediction": 8,
+      "requested_digit": 7,
+      "source_probability": 0.47195950150489807,
+      "requested_digit_probability": 0.17404551804065704
+    },
+    {
+      "page": 2,
+      "source_class": 7,
+      "kind": "unconditional",
+      "source_position": 700,
+      "pixel_sha256": "181f3f8de6e7cc3a008fcef77dbe3bdcc671a4ed29d09405999fc701ef5e2ee1",
+      "actual_prediction": 7,
+      "requested_digit": 7,
+      "source_probability": 0.9988352656364441,
+      "requested_digit_probability": 0.9988352656364441
+    },
+    {
+      "page": 2,
+      "source_class": 8,
+      "kind": "original",
+      "source_position": 296,
+      "pixel_sha256": "6b686de2abfb8fad95d25538bd371546264134efb807bbe19fb12dbc3ccdf24f"
+    },
+    {
+      "page": 2,
+      "source_class": 8,
+      "kind": "conditional",
+      "source_position": 800,
+      "pixel_sha256": "2972efcf5a855e5653a1ad4624caf04cb33afd2197d1c8ed114eee4f7fc57d8d",
+      "actual_prediction": 8,
+      "requested_digit": 8,
+      "source_probability": 0.6303510069847107,
+      "requested_digit_probability": 0.6303510069847107
+    },
+    {
+      "page": 2,
+      "source_class": 8,
+      "kind": "unconditional",
+      "source_position": 800,
+      "pixel_sha256": "086e2d69294a8d937961826bac9be53ab9ea1ed7b45657d37b18bca9a74a0b21",
+      "actual_prediction": 8,
+      "requested_digit": 8,
+      "source_probability": 0.6939054727554321,
+      "requested_digit_probability": 0.6939054727554321
+    },
+    {
+      "page": 2,
+      "source_class": 9,
+      "kind": "original",
+      "source_position": 1612,
+      "pixel_sha256": "d05e7a9a5d9e901e4175653eaa9d6bec416582f2e82055c62b5851c202354123"
+    },
+    {
+      "page": 2,
+      "source_class": 9,
+      "kind": "conditional",
+      "source_position": 900,
+      "pixel_sha256": "037692f8611d586ed24385228450c2fca6da0981021407695c22201b84a9dbb5",
+      "actual_prediction": 9,
+      "requested_digit": 9,
+      "source_probability": 0.9297917485237122,
+      "requested_digit_probability": 0.9297917485237122
+    },
+    {
+      "page": 2,
+      "source_class": 9,
+      "kind": "unconditional",
+      "source_position": 900,
+      "pixel_sha256": "9c7d302638b09e55b894da0331fb01cf65b29b1eeb353a3acf53cab55804b7fa",
+      "actual_prediction": 7,
+      "requested_digit": 9,
+      "source_probability": 0.9807693958282471,
+      "requested_digit_probability": 0.0038135419599711895
+    }
+  ],
+  "model_run_provenance": {
+    "source": "sklearn.load_digits() genuine handwritten-digit 8x8 scans",
+    "source_sha256": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
+    "n_total": 1797,
+    "n_train": 1257,
+    "n_validation": 270,
+    "n_test": 270,
+    "test_classifier_accuracy": 0.9555555555555556,
+    "vae_selected_epoch": 25,
+    "vae_test_reconstruction_RMSE": 0.1619585156440735,
+    "diffusion_steps": 48,
+    "vae_epochs": 25,
+    "diffusion_epochs": 35,
+    "n_generated_per_arm": 1000,
+    "class_conditional_consistency": 0.779,
+    "unconditional_consistency": 0.094,
+    "conditional_nearest_train_MSE_mean": 0.01980463648075238,
+    "unconditional_nearest_train_MSE_mean": 0.023368110045325012,
+    "scientific_scope": "small-class-label conditional VAE latent diffusion; NOT pretrained Stable Diffusion or text-to-image",
+    "limitations": [
+      "single seed",
+      "coarse 8x8 grayscale digit images",
+      "class IDs are not natural language prompt embeddings",
+      "classifier consistency is an imperfect realism measure",
+      "diffusion model convergence unproven",
+      "no FID/KID"
+    ]
+  },
+  "sample_selection": "First held-out real source photo per class; first original generated tensor per class in each model arm; no score-based or visual selection",
+  "limitations": "Original low-resolution 8x8 handwritten digits; classifier agreement is indirect and no independent training-seed performance estimated.",
+  "manuscript_production_approved": false
+}
