@@ -6,7 +6,7 @@ on:
       - '.github/workflows/chapter6_real_digit_model_image_gallery.yml'
       - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/render_actual_generated_vs_original_digits.py'
 permissions:
-  contents: read
+  contents: write
   actions: read
 jobs:
   executed-original-digit-gallery:
@@ -75,6 +75,38 @@ jobs:
                       assert b[2]<=p.rect.width+.1 and b[3]<=p.rect.height+.1
           print('PASS two actual original-model output galleries, 30 pixel-verified model/source panels')
           PY
+      - name: Preserve actual model-output PDFs PNGs SVGs and source ledger in GitHub
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="$RUNNER_TEMP/original_model_image_figures"
+          DST=chapters/generative_ai_part_i/figure_assets/verified_scoped_experiments/CH6_D12_real_digit_diffusion
+          mkdir -p "$DST"
+          cp -a "$SRC/"*.pdf "$SRC/"*.png "$SRC/"*.svg "$SRC/actual_digit_image_comparison_provenance.json" "$DST/"
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          d=Path('chapters/generative_ai_part_i/figure_assets/verified_scoped_experiments/CH6_D12_real_digit_diffusion')
+          expected={
+            'actual_original_vs_diffusion_digits_1.pdf':'9cefed2b47fb80053aee0688a3eee090921e26065efd46fdf197e1f4e3b628a5',
+            'actual_original_vs_diffusion_digits_2.pdf':'0a94bd571d76d253c2bacc1c99c05b974a9d3b48bbc5b8799ea271e2dbf81939',
+            'actual_digit_image_comparison_provenance.json':'7a90c0f9387ec343d9be54fc2997e10ef2bb9a26090a89913ee19eb3fa58455a'
+          }
+          for name,digest in expected.items():
+              actual=hashlib.sha256((d/name).read_bytes()).hexdigest()
+              assert actual==digest,(name,actual,digest)
+          print('Verified original source-derived binary files before committing')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DST"
+          if ! git diff --cached --quiet; then
+            git commit -m "fig(ch6): commit 2 verified actual generated-vs-real digit scientific plates"
+            git push origin HEAD:main
+          else
+            echo "Existing original source/model figure assets are already identical"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: chapter6-real-original-digit-vs-executed-diffusion-image-galleries
