@@ -15,5 +15,26 @@
       "dataset_provenance_verified": false,
       "notes": "Manuscript figure 6.20 is reported as an industrial-defect study; candidate script produces a digits robustness figure named figure_20.png. No evidence currently links them. Do not treat candidate as the manuscript figure."
     }
-  ]
+  ],
+  "industrial_defect_scientific_candidate": {
+    "candidate_id": "CH6-NEU-REAL-DIAGRAM-20261117",
+    "source_unit": "CH6-D04",
+    "manuscript_figure_620_mapping_verified": false,
+    "do_not_assign_figure_620_number": true,
+    "input_domain": "actual original NEU-DET steel-surface defect photographs (source-provenance verified only; raw photos not reproduced by this diagram)",
+    "figure_kind": "schematic experimental design with actual measured source-verified four-arm classification scores",
+    "source_dataset_archive_sha256": "2ccaff85d88567c52708c2f9dc4dec10cff8650749df2984f03b38716998460f",
+    "original_train": 1080,
+    "original_validation": 359,
+    "original_test": 360,
+    "source_duplicate_excluded": 1,
+    "original_seed_metric_source": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv",
+    "experiment_runner": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run_multiseed.py",
+    "candidate_figure_code": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/make_neu_original_study_diagram.py",
+    "staged_local_pdf_sha256": "b0cd35390c911a280a255a412a861fc2084c030ec333adf6ed57aec25cdec5e8",
+    "expected_output": "neu_real_experiment_protocol.pdf",
+    "scientific_result": "Under three actual seeds, GAN augmentation mean held-out accuracy 0.52685, real-only 0.71944, matched real repeats/flips 0.79630",
+    "media_caveat": "This schematic includes no original photographic output samples; it cannot replace a genuine model-generated defect gallery for claims about image fidelity",
+    "production_claims": "Candidate is staged and vector-print-legible at assumed 6.5-in width. Actual current Chapter6 full PDF/TeX and existing Figure6.20 exact asset are unavailable; no approval."
+  }
 }
