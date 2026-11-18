@@ -9,6 +9,8 @@ import numpy as np
 p=argparse.ArgumentParser()
 p.add_argument("--predictions",type=Path,required=True)
 p.add_argument("--output",type=Path,default=Path("figure_6_44"))
+p.add_argument("--expected-conditional",type=int,default=None,help="Optional archived original conditional count; do not impose on independent reruns")
+p.add_argument("--expected-unconditional",type=int,default=None,help="Optional archived original unconditional count; do not impose on independent reruns")
 args=p.parse_args();args.output.mkdir(exist_ok=True,parents=True)
 with args.predictions.open(newline="") as f:records=list(csv.DictReader(f))
 assert len(records)==2000
@@ -52,5 +54,12 @@ for suffix in ("pdf","svg","png"):
  fig.savefig(args.output/("Figure6_44_Classwise_Consistency."+suffix),dpi=240,bbox_inches="tight")
 with (args.output/"Figure6_44_source_values.csv").open("w",newline="") as f:
  w=csv.writer(f);w.writerow(["arm","class_label","correct","n","percent","wilson95_low","wilson95_high"]);w.writerows(source)
-assert [r[2] for r in source if r[1]=="overall"]==[778,94]
-print("PASS: all 2000 executed predictions, 10 class comparisons, correct uncertainty intervals")
+observed=[r[2] for r in source if r[1]=="overall"]
+assert sum(count[("conditional",j)][1] for j in range(10))==1000
+assert sum(count[("unconditional",j)][1] for j in range(10))==1000
+assert all(count[(arm,j)][1]==100 for arm in ("conditional","unconditional") for j in range(10))
+if args.expected_conditional is not None and observed[0]!=args.expected_conditional:
+ raise ValueError("Archived conditional count does not match actual per-image output")
+if args.expected_unconditional is not None and observed[1]!=args.expected_unconditional:
+ raise ValueError("Archived unconditional count does not match actual per-image output")
+print(f"PASS: 2000 genuine generated-model prediction records; observed conditional={observed[0]}/1000, unconditional={observed[1]}/1000")
