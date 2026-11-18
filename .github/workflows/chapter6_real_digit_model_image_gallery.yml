@@ -114,7 +114,18 @@ jobs:
           git add "$DST"
           if ! git diff --cached --quiet; then
             git commit -m "fig(ch6): commit 2 verified actual generated-vs-real digit scientific plates"
-            git push origin HEAD:main
+            published=0
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                published=1
+                break
+              fi
+              echo "Upstream changed during verified asset delivery; retrying on latest main"
+              sleep 3
+            done
+            test "$published" -eq 1
           else
             echo "Existing original source/model figure assets are already identical"
           fi
