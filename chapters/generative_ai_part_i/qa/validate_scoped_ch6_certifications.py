@@ -71,6 +71,31 @@ for key,target,hits in [('ridge',1.1795769332543176,14),
 if not all(int(r['hit'])==int(float(r['measured_logS'])>=-1.6) for r in esol):
     raise ValueError('ESOL original assay threshold labels mismatch')
 
+# CH6-D04: recompute authentic matched-seed NEU negative result from the
+# ORIGINAL 12 observed model-evaluation rows; do not treat test photos as
+# independent across repeated seeds or make a cross-factory claim.
+import importlib.util
+_NEUDIR = ROOT.parent / 'code' / 'section_8_8_2_neu_defect_benchmark'
+_spec = importlib.util.spec_from_file_location('ch6_neu_seed_audit', _NEUDIR/'audit_paired_seed_uncertainty.py')
+if _spec is None or _spec.loader is None:
+    raise ValueError('Cannot load original NEU seed evidence auditor')
+_neu_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_neu_module)
+_neu_report, _neu_pairs = _neu_module.analyze(_NEUDIR/'replicated_seed_metrics_pass13.csv')
+if len(_neu_pairs) != 12 or _neu_report['source_rows'] != 12:
+    raise ValueError('NEU measured seed pairing incomplete')
+for metric, comparator, target in (
+    ('test_accuracy', 'real_only', -0.19259259263333336),
+    ('test_macro_f1', 'real_only', -0.2061735354333333),
+    ('test_accuracy', 'real_repeat_augmented', -0.2694444444666667),
+    ('test_macro_f1', 'real_repeat_augmented', -0.2870857760666667),
+):
+    observed = _neu_report['metrics'][metric][comparator]
+    if abs(observed['mean_difference'] - target) > 1e-10:
+        raise ValueError('Original NEU paired scientific effect changed: '+metric+'/'+comparator)
+    if observed['negative_difference_seeds'] != 3 or observed['one_sided_exact_sign_test_tail'] != .125:
+        raise ValueError('NEU small-sample seed effect overstated')
+
 # CH6-D12: independently reconcile original per-class digit generator classifier outcomes.
 DIGITS=ROOT.parent/'code'/'section_6_20_1_latent_diffusion_digits'/'figure_6_44_class_counts_pass27.csv'
 with DIGITS.open(newline='') as fh:
