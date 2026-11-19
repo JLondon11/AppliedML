@@ -1,0 +1,39 @@
+name: Detailed Chapter 2 original AirPassengers LSTM
+on:
+  push:
+    paths:
+      - 'chapters/deep_learning/part_i/experiments/detailed_airpassengers_lstm/**'
+      - '.github/workflows/chapter2_detailed_real_airline.yml'
+  pull_request:
+    paths:
+      - 'chapters/deep_learning/part_i/experiments/detailed_airpassengers_lstm/**'
+  workflow_dispatch:
+jobs:
+  original-record-forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original-data modeling tools
+        run: python -m pip install numpy matplotlib torch
+      - name: Retrieve and verify exact original AirPassengers file
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --retry 3 -L 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv' -o airline-passengers.csv
+          test "$(git hash-object airline-passengers.csv)" = "3751f1359045b83e41406b3630686fb2639a448c"
+      - name: Execute actual recurrent 24-month experiment
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '2'
+        run: |
+          python chapters/deep_learning/part_i/experiments/detailed_airpassengers_lstm/run.py --data airline-passengers.csv --output airline_evidence
+          python chapters/deep_learning/part_i/experiments/detailed_airpassengers_lstm/test_outputs.py --data airline-passengers.csv --output airline_evidence
+      - name: Archive scientific source-linked predictions and figure
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter2-airpassengers-original-24-month-lstm
+          path: airline_evidence/
+          if-no-files-found: error
