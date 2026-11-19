@@ -54,3 +54,29 @@ python chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/run
 The user-supplied *Pass 37 handoff* states that the manuscript's Figure 6.20 is an **industrial-defect figure placed within the corresponding case study, on printed page 67** of the previously built 109-page PDF. It confirms historical placement only. The current full Chapter 6 manuscript binary is not accessible here; a provisional script called `figure_20.png` under a different handwritten-digit study is **not** proof of manuscript identity. Do not replace Figure 6.20 with that digits figure or claim this README proves its exact caption/source or that its latest typesetting has passed.
 
 **Full parent-application and printed-production QA remain HOLD** wherever broader stated application claims require actual independent original results or full compiled manuscript inspection.
+
+## Matched-seed uncertainty and negative-result integrity — Pass 67
+
+Source: \`replicated_seed_metrics_pass13.csv\`, the **twelve previously executed genuine NEU held-out classifier results** (three training seeds × four training arms), original source SHA-256 \`1f74ab0c8067612a072c2eff5554b971682ce851bd4c7ca5eb585fbb5f163d9e\`. All four arms are evaluated on the **same 360 actual held-out original photographs** in every seed; these are neither newly collected images nor independent across seed repetitions.
+
+The new complete \`audit_paired_seed_uncertainty.py\` checks that every original seed/arm is present exactly once, reads the real numeric accuracy and macro-F1, and computes **paired within-seed** GAN-minus-control effects. The honest result includes:
+
+| Original measured paired effect (GAN minus control) | Across-seed mean | Individual observed seed effects |
+|---|---:|---|
+| Accuracy vs real-only | −19.2593 percentage points | −18.6111, −19.4444, −19.7222 pp |
+| Macro-F1 vs real-only | −20.6174 pp | −20.6921, −22.1786, −18.9814 pp |
+| Accuracy vs matched real-repeat/flip | −26.9444 pp | −24.7222, −22.5000, −33.6111 pp |
+| Macro-F1 vs matched real-repeat/flip | −28.7086 pp | −27.1225, −24.7150, −34.2882 pp |
+
+All **three** recorded GAN-minus-control differences are negative for each listed comparison. The independent local scientific calculation reproduced the original source means; an exact **one-sided three-pair sign test yields p=0.125**, not p<0.05. A conventional Student-t 95% interval can be calculated with 2 degrees of freedom and is **descriptive and fragile** with only three seeds. The seed-level results do **not** establish independent replication across factories, model budgets or train/test datasets, and this source CSV lacks per-image paired predictions for McNemar inference. Do not treat 4 arms × 3 seeds × 360 predictions as 4,320 independent source photographs.
+
+New reproducible code and results are organized with the actual experiment:
+
+- \`audit_paired_seed_uncertainty.py\` — standard-library paired comparisons, small-sample sign inference, transparent descriptive t intervals and rigorous observed-source schema checks.
+- \`paired_seed_science/paired_seed_statistics.json\` and \`paired_seed_science/paired_seed_effects.csv\` — source-derived numerical evidence, preserved by seed and metric.
+- \`paired_seed_science/paired_seed_effects.svg\` — restrained vector paired-result figure with **actual measured per-seed effect dots**, not a generic bar chart or invented observations.
+- \`plot_neu_paired_seed_evidence.py\` — alternative publication-readable source-linked single-panel real-difference figure code.
+- \`test_neu_paired_seed_uncertainty.py\` — seven tests including original source integrity, invalid probabilities, missing/duplicate records and incorrect source seeds.
+- The scoped Chapter 6 science validator now independently invokes this measured-source paired effect auditor. CI is configured to rerun all the genuine-data calculations and software tests, with result integrity checks.
+
+**Scientific certification remains CH6-D04 Level B within the original real NEU augmentation experiment, documenting its negative result.** The full industrial-defect case-study manuscript, its actual Figure 6.20 publication asset/caption, cross-factory domain validation and final Chapter 6 production pass remain separately **HOLD**.
