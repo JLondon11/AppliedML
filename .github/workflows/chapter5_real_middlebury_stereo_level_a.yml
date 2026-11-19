@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Install true image processing implementations
-        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'opencv-python-headless==4.13.0.92' 'scikit-image==0.26.0' matplotlib
+        run: python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'opencv-python-headless==4.13.0.92' 'scikit-image==0.26.0' matplotlib 'pymupdf>=1.24,<2'
       - name: Execute true Middlebury stereo disparity algorithms and figure
         shell: bash
         run: |
@@ -51,6 +51,35 @@ jobs:
                   assert abs(float(row[key])-expected)<0.000001,(row['method'],key)
           print('PASS: original source hashes, real algorithms, numeric results and 3 figure assets')
           PY
+      - name: Regenerate actual source/model results in two legible figure plates
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo
+          python "$DIR/compact_print_stereo.py"
+          python - <<'PY'
+          import fitz,json
+          from pathlib import Path
+          base=Path('chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/compact')
+          provenance=json.loads((base/'compact_figure_source_provenance.json').read_text())
+          assert provenance['source_scenes']==1
+          assert provenance['parent_camera_lidar_fusion_certified'] is False
+          assert provenance['production_approved'] is False
+          for name in ('middlebury_stereo_source_and_actual_predictions','middlebury_stereo_observed_error_and_missing'):
+              for ext in ('png','svg','pdf'):
+                  assert (base/f'{name}.{ext}').stat().st_size>10000
+              with fitz.open(base/f'{name}.pdf') as doc:
+                  assert len(doc)==1
+                  page=doc[0]
+                  assert abs(page.rect.width-468)<.1
+                  assert len(page.get_images(full=True))==6
+                  spans=[x for b in page.get_text('dict')['blocks'] for l in b.get('lines',[]) for x in l.get('spans',[]) if x['text'].strip()]
+                  assert spans and min(x['size'] for x in spans)>=7.5
+                  for x in spans:
+                      a=x['bbox']
+                      assert a[0]>=-.1 and a[1]>=-.1 and a[2]<=page.rect.width+.1 and a[3]<=page.rect.height+.1
+          print('PASS: two genuine original stereo compact 6.5in source/model scientific figures')
+          PY
       - name: Archive actual scientific evidence (CI success must be confirmed independently)
         uses: actions/upload-artifact@v4
         with:
@@ -61,4 +90,5 @@ jobs:
             chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.pdf
             chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.png
             chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/real_middlebury_stereo_comparison.svg
+            chapters/computer_vision/part_ii/autonomous_vehicles/figure_generation/real_middlebury_stereo/compact/
           retention-days: 90
