@@ -8,6 +8,9 @@ on:
       - 'chapters/generative_ai_part_i/qa/brownlee_original_loo_replay_20261113.csv'
       - 'chapters/generative_ai_part_i/qa/verify_brownlee_independent_loo.py'
       - 'chapters/generative_ai_part_i/qa/validate_scoped_ch6_certifications.py'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/qa/ci_44209629586/archived_vs_current_digit_science.json'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/qa/ci_44209629586/original_executed_class_counts.csv'
+      - 'chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/verify_independent_digit_run_difference.py'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/paired_seed_science/**'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/test_neu_paired_seed_uncertainty.py'
@@ -241,6 +244,26 @@ jobs:
           tree=ET.parse(executed/'paired_seed_effects.svg')
           assert tree.getroot().tag.endswith('svg')
           print('PASS real NEU original-data paired effects, source SHA and limited n=3 inference')
+          PY
+      - name: Reconcile two genuine digit-diffusion runs without requiring identical stochastic results
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits
+          python "$DIR/verify_independent_digit_run_difference.py" \
+            --archived "$DIR/figure_6_44_class_counts_pass27.csv" \
+            --current "$DIR/qa/ci_44209629586/original_executed_class_counts.csv" \
+            --output "$RUNNER_TEMP/ch6_digit_run_difference.json"
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          d=Path("chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits")
+          saved=json.loads((d/"qa/ci_44209629586/archived_vs_current_digit_science.json").read_text())
+          observed=json.loads((Path(os.environ["RUNNER_TEMP"])/"ch6_digit_run_difference.json").read_text())
+          assert saved==observed
+          assert observed["class_differences"]==[{"arm":"conditional","digit":8,
+               "archive_correct":66,"current_correct":67,"current_minus_archive":1}]
+          print("PASS: archive 778 vs current run 779, one genuine class-8 difference, no forced replay")
           PY
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
