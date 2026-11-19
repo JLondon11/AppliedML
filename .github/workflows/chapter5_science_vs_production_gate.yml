@@ -6,6 +6,8 @@ on:
       - '.github/workflows/chapter5_science_vs_production_gate.yml'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_SCIENTIFIC_VS_PRODUCTION_CERTIFICATION_20261112.csv'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_scientific_production_register.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_current_ch5_certificate_accounting.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_LEVEL_A_EMBEDDED_DEMONSTRATION_CERTIFICATIONS_20261112.csv'
 jobs:
   scientific-register-validation:
     runs-on: ubuntu-latest
@@ -22,8 +24,17 @@ jobs:
           python "$D/validate_scientific_production_register.py" \
             --matrix "$D/CH5_SCIENTIFIC_VS_PRODUCTION_CERTIFICATION_20261112.csv" \
             --report "$RUNNER_TEMP/chapter5_science_production.json"
+      - name: Cross-audit all eleven broad parents and three independent certified Level A demonstrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=chapters/computer_vision/part_ii/autonomous_vehicles/qa
+          python "$D/validate_current_ch5_certificate_accounting.py" \
+            --output "$RUNNER_TEMP/chapter5_scoped_vs_parent_verified_accounting.json"
       - uses: actions/upload-artifact@v4
         with:
           name: chapter5-scientific-vs-production-certification
-          path: ${{ runner.temp }}/chapter5_science_production.json
+          path: |
+            ${{ runner.temp }}/chapter5_science_production.json
+            ${{ runner.temp }}/chapter5_scoped_vs_parent_verified_accounting.json
           retention-days: 90
