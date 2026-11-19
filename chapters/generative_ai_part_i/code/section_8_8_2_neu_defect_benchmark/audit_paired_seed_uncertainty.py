@@ -138,10 +138,10 @@ def draw_svg(audit: dict) -> str:
     # Normalize numeric SVG attributes to stable 0.001-unit coordinates.
     # This removes irrelevant float-repr drift from equivalent calculations.
     import re
-    svg = "\n".join(pieces)+"\\n"
+    svg = "\n".join(pieces)+"\n"
     def tidy(match):
         return '="' + f"{float(match.group(1)):.3f}".rstrip("0").rstrip(".") + '"'
-    return re.sub(r'="(-?\\d+(?:\\.\\d+)?)"', tidy, svg)
+    return re.sub(r'="(-?\d+(?:\.\d+)?)"', tidy, svg)
 
 
 def main():
