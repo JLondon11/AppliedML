@@ -6,6 +6,7 @@ on:
       - '.github/workflows/chapter5_level_a_real_detection_certification.yml'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/verify_level_a_original_demonstrations.py'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_LEVEL_A_EMBEDDED_DEMONSTRATION_CERTIFICATIONS_20261112.csv'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_current_ch5_certificate_accounting.py'
 permissions:
   contents: read
   actions: read
@@ -34,9 +35,18 @@ jobs:
             --yolo "$RUNNER_TEMP/yolo_payload.zip" \
             --penn "$RUNNER_TEMP/penn_payload.zip" \
             --output "$RUNNER_TEMP/level_a_original_detection_audit.json"
+      - name: Cross-check all three narrow Level A experiments against eleven still-separate parents
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/computer_vision/part_ii/autonomous_vehicles/qa
+          python "$DIR/validate_current_ch5_certificate_accounting.py" \
+            --output "$RUNNER_TEMP/chapter5_all_four_scoped_science_vs_parent.json"
       - name: Archive only verified numerical audit report
         uses: actions/upload-artifact@v4
         with:
           name: chapter5-level-a-original-detection-audit
-          path: ${{ runner.temp }}/level_a_original_detection_audit.json
+          path: |
+            ${{ runner.temp }}/level_a_original_detection_audit.json
+            ${{ runner.temp }}/chapter5_all_four_scoped_science_vs_parent.json
           retention-days: 90
