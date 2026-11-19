@@ -1,0 +1,68 @@
+{
+  "chapter": 6,
+  "unit": "CH6-D12",
+  "scope": "Original 8x8 scanned-digit label-conditional latent diffusion, not Stable Diffusion",
+  "scientific_certification": "SCIENTIFIC_CERTIFIED_LEVEL_A_WITHIN_NARROW_SCOPE",
+  "production_status": "HOLD_CURRENT_MANUSCRIPT_PDF_LATEX_NOT_AVAILABLE",
+  "source_original_real_digit_images": 1797,
+  "source_original_heldout_test_scan_count": 270,
+  "source_original_sha256": "f6d9e39f37dc45d327f6db33428ee58970ccceabb2535a5c179de35886b70443",
+  "train_val_test": [
+    1257,
+    270,
+    270
+  ],
+  "saved_generated_samples": {
+    "conditional": 1000,
+    "unconditional": 1000
+  },
+  "observed_conditional_classifier_agreement": 779,
+  "observed_unconditional_classifier_agreement": 94,
+  "original_experiment_GitHub_run": 44209629586,
+  "original_successful_figure_build_run": 44423296969,
+  "GitHub_repo_binary_publication_run": 44424877916,
+  "GitHub_repo_binary_publication_conclusion": "success",
+  "actual_code": "chapters/generative_ai_part_i/code/section_6_20_1_latent_diffusion_digits/render_actual_generated_vs_original_digits.py",
+  "actual_independent_audit": "chapters/generative_ai_part_i/qa/verify_pass66_actual_digit_image_evidence.py",
+  "figure_asset_dir": "chapters/generative_ai_part_i/figure_assets/verified_scoped_experiments/CH6_D12_real_digit_diffusion/",
+  "image_selection": "First true original held-out scan and first actual saved generated tensor for each digit class and model arm; no visual or score cherry-picking",
+  "figure_assets": [
+    {
+      "figure_id": "CH6-D12-IMAGE-1",
+      "candidate_manuscript_figure_number": null,
+      "pages": 1,
+      "digits": "0–4",
+      "kind": "actual-original-versus-generated-model-image-gallery",
+      "pdf": "actual_original_vs_diffusion_digits_1.pdf",
+      "pdf_sha256": "0b0ce9b63426ce4356d80ef300d27a3804b4b16eaa7e419c082da8ad78c382bd",
+      "page_width_pt": 468,
+      "minimum_text_pt": 8.1,
+      "original_or_model_source_image_panels": 15,
+      "rendered_pdf_pixel_sha256": "e8041857f9e8f1542ba3044c1a5c5db8b00c4a77a4de9c9aa0f75b9f71ee3c6e",
+      "placed_in_current_manuscript": false
+    },
+    {
+      "figure_id": "CH6-D12-IMAGE-2",
+      "candidate_manuscript_figure_number": null,
+      "pages": 1,
+      "digits": "5–9",
+      "kind": "actual-original-versus-generated-model-image-gallery",
+      "pdf": "actual_original_vs_diffusion_digits_2.pdf",
+      "pdf_sha256": "b199f2612b64420b06906957100d66e8114a4df219b2ed34f3258441a675b1f5",
+      "page_width_pt": 468,
+      "minimum_text_pt": 8.1,
+      "original_or_model_source_image_panels": 15,
+      "rendered_pdf_pixel_sha256": "5105e0862c65c9c4bc1f1a527a24a14dde3e592b8793221ba39b66bef2f4c9de",
+      "placed_in_current_manuscript": false
+    }
+  ],
+  "claims_not_supported": [
+    "Clinical or medical image generation",
+    "Independent experimental training-seed robustness",
+    "High resolution natural-image text-to-image Stable Diffusion",
+    "Real photographed new data from generated numeric output",
+    "Manuscript figure numbering or acceptance without compiled Chapter 6",
+    "Certification of the original fourteen broad case studies"
+  ],
+  "parent_application_production": "HOLD_UNVERIFIED"
+}
