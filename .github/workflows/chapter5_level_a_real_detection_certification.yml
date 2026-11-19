@@ -7,6 +7,7 @@ on:
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/verify_level_a_original_demonstrations.py'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/CH5_LEVEL_A_EMBEDDED_DEMONSTRATION_CERTIFICATIONS_20261112.csv'
       - 'chapters/computer_vision/part_ii/autonomous_vehicles/qa/validate_current_ch5_certificate_accounting.py'
+      - 'chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/print_original_pennfudan_gallery.py'
 permissions:
   contents: read
   actions: read
@@ -42,6 +43,35 @@ jobs:
           DIR=chapters/computer_vision/part_ii/autonomous_vehicles/qa
           python "$DIR/validate_current_ch5_certificate_accounting.py" \
             --output "$RUNNER_TEMP/chapter5_all_four_scoped_science_vs_parent.json"
+      - name: Package six authentic Penn-Fudan model output pairs as print-width science panels
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check 'pillow>=10,<13' 'matplotlib>=3.8,<4' 'pymupdf>=1.24,<2'
+          CODE=chapters/computer_vision/part_ii/autonomous_vehicles/case_studies/occluded_pedestrian_detection/print_original_pennfudan_gallery.py
+          python "$CODE" --source "$RUNNER_TEMP/original_penn" --output "$RUNNER_TEMP/penn_print"
+          python - <<'PY'
+          import fitz,json,os
+          from pathlib import Path
+          base=Path(os.environ['RUNNER_TEMP'])/'penn_print'
+          source=json.loads((base/'pennfudan_original_figure_source_provenance.json').read_text())
+          assert len(source['original_annotated_photo_results'])==6
+          assert source['broader_parent_cv5_cs11_certified'] is False
+          assert source['original_groundtruth_masks_in_archive'] is False
+          assert source['production_manuscript_approved'] is False
+          for i in (1,2):
+              for ext in ('png','pdf','svg'):
+                  assert (base/f'pennfudan_original_detection_gallery_{i}.{ext}').stat().st_size>10000
+              with fitz.open(base/f'pennfudan_original_detection_gallery_{i}.pdf') as doc:
+                  assert len(doc)==1
+                  p=doc[0]
+                  assert abs(p.rect.width-468)<.1
+                  assert len(p.get_images(full=True))==3
+                  spans=[x for b in p.get_text('dict')['blocks'] for l in b.get('lines',[]) for x in l.get('spans',[]) if x['text'].strip()]
+                  assert spans and min(x['size'] for x in spans)>=7.5
+                  assert all(x['bbox'][0]>=-.1 and x['bbox'][1]>=-.1 and x['bbox'][2]<=p.rect.width+.1 and x['bbox'][3]<=p.rect.height+.1 for x in spans)
+          print('PASS: six genuine original photo/detection comparisons in two readable scientific pages')
+          PY
       - name: Archive only verified numerical audit report
         uses: actions/upload-artifact@v4
         with:
@@ -49,4 +79,5 @@ jobs:
           path: |
             ${{ runner.temp }}/level_a_original_detection_audit.json
             ${{ runner.temp }}/chapter5_all_four_scoped_science_vs_parent.json
+            ${{ runner.temp }}/penn_print/
           retention-days: 90
