@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="468" height="555" viewBox="0 0 468 555" role="img" aria-label="Real NEU defect measured GAN versus original controls over three training seeds">
+<rect width="468" height="555" fill="white"/>
+<text x="12" y="30" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="700" fill="#193d50">NEU steel defects: measured GAN effects</text>
+<text x="12" y="52" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.5" font-weight="400" fill="#526c7c">360 original held-out photos reused across 3 training seeds</text>
+<text x="12" y="70" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.5" font-weight="400" fill="#526c7c">GAN minus matched real-only / repeated-image controls</text>
+<line x1="199.56" y1="94" x2="199.56" y2="450" stroke="#e6edf0" stroke-width="1"/>
+<text x="199.56" y="478" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#617787">-40</text>
+<line x1="260.67" y1="94" x2="260.67" y2="450" stroke="#e6edf0" stroke-width="1"/>
+<text x="260.67" y="478" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#617787">-30</text>
+<line x1="321.78" y1="94" x2="321.78" y2="450" stroke="#e6edf0" stroke-width="1"/>
+<text x="321.78" y="478" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#617787">-20</text>
+<line x1="382.89" y1="94" x2="382.89" y2="450" stroke="#e6edf0" stroke-width="1"/>
+<text x="382.89" y="478" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#617787">-10</text>
+<line x1="444" y1="94" x2="444" y2="450" stroke="#e6edf0" stroke-width="1"/>
+<text x="444" y="478" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#617787">0</text>
+<text x="12" y="122" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12.8" font-weight="700" fill="#294a5d">Accuracy</text>
+<text x="12" y="140" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="400" fill="#566e7b">vs original only</text>
+<line x1="323.48" y1="130" x2="330.27" y2="130" stroke="#8a9fa9" stroke-width="2"/>
+<circle cx="330.27" cy="116" r="4.8" fill="#24718a" stroke="white" stroke-width="1"/>
+<circle cx="325.17" cy="130" r="4.8" fill="#b56850" stroke="white" stroke-width="1"/>
+<circle cx="323.48" cy="144" r="4.8" fill="#658a71" stroke="white" stroke-width="1"/>
+<line x1="326.3" y1="109" x2="326.3" y2="151" stroke="#193e50" stroke-width="2"/>
+<text x="169" y="163" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.4" font-weight="700" fill="#304e60">Mean -19.26 pp</text>
+<text x="12" y="214" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12.8" font-weight="700" fill="#294a5d">Macro-F1</text>
+<text x="12" y="232" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="400" fill="#566e7b">vs original only</text>
+<line x1="308.46" y1="222" x2="328" y2="222" stroke="#8a9fa9" stroke-width="2"/>
+<circle cx="317.55" cy="208" r="4.8" fill="#24718a" stroke="white" stroke-width="1"/>
+<circle cx="308.46" cy="222" r="4.8" fill="#b56850" stroke="white" stroke-width="1"/>
+<circle cx="328" cy="236" r="4.8" fill="#658a71" stroke="white" stroke-width="1"/>
+<line x1="318.01" y1="201" x2="318.01" y2="243" stroke="#193e50" stroke-width="2"/>
+<text x="169" y="255" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.4" font-weight="700" fill="#304e60">Mean -20.62 pp</text>
+<text x="12" y="306" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12.8" font-weight="700" fill="#294a5d">Accuracy</text>
+<text x="12" y="324" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="400" fill="#566e7b">vs repeats + flips</text>
+<line x1="238.6" y1="314" x2="306.5" y2="314" stroke="#8a9fa9" stroke-width="2"/>
+<circle cx="292.92" cy="300" r="4.8" fill="#24718a" stroke="white" stroke-width="1"/>
+<circle cx="306.5" cy="314" r="4.8" fill="#b56850" stroke="white" stroke-width="1"/>
+<circle cx="238.6" cy="328" r="4.8" fill="#658a71" stroke="white" stroke-width="1"/>
+<line x1="279.34" y1="293" x2="279.34" y2="335" stroke="#193e50" stroke-width="2"/>
+<text x="169" y="347" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.4" font-weight="700" fill="#304e60">Mean -26.94 pp</text>
+<text x="12" y="398" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="12.8" font-weight="700" fill="#294a5d">Macro-F1</text>
+<text x="12" y="416" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="400" fill="#566e7b">vs repeats + flips</text>
+<line x1="234.46" y1="406" x2="292.96" y2="406" stroke="#8a9fa9" stroke-width="2"/>
+<circle cx="278.25" cy="392" r="4.8" fill="#24718a" stroke="white" stroke-width="1"/>
+<circle cx="292.96" cy="406" r="4.8" fill="#b56850" stroke="white" stroke-width="1"/>
+<circle cx="234.46" cy="420" r="4.8" fill="#658a71" stroke="white" stroke-width="1"/>
+<line x1="268.56" y1="385" x2="268.56" y2="427" stroke="#193e50" stroke-width="2"/>
+<text x="169" y="439" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="11.4" font-weight="700" fill="#304e60">Mean -28.71 pp</text>
+<text x="306" y="497" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#536d7f">percentage points</text>
+<line x1="12" y1="512" x2="456" y2="512" stroke="#e1e7eb" stroke-width="1"/>
+<text x="12" y="532" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#485f6c">Three negative paired effects: exact one-sided sign p = 0.125.</text>
+<text x="12" y="548" text-anchor="start" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="400" fill="#627785">Only original NEU test photos; no cross-factory validation.</text>
+</svg>
