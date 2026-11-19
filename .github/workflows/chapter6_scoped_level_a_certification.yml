@@ -255,6 +255,8 @@ jobs:
           assert len(list(csv.DictReader((executed/'paired_seed_effects.csv').open())))==12
           tree=ET.parse(executed/'paired_seed_effects.svg')
           assert tree.getroot().tag.endswith('svg')
+          import filecmp
+          assert filecmp.cmp(executed/'paired_seed_effects.svg',base/'paired_seed_science/paired_seed_effects.svg',shallow=False), 'Source-generated SVG differs from committed figure; investigate numerical or layout drift'
           print('PASS real NEU original-data paired effects, source SHA and limited n=3 inference')
           PY
       - name: Reconcile two genuine digit-diffusion runs without requiring identical stochastic results
