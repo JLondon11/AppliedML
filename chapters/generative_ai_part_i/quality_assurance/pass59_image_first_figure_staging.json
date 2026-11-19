@@ -187,6 +187,27 @@
       "manuscript_placement_verified": false,
       "normal_width_production_approved": false,
       "final_manuscript_approval": "HOLD"
+    },
+    {
+      "internal_id": "PASS67-NEU-MEASURED-PAIRED",
+      "kind": "original-measured-matched-seed-scientific-result",
+      "experiment_scope": "CH6-D04 Level B; source NEU steel-defect GAN negative augmentation benchmark, 3 training seeds and 360 original heldout test photographs",
+      "publication_figure_number": null,
+      "source_dataset": "Authentic NEU steel-surface defect photographs (1,800 source, one duplicate excluded)",
+      "source_measured_result_path": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv",
+      "source_measured_result_sha256": "1f74ab0c8067612a072c2eff5554b971682ce851bd4c7ca5eb585fbb5f163d9e",
+      "generating_code": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/plot_neu_paired_seed_print.py",
+      "staged_svg_path": "chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/paired_seed_science/neu_paired_seed_print_468pt.svg",
+      "staged_svg_git_blob_sha1": "05277a839971501bed5665186b69f4d287b88e2f",
+      "native_width_pt": 468,
+      "minimum_selectable_svg_font_pt": 10.5,
+      "source_is_model_output": true,
+      "visual_reviewed": true,
+      "manuscript_placement_verified": false,
+      "normal_width_production_approved": false,
+      "normal_width_decision": "NATIVE_468PT_CANDIDATE_SOURCE_VERIFIED_ACTUAL_MANUSCRIPT_WIDTH_AND_PLACEMENT_UNCHECKED",
+      "is_claimed_as_manuscript_figure_6_20": false,
+      "scientific_limits": "Only three training seeds with same 360 observed original test photos; GAN negative result specific to this benchmark; exact sign-tail p=.125; does not assess GAN defect image fidelity or independent factories"
     }
   ],
   "figure_620": {
@@ -196,7 +217,7 @@
     "manuscript_domain": "industrial-defect-images",
     "source_mapping_verified": false
   },
-  "note": "File hashes describe PDF assets locally generated in the contemporaneous evidence delivery; code is committed, but staged binary PDFs are NOT claimed committed to GitHub. Final figure numbers and actual manuscript integration remain unverified.",
+  "note": "File hashes describe PDF assets locally generated in the contemporaneous evidence delivery; code is committed, but staged binary PDFs are NOT claimed committed to GitHub. Final figure numbers and actual manuscript integration remain unverified. Pass67 additionally commits a real-data original NEU 468pt SVG with legible 10.5pt labels; its scientific source/output linkage is verified, but actual full Chapter 6 PDF placement/number remains HOLD.",
   "print_width_review": {
     "review_date": "2026-11-15",
     "assumed_single_text_width_inches": 6.5,
