@@ -80,3 +80,9 @@ New reproducible code and results are organized with the actual experiment:
 - The scoped Chapter 6 science validator now independently invokes this measured-source paired effect auditor. CI is configured to rerun all the genuine-data calculations and software tests, with result integrity checks.
 
 **Scientific certification remains CH6-D04 Level B within the original real NEU augmentation experiment, documenting its negative result.** The full industrial-defect case-study manuscript, its actual Figure 6.20 publication asset/caption, cross-factory domain validation and final Chapter 6 production pass remain separately **HOLD**.
+
+### Native print-width scientific figure
+
+The wide `paired_seed_science/paired_seed_effects.svg` is a truthful measured-data scientific source illustration but is **not** certified for normal-width print: its small type scales poorly to 6.5 inches. Use the separately executed `plot_neu_paired_seed_print.py` to regenerate `paired_seed_science/neu_paired_seed_print_468pt.svg`, an independently source-reconciled **468pt-wide** figure with **10.5pt minimum vector text** and no visible clipping in its reviewed native-width rendering. Its actual source-generated Git blob SHA-1 is `05277a839971501bed5665186b69f4d287b88e2f` and the CI workflow checks exact SVG regeneration and type size.
+
+**Editorial boundary:** This is a new original-results figure candidate, **not** a replacement automatically assigned to Figure 6.20. It has no verified manuscript figure number, caption placement or printed page in the absent current Chapter 6 PDF/TeX. Staging ledger: `quality_assurance/pass59_image_first_figure_staging.json`. A true final production approval requires the complete actual manuscript.
