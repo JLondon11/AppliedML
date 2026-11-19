@@ -112,6 +112,21 @@ for arm,expected_hits in (('conditional',778),('unconditional',94)):
     if int(overall[0]['correct'])!=expected_hits or int(overall[0]['n'])!=1000:
         raise ValueError('Original diffusion overall total differs from per-digit counts')
 
+# CH6-D12: reconcile historical archived model and separately executed current
+# original-data CI model rather than enforcing false binary/numerical identity.
+_DIFF = ROOT.parent/'code'/'section_6_20_1_latent_diffusion_digits'
+_diff_spec = importlib.util.spec_from_file_location(
+    'ch6_digit_run_diff', _DIFF/'verify_independent_digit_run_difference.py')
+if _diff_spec is None or _diff_spec.loader is None:
+    raise ValueError('Cannot load genuine digit-run reconciliation verifier')
+_diff_module = importlib.util.module_from_spec(_diff_spec)
+_diff_spec.loader.exec_module(_diff_module)
+_delta = _diff_module.reconcile(
+    _DIFF/'figure_6_44_class_counts_pass27.csv',
+    _DIFF/'qa'/'ci_44209629586'/'original_executed_class_counts.csv')
+if _delta['archive_conditional_correct']!=778 or _delta['current_conditional_correct']!=779:
+    raise ValueError('Historic and new authentic digit generator results were conflated')
+
 print(json.dumps({'scoped_scientific_certificates':12,'levels':{'A':11,'B':1},'original_plant_heldouts':21,
                   'brownlee_90pct_coverage':coverage,'chapter6_parent_applications_certified_by_this_register':0,
                   'production_status':'HOLD'},indent=2))
