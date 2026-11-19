@@ -15,6 +15,8 @@ on:
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/replicated_seed_metrics_pass13.csv'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/test_neu_paired_seed_uncertainty.py'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/audit_paired_seed_uncertainty.py'
+      - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/verify_neu_paired_independent_scipy.py'
+      - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/plot_neu_paired_seed_evidence.py'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/figures/esol_exact_random_ranking_tail.svg'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/plot_exact_random_ranking_tail.js'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/exact_random_selection_reference.py'
@@ -223,6 +225,7 @@ jobs:
           DIR=chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark
           python -m unittest discover -s "$DIR" -p 'test_neu_paired_seed_uncertainty.py' -v
           python "$DIR/audit_paired_seed_uncertainty.py" --csv "$DIR/replicated_seed_metrics_pass13.csv" --out "$RUNNER_TEMP/ch6_neu_paired"
+          python "$DIR/verify_neu_paired_independent_scipy.py" --csv "$DIR/replicated_seed_metrics_pass13.csv" --output "$RUNNER_TEMP/ch6_neu_independent.json"
           python - <<'PY'
           import csv,json,math,os,hashlib
           from pathlib import Path
@@ -240,6 +243,15 @@ jobs:
                   for key in ('mean_difference','between_seed_sample_sd','one_sided_exact_sign_test_tail'):
                       assert math.isclose(a[key],b[key],abs_tol=1e-12),(metric,baseline,key)
                   assert a['negative_difference_seeds']==3 and a['one_sided_exact_sign_test_tail']==0.125
+          independent=json.loads((Path(os.environ['RUNNER_TEMP'])/'ch6_neu_independent.json').read_text())
+          for metric in ('test_accuracy','test_macro_f1'):
+              for baseline in ('real_only','real_repeat_augmented'):
+                  a=actual['metrics'][metric][baseline]
+                  b=independent['paired_science'][metric][baseline]
+                  assert math.isclose(a['mean_difference'],b['mean_difference'],abs_tol=1e-12)
+                  assert math.isclose(a['one_sided_exact_sign_test_tail'],b['exact_one_sided_sign_test_p'],abs_tol=1e-12)
+                  for x,y in zip(a['descriptive_t95_interval_n3'],b['descriptive_student_t_interval_95']):
+                      assert math.isclose(x,y,abs_tol=1e-12)
           assert len(list(csv.DictReader((executed/'paired_seed_effects.csv').open())))==12
           tree=ET.parse(executed/'paired_seed_effects.svg')
           assert tree.getroot().tag.endswith('svg')
