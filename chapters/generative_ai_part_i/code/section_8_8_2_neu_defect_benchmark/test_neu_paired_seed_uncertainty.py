@@ -25,7 +25,7 @@ class OriginalNEUPairedTests(unittest.TestCase):
             self.assertEqual(record["negative_difference_seeds"],3)
             self.assertEqual(record["one_sided_exact_sign_test_tail"],.125)
             self.assertEqual(len(record["three_paired_seed_differences"]),3)
-        self.assertIn("three seeds",draw_svg(result).lower())
+        self.assertIn("three training seeds",draw_svg(result).lower())
 
     def edit(self,action):
         with MEASURED.open(newline="",encoding="utf-8") as fh:
