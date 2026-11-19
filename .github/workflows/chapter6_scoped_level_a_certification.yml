@@ -17,6 +17,7 @@ on:
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/audit_paired_seed_uncertainty.py'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/verify_neu_paired_independent_scipy.py'
       - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/plot_neu_paired_seed_evidence.py'
+      - 'chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/plot_neu_paired_seed_print.py'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/figures/esol_exact_random_ranking_tail.svg'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/plot_exact_random_ranking_tail.js'
       - 'chapters/generative_ai_part_i/code/section_6_autonomous_scientific_discovery_nci/retrospective_esol/exact_random_selection_reference.py'
@@ -278,6 +279,25 @@ jobs:
           assert observed["class_differences"]==[{"arm":"conditional","digit":8,
                "archive_correct":66,"current_correct":67,"current_minus_archive":1}]
           print("PASS: archive 778 vs current run 779, one genuine class-8 difference, no forced replay")
+          PY
+      - name: Regenerate original NEU print-width scientific figure and verify real label readability
+        shell: bash
+        run: |
+          set -euo pipefail
+          DIR=chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark
+          python "$DIR/plot_neu_paired_seed_print.py"
+          git diff --exit-code -- "$DIR/paired_seed_science/neu_paired_seed_print_468pt.svg"
+          python - <<'PY'
+          from pathlib import Path
+          from xml.etree import ElementTree as ET
+          p=Path("chapters/generative_ai_part_i/code/section_8_8_2_neu_defect_benchmark/paired_seed_science/neu_paired_seed_print_468pt.svg")
+          tree=ET.parse(p)
+          root=tree.getroot()
+          spans=[float(x.attrib["font-size"]) for x in root.iter() if "font-size" in x.attrib]
+          assert root.attrib["width"]=="468" and root.attrib["height"]=="555"
+          assert len(spans)>=20 and min(spans)>=10.5, (len(spans),min(spans))
+          assert max(float(x.attrib["y"]) for x in root.iter() if x.tag.endswith("text"))<=550
+          print("PASS real-data 6.5-inch native SVG, source-identical, fonts >=10.5 pt; manuscript placement still unverified")
           PY
       - name: Assert Chapter 6 full release remains structurally blocked without manuscript
         shell: bash
