@@ -67,3 +67,20 @@ The complete figure-generation source, independent scientific verification scrip
 **Publication-ready suggested caption** (no inferred figure number): *Actual handwritten-digit source observations and outputs of the trained class-conditioned and unconditional latent-diffusion generators. Each panel column displays one genuine held-out 8×8 handwritten-digit scan and the first saved neural-network-generated image for that requested class under each generator. Classifier predictions come from a model evaluated on separate genuine handwritten-digit observations; all 2,000 generated-image predictions yield 779/1,000 correct requested-label agreements for conditional generation versus 94/1,000 for unconditional generation. The figure is an original-model diagnostic, not an independent image realism evaluation, and does not represent text-to-image Stable Diffusion.*
 
 **Final Chapter 6 status:** Twelve scoped certifications remain; the broader fourteen named application/case-study titles are still independently reviewed. The current complete 109-page manuscript PDF/LaTeX is unavailable, so full Chapter 6 production approval and the exact manuscript Figure 6.20 binary mapping remain **HOLD**.
+
+## Final production evidence update: committed binary publication **verified**
+
+The follow-on GitHub Actions run **44424877916** has now completed **SUCCESS** after two honestly documented production remediations: (1) a PDF-container byte-hash assertion was replaced by real source/tensor/figure-content verification, since the PDF creation date changes serialized SHA without changing visible output; and (2) binary figure commits now rebase onto current `main` to avoid a non-fast-forward failure when parallel chapter QA changes are committed.
+
+A new fresh GitHub tree read-back independently confirmed that the following **eight source-and-result files were actually committed** to `chapters/generative_ai_part_i/figure_assets/verified_scoped_experiments/CH6_D12_real_digit_diffusion/`:
+
+- `actual_original_vs_diffusion_digits_1.pdf`, `.png`, `.svg`
+- `actual_original_vs_diffusion_digits_2.pdf`, `.png`, `.svg`
+- `actual_digit_image_comparison_provenance.json`
+- `actual_digit_figure_asset_inventory.json`
+
+The committed figure asset inventory contains the **actual committed PDF SHA256 values**, `0b0ce9b63426ce4356d80ef300d27a3804b4b16eaa7e419c082da8ad78c382bd` and `b199f2612b64420b06906957100d66e8114a4df219b2ed34f3258441a675b1f5`, plus the matching PNG/SVG digests. Those PDFs were downloaded again from the completed CI artifact and **compared to the earlier source-verifying Figure run 44423296969**. Both PDFs differ in serialized bytes, but their rendered pixel content at the same PDF renderer and original 72 dpi is **exactly identical**: one-page pixmap SHA256 `e8041857f9e8f1542ba3044c1a5c5db8b00c4a77a4de9c9aa0f75b9f71ee3c6e` and `5105e0862c65c9c4bc1f1a527a24a14dde3e592b8793221ba39b66bef2f4c9de`.
+
+A new `qa/verify_pass66_actual_digit_image_evidence.py` audits the *rendered pixels*, not ephemeral serialized PDF metadata, against those verified fingerprints. The source artifact itself remains fixed by the genuine trained model-output and split SHA256 values. The exact user delivery ZIP was built after the successful repository publication and passed `zipfile.testzip()`, retaining original real model tensor outputs and new GitHub-committed figure binaries.
+
+**Completed correction:** The two new genuine model-output scientific figures are now **physically stored in the GitHub repo as well as downloadable**, with complete source and provenance. **Not completed:** Their exact assigned figure numbers, actual source/caption placement or physical layout in the latest complete Chapter 6 manuscript remain unverified. Thus manuscript production approval still correctly remains **HOLD**.
