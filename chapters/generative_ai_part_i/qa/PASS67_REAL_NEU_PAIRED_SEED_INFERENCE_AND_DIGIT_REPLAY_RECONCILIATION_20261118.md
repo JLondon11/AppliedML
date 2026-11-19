@@ -45,3 +45,18 @@ The last known compiled Chapter 6 benchmark inventory (109 pages, 48 figures, 17
 The existing 12 **limited** scientific certificates (11 A and 1 B) must not be promoted to 12 of the 14 parent applications. The release gate requires distinct manuscript-titled B/C parent R1–R10 evidence and actual source-linked figures, tables, listings and exact current LaTeX/PDF. Synthetic-driving claims still require representative real multi-scene driving and independently assessed downstream perception; independent physical strength for generated concrete proposals still needs actual cast/test observations.
 
 **Decision:** CH6-D04 additional real-data scientific uncertainty audit **PASS within its narrow observed scope**, independent new vs archived digit generation result reconciliation **PASS**, source-linked SVG **byte-identically reconciled**, all source/verification/figure-generation code committed to GitHub. No new parent application certified. **Full Chapter 6 scientific and production release remains HOLD** until actual parent-task evidence and manuscript inspection establish Master QA compliance.
+
+
+## 4. Follow-on original-data print-width remediation (not manuscript approval)
+
+A production audit found that the wide 1120px evidence SVG, despite valid source measurements and accurate paired-difference labels, would require unacceptable small-type scaling at the assumed 6.5-inch textbook text width. It remains a valid **scientific evidence** figure, but is not automatically approved for normal-width print.
+
+A separate **native 468pt-wide** complete measured-data SVG has now been produced and visually inspected. The first draft had overlapping bottom-axis/footer text and was corrected; the final PNG proof was checked after correction. The final figure is **468 × 555pt** with **minimum 10.5pt native vector font size**. It depicts the four genuine paired seed-effect rows (accuracy/F1 versus real-only and matched real repeats), uses true original-source measured dots, and discloses the p=0.125 three-pair sign result. No simulated data or huge bars are used.
+
+- Source: \`code/section_8_8_2_neu_defect_benchmark/plot_neu_paired_seed_print.py\`.
+- Committed actual vector asset: \`code/section_8_8_2_neu_defect_benchmark/paired_seed_science/neu_paired_seed_print_468pt.svg\`.
+- Exact source-generated SVG Git blob SHA-1: \`05277a839971501bed5665186b69f4d287b88e2f\`, independently matched against the local source SVG file bytes.
+- A new staging entry \`PASS67-NEU-MEASURED-PAIRED\` is in \`quality_assurance/pass59_image_first_figure_staging.json\`, explicitly **without a manuscript figure number** and **not** claiming to be Figure 6.20.
+- The Chapter 6 scientific CI now regenerates the native 468pt figure, rejects any bytes different from the committed SVG, checks that all vector text labels are at least **10.5pt**, and retains production HOLD until actual manuscript geometry and placement can be inspected.
+
+**Decision for this new figure:** Original-data evidence/asset match **PASS**; visible native-width 468pt legibility candidate **PASS under the explicitly assumed 6.5in column**; final integrated Chapter 6 figure placement, caption, page context and manuscript/asset QA **NOT VERIFIED / HOLD**. This does not alter the existing twelve scoped experimental certificates or issue any new parent application certificate.
