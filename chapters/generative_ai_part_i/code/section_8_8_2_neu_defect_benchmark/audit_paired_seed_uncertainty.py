@@ -135,7 +135,13 @@ def draw_svg(audit: dict) -> str:
                tx(55,570,"Observed negative effect is consistent across three seeds, but sample size is limited.",14,"#33556a",700),
                tx(55,594,"Exact one-sided sign test: 3/3 negative gives p = 0.125; no factory-wide or training-budget claim.",13,"#5d7380"),
                '</svg>']
-    return "\n".join(pieces)+"\n"
+    # Normalize numeric SVG attributes to stable 0.001-unit coordinates.
+    # This removes irrelevant float-repr drift from equivalent calculations.
+    import re
+    svg = "\n".join(pieces)+"\\n"
+    def tidy(match):
+        return '="' + f"{float(match.group(1)):.3f}".rstrip("0").rstrip(".") + '"'
+    return re.sub(r'="(-?\\d+(?:\\.\\d+)?)"', tidy, svg)
 
 
 def main():
