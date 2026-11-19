@@ -1,0 +1,24 @@
+{
+  "archive": "Pass27 saved generated model classifier outputs",
+  "current": "Separately executed original-data CI run 44209629586",
+  "archive_conditional_correct": 778,
+  "current_conditional_correct": 779,
+  "archive_unconditional_correct": 94,
+  "current_unconditional_correct": 94,
+  "class_differences": [
+    {
+      "arm": "conditional",
+      "digit": 8,
+      "archive_correct": 66,
+      "current_correct": 67,
+      "current_minus_archive": 1
+    }
+  ],
+  "scientific_interpretation": "Different genuine model executions; source result changes must be reported, never forced to the prior seed output",
+  "limits": [
+    "Source-level aggregate comparison only",
+    "Does not independently reload the full 2000 raw probability records",
+    "No cross-generator-seed uncertainty justified by two nonmatched source environments",
+    "Does not establish Stable Diffusion or natural-image generator performance"
+  ]
+}
