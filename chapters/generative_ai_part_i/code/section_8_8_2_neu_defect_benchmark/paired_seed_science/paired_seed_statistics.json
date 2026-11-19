@@ -1,0 +1,85 @@
+{
+  "source": "replicated_seed_metrics_pass13.csv",
+  "real_original_test_images_per_seed": 360,
+  "source_training_seeds": [
+    20261106,
+    20261107,
+    20261108
+  ],
+  "source_rows": 12,
+  "metrics": {
+    "test_accuracy": {
+      "real_only": {
+        "three_paired_seed_differences": [
+          -0.1861111112,
+          -0.19444444440000008,
+          -0.19722222229999997
+        ],
+        "mean_difference": -0.19259259263333336,
+        "between_seed_sample_sd": 0.005782405528274162,
+        "descriptive_t95_interval_n3": [
+          -0.206956884271293,
+          -0.17822830099537373
+        ],
+        "negative_difference_seeds": 3,
+        "one_sided_exact_sign_test_tail": 0.125
+      },
+      "real_repeat_augmented": {
+        "three_paired_seed_differences": [
+          -0.24722222230000002,
+          -0.2250000000000001,
+          -0.3361111111
+        ],
+        "mean_difference": -0.2694444444666667,
+        "between_seed_sample_sd": 0.05879447355821508,
+        "descriptive_t95_interval_n3": [
+          -0.41549801348062915,
+          -0.12339087545270427
+        ],
+        "negative_difference_seeds": 3,
+        "one_sided_exact_sign_test_tail": 0.125
+      }
+    },
+    "test_macro_f1": {
+      "real_only": {
+        "three_paired_seed_differences": [
+          -0.2069205985,
+          -0.22178638679999996,
+          -0.18981362099999993
+        ],
+        "mean_difference": -0.2061735354333333,
+        "between_seed_sample_sd": 0.015999469230089974,
+        "descriptive_t95_interval_n3": [
+          -0.24591842031728353,
+          -0.16642865054938308
+        ],
+        "negative_difference_seeds": 3,
+        "one_sided_exact_sign_test_tail": 0.125
+      },
+      "real_repeat_augmented": {
+        "three_paired_seed_differences": [
+          -0.27122543890000006,
+          -0.24714978469999993,
+          -0.34288210459999996
+        ],
+        "mean_difference": -0.2870857760666667,
+        "between_seed_sample_sd": 0.04979791149876915,
+        "descriptive_t95_interval_n3": [
+          -0.4107906459918168,
+          -0.1633809061415166
+        ],
+        "negative_difference_seeds": 3,
+        "one_sided_exact_sign_test_tail": 0.125
+      }
+    }
+  },
+  "limitations": [
+    "Three training seeds sharing the same 360 original real test images",
+    "Seed-level differences are paired; test images are not 1,080 independent trials",
+    "Student-t intervals with 2 degrees of freedom are descriptive and assumption-sensitive",
+    "One-sided sign-test p=0.125 for all three negative effects is not <0.05",
+    "No per-image paired predictions in this CSV; do not infer a McNemar test",
+    "No independent factory/domain data or long-budget GAN training here",
+    "A negative result applies only to the matched original NEU experiment"
+  ]
+}
